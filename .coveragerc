@@ -1,0 +1,10 @@
+# .coveragerc
+[report]
+show_missing = True
+omit =
+    /home/circleci/.cache/
+    src/__init__.py
+    tests/*
+
+[run]
+source = src/
