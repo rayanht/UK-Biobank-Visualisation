@@ -3,11 +3,7 @@ version: 2.1
 executors:
   python:
     docker:
-    - image: circleci/python:<<parameters.tag>>
-    parameters:
-      tag:
-        default: latest
-        type: string
+    - image: circleci/python:3.8
 
 jobs:
   build-and-test:
