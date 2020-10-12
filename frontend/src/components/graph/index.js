@@ -29,6 +29,9 @@ function Graph(props) {
             <Typography variant="h4" component="h4">
               <strong>Graphs</strong>
             </Typography>
+            <Box mt={2}>
+              Here will be the graph component
+            </Box>
           </Box>
         </CardContent>
       </Card>
