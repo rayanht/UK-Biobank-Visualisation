@@ -4,3 +4,8 @@
 [![codecov](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation/branch/main/graph/badge.svg?token=L44KA5MU5N)](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation)
 
 A web interface to visualise and explore the UK Biobank
+
+## Installation (for developers)
+The project is managed using Pipenv. To install this, run `pip install --user pipenv`.
+
+Make sure you have Python 3.8 installed, either directly or through the Pyenv version manager. To install the dependencies, run `pipenv install` from project root. You can execute normal Python commands through Pipenv, in the form of `pipenv run python app.py`.
