@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import Navbar from './components/Navbar';
 import Box from '@material-ui/core/Box';
 import Graph from './components/graph';
+import LandingPage from './components/landing';
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,12 +21,10 @@ function App() {
   return (
     <div className={classes.root}>
       <Router>
-      <Route exact path="/">
-          <Redirect to="/graph" />
-      </Route>
       <Navbar />
       <Box py={10}>
         <Switch>
+          <Route exact path="/" component={LandingPage} />
           <Route exact path="/graph" component={Graph} />
           <Redirect to="/graph" /> {/* For invalid URLs, redirect */}
         </Switch>
