@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Box from '@material-ui/core/Box';
 import GraphPage from './components/graph';
 import Toolbar from '@material-ui/core/Toolbar';
+import LandingPage from './components/landing';
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,13 +25,11 @@ function App() {
   return (
     <div className={classes.root}>
       <Router>
-      <Route exact path="/">
-          <Redirect to="/graph" />
-      </Route>
       <Navbar />
       <Toolbar className={classes.appBar}/>
       <Box height="93vh">
         <Switch>
+          <Route exact path="/" component={LandingPage} />
           <Route exact path="/graph" component={GraphPage} />
           <Redirect to="/graph" /> {/* For invalid URLs, redirect */}
         </Switch>
