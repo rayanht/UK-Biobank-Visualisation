@@ -4,3 +4,13 @@
 [![codecov](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation/branch/main/graph/badge.svg?token=L44KA5MU5N)](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation)
 
 A web interface to visualise and explore the UK Biobank
+
+## Getting started
+
+Firstly, install the dependencies that we need using pip:
+
+```
+pip install dash==1.16.3 dash-bootstrap-components
+```
+
+Next, run the app using `python src/app.py`
