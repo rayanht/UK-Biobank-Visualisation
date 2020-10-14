@@ -150,10 +150,9 @@ app.callback(
     [State("navbar-collapse", "is_open")],
 )(toggle_navbar_collapse)
 
-# Set port to 3000, host argument is to allow other devices
-# on local network to preview website via local IPv4
+# Set port to 3000 (set host='0.0.0.0' to view on other devices in local network)
 if __name__ == '__main__':
-    app.run_server(debug=True, port=3000, host='0.0.0.0')
+    app.run_server(debug=True, port=3000)
 
 # For test.py
 def hello_world():
