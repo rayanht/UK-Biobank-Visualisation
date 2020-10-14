@@ -5,12 +5,7 @@
 
 A web interface to visualise and explore the UK Biobank
 
-## Getting started
+## Installation (for developers)
+The project is managed using Pipenv. To install this, run `pip install --user pipenv`.
 
-Firstly, install the dependencies that we need using pip:
-
-```
-pip install dash==1.16.3 dash-bootstrap-components
-```
-
-Next, run the app using `python src/app.py`
+Make sure you have Python 3.8 installed, either directly or through the Pyenv version manager. To install the dependencies, run `pipenv install` from project root. You can execute normal Python commands through Pipenv, in the form of `pipenv run python app.py`.
