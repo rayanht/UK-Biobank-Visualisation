@@ -154,3 +154,7 @@ app.callback(
 # on local network to preview website via local IPv4
 if __name__ == '__main__':
     app.run_server(debug=True, port=3000, host='0.0.0.0')
+
+# For test.py
+def hello_world():
+    return "Hello world!"
