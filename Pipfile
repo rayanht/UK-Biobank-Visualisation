@@ -9,8 +9,9 @@ pytest = "*"
 pytest-cov = "*"
 
 [packages]
-streamlit = "*"
+dash = "*"
 pandas = "*"
+dash-bootstrap-components = "*"
 numpy = "*"
 
 [requires]
