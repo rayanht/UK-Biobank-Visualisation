@@ -38,7 +38,7 @@ navbar = dbc.Navbar(
         dbc.Collapse(
             dbc.Nav(
                 [
-                    dbc.NavItem(dbc.NavLink("Graphs", href="#")), # dummy graphs link 
+                    dbc.NavItem(dbc.NavLink("Graphs", href="#")), # dummy graphs link
                     dbc.DropdownMenu( # dummy dropdown menu
                         children=[
                             dbc.DropdownMenuItem("Entry 1"),
@@ -138,38 +138,6 @@ app.layout = html.Div(
     ]
 )
 
-# app.layout = html.Div(children=[
-#     dbc.NavbarSimple(
-#         children=[
-#             dbc.NavItem(dbc.NavLink("Page 1", href="#")),
-#             dbc.DropdownMenu(
-#                 children=[
-#                     dbc.DropdownMenuItem("More pages", header=True),
-#                     dbc.DropdownMenuItem("Page 2", href="#"),
-#                     dbc.DropdownMenuItem("Page 3", href="#"),
-#                 ],
-#                 nav=True,
-#                 in_navbar=True,
-#                 label="More",
-#             ),
-#         ],
-#         brand="NavbarSimple",
-#         brand_href="#",
-#         color="primary",
-#         dark=True,
-#     ),
-#     html.H1(children='UK BioBank Explorer'),
-
-#     html.Div(children='''
-#         Dash: A web application framework for Python.
-#     '''),
-
-#     dcc.Graph(
-#         id='example-graph',
-#         figure=fig
-#     )
-# ])
-
 # we use a callback to toggle the collapse on small screens
 def toggle_navbar_collapse(n, is_open):
     if n:
@@ -177,12 +145,12 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 app.callback(
-    Output(f"navbar-collapse", "is_open"),
-    [Input(f"navbar-toggler", "n_clicks")],
-    [State(f"navbar-collapse", "is_open")],
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
 )(toggle_navbar_collapse)
 
-# Set port to 3000, host argument is to allow other devices 
+# Set port to 3000, host argument is to allow other devices
 # on local network to preview website via local IPv4
 if __name__ == '__main__':
     app.run_server(debug=True, port=3000, host='0.0.0.0')
