@@ -1,20 +1,28 @@
 # -*- coding: utf-8 -*-
 
 # Run this app with `python app.py` and
-# visit http://127.0.0.1:8050/ in your web browser.
+# visit http://127.0.0.1:3000/ in your web browser.
 
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
+from dash.dependencies import Input, Output, State
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# assume you have a "long-form" data frame
-# see https://plotly.com/python/px-arguments/ for more options
+app.title = "UK BioBank Explorer"
+
+colors = {
+    'background': "#fdfdfd",
+    'text': "#7FDBFF",
+    'navbar-bg': "#f7f7f7",
+}
+
 df = pd.DataFrame({
     "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
     "Amount": [4, 1, 2, 2, 4, 5],
@@ -23,18 +31,158 @@ df = pd.DataFrame({
 
 fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
-app.layout = html.Div(children=[
-    html.H1(children='UK BioBank Explorer'),
+navbar = dbc.Navbar(
+    [
+        dbc.NavbarBrand("UK BioBank Explorer", href="#"),
+        dbc.NavbarToggler(id="navbar-toggler"),
+        dbc.Collapse(
+            dbc.Nav(
+                [
+                    dbc.NavItem(dbc.NavLink("Graphs", href="#")), # dummy graphs link 
+                    dbc.DropdownMenu( # dummy dropdown menu
+                        children=[
+                            dbc.DropdownMenuItem("Entry 1"),
+                            dbc.DropdownMenuItem("Entry 2"),
+                            dbc.DropdownMenuItem(divider=True),
+                            dbc.DropdownMenuItem("Entry 3"),
+                        ],
+                        nav=True,
+                        in_navbar=True,
+                        label="Menu",
+                        right=True
+                    )
+                ], className="ml-auto", navbar=True
+            ),
+            id="navbar-collapse",
+            navbar=True,
+        ),
+    ],
+    className="px-5"
+)
 
-    html.Div(children='''
-        Dash: A web application framework for Python.
-    '''),
+treeCard = dbc.Card(
+    [
+        dbc.CardBody(
+            [
+                html.H4("Explore", className="tree-card-title"),
+                html.P(
+                    "This will be where the tree component is",
+                    className="tree-card-text",
+                ),
+                dbc.Button("Go somewhere", color="primary"),
+            ]
+        ),
+    ],
+    style={"minHeight": "45rem"}, # for dummy purposes, to remove later
+)
 
-    dcc.Graph(
-        id='example-graph',
-        figure=fig
-    )
-])
+settingsCard = dbc.Card(
+    [
+        dbc.CardBody(
+            [
+                html.H4("Settings", className="settings-card-title"),
+                html.P(
+                    "This will be where the settings component is",
+                    className="settings-card-text",
+                ),
+                dbc.Button("Go somewhere", color="primary"),
+            ]
+        ),
+    ],
+    style={"minHeight": "40rem"}, # for dummy purposes, to remove later
+)
 
+graphsCard = dbc.Card(
+    [
+        dbc.CardBody(
+            [
+                html.H4("Plot", className="graphs-card-title"),
+                dcc.Graph(
+                    id='example-graph',
+                    figure=fig
+                )
+            ]
+        ),
+    ],
+    style={"minHeight": "47rem"}, # for dummy purposes, to remove later
+)
+
+app.layout = html.Div(
+    style={'backgroundColor': colors['background'], 'height': "100vh"},
+    children=
+    [
+        navbar,
+        # row,
+        dbc.Container(
+            [
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            treeCard, # Container for tree
+                            width=4,
+                        ),
+                        dbc.Col(
+                            settingsCard, # Container for settings
+                            width=2,
+                        ),
+                        dbc.Col(
+                            graphsCard, # Container for graphs
+                            width=6,
+                        ),
+                    ]
+                )
+            ],
+            className="p-5",
+            fluid=True
+        )
+    ]
+)
+
+# app.layout = html.Div(children=[
+#     dbc.NavbarSimple(
+#         children=[
+#             dbc.NavItem(dbc.NavLink("Page 1", href="#")),
+#             dbc.DropdownMenu(
+#                 children=[
+#                     dbc.DropdownMenuItem("More pages", header=True),
+#                     dbc.DropdownMenuItem("Page 2", href="#"),
+#                     dbc.DropdownMenuItem("Page 3", href="#"),
+#                 ],
+#                 nav=True,
+#                 in_navbar=True,
+#                 label="More",
+#             ),
+#         ],
+#         brand="NavbarSimple",
+#         brand_href="#",
+#         color="primary",
+#         dark=True,
+#     ),
+#     html.H1(children='UK BioBank Explorer'),
+
+#     html.Div(children='''
+#         Dash: A web application framework for Python.
+#     '''),
+
+#     dcc.Graph(
+#         id='example-graph',
+#         figure=fig
+#     )
+# ])
+
+# we use a callback to toggle the collapse on small screens
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+app.callback(
+    Output(f"navbar-collapse", "is_open"),
+    [Input(f"navbar-toggler", "n_clicks")],
+    [State(f"navbar-collapse", "is_open")],
+)(toggle_navbar_collapse)
+
+# Set port to 3000, host argument is to allow other devices 
+# on local network to preview website via local IPv4
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=3000, host='0.0.0.0')
