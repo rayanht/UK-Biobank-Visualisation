@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Run this app with `python app.py` and
-# visit http://127.0.0.1:3000/ in your web browser.
+# Run this app with `gunicorn app:server` and
+# visit http://127.0.0.1:8000/ in your web browser.
 
 import dash
 import dash_core_components as dcc
@@ -14,6 +14,8 @@ from dash.dependencies import Input, Output, State
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+server = app.server
 
 app.title = "UK BioBank Explorer"
 
@@ -150,9 +152,6 @@ app.callback(
     [State("navbar-collapse", "is_open")],
 )(toggle_navbar_collapse)
 
-# Set port to 3000 (set host='0.0.0.0' to view on other devices in local network)
-if __name__ == '__main__':
-    app.run_server(debug=True, port=3000)
 
 # For test.py
 def hello_world():
