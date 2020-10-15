@@ -4,7 +4,7 @@
 # visit http://127.0.0.1:8000/ in your web browser.
 
 import dash
-from hierarchy_tree.HierarchyTree import HierarchyTree
+from src.hierarchy_tree.HierarchyTree import HierarchyTree
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
