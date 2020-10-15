@@ -9,12 +9,12 @@ import sys
 import importlib
 
 
-components_package = 'hierarchy_tree'
+COMPONENTS_PACKAGE = 'hierarchy_tree'
 
-components_lib = importlib.import_module(components_package)
+COMPONENTS_LIB = importlib.import_module(COMPONENTS_PACKAGE)
 
-missing_dist_msg = 'Warning {} was not found in `{}.__init__.{}`!!!'
-missing_manifest_msg = '''
+MISSING_DIST_MSG = 'Warning {} was not found in `{}.__init__.{}`!!!'
+MISSING_MANIFEST_MSG = '''
 Warning {} was not found in `MANIFEST.in`!
 It will not be included in the build!
 '''
@@ -24,6 +24,9 @@ with open('MANIFEST.in', 'r') as f:
 
 
 def check_dist(dist, filename):
+    """
+    Verifies that the JS code has been bundled correctly
+    """
     # Support the dev bundle.
     if filename.endswith('dev.js'):
         return True
@@ -40,28 +43,34 @@ def check_dist(dist, filename):
 
 
 def check_manifest(filename):
+    """
+    Cross-checks generated files with the MANIFEST file
+    """
     return filename in manifest
 
 
 def check_file(dist, filename):
+    """
+    Ensures that build files have been generated correctly
+    """
     if not check_dist(dist, filename):
         print(
-            missing_dist_msg.format(filename, components_package, '_js_dist'),
+            MISSING_DIST_MSG.format(filename, COMPONENTS_PACKAGE, '_js_dist'),
             file=sys.stderr
         )
     if not check_manifest(filename):
-        print(missing_manifest_msg.format(filename),
+        print(MISSING_MANIFEST_MSG.format(filename),
               file=sys.stderr)
 
 
-for cur, _, files in os.walk(components_package):
+for cur, _, files in os.walk(COMPONENTS_PACKAGE):
     for f in files:
 
         if f.endswith('js'):
             # noinspection PyProtectedMember
-            check_file(components_lib._js_dist, f)
+            check_file(COMPONENTS_LIB._js_dist, f)
         elif f.endswith('css'):
             # noinspection PyProtectedMember
-            check_file(components_lib._css_dist, f)
+            check_file(COMPONENTS_LIB._css_dist, f)
         elif not f.endswith('py'):
             check_manifest(f)
