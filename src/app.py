@@ -2,9 +2,13 @@
 
 # Run this app with `gunicorn app:server` and
 # visit http://127.0.0.1:8000/ in your web browser.
+import os
+import sys
 
 import dash
-from src.hierarchy_tree.HierarchyTree import HierarchyTree
+sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
+print(sys.path)
+from hierarchy_tree.HierarchyTree import HierarchyTree
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
