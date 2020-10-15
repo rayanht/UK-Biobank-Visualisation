@@ -26,8 +26,8 @@ jobs:
       - run:
           name: Build custom components
           command: |
-          pipenv shell
-          ./build_custom_components.sh
+            pipenv shell
+            ./build_custom_components.sh
       - run:
           name: Run Tests & Report Coverage
           command: |
