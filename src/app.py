@@ -78,7 +78,10 @@ treeCard = dbc.Card(
             [
                 html.H4("Explore", className="tree-card-title"),
                 dbc.Input(id="search-input"),
-                dbc.Button(id="search-result"),
+                dbc.ListGroup(
+                    [],
+                    id="search-result",
+                ),
                 html.P(
                     "This will be where the tree component is",
                     className="tree-card-text",
@@ -162,7 +165,11 @@ searcher = Searcher()
 @app.callback(Output("search-result", "children"), [Input("search-input", "value")])
 def output_text(value):
     result = searcher.search(value)
-    return result[0] if len(result) else "No result found"
+    if not result:
+        return dbc.ListGroupItem("*No result found*")
+
+    listItem = lambda row: dbc.ListGroupItem(row)
+    return [listItem(r) for r in result]
 
 app.callback(
     Output("navbar-collapse", "is_open"),
