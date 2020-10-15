@@ -5,6 +5,7 @@ omit =
     /home/circleci/.cache/
     src/__init__.py
     tests/*
+    src/components/
 
 [run]
 source = src/

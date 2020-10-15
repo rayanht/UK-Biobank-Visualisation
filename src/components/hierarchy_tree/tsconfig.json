@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es6",
+    "watch": false,
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "es6",
+      "es2015",
+      "dom.iterable"
+    ],
+    // "allowJs": true,
+    // "checkJs": true,
+    "jsx": "react",
+    // "declaration": true,
+    "sourceMap": true,
+    // "outFile": "./",
+    "outDir": "./lib",
+    "strict": false
+  },
+  "include": [
+    "./src/"
+  ]
+}
