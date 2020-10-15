@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd src/components/ || exit;
 
 for d in */; do
