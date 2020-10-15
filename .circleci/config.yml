@@ -30,15 +30,13 @@ jobs:
           name: Build custom components
           command: |
             pipenv run ./build_custom_components.sh
+      - heroku/deploy-via-git:
+          filters:
+            branches:
+              only: main
 
 workflows:
   version: 2
   build-and-test-workflow:
     jobs:
-      - build-and-test
-      - heroku/deploy-via-git:
-            requires:
-              - build-and-test
-            filters:
-              branches:
-                only: main
+      - build-test-deploy
