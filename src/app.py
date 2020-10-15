@@ -18,6 +18,8 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
+# Local dependencies
+from search import Searcher
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -75,8 +77,13 @@ treeCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="tree-card-title"),
-                HierarchyTree(id='tree', data=get_hierarchy()),
-                html.Div(id='output'),
+                dbc.Input(id="search-input"),
+                dbc.Button(id="search-result"),
+                html.P(
+                    "This will be where the tree component is",
+                    className="tree-card-text",
+                ),
+                dbc.Button("Go somewhere", color="primary", id="test"),
             ]
         ),
     ],
@@ -150,6 +157,12 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
+
+searcher = Searcher()
+@app.callback(Output("search-result", "children"), [Input("search-input", "value")])
+def output_text(value):
+    result = searcher.search(value)
+    return result[0] if len(result) else "No result found"
 
 app.callback(
     Output("navbar-collapse", "is_open"),
