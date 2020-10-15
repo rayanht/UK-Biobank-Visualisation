@@ -6,7 +6,7 @@ orbs:
 executors:
   python:
     docker:
-    - image: circleci/python:3.8-node
+      - image: circleci/python:3.8-node
 
 jobs:
   build-test-deploy:
@@ -30,10 +30,11 @@ jobs:
           name: Build custom components
           command: |
             pipenv run ./build_custom_components.sh
-      - heroku/deploy-via-git:
-          filters:
-            branches:
-              only: main
+      - when:
+          condition:
+            - equal: [ main, << pipeline.git.branch >> ]
+          steps:
+            - heroku/deploy-via-git
 
 workflows:
   version: 2
