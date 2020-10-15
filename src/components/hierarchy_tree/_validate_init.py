@@ -54,7 +54,7 @@ def check_file(dist, filename):
     """
     if not check_dist(dist, filename):
         print(
-            MISSING_DIST_MSG.format(filename, COMPONENTS_PACKAGE, '_js_dist'),
+            MISSING_DIST_MSG.format(filename, COMPONENTS_PACKAGE, '_JS_DIST'),
             file=sys.stderr
         )
     if not check_manifest(filename):
@@ -67,9 +67,9 @@ for cur, _, files in os.walk(COMPONENTS_PACKAGE):
 
         if f.endswith('js'):
             # noinspection PyProtectedMember
-            check_file(COMPONENTS_LIB._js_dist, f)
+            check_file(COMPONENTS_LIB._JS_DIST, f)
         elif f.endswith('css'):
             # noinspection PyProtectedMember
-            check_file(COMPONENTS_LIB._css_dist, f)
+            check_file(COMPONENTS_LIB._CSS_DIST, f)
         elif not f.endswith('py'):
             check_manifest(f)

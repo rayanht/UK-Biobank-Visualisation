@@ -16,36 +16,36 @@ if not hasattr(_dash, 'development'):
           'named \n"dash.py" in your current directory.', file=_sys.stderr)
     _sys.exit(1)
 
-_BASEPATH = _os.path.dirname(__file__)
-_FILEPATH = _os.path.abspath(_os.path.join(_BASEPATH, 'package-info.json'))
-with open(_FILEPATH) as f:
-    PACKAGE = json.load(f)
+_basepath = _os.path.dirname(__file__)
+_filepath = _os.path.abspath(_os.path.join(_basepath, 'package-info.json'))
+with open(_filepath) as f:
+    package = json.load(f)
 
-PACKAGE_NAME = PACKAGE['name'].replace(' ', '_').replace('-', '_')
-__version__ = PACKAGE['version']
+package_name = package['name'].replace(' ', '_').replace('-', '_')
+__version__ = package['version']
 
-_CURRENT_PATH = _os.path.dirname(_os.path.abspath(__file__))
+_current_path = _os.path.dirname(_os.path.abspath(__file__))
 
-_THIS_MODULE = _sys.modules[__name__]
+_this_module = _sys.modules[__name__]
 
-_JS_DIST = [
+_js_dist = [
     {
         'relative_package_path': 'hierarchy_tree.min.js',
         'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js'.format(
-            PACKAGE_NAME, __name__, __version__),
-        'namespace': PACKAGE_NAME
+            package_name, __name__, __version__),
+        'namespace': package_name
     },
     {
         'relative_package_path': 'hierarchy_tree.min.js.map',
         'external_url': 'https://unpkg.com/{0}@{2}/{1}/{1}.min.js.map'.format(
-            PACKAGE_NAME, __name__, __version__),
-        'namespace': PACKAGE_NAME,
+            package_name, __name__, __version__),
+        'namespace': package_name,
         'dynamic': True
     }
 ]
 
-_CSS_DIST = []
+_css_dist = []
 
 for _component in __all__:
-    setattr(locals()[_component], '_js_dist', _JS_DIST)
-    setattr(locals()[_component], '_css_dist', _CSS_DIST)
+    setattr(locals()[_component], '_js_dist', _js_dist)
+    setattr(locals()[_component], '_css_dist', _css_dist)
