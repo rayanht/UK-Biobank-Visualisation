@@ -7,6 +7,8 @@ verify_ssl = true
 codecov = "*"
 pytest = "*"
 pytest-cov = "*"
+jsonpickle = "*"
+pyyaml = "*"
 
 [packages]
 dash = "*"
