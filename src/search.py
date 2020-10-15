@@ -23,13 +23,18 @@ def _load_metadata(filename):
         md_reader = reader(f)
         return [row for row in md_reader]
 
-# The search is currently very simple and looks for an exact match
-def search(token):
-    metadata = _load_metadata(os.environ['METADATA_PATH'])
+class Searcher:
+    metadata = None
 
-    # Match function is case-insensitive, but the .lower() method is not foolproof
-    match = lambda row: token.lower() in row[COLUMNS.index("NodeName")].lower()
-    return [row for row in metadata if match(row)] 
+    # The search is currently very simple and looks for an exact match
+    def search(self, token):
+        if not self.metadata:
+            self.metadata = _load_metadata(os.environ['METADATA_PATH'])
+
+        name = lambda row: row[COLUMNS.index("NodeName")]
+        # Match function is case-insensitive, but the .lower() method is not foolproof
+        match = lambda row: token.lower() in name(row).lower()
+        return [name(row) for row in self.metadata if match(row)] 
 
 if __name__=="__main__":
     results = search("diabetes")
