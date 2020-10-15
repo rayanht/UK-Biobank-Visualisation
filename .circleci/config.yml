@@ -9,7 +9,7 @@ executors:
     - image: circleci/python:3.8-node
 
 jobs:
-  build-and-test:
+  build-test-deploy:
     executor: python
     steps:
       - checkout
@@ -37,6 +37,6 @@ jobs:
 
 workflows:
   version: 2
-  build-and-test-workflow:
+  build-and-test-deploy:
     jobs:
       - build-test-deploy
