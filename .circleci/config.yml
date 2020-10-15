@@ -30,11 +30,6 @@ jobs:
           name: Build custom components
           command: |
             pipenv run ./build_custom_components.sh
-      - run:
-          name: Deploy to Heroku
-          command: |
-            pipenv run coverage run -m pytest --cov-report=xml
-            pipenv run codecov
 
 workflows:
   version: 2
