@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  heroku: circleci/heroku@0.0.10
+
 executors:
   python:
     docker:
@@ -28,7 +31,7 @@ jobs:
           command: |
             pipenv run ./build_custom_components.sh
       - run:
-          name: Run Tests & Report Coverage
+          name: Deploy to Heroku
           command: |
             pipenv run coverage run -m pytest --cov-report=xml
             pipenv run codecov
@@ -38,3 +41,9 @@ workflows:
   build-and-test-workflow:
     jobs:
       - build-and-test
+      - heroku/deploy-via-git:
+            requires:
+              - build-and-test
+            filters:
+              branches:
+                only: main
