@@ -28,6 +28,9 @@ class Searcher:
 
     # The search is currently very simple and looks for an exact match
     def search(self, token):
+        if not token:
+            return []
+
         if not self.metadata:
             self.metadata = _load_metadata(os.environ['METADATA_PATH'])
 
