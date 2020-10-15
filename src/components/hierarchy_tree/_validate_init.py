@@ -1,6 +1,5 @@
 """
-DO NOT MODIFY
-This file is used to validate your publish settings.
+This file is used to validate publish settings.
 """
 from __future__ import print_function
 
@@ -20,7 +19,7 @@ It will not be included in the build!
 '''
 
 with open('MANIFEST.in', 'r') as f:
-    manifest = f.read()
+    MANIFEST = f.read()
 
 
 def check_dist(dist, filename):
@@ -46,7 +45,7 @@ def check_manifest(filename):
     """
     Cross-checks generated files with the MANIFEST file
     """
-    return filename in manifest
+    return filename in MANIFEST
 
 
 def check_file(dist, filename):
