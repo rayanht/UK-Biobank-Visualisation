@@ -16,6 +16,7 @@ pandas = "*"
 dash-bootstrap-components = "*"
 numpy = "*"
 gunicorn = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.8"
