@@ -1,5 +1,6 @@
 import json
 import os
+from io import StringIO
 
 import firebase_admin
 import jsonpickle
@@ -17,7 +18,7 @@ class DatasetLoader:
 
     def authenticate(self):
         if os.environ.get("ENV") == "PROD":
-            cred = credentials.Certificate(json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
+            cred = credentials.Certificate(os.environ.get("GOOGLE_CREDENTIALS"))
         else:
             cred = credentials.Certificate('google-credentials.json')
         firebase_admin.initialize_app(cred, {
@@ -35,7 +36,7 @@ class DatasetLoader:
         blob = bucket.blob("ukbb_data_field_hierarchy.csv")
         if cache:
             blob.download_to_filename(HIERARCHY_FILENAME)
-        return pd.read_csv(blob.download_as_text(), usecols=usecols)
+        return pd.read_csv(StringIO(blob.download_as_text()), usecols=usecols)
 
 
 class Node:
@@ -93,7 +94,7 @@ def prune_and_flatten(encoded_tree: dict, i=0):
 
 
 def get_hierarchy():
-    hierarchy = DatasetLoader().fetch_hierarchy(usecols=["NodeID", "NodeName"])
+    hierarchy = DatasetLoader().fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName"])
     tree = transcode(build(hierarchy))
     prune_and_flatten(tree)
     return tree["childNodes"]
