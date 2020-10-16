@@ -6,8 +6,11 @@ import os
 import sys
 
 import dash
+
+from src.dataset import get_hierarchy
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
-print(sys.path)
+
 from hierarchy_tree.HierarchyTree import HierarchyTree
 import dash_core_components as dcc
 import dash_html_components as html
@@ -72,8 +75,7 @@ treeCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="tree-card-title"),
-                HierarchyTree(
-                    id='input'),
+                HierarchyTree(id='tree', data=get_hierarchy()),
                 html.Div(id='output'),
             ]
         ),
