@@ -7,9 +7,6 @@ import pandas as pd
 from firebase_admin import credentials
 from firebase_admin import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                                            "google-credentials.json")
-
 HIERARCHY_FILENAME = "ukbb_data_field_hierarchy.csv"
 
 
@@ -19,7 +16,10 @@ class DatasetLoader:
         self.is_authenticated = False
 
     def authenticate(self):
-        cred = credentials.Certificate('google-credentials.json')
+        if os.environ.get("ENV") == "PROD":
+            cred = credentials.Certificate(json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
+        else:
+            cred = credentials.Certificate('google-credentials.json')
         firebase_admin.initialize_app(cred, {
             'storageBucket': 'biobank-visualisation.appspot.com'
         })
