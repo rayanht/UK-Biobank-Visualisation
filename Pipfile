@@ -7,7 +7,6 @@ verify_ssl = true
 codecov = "*"
 pytest = "*"
 pytest-cov = "*"
-jsonpickle = "*"
 pyyaml = "*"
 
 [packages]
@@ -17,6 +16,9 @@ dash-bootstrap-components = "*"
 numpy = "*"
 gunicorn = "*"
 pyyaml = "*"
+firebase-admin = "*"
+jsonpickle = "*"
+google-cloud-storage = "*"
 
 [requires]
 python_version = "3.8"
