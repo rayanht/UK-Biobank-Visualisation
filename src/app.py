@@ -79,7 +79,7 @@ treeCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="tree-card-title"),
-                dbc.Input(id="search-input"),
+                dbc.Input(id="search-input", value="Search"),
                 HierarchyTree(id='tree', data=hierarchy),
             ]
         ),
@@ -157,10 +157,7 @@ def toggle_navbar_collapse(n, is_open):
 
 @app.callback(Output("tree", "data"), [Input("search-input", "value")])
 def output_text(value):
-    result = search(hierarchy, value)
-
-    print(str(result)[:min(len(str(result)), 100)-1])
-    return result
+    return search(hierarchy, value)
 
 app.callback(
     Output("navbar-collapse", "is_open"),

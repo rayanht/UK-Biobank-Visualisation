@@ -23,6 +23,7 @@ def _load_metadata(filename):
         md_reader = reader(f)
         return [row for row in md_reader]
 
+
 class Searcher:
     metadata = None
 
@@ -39,15 +40,36 @@ class Searcher:
         match = lambda row: token.lower() in name(row).lower()
         return [name(row) for row in self.metadata if match(row)] 
 
-# Placeholder function for basic recursive search over the tree
-def search(nodes, string=""):
-    if not nodes:
+def match(node, string):
+    if not node:
         return None
 
-    # Match function is case-insensitive, but the .lower() method is not foolproof
-    match = lambda node: string.lower() in node["label"].lower()
+    # Comparison is case-insensitive, but the .lower() method is not foolproof
+    try:
+        if string.lower() in node["label"].lower():
+            return node
+        elif not node["childNodes"]:
+            return None
+    except KeyError:
+        return None
 
-    return [n for n in nodes if match(n)]
+    modified = node.copy()
+    # print("Visiting node {}, looking for {}".format(node["label"], string))
+    modified["childNodes"] = _search(modified["childNodes"], string)
+    return modified
+
+# Placeholder function for basic recursive search over the tree
+def _search(nodes, string=""):
+    if not string:
+        return nodes
+
+    if not nodes:
+        return []
+
+    return list(filter(None, [match(node, string) for node in nodes]))
+
+def search(nodes, string=""):
+    return _search(nodes, string)
 
 if __name__=="__main__":
     results = search("diabetes")
