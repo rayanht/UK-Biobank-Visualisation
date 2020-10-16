@@ -7,6 +7,9 @@ import pandas as pd
 from firebase_admin import credentials
 from firebase_admin import storage
 
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                            "google-credentials.json")
+
 HIERARCHY_FILENAME = "ukbb_data_field_hierarchy.csv"
 
 
