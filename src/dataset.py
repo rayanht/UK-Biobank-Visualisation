@@ -93,7 +93,7 @@ def prune_and_flatten(encoded_tree: dict, i=0):
 
 
 def get_hierarchy():
-    hierarchy = DatasetLoader().fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName"])
+    hierarchy = DatasetLoader().fetch_hierarchy(usecols=["NodeID", "NodeName"])
     tree = transcode(build(hierarchy))
     prune_and_flatten(tree)
     return tree["childNodes"]
