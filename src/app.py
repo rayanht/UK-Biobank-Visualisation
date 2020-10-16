@@ -19,7 +19,7 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
 # Local dependencies
-from search import Searcher
+from search import search
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -40,6 +40,8 @@ df = pd.DataFrame({
     "Amount": [4, 1, 2, 2, 4, 5],
     "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
 })
+
+hierarchy = get_hierarchy()
 
 fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
@@ -78,15 +80,7 @@ treeCard = dbc.Card(
             [
                 html.H4("Explore", className="tree-card-title"),
                 dbc.Input(id="search-input"),
-                dbc.ListGroup(
-                    [],
-                    id="search-result",
-                ),
-                html.P(
-                    "This will be where the tree component is",
-                    className="tree-card-text",
-                ),
-                dbc.Button("Go somewhere", color="primary", id="test"),
+                HierarchyTree(id='tree', data=hierarchy),
             ]
         ),
     ],
@@ -161,15 +155,12 @@ def toggle_navbar_collapse(n, is_open):
         return not is_open
     return is_open
 
-searcher = Searcher()
-@app.callback(Output("search-result", "children"), [Input("search-input", "value")])
+@app.callback(Output("tree", "data"), [Input("search-input", "value")])
 def output_text(value):
-    result = searcher.search(value)
-    if not result:
-        return dbc.ListGroupItem("*No result found*")
+    result = search(hierarchy)
 
-    listItem = lambda row: dbc.ListGroupItem(row)
-    return [listItem(r) for r in result]
+    print(str(result)[:min(len(str(result)), 100)-1])
+    return result
 
 app.callback(
     Output("navbar-collapse", "is_open"),
