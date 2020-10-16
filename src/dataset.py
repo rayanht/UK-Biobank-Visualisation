@@ -26,7 +26,7 @@ class DatasetLoader:
         if not self.is_authenticated:
             self.authenticate()
         if os.path.isfile(HIERARCHY_FILENAME):
-            print(f"Using cached hierarchy")
+            print("Using cached hierarchy")
             return pd.read_csv("ukbb_data_field_hierarchy.csv")
         bucket = storage.bucket()
         blob = bucket.blob("ukbb_data_field_hierarchy.csv")
