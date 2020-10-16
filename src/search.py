@@ -40,15 +40,14 @@ class Searcher:
         return [name(row) for row in self.metadata if match(row)] 
 
 # Placeholder function for basic recursive search over the tree
-def search(nodes):
+def search(nodes, string=""):
     if not nodes:
-        return nodes
+        return None
 
-    n = nodes[0]
-    if len(n) > 0:
-        return n["childNodes"]
-    else:
-        return [n]
+    # Match function is case-insensitive, but the .lower() method is not foolproof
+    match = lambda node: string.lower() in node["label"].lower()
+
+    return [n for n in nodes if match(n)]
 
 if __name__=="__main__":
     results = search("diabetes")
