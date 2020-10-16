@@ -9,6 +9,8 @@ import dash
 
 from src.dataset import get_hierarchy
 
+from src.graph import get_field_plot
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
 
 from hierarchy_tree.HierarchyTree import HierarchyTree
@@ -33,13 +35,13 @@ colors = {
     'navbar-bg': "#f7f7f7",
 }
 
-df = pd.DataFrame({
-    "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-    "Amount": [4, 1, 2, 2, 4, 5],
-    "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
-})
+# df = pd.DataFrame({
+#     "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
+#     "Amount": [4, 1, 2, 2, 4, 5],
+#     "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
+# })
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+# fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 navbar = dbc.Navbar(
     [
@@ -106,7 +108,7 @@ graphsCard = dbc.Card(
                 html.H4("Plot", className="graphs-card-title"),
                 dcc.Graph(
                     id='example-graph',
-                    figure=fig
+                    figure=get_field_plot(21002, False)
                 )
             ]
         ),

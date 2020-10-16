@@ -9,7 +9,7 @@ from firebase_admin import credentials
 from firebase_admin import storage
 
 HIERARCHY_FILENAME = "ukbb_data_field_hierarchy.csv"
-
+META_SUBSET_FILENAME = "ukbb_meta_data_subset.csv"
 
 class DatasetLoader:
 
@@ -25,6 +25,18 @@ class DatasetLoader:
             'storageBucket': 'biobank-visualisation.appspot.com'
         })
         self.is_authenticated = True
+
+    def fetch_subset(self, cache=False, usecols=None) -> pd.DataFrame:
+        if not self.is_authenticated:
+            self.authenticate()
+        if os.path.isfile(META_SUBSET_FILENAME):
+            print("Using cached meta data subset")
+            return pd.read_csv("ukbb_meta_data_subset.csv")
+        bucket = storage.bucket()
+        blob = bucket.blob("ukbb_meta_data_subset.csv")
+        if cache:
+            blob.download_to_filename(META_SUBSET_FILENAME)
+        return pd.read_csv(StringIO(blob.download_as_text()), usecols=usecols)
 
     def fetch_hierarchy(self, cache=False, usecols=None) -> pd.DataFrame:
         if not self.is_authenticated:
@@ -77,7 +89,7 @@ def gen():
 
 
 counter = gen()
-
+datasetloader = DatasetLoader()
 
 def prune_and_flatten(encoded_tree: dict, i=0):
     encoded_tree["id"] = next(counter)
@@ -94,7 +106,21 @@ def prune_and_flatten(encoded_tree: dict, i=0):
 
 
 def get_hierarchy():
-    hierarchy = DatasetLoader().fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName"])
+    hierarchy = datasetloader.fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName"])
     tree = transcode(build(hierarchy))
     prune_and_flatten(tree)
     return tree["childNodes"]
+
+def get_field_names_to_inst():
+    fields_info = datasetloader.fetch_hierarchy(cache=True, 
+                    usecols=['FieldID', 'NodeName', 'InstanceID', 'RelatedFieldID'])
+    field_names_to_inst \
+        = fields_info.loc[\
+                fields_info['RelatedFieldID'].isnull() \
+                & fields_info['FieldID'].notnull()\
+            ][['FieldID', 'NodeName', 'InstanceID']]
+    return field_names_to_inst
+
+def get_meta_data():
+    # TODO: change to actual data
+    return datasetloader.fetch_subset(cache=True).set_index('eid')
