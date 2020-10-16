@@ -39,6 +39,17 @@ class Searcher:
         match = lambda row: token.lower() in name(row).lower()
         return [name(row) for row in self.metadata if match(row)] 
 
+# Placeholder function for basic recursive search over the tree
+def search(nodes):
+    if not nodes:
+        return nodes
+
+    n = nodes[0]
+    if len(n) > 0:
+        return n["childNodes"]
+    else:
+        return [n]
+
 if __name__=="__main__":
     results = search("diabetes")
     print(results)
