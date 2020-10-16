@@ -18,7 +18,7 @@ class DatasetLoader:
 
     def authenticate(self):
         if os.environ.get("ENV") == "PROD":
-            cred = credentials.Certificate(os.environ.get("GOOGLE_CREDENTIALS"))
+            cred = credentials.Certificate(json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
         else:
             cred = credentials.Certificate('google-credentials.json')
         firebase_admin.initialize_app(cred, {
