@@ -60,7 +60,8 @@ def build(raw) -> Node:
     raw.sort_values(by=['NodeID'])
 
     for row in raw.itertuples(index=True, name='Pandas'):
-        root.add_child(row.NodeID, Node(row.NodeName))
+        if row.NodeType != "rel":
+            root.add_child(row.NodeID, Node(row.NodeName))
 
     return root
 
@@ -94,7 +95,7 @@ def prune_and_flatten(encoded_tree: dict, i=0):
 
 
 def get_hierarchy():
-    hierarchy = DatasetLoader().fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName"])
+    hierarchy = DatasetLoader().fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName", "NodeType"])
     tree = transcode(build(hierarchy))
     prune_and_flatten(tree)
     return tree["childNodes"]
