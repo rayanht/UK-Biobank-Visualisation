@@ -157,7 +157,7 @@ def toggle_navbar_collapse(n, is_open):
 
 @app.callback(Output("tree", "data"), [Input("search-input", "value")])
 def output_text(value):
-    result = search(hierarchy)
+    result = search(hierarchy, value)
 
     print(str(result)[:min(len(str(result)), 100)-1])
     return result
