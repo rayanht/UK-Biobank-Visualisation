@@ -10,6 +10,8 @@ The project is managed using Pipenv. To install this, run `pip install --user pi
 
 Make sure you have Python 3.8 installed, either directly or through the Pyenv version manager. To install the dependencies, run `pipenv install` from project root. You can execute normal Python commands through Pipenv, in the form of `pipenv run python app.py`.
 
+In order to generate necessary Dash components, run `$ sh build_custom_components.sh` in the root directory.
+
 ## Local Development
 
 To run the app locally:
