@@ -18,8 +18,6 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
-# Local dependencies
-from search import search
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
