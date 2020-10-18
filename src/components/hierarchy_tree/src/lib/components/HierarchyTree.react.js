@@ -4,9 +4,9 @@ import {TreeExample} from "./TreeExample";
 
 export default class HierarchyTree extends Component {
     render() {
-        const {id, data} = this.props;
+        const {id, data, selected, n_updates, setProps} = this.props;
         return (
-            <TreeExample id={id} nodes={data}/>
+            <TreeExample id={id} nodes={data} selected={selected} n_updates={n_updates} setProps={setProps} />
         );
     }
 }
@@ -22,5 +22,9 @@ HierarchyTree.propTypes = {
     /**
      * The data displayed in the tree.
      */
-    data: PropTypes.array
+    data: PropTypes.array,
+
+    selected: PropTypes.arrayOf(PropTypes.number),
+
+    n_updates: PropTypes.number
 };

@@ -31,7 +31,7 @@ class Graph:
         return int(re.split("-|\.", str(meta_id))[2])
 
     def hasArrayItems(self, meta_ids) :
-        if (len(meta_ids) == 1):
+        if (len(meta_ids) <= 1):
             return False
         return self.get_part_id(meta_ids[0]) != self.get_part_id(meta_ids[1])
 
@@ -74,7 +74,6 @@ def get_field_plot(id, isMetaId=True) :
     field_id = graph.get_field_id(id) if isMetaId else id
     field_name = graph.get_field_name(field_id)
     filtered_data = graph.get_field_data(field_id)
-    print(filtered_data)
     # initialise figure
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     for col in filtered_data:
