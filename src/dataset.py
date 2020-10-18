@@ -1,6 +1,5 @@
 import json
 import os
-from enum import Enum
 from io import StringIO
 from typing import Generator, List
 
@@ -107,7 +106,7 @@ def prune(encoded_tree) -> bool:
     elif encoded_tree['node_type'] == "sub" and len(encoded_tree['childNodes']) == 0:
         return True
     else:
-        for idx, child in enumerate(encoded_tree['childNodes'][:]):
+        for child in enumerate(encoded_tree['childNodes'][:]):
             if prune(child):
                 encoded_tree['childNodes'].remove(child)
         if len(encoded_tree['childNodes']) == 0:
