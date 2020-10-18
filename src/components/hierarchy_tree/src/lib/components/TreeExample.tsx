@@ -32,7 +32,6 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     componentDidUpdate(prevProps) {
         if (prevProps.nodes !== this.props.nodes) {
-            console.log(this.props.nodes);
             this.setState(prevState => ({...prevState, nodes: this.props.nodes}));
         }
     }
@@ -60,13 +59,13 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     private handleNodeCollapse = (nodeData: ITreeNode) => {
         nodeData.isExpanded = false;
-        const clopenState = this.state.setClopenState(nodeData.id, false);
+        this.state.setClopenState(nodeData.id, false);
         this.setState(this.state);
     };
 
     private handleNodeExpand = (nodeData: ITreeNode) => {
         nodeData.isExpanded = true;
-        const clopenState = this.state.setClopenState(nodeData.id, true);
+        this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
 
