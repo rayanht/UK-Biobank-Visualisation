@@ -65,7 +65,7 @@ def build(raw: pd.DataFrame, prefix="") -> Node:
     for row in raw.itertuples(index=True, name='Pandas'):
         node_type = row.NodeType
         if node_type == "leaf":
-            if prefix == "" or word_prefix(row.NodeName.lower(), prefix.lower()):
+            if prefix == "" or prefix == "Search" or word_prefix(row.NodeName.lower(), prefix.lower()):
                 root.add_child(row.NodeID, Node(row.NodeName, "leaf"))
         elif node_type == "sub":
             root.add_child(row.NodeID, Node(row.NodeName, "sub"))
