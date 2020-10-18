@@ -18,15 +18,24 @@ import * as React from "react";
 
 import {Classes, Icon, Intent, ITreeNode, Position, Tooltip, Tree} from "@blueprintjs/core";
 import "./Tree.css"
+import {node} from "prop-types";
 
 export interface ITreeExampleState {
     nodes: ITreeNode[];
+    setClopenState: any;
 }
 
 // use Component so it re-renders everytime: `nodes` are not a primitive type
 // and therefore aren't included in shallow prop comparison
 export class TreeExample extends React.Component<ITreeExampleState> {
-    public state: ITreeExampleState = {nodes: this.props.nodes};
+    public state: ITreeExampleState = {nodes: this.props.nodes, setClopenState: this.props.setClopenState};
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.nodes !== this.props.nodes) {
+            console.log(this.props.nodes);
+            this.setState(prevState => ({...prevState, nodes: this.props.nodes}));
+        }
+    }
 
     public render() {
         return (
@@ -51,11 +60,13 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     private handleNodeCollapse = (nodeData: ITreeNode) => {
         nodeData.isExpanded = false;
+        const clopenState = this.state.setClopenState(nodeData.id, false);
         this.setState(this.state);
     };
 
     private handleNodeExpand = (nodeData: ITreeNode) => {
         nodeData.isExpanded = true;
+        const clopenState = this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
 
