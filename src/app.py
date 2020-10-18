@@ -21,8 +21,6 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 server = app.server
@@ -34,14 +32,6 @@ colors = {
     'text': "#7FDBFF",
     'navbar-bg': "#f7f7f7",
 }
-
-# df = pd.DataFrame({
-#     "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-#     "Amount": [4, 1, 2, 2, 4, 5],
-#     "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
-# })
-
-# fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 navbar = dbc.Navbar(
     [
