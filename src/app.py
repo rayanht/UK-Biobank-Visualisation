@@ -67,7 +67,7 @@ treeCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="tree-card-title"),
-                HierarchyTree(id='tree', data=get_hierarchy()),
+                HierarchyTree(id='tree', data=get_hierarchy(), selected=[], n_updates=0),
                 html.Div(id='output'),
             ]
         ),
@@ -96,10 +96,7 @@ graphsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Plot", className="graphs-card-title"),
-                dcc.Graph(
-                    id='example-graph',
-                    figure=get_field_plot(21002, False)
-                )
+                dcc.Graph(id='graph',)
             ]
         ),
     ],
@@ -149,6 +146,35 @@ app.callback(
     [State("navbar-collapse", "is_open")],
 )(toggle_navbar_collapse)
 
+@app.callback(
+    Output(component_id='graph', component_property='figure'),
+    [Input(component_id='tree', component_property='n_updates')],
+    [State(component_id='tree', component_property='selected')]
+)
+def update_graph(n, selected):
+    if (len(selected) == 0):
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "Select a data category to begin",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 22
+                        }
+                    }
+                ]
+            }
+        }
+    return get_field_plot(selected[0], False) # Plot first selected data
 
 # For test.py
 def hello_world():

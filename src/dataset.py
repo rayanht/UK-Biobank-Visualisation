@@ -53,9 +53,11 @@ class DatasetLoader:
 
 class Node:
 
-    def __init__(self, name):
+    def __init__(self, name, catId=None, fieldId=None):
         self.childNodes = dict()
         self.label = name
+        self.catId = catId
+        self.fieldId = fieldId
 
     def add_child(self, ids, child):
         if len(ids) == 1:
@@ -72,8 +74,8 @@ def build(raw) -> Node:
     raw.sort_values(by=['NodeID'])
 
     for row in raw.itertuples(index=True, name='Pandas'):
-        if row.NodeType != "rel":
-            root.add_child(row.NodeID, Node(row.NodeName))
+        if (row.NodeType != "rel") & (row.NodeType != "inst") : # Only map sub and leaf nodes, but may want to add instance node to each leaf node later on
+            root.add_child(row.NodeID, Node(row.NodeName, row.CategoryID, row.FieldID))
 
     return root
 
