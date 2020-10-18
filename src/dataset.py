@@ -54,7 +54,7 @@ class Node:
             self.childNodes[ids[0]].add_child(ids[1:], child)
 
 
-def build(raw: pd.DataFrame, prefix=None) -> Node:
+def build(raw: pd.DataFrame, prefix="") -> Node:
     raw["NodeID"] = raw["NodeID"].apply(
         lambda node_id: list(filter(lambda s: s != "0", node_id.split("."))))
 
@@ -62,13 +62,20 @@ def build(raw: pd.DataFrame, prefix=None) -> Node:
     for row in raw.itertuples(index=True, name='Pandas'):
         node_type = row.NodeType
         if node_type == "leaf":
-            if prefix == "" or prefix and prefix.lower() in row.NodeName.lower():
+            if prefix == "" or word_prefix(row.NodeName.lower(), prefix.lower()):
                 root.add_child(row.NodeID, Node(row.NodeName, "leaf"))
         elif node_type == "sub":
             root.add_child(row.NodeID, Node(row.NodeName, "sub"))
         elif node_type == "root":
             root.add_child(row.NodeID, Node(row.NodeName, "root"))
     return root
+
+
+def word_prefix(row: str, prefix: str) -> bool:
+    for word in row.split():
+        if word.startswith(prefix):
+            return True
+    return False
 
 
 def transcode(tree: Node) -> dict:
