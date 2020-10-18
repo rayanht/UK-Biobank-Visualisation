@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {TreeExample} from "./TreeExample";
-import {ITreeNode} from "@blueprintjs/core";
 
 export default class HierarchyTree extends Component {
 
@@ -10,7 +9,6 @@ export default class HierarchyTree extends Component {
         const setClopenState = (id, state) => {
             clopenState[id] = state;
         }
-        console.log(this.props.data)
         return (
             <TreeExample id={id} nodes={data} setClopenState={setClopenState}/>
         );
