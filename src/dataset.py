@@ -1,7 +1,9 @@
+import copy
+import functools
 import json
 import os
 from io import StringIO
-from typing import Generator, List
+from typing import Generator, List, Tuple
 
 import firebase_admin
 import jsonpickle
@@ -28,18 +30,15 @@ class DatasetLoader:
         })
         self.is_authenticated = True
 
-    def fetch_hierarchy(self, cache: bool = False, usecols: [str] = None) -> pd.DataFrame:
-        """Retrieve the hierarchy file if it hasn't been cached, then read it"""
+    @functools.lru_cache()
+    def fetch_hierarchy(self, usecols: Tuple = None) -> pd.DataFrame:
+        """Retrieve the hierarchy file and read it, if it hasn't been cached"""
         if not self.is_authenticated:
             self.authenticate()
-        if os.path.isfile(HIERARCHY_FILENAME):
-            print("Using cached hierarchy")
-            return pd.read_csv(HIERARCHY_FILENAME, usecols=usecols)
+        print("Not using cached hierarchy")
         bucket = storage.bucket()
         blob = bucket.blob(HIERARCHY_FILENAME)
-        if cache:
-            blob.download_to_filename(HIERARCHY_FILENAME)
-        return pd.read_csv(StringIO(blob.download_as_text()), usecols=usecols)
+        return pd.read_csv(StringIO(blob.download_as_text()), usecols=list(usecols))
 
 
 class Node:
@@ -58,11 +57,12 @@ class Node:
 
 def build(raw: pd.DataFrame, prefix="") -> Node:
     """Build tree by adding all intermediate nodes, and only leaf nodes that match the prefix"""
-    raw["NodeID"] = raw["NodeID"].apply(
+    r = raw.copy(True)
+    r["NodeID"] = r["NodeID"].apply(
         lambda node_id: list(filter(lambda s: s != "0", node_id.split("."))))
 
     root = Node("root", "root")
-    for row in raw.itertuples(index=True, name='Pandas'):
+    for row in r.itertuples(index=True, name='Pandas'):
         node_type = row.NodeType
         if node_type == "leaf":
             if prefix == "" or prefix == "Search" or word_prefix(row.NodeName.lower(), prefix.lower()):
@@ -134,7 +134,7 @@ def filter_hierarchy(clopen_state: dict, prefix: str = None) -> (List[dict], dic
     """Return a tree containing only nodes which have a leaf node with a word starting with the prefix,
     and retains state"""
     counter = gen()
-    hierarchy = loader.fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName", "NodeType"])
+    hierarchy = loader.fetch_hierarchy(usecols=("NodeID", "NodeName", "NodeType"))
     tree = transcode(build(hierarchy, prefix))
     flatten(counter, tree, clopen_state)
     prune(tree)
@@ -144,7 +144,7 @@ def filter_hierarchy(clopen_state: dict, prefix: str = None) -> (List[dict], dic
 def get_hierarchy() -> (List[dict], dict):
     """Return a tree with the full hierarchy and no previous state"""
     counter = gen()
-    hierarchy = loader.fetch_hierarchy(cache=True, usecols=["NodeID", "NodeName", "NodeType"])
+    hierarchy = loader.fetch_hierarchy(usecols=("NodeID", "NodeName", "NodeType"))
     tree = transcode(build(hierarchy))
     clopen_state = {}
     flatten(counter, tree, clopen_state)
