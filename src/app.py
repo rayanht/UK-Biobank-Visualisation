@@ -7,7 +7,7 @@ import sys
 
 import dash
 
-from src.dataset import get_hierarchy
+from src.dataset import get_hierarchy, filter_hierarchy
 
 from src.graph import get_field_plot
 
@@ -32,6 +32,8 @@ colors = {
     'text': "#7FDBFF",
     'navbar-bg': "#f7f7f7",
 }
+
+hierarchy, clopen_state = get_hierarchy()
 
 navbar = dbc.Navbar(
     [
@@ -67,8 +69,8 @@ treeCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="tree-card-title"),
-                HierarchyTree(id='tree', data=get_hierarchy(), selected=[], n_updates=0),
-                html.Div(id='output'),
+                dbc.Input(id="search-input", value="Search"),
+                HierarchyTree(id='tree', data=hierarchy, selected=[], n_updates=0, clopenState=clopen_state),
             ]
         ),
     ],
@@ -139,6 +141,10 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
+
+@app.callback([Output("tree", "data"), Output("tree", "clopen_state")], [Input("search-input", "value")], [State("tree", "clopenState")])
+def output_text(s, clopen):
+    return filter_hierarchy(clopen, s)
 
 app.callback(
     Output("navbar-collapse", "is_open"),

@@ -18,12 +18,19 @@ import * as React from "react";
 
 import {Classes, Icon, Intent, ITreeNode, Position, Tooltip, Tree} from "@blueprintjs/core";
 import "./Tree.css"
+import {node} from "prop-types";
+
+export interface IHierachyTreeNode extends ITreeNode {
+    catId?: number;
+    fieldId?: number;
+}
 
 export interface ITreeExampleState {
-    nodes: ITreeNode[];
+    nodes: IHierachyTreeNode[];
     selected: Number[];
     n_updates: number;
     setProps: Function;
+    setClopenState: any;
 }
 
 // use Component so it re-renders everytime: `nodes` are not a primitive type
@@ -33,8 +40,15 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         selected: this.props.selected,
         nodes: this.props.nodes,
         n_updates: this.props.n_updates,
-        setProps: this.props.setProps
+        setProps: this.props.setProps,
+        setClopenState: this.props.setClopenState
     };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.nodes !== this.props.nodes) {
+            this.setState(prevState => ({...prevState, nodes: this.props.nodes}));
+        }
+    }
 
     public render() {
         return (
@@ -48,7 +62,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         );
     }
 
-    private handleNodeClick = (nodeData: ITreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
+    private handleNodeClick = (nodeData: IHierachyTreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
         const MAX_NUM_OF_SELECTIONS = 1;
 
         const originallySelected = nodeData.isSelected;
@@ -83,17 +97,19 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         this.props.setProps(this.state);
     };
 
-    private handleNodeCollapse = (nodeData: ITreeNode) => {
+    private handleNodeCollapse = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = false;
+        this.state.setClopenState(nodeData.id, false);
         this.setState(this.state);
     };
 
-    private handleNodeExpand = (nodeData: ITreeNode) => {
+    private handleNodeExpand = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = true;
+        this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
 
-    private forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void) {
+    private forEachNode(nodes: IHierachyTreeNode[], callback: (node: IHierachyTreeNode) => void) {
         if (nodes == null) {
             return;
         }
