@@ -85,11 +85,12 @@ def build(raw: pd.DataFrame, prefix="") -> Node:
         lambda node_id: list(filter(lambda s: s != "0", node_id.split("."))))
 
     root = Node("root", "root")
+    prefix_words = prefix.lower().split()
     for row in r.itertuples(index=True, name='Pandas'):
         node_type = row.NodeType
         if node_type == "leaf":
-            if prefix == "" or prefix == "Search" or word_prefix(row.NodeName.lower(), prefix.lower()):
-                root.add_child(row.NodeID, Node(row.NodeName, "leaf", row.CategoryID, row.FieldID))
+            if prefix == "" or prefix == "Search" or word_prefix(row.NodeName.lower(), prefix_words):
+                root.add_child(row.NodeID, Node(row.NodeName, "leaf"))
         elif node_type == "sub":
             root.add_child(row.NodeID, Node(row.NodeName, "sub", row.CategoryID, row.FieldID))
         elif node_type == "root":
@@ -97,12 +98,17 @@ def build(raw: pd.DataFrame, prefix="") -> Node:
     return root
 
 
-def word_prefix(row: str, prefix: str) -> bool:
-    """Check if a word in the string starts with the prefix"""
-    for word in row.split():
-        if word.startswith(prefix):
-            return True
-    return False
+def word_prefix(row: str, prefix_words: List[str]) -> bool:
+    """Check if words in the string start with words from the prefix"""
+    for prefix in prefix_words:
+        found = False
+        for word in row.split():
+            if word.startswith(prefix):
+                found = True
+                break
+        if not found:
+            return False
+    return True
 
 
 def transcode(tree: Node) -> dict:
