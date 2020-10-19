@@ -55,6 +55,8 @@ class DatasetLoader:
 
         # TODO: eventually remove this warning/error
         if filename == METADATA_FILENAME:
+            if os.environ.get("ENV") == "PROD":
+                return self.fetch_file(META_SUBSET_FILENAME, usecols)
             print("PLEASE DOWNLOAD METADATA MANUALLY, dont pull it from database")
             return FileNotFoundError
 
