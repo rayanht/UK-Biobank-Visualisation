@@ -12,6 +12,8 @@ from firebase_admin import storage
 
 HIERARCHY_FILENAME = "ukbb_data_field_hierarchy.csv"
 META_SUBSET_FILENAME = "ukbb_meta_data_subset.csv"
+METADATA_FILENAME = "ukbb_meta_data_21079.csv"
+
 
 class DatasetLoader:
 
@@ -29,37 +31,45 @@ class DatasetLoader:
         })
         self.is_authenticated = True
 
-    def fetch_subset(self, cache=False, usecols=None) -> pd.DataFrame:
-        if not self.is_authenticated:
-            self.authenticate()
-        if os.path.isfile(META_SUBSET_FILENAME):
-            print("Using cached meta data subset")
-            return pd.read_csv("ukbb_meta_data_subset.csv")
-        bucket = storage.bucket()
-        blob = bucket.blob("ukbb_meta_data_subset.csv")
-        if cache:
-            blob.download_to_filename(META_SUBSET_FILENAME)
-        return pd.read_csv(StringIO(blob.download_as_text()), usecols=usecols)
+    def fetch_subset(self, usecols: Tuple = None) -> pd.DataFrame:
+        return self.fetch_file(META_SUBSET_FILENAME, usecols)
+
+    def fetch_metadata(self, usecols: Tuple = None, row_limit: int = 500) -> pd.DataFrame:
+        return self.fetch_file(METADATA_FILENAME, usecols, row_limit)
+
+    def fetch_hierarchy(self, usecols: Tuple = None) -> pd.DataFrame:
+        return self.fetch_file(HIERARCHY_FILENAME, usecols)
 
     @functools.lru_cache()
-    def fetch_hierarchy(self, usecols: Tuple = None) -> pd.DataFrame:
-        """Retrieve the hierarchy file and read it, if it hasn't been cached"""
+    def fetch_file(self, filename: str, usecols: Tuple = None, row_limit: int = None):
+        """Retrieve a csv data file and read it, if it hasn't been cached"""
+        if os.path.isfile(filename):
+            print("Using cached " + filename)
+            return pd.read_csv(filename, nrows=row_limit)
+        print("Not using cached " + filename)
         if not self.is_authenticated:
             self.authenticate()
-        print("Not using cached hierarchy")
         bucket = storage.bucket()
-        blob = bucket.blob(HIERARCHY_FILENAME)
-        return pd.read_csv(StringIO(blob.download_as_text()), usecols=list(usecols))
+        blob = bucket.blob(filename)
+
+        # TODO: eventually remove this warning/error
+        if filename == METADATA_FILENAME:
+            print("PLEASE DOWNLOAD METADATA MANUALLY, dont pull it from database")
+            return FileNotFoundError
+
+        if os.environ.get("ENV") != "PROD":
+            blob.download_to_filename(META_SUBSET_FILENAME)
+        return pd.read_csv(StringIO(blob.download_as_text()), usecols=list(usecols), nrows=row_limit)
 
 
 class Node:
 
-    def __init__(self, name: str, node_type: str, catId=None, fieldId=None):
+    def __init__(self, name: str, node_type: str, cat_id=None, field_id=None):
         self.childNodes = dict()
         self.label = name
         self.node_type = node_type
-        self.catId = catId
-        self.fieldId = fieldId
+        self.catId = cat_id
+        self.fieldId = field_id
 
     def add_child(self, ids: [int], child) -> None:
         if len(ids) == 1:
@@ -164,6 +174,7 @@ def get_hierarchy() -> (List[dict], dict):
     prune(tree)
     return tree["childNodes"], clopen_state
 
+
 def get_field_names_to_inst():
     fields_info = loader.fetch_hierarchy(usecols=('FieldID', 'NodeName', 'InstanceID', 'RelatedFieldID'))
     field_names_to_inst \
@@ -173,6 +184,6 @@ def get_field_names_to_inst():
             ][['FieldID', 'NodeName', 'InstanceID']]
     return field_names_to_inst
 
+
 def get_meta_data():
-    # TODO: change to actual data
-    return loader.fetch_subset(cache=True).set_index('eid')
+    return loader.fetch_metadata(row_limit=100).set_index('eid')
