@@ -1,6 +1,7 @@
 import functools
 import json
 import os
+import re
 from io import StringIO
 from typing import Generator, List, Tuple
 
@@ -89,7 +90,9 @@ def build(raw: pd.DataFrame, prefix="") -> Node:
     for row in r.itertuples(index=True, name='Pandas'):
         node_type = row.NodeType
         if node_type == "leaf":
-            if prefix == "" or prefix == "Search" or word_prefix(row.NodeName.lower(), prefix_words):
+            if prefix == "" \
+              or prefix == "Search" \
+              or word_prefix(re.sub('[()]', '', row.NodeName.lower()).split(), prefix_words):
                 root.add_child(row.NodeID, Node(row.NodeName, "leaf"))
         elif node_type == "sub":
             root.add_child(row.NodeID, Node(row.NodeName, "sub", row.CategoryID, row.FieldID))
@@ -98,17 +101,20 @@ def build(raw: pd.DataFrame, prefix="") -> Node:
     return root
 
 
-def word_prefix(row: str, prefix_words: List[str]) -> bool:
-    """Check if words in the string start with words from the prefix"""
-    for prefix in prefix_words:
-        found = False
-        for word in row.split():
-            if word.startswith(prefix):
-                found = True
-                break
-        if not found:
-            return False
-    return True
+def word_prefix(row: List[str], prefix_words: List[str]) -> bool:
+    """Check if string starts with prefix at any point"""
+    for i, word in enumerate(row):
+        if word.startswith(prefix_words[0]):
+            index = 1
+            for w in row[i + index:]:
+                if index == len(prefix_words):
+                    return True
+                if not w.startswith(prefix_words[index]):
+                    break
+                index += 1
+            if index == len(prefix_words):
+                return True
+    return False
 
 
 def transcode(tree: Node) -> dict:
