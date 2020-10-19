@@ -24,7 +24,13 @@ HierarchyTree.propTypes = {
      */
     data: PropTypes.array,
 
+    /**
+     * An array of selected FieldIds
+     */
     selected: PropTypes.arrayOf(PropTypes.number),
 
+    /**
+     * A count of the number of times the inputs have updated, so the callback function knows when to update
+     */
     n_updates: PropTypes.number
 };

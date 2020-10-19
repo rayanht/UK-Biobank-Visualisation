@@ -57,13 +57,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             else this.handleNodeExpand(nodeData);
             return;
         }
-        // if (!e.shiftKey) {
-        //     this.forEachNode(this.state.nodes, n => (n.isSelected = false));
-        // }
-        // if (this.state.selected.length == 2) {
-        //     this.state.selected = [];
-        //     this.forEachNode(this.state.nodes, n => (n.isSelected = false));
-        // }
+
         nodeData.isSelected = originallySelected == null ? true : !originallySelected;
 
         if (nodeData.isSelected) {
@@ -75,6 +69,8 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             }
         }
 
+        // If the number of selected items exceeds that of the max, 
+        // reset the selected items and only include the one newly selected
         if (this.state.selected.length > MAX_NUM_OF_SELECTIONS) {
             this.forEachNode(this.state.nodes, n => (n.isSelected = false));
             this.state.selected = [nodeData.fieldId];
