@@ -15,9 +15,10 @@
  */
 
 import * as React from "react";
-
-import {Classes, ITreeNode, Tree} from "@blueprintjs/core";
+import {Classes, Icon, Intent, ITreeNode, Position, Tooltip, Tree, IIconProps} from "@blueprintjs/core";
 import "./Tree.css"
+
+type Pair = [number, string]
 
 export interface IHierachyTreeNode extends ITreeNode {
     category_id?: number;
@@ -26,7 +27,8 @@ export interface IHierachyTreeNode extends ITreeNode {
 
 export interface ITreeExampleState {
     nodes: IHierachyTreeNode[];
-    selected: Number[];
+    selected_nodes: IHierachyTreeNode[];
+    selected: Pair[];
     n_updates: number;
     setProps: Function;
     setClopenState: any;
@@ -37,6 +39,7 @@ export interface ITreeExampleState {
 export class TreeExample extends React.Component<ITreeExampleState> {
     public state: ITreeExampleState = {
         selected: this.props.selected,
+        selected_nodes: this.props.selected_nodes,
         nodes: this.props.nodes,
         n_updates: this.props.n_updates,
         setProps: this.props.setProps,
@@ -62,7 +65,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
     }
 
     private handleNodeClick = (nodeData: IHierachyTreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
-        const MAX_NUM_OF_SELECTIONS = 1;
+        const MAX_NUM_OF_SELECTIONS = 10;
 
         const originallySelected = nodeData.isSelected;
         if (nodeData.hasCaret) {
@@ -77,20 +80,23 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         nodeData.isSelected = originallySelected == null ? true : !originallySelected;
 
         if (nodeData.isSelected) {
-            this.state.selected.push(nodeData.field_id);
+            this.state.selected_nodes.push(nodeData);
+            nodeData.secondaryLabel = <Icon icon={"tick"}/>;
         } else {
-            const index = this.state.selected.indexOf(nodeData.field_id);
+            const index = this.state.selected_nodes.indexOf(nodeData);
             if (index > -1) {
-                this.state.selected.splice(index, 1);
+                this.state.selected_nodes.splice(index, 1)
+                nodeData.secondaryLabel = null;
             }
         }
 
         // If the number of selected items exceeds that of the max, 
         // reset the selected items and only include the one newly selected
-        if (this.state.selected.length > MAX_NUM_OF_SELECTIONS) {
-            this.forEachNode(this.state.nodes, n => (n.isSelected = false));
-            this.state.selected = [nodeData.field_id];
-            nodeData.isSelected = true;
+        if (this.state.selected_nodes.length > MAX_NUM_OF_SELECTIONS) {
+            const first = this.state.selected_nodes[0];
+            first.isSelected = false;
+            first.secondaryLabel = null;
+            this.state.selected_nodes.shift();
         }
 
         this.state.n_updates = this.state.n_updates + 1;
