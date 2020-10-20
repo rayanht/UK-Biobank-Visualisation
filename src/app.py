@@ -3,20 +3,19 @@
 # Run this app with `gunicorn app:server` and
 # visit http://127.0.0.1:8000/ in your web browser.
 import os
+import re
 import sys
-
 import dash
-
-from src.graph import get_field_plot
-from src.tree.node_utils import get_hierarchy, filter_hierarchy
-
-sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
-
-from hierarchy_tree.HierarchyTree import HierarchyTree
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
+from src.graph import get_field_plot
+from src.tree.node_utils import get_hierarchy, filter_hierarchy
 from dash.dependencies import Input, Output, State
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
+from hierarchy_tree.HierarchyTree import HierarchyTree
+
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -31,8 +30,6 @@ colors = {
 }
 
 hierarchy, clopen_state = get_hierarchy()
-
-var_subselection = []
 
 navbar = dbc.Navbar(
     [
@@ -83,12 +80,9 @@ settingsCard = dbc.Card(
                 html.H4("Settings", className="settings-card-title"),
                 dcc.Dropdown(
                     id='variable-dropdown',
-                    options=[
-                        {'label': 'New York City', 'value': 'NYC'},
-                        {'label': 'Montreal', 'value': 'MTL'},
-                        {'label': 'San Francisco', 'value': 'SF'}
-                    ],
-                    placeholder="Select a variable to plot"
+                    options=[],
+                    placeholder="Select a variable to plot",
+                    optionHeight=45
                 ),
                 html.Div(id='dd-output-container')
             ]
@@ -164,7 +158,15 @@ def toggle_navbar_collapse(n, is_open):
     [State(component_id='tree', component_property='selected_nodes')]
 )
 def update_dropdown(n, selected_nodes):
-    return [{'label': node['label'], 'value': node['field_id']} for node in selected_nodes]
+    def get_option(node):
+        label = node['label']
+        title = None
+        if '(' in label:
+            title = label
+            label = re.sub(r'\([^)]*\)', '', label)
+        return {'label': label, 'value': node['field_id'], 'title': title}
+
+    return [get_option(node) for node in selected_nodes]
 
 
 @app.callback(
