@@ -48,9 +48,8 @@ class Query:
 def authenticate():
     """Authenticate user to GCP"""
     if os.environ.get("ENV") == "PROD":
-        with tempfile.NamedTemporaryFile() as tf:
-            json.dump(tf, json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
-            return bigquery.Client.from_service_account_json(tf.name)
+        with open("google-credentials.json", "w") as fp:
+            json.dump(json.loads(os.environ.get("GOOGLE_CREDENTIALS")), fp)
     return bigquery.Client.from_service_account_json("google-credentials.json")
 
 
