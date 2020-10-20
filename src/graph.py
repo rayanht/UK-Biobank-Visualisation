@@ -18,6 +18,11 @@ def get_inst_id(meta_id) :
 def get_part_id(meta_id) :
     return int(re.split("-|\.", str(meta_id))[2])
 
+def has_multiple_instances(meta_ids) :
+    if (len(meta_ids) <= 1):
+        return False
+    return get_inst_id(meta_ids[0]) != get_inst_id(meta_ids[1])
+
 def has_array_items(meta_ids) :
     if (len(meta_ids) <= 1):
         return False
@@ -35,14 +40,18 @@ class Graph:
     def get_field_name(self, field_id) :
         return self.field_names_to_ids.loc[self.field_names_to_ids['FieldID'] == field_id, 'NodeName'].item()
 
-    def get_field_instance_map(self, has_array) :
+    def get_field_instance_map(self, has_instances, has_array) :
         def get_field_instance_name(meta_id) :
             field_id = get_field_id(meta_id)
             inst_id = get_inst_id(meta_id)
-            df_with_name = self.field_names_to_inst.loc[\
-                (self.field_names_to_inst['FieldID'] == field_id) & \
+            df_with_name \
+                = self.field_names_to_inst.loc[\
+                    (self.field_names_to_inst['FieldID'] == field_id) & \
                     (self.field_names_to_inst['InstanceID'] == inst_id)\
-                ]['NodeName']
+                    ]['NodeName'] \
+                if has_instances else \
+                    self.field_names_to_inst.loc[\
+                    (self.field_names_to_inst['FieldID'] == field_id)]['NodeName']
             if (has_array) :
                 part_id = get_part_id(meta_id)
                 return df_with_name.item() + "[" + str(part_id) + "]"
@@ -59,8 +68,11 @@ class Graph:
             filtered_data.dropna(how='any', axis=0, inplace=True)
         else:
             filtered_data.dropna(how='all', axis=0, inplace=True)
-        has_array = has_array_items(list(filtered_data.columns))
-        filtered_data.rename(mapper=self.get_field_instance_map(has_array), axis='columns', inplace=True)
+        filtered_meta_ids = list(filtered_data.columns)
+        has_array = has_array_items(filtered_meta_ids)
+        has_instances = has_multiple_instances(filtered_meta_ids)
+        filtered_data.rename(mapper=self.get_field_instance_map(has_instances, has_array), \
+                             axis='columns', inplace=True)
         return filtered_data
 
 graph = Graph()
