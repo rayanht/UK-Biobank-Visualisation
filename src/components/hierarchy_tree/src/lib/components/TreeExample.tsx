@@ -15,10 +15,8 @@
  */
 
 import * as React from "react";
-import {Classes, Icon, Intent, ITreeNode, Position, Tooltip, Tree, IIconProps} from "@blueprintjs/core";
+import {Classes, Icon, ITreeNode, Tree} from "@blueprintjs/core";
 import "./Tree.css"
-
-type Pair = [number, string]
 
 export interface IHierachyTreeNode extends ITreeNode {
     category_id?: number;
@@ -30,6 +28,7 @@ export interface ITreeExampleState {
     selected_nodes: IHierachyTreeNode[];
     selected: Pair[];
     n_updates: number;
+    max_selections: number;
     setProps: Function;
     setClopenState: any;
 }
@@ -42,6 +41,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         selected_nodes: this.props.selected_nodes,
         nodes: this.props.nodes,
         n_updates: this.props.n_updates,
+        max_selections: this.props.max_selections,
         setProps: this.props.setProps,
         setClopenState: this.props.setClopenState
     };
@@ -65,8 +65,6 @@ export class TreeExample extends React.Component<ITreeExampleState> {
     }
 
     private handleNodeClick = (nodeData: IHierachyTreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
-        const MAX_NUM_OF_SELECTIONS = 10;
-
         const originallySelected = nodeData.isSelected;
         if (nodeData.hasCaret) {
             if (nodeData.isExpanded) {
@@ -92,7 +90,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
         // If the number of selected items exceeds that of the max, 
         // reset the selected items and only include the one newly selected
-        if (this.state.selected_nodes.length > MAX_NUM_OF_SELECTIONS) {
+        if (this.state.selected_nodes.length > this.state.max_selections) {
             const first = this.state.selected_nodes[0];
             first.isSelected = false;
             first.secondaryLabel = null;
@@ -116,16 +114,4 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
-
-    private forEachNode(nodes: IHierachyTreeNode[], callback: (node: IHierachyTreeNode) => void) {
-        if (nodes == null) {
-            return;
-        }
-
-        // @ts-ignore
-        for (const node of nodes) {
-            callback(node);
-            this.forEachNode(node.childNodes, callback);
-        }
-    }
 }

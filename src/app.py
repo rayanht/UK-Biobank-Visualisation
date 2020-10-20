@@ -31,6 +31,8 @@ colors = {
 
 hierarchy, clopen_state = get_hierarchy()
 
+MAX_SELECTIONS = 30
+
 navbar = dbc.Navbar(
     [
         dbc.NavbarBrand("UK BioBank Explorer", href="#"),
@@ -64,9 +66,11 @@ treeCard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H4("Explore", className="tree-card-title"),
-                dbc.Input(id="search-input", value="Search"),
-                HierarchyTree(id='tree', data=hierarchy, selected_nodes=[], n_updates=0, clopenState=clopen_state),
+                html.H4("Explore", style={"margin-bottom": "20px"}, className="tree-card-title"),
+                dbc.Input(style={"margin-bottom": "5px"}, id="search-input", value="Search"),
+                HierarchyTree(id='tree', data=hierarchy, selected_nodes=[], max_selections=MAX_SELECTIONS,
+                              n_updates=0, clopenState=clopen_state),
+                html.Div(style={"margin-top": "2px", 'textAlign': 'right'}, id='selections-capacity')
             ]
         ),
     ],
@@ -77,14 +81,22 @@ settingsCard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H4("Settings", className="settings-card-title"),
+                html.H4("Settings", style={"margin-bottom": "20px"}, className="settings-card-title"),
+                html.H5("X-axis"),
                 dcc.Dropdown(
-                    id='variable-dropdown',
+                    id='variable-dropdown-x',
                     options=[],
                     placeholder="Select a variable to plot",
                     optionHeight=45
                 ),
-                html.Div(id='dd-output-container')
+
+                html.H5("Y-axis", style={"margin-top": "15px"}),
+                dcc.Dropdown(
+                    id='variable-dropdown-y',
+                    options=[],
+                    placeholder="Select a variable to plot",
+                    optionHeight=45
+                ),
             ]
         ),
     ],
@@ -95,7 +107,7 @@ graphsCard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H4("Plot", className="graphs-card-title"),
+                html.H4("Plot", style={"margin-bottom": "20px"}, className="graphs-card-title"),
                 dcc.Graph(id='graph', )
             ]
         ),
@@ -153,7 +165,9 @@ def toggle_navbar_collapse(n, is_open):
 
 
 @app.callback(
-    Output(component_id='variable-dropdown', component_property='options'),
+    [Output(component_id='variable-dropdown-x', component_property='options'),
+     Output(component_id='selections-capacity', component_property='children'),
+     Output(component_id='variable-dropdown-y', component_property='options')],
     [Input(component_id='tree', component_property='n_updates')],
     [State(component_id='tree', component_property='selected_nodes')]
 )
@@ -166,12 +180,13 @@ def update_dropdown(n, selected_nodes):
             label = re.sub(r'\([^)]*\)', '', label)
         return {'label': label, 'value': node['field_id'], 'title': title}
 
-    return [get_option(node) for node in selected_nodes]
+    options = [get_option(node) for node in selected_nodes]
+    return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
 
 
 @app.callback(
     Output(component_id='graph', component_property='figure'),
-    [Input('variable-dropdown', 'value')])
+    [Input('variable-dropdown-x', 'value')])
 def update_graph(value):
     if value is None:
         return {
