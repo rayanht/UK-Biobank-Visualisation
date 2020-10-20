@@ -19,9 +19,11 @@ def get_part_id(meta_id) :
     return int(re.split("-|\.", str(meta_id))[2])
 
 def has_multiple_instances(meta_ids) :
-    if (len(meta_ids) <= 1):
-        return False
-    return get_inst_id(meta_ids[0]) != get_inst_id(meta_ids[1])
+    for i in range(len(meta_ids) - 1):
+        diff_inst = get_inst_id(meta_ids[i]) != get_inst_id(meta_ids[i+1])
+        if (diff_inst):
+            return True
+    return False
 
 def has_array_items(meta_ids) :
     if (len(meta_ids) <= 1):
