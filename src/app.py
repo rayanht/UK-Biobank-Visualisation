@@ -9,6 +9,8 @@ import dash
 
 from src.dataset import get_hierarchy, filter_hierarchy
 
+from src.graph import get_field_plot
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
 
 from hierarchy_tree.HierarchyTree import HierarchyTree
@@ -18,8 +20,6 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
-
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -33,15 +33,7 @@ colors = {
     'navbar-bg': "#f7f7f7",
 }
 
-df = pd.DataFrame({
-    "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-    "Amount": [4, 1, 2, 2, 4, 5],
-    "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
-})
-
 hierarchy, clopen_state = get_hierarchy()
-
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 navbar = dbc.Navbar(
     [
@@ -78,7 +70,7 @@ treeCard = dbc.Card(
             [
                 html.H4("Explore", className="tree-card-title"),
                 dbc.Input(id="search-input", value="Search"),
-                HierarchyTree(id='tree', data=hierarchy, clopenState=clopen_state),
+                HierarchyTree(id='tree', data=hierarchy, selected=[], n_updates=0, clopenState=clopen_state),
             ]
         ),
     ],
@@ -106,10 +98,7 @@ graphsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Plot", className="graphs-card-title"),
-                dcc.Graph(
-                    id='example-graph',
-                    figure=fig
-                )
+                dcc.Graph(id='graph',)
             ]
         ),
     ],
@@ -163,6 +152,35 @@ app.callback(
     [State("navbar-collapse", "is_open")],
 )(toggle_navbar_collapse)
 
+@app.callback(
+    Output(component_id='graph', component_property='figure'),
+    [Input(component_id='tree', component_property='n_updates')],
+    [State(component_id='tree', component_property='selected')]
+)
+def update_graph(n, selected):
+    if (len(selected) == 0):
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "Select a data category to begin",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 22
+                        }
+                    }
+                ]
+            }
+        }
+    return get_field_plot(selected[0], False) # Plot first selected data
 
 # For test.py
 def hello_world():

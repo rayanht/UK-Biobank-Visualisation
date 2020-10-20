@@ -20,15 +20,29 @@ import {Classes, Icon, Intent, ITreeNode, Position, Tooltip, Tree} from "@bluepr
 import "./Tree.css"
 import {node} from "prop-types";
 
+export interface IHierachyTreeNode extends ITreeNode {
+    catId?: number;
+    fieldId?: number;
+}
+
 export interface ITreeExampleState {
-    nodes: ITreeNode[];
+    nodes: IHierachyTreeNode[];
+    selected: Number[];
+    n_updates: number;
+    setProps: Function;
     setClopenState: any;
 }
 
 // use Component so it re-renders everytime: `nodes` are not a primitive type
 // and therefore aren't included in shallow prop comparison
 export class TreeExample extends React.Component<ITreeExampleState> {
-    public state: ITreeExampleState = {nodes: this.props.nodes, setClopenState: this.props.setClopenState};
+    public state: ITreeExampleState = {
+        selected: this.props.selected,
+        nodes: this.props.nodes,
+        n_updates: this.props.n_updates,
+        setProps: this.props.setProps,
+        setClopenState: this.props.setClopenState
+    };
 
     componentDidUpdate(prevProps) {
         if (prevProps.nodes !== this.props.nodes) {
@@ -48,28 +62,54 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         );
     }
 
-    private handleNodeClick = (nodeData: ITreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
+    private handleNodeClick = (nodeData: IHierachyTreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
+        const MAX_NUM_OF_SELECTIONS = 1;
+
         const originallySelected = nodeData.isSelected;
-        if (!e.shiftKey) {
-            this.forEachNode(this.state.nodes, n => (n.isSelected = false));
+        if (nodeData.hasCaret) {
+            if (nodeData.isExpanded) this.handleNodeCollapse(nodeData);
+            else this.handleNodeExpand(nodeData);
+            return;
         }
+
         nodeData.isSelected = originallySelected == null ? true : !originallySelected;
-        this.setState(this.state);
+
+        if (nodeData.isSelected) {
+            this.state.selected.push(nodeData.fieldId);
+        } else {
+            const index = this.state.selected.indexOf(nodeData.fieldId);
+            if (index > -1) {
+                this.state.selected.splice(index, 1);
+            }
+        }
+
+        // If the number of selected items exceeds that of the max, 
+        // reset the selected items and only include the one newly selected
+        if (this.state.selected.length > MAX_NUM_OF_SELECTIONS) {
+            this.forEachNode(this.state.nodes, n => (n.isSelected = false));
+            this.state.selected = [nodeData.fieldId];
+            nodeData.isSelected = true;
+        }
+
+        this.state.n_updates = this.state.n_updates + 1;
+
+        // No need to update state here, since when the props are changed, the component will be re-rendered
+        this.props.setProps(this.state);
     };
 
-    private handleNodeCollapse = (nodeData: ITreeNode) => {
+    private handleNodeCollapse = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = false;
         this.state.setClopenState(nodeData.id, false);
         this.setState(this.state);
     };
 
-    private handleNodeExpand = (nodeData: ITreeNode) => {
+    private handleNodeExpand = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = true;
         this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
 
-    private forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void) {
+    private forEachNode(nodes: IHierachyTreeNode[], callback: (node: IHierachyTreeNode) => void) {
         if (nodes == null) {
             return;
         }

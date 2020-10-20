@@ -18,6 +18,7 @@ lib/
 lib64/
 parts/
 sdist/
+src/hierarchy_tree/
 var/
 wheels/
 pip-wheel-metadata/
@@ -70,6 +71,9 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+
+# VSC
+.vscode/
 
 # PyBuilder
 target/
@@ -135,3 +139,5 @@ dmypy.json
 .DS_Store
 google-credentials.json
 ukbb_data_field_hierarchy.csv
+ukbb_meta_data_subset.csv
+ukbb_meta_data_21079.csv
