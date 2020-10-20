@@ -281,3 +281,6 @@ Project.toml
 R/
 man/
 hierarchy_tree/
+/deps/
+/inst/
+/hierarchy_tree/

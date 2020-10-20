@@ -19,6 +19,8 @@ pyyaml = "*"
 firebase-admin = "*"
 jsonpickle = "*"
 google-cloud-storage = "*"
+google-cloud-bigquery = "*"
+google-cloud-bigquery-storage = "*"
 
 [requires]
 python_version = "3.8"
