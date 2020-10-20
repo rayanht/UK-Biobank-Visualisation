@@ -82,11 +82,17 @@ settingsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Settings", className="settings-card-title"),
-                html.P(
-                    "This will be where the settings component is",
-                    className="settings-card-text",
-                ),
-                dbc.Button("Go somewhere", color="primary"),
+                dbc.Label("Graph Type", html_for="settings-graph-type-dropdown"),
+                dcc.Dropdown(
+                    id="settings-graph-type-dropdown",
+                    options=[
+                        {"label": "Violin", "value": 1},
+                        {"label": "Scatter", "value": 2},
+                        {"label": "Bar", "value": 3},
+                    ],
+                    value=2,
+                    clearable=False
+                )
             ]
         ),
     ],
