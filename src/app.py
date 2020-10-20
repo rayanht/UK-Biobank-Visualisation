@@ -32,6 +32,8 @@ colors = {
 
 hierarchy, clopen_state = get_hierarchy()
 
+var_subselection = []
+
 navbar = dbc.Navbar(
     [
         dbc.NavbarBrand("UK BioBank Explorer", href="#"),
@@ -67,7 +69,7 @@ treeCard = dbc.Card(
             [
                 html.H4("Explore", className="tree-card-title"),
                 dbc.Input(id="search-input", value="Search"),
-                HierarchyTree(id='tree', data=hierarchy, selected=[], n_updates=0, clopenState=clopen_state),
+                HierarchyTree(id='tree', data=hierarchy, selected_nodes=[], n_updates=0, clopenState=clopen_state),
             ]
         ),
     ],
@@ -79,11 +81,16 @@ settingsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Settings", className="settings-card-title"),
-                html.P(
-                    "This will be where the settings component is",
-                    className="settings-card-text",
+                dcc.Dropdown(
+                    id='variable-dropdown',
+                    options=[
+                        {'label': 'New York City', 'value': 'NYC'},
+                        {'label': 'Montreal', 'value': 'MTL'},
+                        {'label': 'San Francisco', 'value': 'SF'}
+                    ],
+                    placeholder="Select a variable to plot"
                 ),
-                dbc.Button("Go somewhere", color="primary"),
+                html.Div(id='dd-output-container')
             ]
         ),
     ],
@@ -152,12 +159,19 @@ def toggle_navbar_collapse(n, is_open):
 
 
 @app.callback(
-    Output(component_id='graph', component_property='figure'),
+    Output(component_id='variable-dropdown', component_property='options'),
     [Input(component_id='tree', component_property='n_updates')],
-    [State(component_id='tree', component_property='selected')]
+    [State(component_id='tree', component_property='selected_nodes')]
 )
-def update_graph(n, selected):
-    if len(selected) == 0:
+def update_dropdown(n, selected_nodes):
+    return [{'label': node['label'], 'value': node['field_id']} for node in selected_nodes]
+
+
+@app.callback(
+    Output(component_id='graph', component_property='figure'),
+    [Input('variable-dropdown', 'value')])
+def update_graph(value):
+    if value is None:
         return {
             "layout": {
                 "xaxis": {
@@ -179,4 +193,4 @@ def update_graph(n, selected):
                 ]
             }
         }
-    return get_field_plot(selected[0])  # Plot first selected data
+    return get_field_plot(value)
