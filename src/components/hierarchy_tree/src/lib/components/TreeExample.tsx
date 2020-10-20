@@ -26,7 +26,6 @@ export interface IHierachyTreeNode extends ITreeNode {
 export interface ITreeExampleState {
     nodes: IHierachyTreeNode[];
     selected_nodes: IHierachyTreeNode[];
-    selected: Pair[];
     n_updates: number;
     max_selections: number;
     setProps: Function;
@@ -37,7 +36,6 @@ export interface ITreeExampleState {
 // and therefore aren't included in shallow prop comparison
 export class TreeExample extends React.Component<ITreeExampleState> {
     public state: ITreeExampleState = {
-        selected: this.props.selected,
         selected_nodes: this.props.selected_nodes,
         nodes: this.props.nodes,
         n_updates: this.props.n_updates,
@@ -66,6 +64,8 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     private handleNodeClick = (nodeData: IHierachyTreeNode, _nodePath: number[], e: React.MouseEvent<HTMLElement>) => {
         const originallySelected = nodeData.isSelected;
+
+        // If the node isn't a leaf node just expand/collapse it and return
         if (nodeData.hasCaret) {
             if (nodeData.isExpanded) {
                 this.handleNodeCollapse(nodeData);
@@ -77,6 +77,8 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
         nodeData.isSelected = originallySelected == null ? true : !originallySelected;
 
+        // Add or remove a node from the selected list based on its previous state,
+        // also adding or removing the tick icon
         if (nodeData.isSelected) {
             this.state.selected_nodes.push(nodeData);
             nodeData.secondaryLabel = <Icon icon={"tick"}/>;
@@ -89,7 +91,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         }
 
         // If the number of selected items exceeds that of the max, 
-        // reset the selected items and only include the one newly selected
+        // pop the oldest item from the list and unselect it
         if (this.state.selected_nodes.length > this.state.max_selections) {
             const first = this.state.selected_nodes[0];
             first.isSelected = false;
