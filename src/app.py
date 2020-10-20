@@ -171,8 +171,8 @@ def update_graph(n, selected):
         }
     return get_field_plot(selected[0])  # Plot first selected data
 
-# app.callback(
-#     Output(component_id='settings-card', component_property='children'),
-#     [Input(component_id='tree', component_property='n_updates')],
-#     [State(component_id='tree', component_property='selected')]
-#     )(update_settings_card)
+app.callback(
+    Output(component_id='settings-card', component_property='children'),
+    [Input(component_id='tree', component_property='n_updates')],
+    [State(component_id='tree', component_property='selected')]
+    )(update_settings_card)
