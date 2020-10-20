@@ -49,7 +49,7 @@ def authenticate():
     """Authenticate user to GCP"""
     if os.environ.get("ENV") == "PROD":
         with tempfile.NamedTemporaryFile() as tf:
-            tf.write(json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
+            json.dump(tf, json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
             return bigquery.Client.from_service_account_json(tf.name)
     return bigquery.Client.from_service_account_json("google-credentials.json")
 
