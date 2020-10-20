@@ -18,6 +18,8 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
+from src.components.settingscard import update_settings_card
+
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 server = app.server
@@ -74,25 +76,7 @@ treeCard = dbc.Card(
     style={"minHeight": "45rem"},  # for dummy purposes, to remove later
 )
 
-settingsCard = dbc.Card(
-    [
-        dbc.CardBody(
-            [
-                html.H4("Settings", className="settings-card-title"),
-                dbc.Label("Graph Type", html_for="settings-graph-type-dropdown"),
-                dcc.Dropdown(
-                    id="settings-graph-type-dropdown",
-                    options=[
-                        {"label": "Violin", "value": 1},
-                        {"label": "Scatter", "value": 2},
-                        {"label": "Bar", "value": 3},
-                    ],
-                    value=2,
-                    clearable=False
-                )
-            ]
-        ),
-    ],
+settingsCard = dbc.Card(id='settings-card', 
     style={"minHeight": "40rem"},  # for dummy purposes, to remove later
 )
 
@@ -101,7 +85,7 @@ graphsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Plot", className="graphs-card-title"),
-                dcc.Graph(id='graph', )
+                dcc.Graph(id='graph')
             ]
         ),
     ],
@@ -186,3 +170,9 @@ def update_graph(n, selected):
             }
         }
     return get_field_plot(selected[0])  # Plot first selected data
+
+# app.callback(
+#     Output(component_id='settings-card', component_property='children'),
+#     [Input(component_id='tree', component_property='n_updates')],
+#     [State(component_id='tree', component_property='selected')]
+#     )(update_settings_card)
