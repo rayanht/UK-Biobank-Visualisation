@@ -95,7 +95,9 @@ settingsCard = dbc.Card(
                     id='variable-dropdown-y',
                     options=[],
                     placeholder="Select a variable to plot",
-                    optionHeight=45
+                    optionHeight=45,
+                    # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
+                    disabled=True
                 ),
             ]
         ),
@@ -172,6 +174,7 @@ def toggle_navbar_collapse(n, is_open):
     [State(component_id='tree', component_property='selected_nodes')]
 )
 def update_dropdown(n, selected_nodes):
+    """Update the dropdown when nodes from the tree are selected"""
     def get_option(node):
         label = node['label']
         title = None
@@ -188,6 +191,7 @@ def update_dropdown(n, selected_nodes):
     Output(component_id='graph', component_property='figure'),
     [Input('variable-dropdown-x', 'value')])
 def update_graph(value):
+    """Update the graph when the dropdown selection changes"""
     if value is None:
         return {
             "layout": {
