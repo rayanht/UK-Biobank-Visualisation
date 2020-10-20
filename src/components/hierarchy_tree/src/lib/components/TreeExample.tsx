@@ -16,13 +16,12 @@
 
 import * as React from "react";
 
-import {Classes, Icon, Intent, ITreeNode, Position, Tooltip, Tree} from "@blueprintjs/core";
+import {Classes, ITreeNode, Tree} from "@blueprintjs/core";
 import "./Tree.css"
-import {node} from "prop-types";
 
 export interface IHierachyTreeNode extends ITreeNode {
-    catId?: number;
-    fieldId?: number;
+    category_id?: number;
+    field_id?: number;
 }
 
 export interface ITreeExampleState {
@@ -67,17 +66,20 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
         const originallySelected = nodeData.isSelected;
         if (nodeData.hasCaret) {
-            if (nodeData.isExpanded) this.handleNodeCollapse(nodeData);
-            else this.handleNodeExpand(nodeData);
+            if (nodeData.isExpanded) {
+                this.handleNodeCollapse(nodeData);
+            } else {
+                this.handleNodeExpand(nodeData);
+            }
             return;
         }
 
         nodeData.isSelected = originallySelected == null ? true : !originallySelected;
 
         if (nodeData.isSelected) {
-            this.state.selected.push(nodeData.fieldId);
+            this.state.selected.push(nodeData.field_id);
         } else {
-            const index = this.state.selected.indexOf(nodeData.fieldId);
+            const index = this.state.selected.indexOf(nodeData.field_id);
             if (index > -1) {
                 this.state.selected.splice(index, 1);
             }
@@ -87,7 +89,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         // reset the selected items and only include the one newly selected
         if (this.state.selected.length > MAX_NUM_OF_SELECTIONS) {
             this.forEachNode(this.state.nodes, n => (n.isSelected = false));
-            this.state.selected = [nodeData.fieldId];
+            this.state.selected = [nodeData.field_id];
             nodeData.isSelected = true;
         }
 
