@@ -46,7 +46,7 @@ class Graph:
             # There are multiple instances. Drop row with field name
             inst_names = inst_names.loc[inst_names['InstanceID'].notnull()]
             inst_names['dbid'] \
-                = inst_names.apply(lambda row:  f'_{field_id}_{int(row.InstanceID)}_0_', axis=1)
+                = inst_names.apply(lambda row:  f'_{field_id}_{int(row.InstanceID)}_0', axis=1)
         else :
             inst_names['dbid'] = '_' + field_id + '_0_0'
         inst_name_dict = dict(zip(inst_names['dbid'], inst_names['NodeName']))
