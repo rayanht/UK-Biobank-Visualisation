@@ -5,12 +5,13 @@ import {TreeExample} from "./TreeExample";
 export default class HierarchyTree extends Component {
 
     render() {
-        const {id, data, selected, n_updates, setProps, clopenState} = this.props;
+        const {id, data, selected_nodes, max_selections, n_updates, setProps, clopenState} = this.props;
         const setClopenState = (id, state) => {
             clopenState[id] = state;
         }
         return (
-            <TreeExample id={id} nodes={data} selected={selected} n_updates={n_updates} setProps={setProps} setClopenState={setClopenState}/>
+            <TreeExample id={id} nodes={data} selected_nodes={selected_nodes} max_selections={max_selections}
+                         n_updates={n_updates} setProps={setProps} setClopenState={setClopenState}/>
         );
     }
 }
@@ -29,9 +30,14 @@ HierarchyTree.propTypes = {
     data: PropTypes.array,
 
     /**
-     * An array of selected FieldIds
+     * An array of selected nodes
      */
-    selected: PropTypes.arrayOf(PropTypes.number),
+    selected_nodes: PropTypes.arrayOf(PropTypes.number),
+
+    /**
+     * The maximum number of nodes that should be selected at any time
+     */
+    max_selections: PropTypes.number,
 
     /**
      * A count of the number of times the inputs have updated, so the callback function knows when to update

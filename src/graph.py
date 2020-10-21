@@ -1,5 +1,6 @@
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 from plotly.subplots import make_subplots
 
 from enum import Enum
@@ -67,12 +68,7 @@ class Graph:
 graph = Graph()
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
-
-# returns a graph containing columns of the same field
-def get_field_plot(raw_id):
-    node_id = NodeIdentifier(raw_id)
-    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
-    # initialise figure
+def violin_plot(node_id, filtered_data):
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     for col in filtered_data:
         trace = go.Violin(
@@ -96,6 +92,28 @@ def get_field_plot(raw_id):
         showlegend=False,
     )
     return fig
+
+def scatter_plot(node_id, filtered_data):
+    fig = px.scatter(data_frame=filtered_data)
+    fig.update_layout(
+        title={
+            "text": graph.get_field_name(node_id.field_id),
+            "y": 0.85,
+            "x": 0.475,
+            "xanchor": "center",
+            "yanchor": "top",
+        },
+        showlegend=False,
+    )
+    return fig
+
+# returns a graph containing columns of the same field
+def get_field_plot(raw_id, graph_type):
+    node_id = NodeIdentifier(raw_id)
+    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
+    # initialise figure
+    switcher = {1: violin_plot, 2: scatter_plot}
+    return switcher[graph_type](node_id, filtered_data)
 
 class ValueType(Enum):
     INTEGER = (11, "Integer", [1, 2, 3])
