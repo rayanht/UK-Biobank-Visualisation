@@ -45,11 +45,11 @@ class Graph:
         if (len(inst_names) > 1) :
             # There are multiple instances. Drop row with field name
             inst_names = inst_names.loc[inst_names['InstanceID'].notnull()]
-            inst_names['dbid'] \
-                = inst_names.apply(lambda row:  f'_{field_id}_{int(row.InstanceID)}_0', axis=1)
+            inst_names['MetaID'] \
+                = inst_names.apply(lambda row:  f'{field_id}-{int(row.InstanceID)}.0', axis=1)
         else :
-            inst_names['dbid'] = '_' + field_id + '_0_0'
-        inst_name_dict = dict(zip(inst_names['dbid'], inst_names['NodeName']))
+            inst_names['MetaID'] = field_id + '-0.0'
+        inst_name_dict = dict(zip(inst_names['MetaID'], inst_names['NodeName']))
         return inst_name_dict
 
     def get_field_instance_map(self, has_instances, has_array):

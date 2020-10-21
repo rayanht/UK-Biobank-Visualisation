@@ -105,7 +105,16 @@ graphsCard = dbc.Card(
 )
 
 selectInstanceCard = dbc.Card(
-    id='select-instance-card'
+    [
+        dbc.CardBody(
+            id='select-instance-card',
+            children=
+            [
+                html.H5("Select Instance", className="sel-instance-card-title"),
+                dcc.Dropdown(id='instance-options'),
+            ],
+        )
+    ]
 )
 
 app.layout = html.Div(
@@ -162,11 +171,10 @@ def toggle_navbar_collapse(n, is_open):
 
 @app.callback(
     Output(component_id='graph', component_property='figure'),
-    [Input(component_id='tree', component_property='n_updates')],
-    [State(component_id='tree', component_property='selected')]
+    Input(component_id='instance-options', component_property='value'),
 )
-def update_graph(n, selected):
-    if len(selected) == 0:
+def update_graph(value):
+    if value == '':
         return {
             "layout": {
                 "xaxis": {
@@ -188,10 +196,11 @@ def update_graph(n, selected):
                 ]
             }
         }
-    return get_field_plot(selected[0])  # Plot first selected data
+    return get_field_plot(value)  # Plot first selected data
 
 app.callback(
-    Output(component_id='select-instance-card', component_property='children'),
+    [Output(component_id='instance-options', component_property='options'),
+    Output(component_id='instance-options', component_property='value')],
     [Input(component_id='tree', component_property='n_updates')],
     [State(component_id='tree', component_property='selected')]
 )(update_sel_inst_card)
