@@ -49,14 +49,12 @@ class Query:
     def all(cls):
         return Query(["*"])
 
-
 def authenticate():
     """Authenticate user to GCP"""
     if os.environ.get("ENV") == "PROD":
         with open("google-credentials.json", "w") as fp:
             json.dump(json.loads(os.environ.get("GOOGLE_CREDENTIALS")), fp)
     return bigquery.Client.from_service_account_json("google-credentials.json")
-
 
 class DatasetGateway(metaclass=Singleton):
 
@@ -68,19 +66,17 @@ class DatasetGateway(metaclass=Singleton):
     def submit(cls, _query: Query) -> pd.DataFrame:
         return cls().client.query(_query.build()).result().to_dataframe()
 
-class MetaDataLoader:
+@functools.lru_cache
+def field_id_meta_data():
+    r = requests.get("https://biobank.ndph.ox.ac.uk/ukb/scdown.cgi?id=1&fmt=xml")
 
-    @functools.cached_property
-    def field_id_meta_data(self):
-        r = requests.get("https://biobank.ndph.ox.ac.uk/ukb/scdown.cgi?id=1&fmt=xml")
+    columns = ["field_id", "title", "value_type", "base_type", "item_type",
+                "strata", "instanced", "arrayed", "sexed", "units", "main_category",
+                "encoding_id", "instance_id", "instance_min", "instance_max",
+                "array_min", "array_max", "notes", "debut", "version",
+                "num_participants", "item_count"]
 
-        columns = ["field_id", "title", "value_type", "base_type", "item_type",
-                    "strata", "instanced", "arrayed", "sexed", "units", "main_category",
-                    "encoding_id", "instance_id", "instance_min", "instance_max",
-                    "array_min", "array_max", "notes", "debut", "version",
-                    "num_participants", "item_count"]
-
-        return parse_XML(r.text, columns)
+    return parse_XML(r.text, columns)
 
 def parse_XML(xml_text, df_cols):
         """Parse the input XML file and store the result in a pandas

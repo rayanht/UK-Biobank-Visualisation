@@ -16,7 +16,7 @@ from dash.dependencies import Input, Output, State
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
 from hierarchy_tree.HierarchyTree import HierarchyTree
 
-from src.dataset_gateway import MetaDataLoader
+from src.dataset_gateway import field_id_meta_data
 from src.graph import ValueType
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -32,8 +32,6 @@ colors = {
 }
 
 hierarchy, clopen_state = get_hierarchy()
-
-mt = MetaDataLoader()
 
 MAX_SELECTIONS = 30
 
@@ -83,7 +81,6 @@ treeCard = dbc.Card(
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
 
-# settingsCard = dbc.Card(id='settings-card', 
 settingsCard = dbc.Card(
     [
         dbc.CardBody(
@@ -212,12 +209,12 @@ def update_dropdown(n, selected_nodes):
 )
 def update_graph_type(variable_dropdown_x):
     """Update the dropdown when nodes from the tree are selected"""
-    if (variable_dropdown_x is None): 
+    if (variable_dropdown_x is None):
         return [], None, True
 
     field_id = variable_dropdown_x # Only supports one variable for now
 
-    df = mt.field_id_meta_data
+    df = field_id_meta_data()
     value_type_id = int(df.loc[df['field_id'] == str(field_id)]['value_type'].values[0])
     value_type = ValueType(value_type_id)
 
@@ -233,7 +230,7 @@ def update_graph_type(variable_dropdown_x):
     graph_selection_list = []
     disabled_graphs = []
 
-    for x in range(len(options)):
+    for x, _ in enumerate(options):
         graph_type = options[x]["value"]
         if (graph_type in supported_graphs):
             graph_selection_list.append(options[x])
