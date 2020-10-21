@@ -112,6 +112,7 @@ selectInstanceCard = dbc.Card(
             [
                 html.H5("Select Instance", className="sel-instance-card-title"),
                 dcc.Dropdown(id='instance-options'),
+                html.Div(id='instance-options-instr')
             ],
         )
     ]
@@ -197,6 +198,14 @@ def update_graph(value):
             }
         }
     return get_field_plot(value)  # Plot first selected data
+
+@app.callback(
+    Output(component_id='instance-options-instr', component_property='children'),
+    Input(component_id='instance-options', component_property='value')
+)
+def update_sel_inst_card_instr(value) :
+    if (value == '') :
+        return "Select field to view instances"
 
 app.callback(
     [Output(component_id='instance-options', component_property='options'),
