@@ -10,6 +10,7 @@ import dash
 from src.dataset import get_hierarchy, filter_hierarchy
 
 from src.graph import get_field_plot
+from src.graph import get_inst_names_options
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
 
@@ -105,6 +106,21 @@ graphsCard = dbc.Card(
     style={"minHeight": "47rem"}, # for dummy purposes, to remove later
 )
 
+selInstCard = dbc.Card(
+    [
+        dbc.CardBody(
+            [
+                html.H6("Select Instance", className="sel-inst-card-title"),
+                dcc.Dropdown(
+                    id='instance-names',
+                    options=[],
+                ),
+                html.Div(id='dropdown-of-instances')
+            ]
+        ),
+    ],
+)
+
 app.layout = html.Div(
     style={'backgroundColor': colors['background'], 'height': "100vh"},
     children=
@@ -124,11 +140,14 @@ app.layout = html.Div(
                             width=2,
                         ),
                         dbc.Col(
-                            graphsCard, # Container for graphs
+                            [
+                                selInstCard, # Container for instance selection
+                                graphsCard, # Container for graphs
+                            ],
                             width=6,
                         ),
                     ]
-                )
+                ),
             ],
             className="p-5",
             fluid=True
@@ -181,6 +200,35 @@ def update_graph(n, selected):
             }
         }
     return get_field_plot(selected[0], False) # Plot first selected data
+    # return get_field_plot(3137, False) # Plot first selected data
+
+@app.callback(
+    Output(component_id='dropdown-of-instances', component_property='children'),
+    [Input('instance-names', 'value'),
+    Input('instance-names', 'options')]
+)
+def select_inst(value, options):
+    if (options != []) & (value == None):
+        return "No instance selected."
+    elif value == None :
+        return "Select a field to view its instances."
+    
+
+@app.callback(
+    Output(component_id='instance-names', component_property='options'),
+    [Input(component_id='tree', component_property='n_updates')],
+    [State(component_id='tree', component_property='selected')]
+)
+def set_inst_options(n, selected):
+    if len(selected) == 0 :
+        options = []
+        return options
+    # dict_with_inst = get_inst_names_options(selected[0], False) 
+    print("Retrieving list of options...")
+    dict_with_inst = get_inst_names_options(3137, False) 
+    print("Retrieved list of options")
+    return [{'label': dict_with_inst[field_inst_id], 'value': field_inst_id} \
+                for field_inst_id in dict_with_inst]
 
 # For test.py
 def hello_world():

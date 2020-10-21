@@ -200,4 +200,5 @@ def get_field_names_to_inst():
 
 
 def get_meta_data():
-    return loader.fetch_metadata(row_limit=100).set_index('eid')
+    # return loader.fetch_metadata(row_limit=100).set_index('eid')
+    return loader.fetch_subset().set_index('eid')
