@@ -6,7 +6,7 @@ import tempfile
 from typing import List
 
 import requests
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 
 import functools
 
@@ -74,49 +74,34 @@ class MetaDataLoader:
     def field_id_meta_data(self):
         r = requests.get("https://biobank.ndph.ox.ac.uk/ukb/scdown.cgi?id=1&fmt=xml")
 
-        columns = ["field_id", "title", "value_type", "base_type", "item_type", 
-                    "strata", "instanced", "arrayed", "sexed", "units", "main_category", 
-                    "encoding_id", "instance_id", "instance_min", "instance_max", 
-                    "array_min", "array_max", "notes", "debut", "version", 
+        columns = ["field_id", "title", "value_type", "base_type", "item_type",
+                    "strata", "instanced", "arrayed", "sexed", "units", "main_category",
+                    "encoding_id", "instance_id", "instance_min", "instance_max",
+                    "array_min", "array_max", "notes", "debut", "version",
                     "num_participants", "item_count"]
 
-        return self.parse_XML(r.text, columns)
+        return parse_XML(r.text, columns)
 
-    def value_type_to_string(self, value_type):
-        value_type_dict = {
-            11: "Integer",
-            21: "Categorical (single)",
-            22: "Categorical (multiple)",
-            31: "Continuous",
-            41: "Text",
-            51: "Date",
-            61 : "Time",
-            101: "Compound"
-        }
-        return value_type_dict.get(value_type)
+def parse_XML(xml_text, df_cols):
+        """Parse the input XML file and store the result in a pandas
+        DataFrame with the given columns.
 
-    def parse_XML(self, xml_text, df_cols): 
-        """Parse the input XML file and store the result in a pandas 
-        DataFrame with the given columns. 
-        
-        The first element of df_cols is supposed to be the identifier 
-        variable, which is an attribute of each node element in the 
-        XML data; other features will be parsed from the text content 
-        of each sub-element. 
+        The first element of df_cols is supposed to be the identifier
+        variable, which is an attribute of each node element in the
+        XML data; other features will be parsed from the text content
+        of each sub-element.
         """
-        
-        root = ET.fromstring(xml_text)
-        rows = []
-        
-        for node in root: 
-            res = []
-            
-            for i in range(len(df_cols)):
-                res.append(node.attrib.get(df_cols[i]))
 
-            rows.append({df_cols[i]: res[i] 
+        root = ET.fromstring(xml_text, forbid_entities=False)
+        rows = []
+
+        for node in root:
+            res = []
+            for i, _ in enumerate(df_cols):
+                res.append(node.attrib.get(df_cols[i]))
+            rows.append({df_cols[i]: res[i]
                         for i, _ in enumerate(df_cols)})
-        
+
         out_df = pd.DataFrame(rows, columns=df_cols)
-            
+
         return out_df

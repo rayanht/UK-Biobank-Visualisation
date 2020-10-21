@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5d82882b18372bdfddbd0d704763eb93c9b3e427af0d19d5874fdae783080627"
+            "sha256": "44eb7e55b1967991d3d853348bc5a61d06fab8c36cc35542702e2edbf748aee9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -169,6 +169,14 @@
             ],
             "version": "==4.10.1"
         },
+        "defusedxml": {
+            "hashes": [
+                "sha256:6687150770438374ab581bb7a1b327a847dd9c5749e396102de3fad4e8a3ef93",
+                "sha256:f684034d135af4c6cbb949b8a4d2ed61634515257a67299e5f940fbaa34377f5"
+            ],
+            "index": "pypi",
+            "version": "==0.6.0"
+        },
         "firebase-admin": {
             "hashes": [
                 "sha256:44bb982951cfa201a99a59657a58f66eb367c362fe90200d0816f39df9862ff3",
@@ -211,11 +219,11 @@
         },
         "google-api-python-client": {
             "hashes": [
-                "sha256:5b3f4908c041f3109135841cf7e49fc4477f26f7d02b6db72753a17f8b338d01",
-                "sha256:844ef76bda585ea0ea2d5e7f8f9a0eb10d6e2eba66c4fea0210ec7843941cb1a"
+                "sha256:2532de469ce4e6756718976431484cd71c2b518ee6f158f62dea2c0b65285906",
+                "sha256:d4b850e1aa107113339baf27670ae80d493f4e7758e455cee40100e13f07c2d6"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==1.12.3"
+            "version": "==1.12.4"
         },
         "google-auth": {
             "hashes": [
@@ -242,11 +250,11 @@
         },
         "google-cloud-bigquery-storage": {
             "hashes": [
-                "sha256:3fb8d85e3afe9ce2a2d7219ad9ace41426a477ab73845cdb3e9087772e2a41a2",
-                "sha256:cebeaf1da7b7e4e3fd95e4a51a6d9c26dc49027d5191ba1fe894d9e1ef259592"
+                "sha256:661f18998e34c2db76cca8e7cae01862d33c5589b6181ba42e401db34eafdc15",
+                "sha256:be2123f4ecf793754e821960a14bd3667d654e11baa1e98d04bbc3a93a83f473"
             ],
             "index": "pypi",
-            "version": "==2.0.0"
+            "version": "==2.0.1"
         },
         "google-cloud-core": {
             "hashes": [

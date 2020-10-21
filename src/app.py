@@ -5,7 +5,6 @@
 import os
 import re
 import sys
-from typing import Container
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -206,8 +205,8 @@ def update_dropdown(n, selected_nodes):
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
 
 @app.callback(
-    [Output(component_id='settings-graph-type-dropdown', component_property='options'), 
-     Output(component_id='settings-graph-type-dropdown', component_property='value'), 
+    [Output(component_id='settings-graph-type-dropdown', component_property='options'),
+     Output(component_id='settings-graph-type-dropdown', component_property='value'),
      Output(component_id='settings-graph-type-dropdown', component_property='disabled')],
     [Input(component_id='variable-dropdown-x', component_property='value')]
 )
@@ -221,7 +220,7 @@ def update_graph_type(variable_dropdown_x):
     df = mt.field_id_meta_data
     value_type_id = int(df.loc[df['field_id'] == str(field_id)]['value_type'].values[0])
     value_type = ValueType(value_type_id)
-    
+
     options = [
         {"label": "Violin", "value": 1},
         {"label": "Scatter", "value": 2},
@@ -248,8 +247,8 @@ def update_graph_type(variable_dropdown_x):
 
 @app.callback(
     Output(component_id='graph', component_property='figure'),
-    [Input(component_id='settings-card-submit', component_property='n_clicks')], 
-    [State(component_id='variable-dropdown-x', component_property='value'), 
+    [Input(component_id='settings-card-submit', component_property='n_clicks')],
+    [State(component_id='variable-dropdown-x', component_property='value'),
     State(component_id='settings-graph-type-dropdown', component_property='value')])
 def update_graph(n, x_value, graph_type):
     """Update the graph when the dropdown selection changes"""

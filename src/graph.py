@@ -126,7 +126,7 @@ class ValueType(Enum):
     COMPOUND = (101, "Compound", [])
 
     def __init__(self, type_id, label, supported_graphs):
-        self.type_id = type_id 
+        self.type_id = type_id
         self.label = label
         self.supported_graphs = supported_graphs
 
