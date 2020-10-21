@@ -7,10 +7,8 @@ import sys
 
 import dash
 
-from src.dataset import get_hierarchy, filter_hierarchy
-
-from src.graph import get_field_plot
-from src.graph import get_inst_names_options
+from src.graph import get_field_plot, get_inst_names_options
+from src.tree.node_utils import get_hierarchy, filter_hierarchy
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
 
@@ -18,8 +16,6 @@ from hierarchy_tree.HierarchyTree import HierarchyTree
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import pandas as pd
 from dash.dependencies import Input, Output, State
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -43,8 +39,8 @@ navbar = dbc.Navbar(
         dbc.Collapse(
             dbc.Nav(
                 [
-                    dbc.NavItem(dbc.NavLink("Graphs", href="#")), # dummy graphs link
-                    dbc.DropdownMenu( # dummy dropdown menu
+                    dbc.NavItem(dbc.NavLink("Graphs", href="#")),  # dummy graphs link
+                    dbc.DropdownMenu(  # dummy dropdown menu
                         children=[
                             dbc.DropdownMenuItem("Entry 1"),
                             dbc.DropdownMenuItem("Entry 2"),
@@ -75,7 +71,7 @@ treeCard = dbc.Card(
             ]
         ),
     ],
-    style={"minHeight": "45rem"}, # for dummy purposes, to remove later
+    style={"minHeight": "45rem"},  # for dummy purposes, to remove later
 )
 
 settingsCard = dbc.Card(
@@ -91,7 +87,7 @@ settingsCard = dbc.Card(
             ]
         ),
     ],
-    style={"minHeight": "40rem"}, # for dummy purposes, to remove later
+    style={"minHeight": "40rem"},  # for dummy purposes, to remove later
 )
 
 graphsCard = dbc.Card(
@@ -99,11 +95,11 @@ graphsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Plot", className="graphs-card-title"),
-                dcc.Graph(id='graph',)
+                dcc.Graph(id='graph', )
             ]
         ),
     ],
-    style={"minHeight": "47rem"}, # for dummy purposes, to remove later
+    style={"minHeight": "47rem"},  # for dummy purposes, to remove later
 )
 
 selInstCard = dbc.Card(
@@ -132,11 +128,11 @@ app.layout = html.Div(
                 dbc.Row(
                     [
                         dbc.Col(
-                            treeCard, # Container for tree
+                            treeCard,  # Container for tree
                             width=4,
                         ),
                         dbc.Col(
-                            settingsCard, # Container for settings
+                            settingsCard,  # Container for settings
                             width=2,
                         ),
                         dbc.Col(
@@ -155,21 +151,23 @@ app.layout = html.Div(
     ]
 )
 
+
 # we use a callback to toggle the collapse on small screens
+
+
+@app.callback([Output("tree", "data"), Output("tree", "clopen_state")], [Input("search-input", "value")],
+              [State("tree", "clopenState")])
+def output_text(s, clopen):
+    return filter_hierarchy(clopen, s)
+
+
+@app.callback(Output("navbar-collapse", "is_open"), [Input("navbar-toggler", "n_clicks")],
+              [State("navbar-collapse", "is_open")])
 def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
 
-@app.callback([Output("tree", "data"), Output("tree", "clopen_state")], [Input("search-input", "value")], [State("tree", "clopenState")])
-def output_text(s, clopen):
-    return filter_hierarchy(clopen, s)
-
-app.callback(
-    Output("navbar-collapse", "is_open"),
-    [Input("navbar-toggler", "n_clicks")],
-    [State("navbar-collapse", "is_open")],
-)(toggle_navbar_collapse)
 
 @app.callback(
     Output(component_id='graph', component_property='figure'),
@@ -177,7 +175,7 @@ app.callback(
     [State(component_id='tree', component_property='selected')]
 )
 def update_graph(n, selected):
-    if (len(selected) == 0):
+    if len(selected) == 0:
         return {
             "layout": {
                 "xaxis": {
@@ -199,8 +197,7 @@ def update_graph(n, selected):
                 ]
             }
         }
-    return get_field_plot(selected[0], False) # Plot first selected data
-    # return get_field_plot(3137, False) # Plot first selected data
+    return get_field_plot(selected[0])  # Plot first selected data
 
 @app.callback(
     Output(component_id='dropdown-of-instances', component_property='children'),
@@ -223,10 +220,7 @@ def set_inst_options(n, selected):
     if len(selected) == 0 :
         options = []
         return options
-    # dict_with_inst = get_inst_names_options(selected[0], False) 
-    print("Retrieving list of options...")
-    dict_with_inst = get_inst_names_options(3137, False) 
-    print("Retrieved list of options")
+    dict_with_inst = get_inst_names_options(selected[0], False) 
     return [{'label': dict_with_inst[field_inst_id], 'value': field_inst_id} \
                 for field_inst_id in dict_with_inst]
 
