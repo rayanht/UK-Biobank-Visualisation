@@ -6,12 +6,19 @@ from src.tree.node_utils import prune, gen, Node, transcode, build, search_word
 
 class NodeUtilsTest(unittest.TestCase):
 
-    def test_word_search(self):
+    def test_word_search_1(self):
         haystack1 = "Method of measuring blood pressure"
         haystack2 = "Date of birth"
         needle = "Blood"
         self.assertTrue(search_word(needle, haystack1))
         self.assertFalse(search_word(needle, haystack2))
+
+    def test_word_search_2(self):
+        haystack1 = "Method of measuring blood pressure"
+        haystack2 = "Date of birth"
+        needle = "Date of b"
+        self.assertTrue(search_word(needle, haystack2))
+        self.assertFalse(search_word(needle, haystack1))
 
     def test_build(self):
         columns = ["NodeID", "NodeType", "NodeName", "FieldID", "InstanceID"]
