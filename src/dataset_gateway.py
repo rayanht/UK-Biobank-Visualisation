@@ -53,7 +53,6 @@ def authenticate():
 
 
 class DatasetGateway(metaclass=Singleton):
-
     def __init__(self):
         self.client: bigquery.Client
         self.client = authenticate()
@@ -67,11 +66,30 @@ class DatasetGateway(metaclass=Singleton):
 def field_id_meta_data():
     r = requests.get("https://biobank.ndph.ox.ac.uk/ukb/scdown.cgi?id=1&fmt=xml")
 
-    columns = ["field_id", "title", "value_type", "base_type", "item_type",
-               "strata", "instanced", "arrayed", "sexed", "units", "main_category",
-               "encoding_id", "instance_id", "instance_min", "instance_max",
-               "array_min", "array_max", "notes", "debut", "version",
-               "num_participants", "item_count"]
+    columns = [
+        "field_id",
+        "title",
+        "value_type",
+        "base_type",
+        "item_type",
+        "strata",
+        "instanced",
+        "arrayed",
+        "sexed",
+        "units",
+        "main_category",
+        "encoding_id",
+        "instance_id",
+        "instance_min",
+        "instance_max",
+        "array_min",
+        "array_max",
+        "notes",
+        "debut",
+        "version",
+        "num_participants",
+        "item_count",
+    ]
 
     return parse_xml(r.text, columns)
 
@@ -93,8 +111,7 @@ def parse_xml(xml_text, df_cols):
         res = []
         for i, _ in enumerate(df_cols):
             res.append(node.attrib.get(df_cols[i]))
-        rows.append({df_cols[i]: res[i]
-                    for i, _ in enumerate(df_cols)})
+        rows.append({df_cols[i]: res[i] for i, _ in enumerate(df_cols)})
 
     out_df = pd.DataFrame(rows, columns=df_cols)
 

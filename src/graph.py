@@ -136,8 +136,8 @@ class ValueType(Enum):
         return obj
 
     def __repr__(self):
-        return '<%s.%s: %s>' % (
-                self.__class__.__name__,
-                self._name_,
-                ', '.join([repr(v) for v in self._all_values]),
-                )
+        return "<%s.%s: %s>" % (
+            self.__class__.__name__,
+            self._name_,
+            ", ".join([repr(v) for v in self._all_values]),
+        )
