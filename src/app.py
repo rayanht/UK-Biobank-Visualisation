@@ -169,18 +169,9 @@ app.layout = html.Div(
             [
                 dbc.Row(
                     [
-                        dbc.Col(
-                            treeCard,  # Container for tree
-                            width=4,
-                        ),
-                        dbc.Col(
-                            settingsCard,  # Container for settings
-                            width=2,
-                        ),
-                        dbc.Col(
-                            graphsCard,  # Container for graphs
-                            width=6,
-                        ),
+                        dbc.Col(treeCard, width=4),  # Container for tree
+                        dbc.Col(settingsCard, width=2),  # Container for settings
+                        dbc.Col(graphsCard, width=6),  # Container for graphs
                     ]
                 )
             ],

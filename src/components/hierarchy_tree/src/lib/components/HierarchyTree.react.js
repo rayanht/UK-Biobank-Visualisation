@@ -43,7 +43,7 @@ HierarchyTree.propTypes = {
      * A count of the number of times the inputs have updated, so the callback function knows when to update
      */
     n_updates: PropTypes.number,
-    
+
     /**
      * The clopen state of the nodes in the tree.
      */
