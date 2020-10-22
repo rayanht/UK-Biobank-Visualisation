@@ -22,8 +22,9 @@ class NodeIdentifier:
 
 
 class Node:
-
-    def __init__(self, name: str, node_type: str, field_id: str = None, instance_id: str = None):
+    def __init__(
+        self, name: str, node_type: str, field_id: str = None, instance_id: str = None
+    ):
         self.childNodes = dict()
         self.label = name
         self.node_type = node_type

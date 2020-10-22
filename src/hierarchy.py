@@ -15,19 +15,18 @@ from src.dataset_gateway import Singleton
 
 
 class HierarchyLoader(metaclass=Singleton):
-
     def __init__(self):
         self.is_authenticated = False
 
     def authenticate(self):
         """Authenticate user to firebase"""
         if os.environ.get("ENV") == "PROD":
-            cred = credentials.Certificate(json.loads(os.environ.get("GOOGLE_CREDENTIALS")))
+            cred = credentials.Certificate(
+                json.loads(os.environ.get("GOOGLE_CREDENTIALS"))
+            )
         else:
-            cred = credentials.Certificate('google-credentials.json')
-        firebase_admin.initialize_app(cred, {
-            'storageBucket': STORAGE_BUCKET
-        })
+            cred = credentials.Certificate("google-credentials.json")
+        firebase_admin.initialize_app(cred, {"storageBucket": STORAGE_BUCKET})
         self.is_authenticated = True
 
     @classmethod

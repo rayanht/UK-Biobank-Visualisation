@@ -13,7 +13,7 @@ from src.graph import get_field_plot
 from src.tree.node_utils import get_hierarchy, filter_hierarchy
 from dash.dependencies import Input, Output, State
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
+sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
 from hierarchy_tree.HierarchyTree import HierarchyTree
 
 from src.dataset_gateway import field_id_meta_data
@@ -25,11 +25,7 @@ server = app.server
 
 app.title = "UK BioBank Explorer"
 
-colors = {
-    'background': "#fdfdfd",
-    'text': "#7FDBFF",
-    'navbar-bg': "#f7f7f7",
-}
+colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
 
 hierarchy, clopen_state = get_hierarchy()
 
@@ -53,15 +49,17 @@ navbar = dbc.Navbar(
                         nav=True,
                         in_navbar=True,
                         label="Menu",
-                        right=True
-                    )
-                ], className="ml-auto", navbar=True
+                        right=True,
+                    ),
+                ],
+                className="ml-auto",
+                navbar=True,
             ),
             id="navbar-collapse",
             navbar=True,
         ),
     ],
-    className="px-5"
+    className="px-5",
 )
 
 treeCard = dbc.Card(
@@ -127,33 +125,23 @@ graphsCard = dbc.Card(
                 html.H4("Plot", className="mb-3 graphs-card-title"),
                 dcc.Graph(id='graph', )
             ]
-        ),
+        )
     ],
     style={"minHeight": "50rem"},  # for dummy purposes, to remove later
 )
 
 app.layout = html.Div(
-    style={'backgroundColor': colors['background'], 'height': "100vh"},
-    children=
-    [
+    style={"backgroundColor": colors["background"], "height": "100vh"},
+    children=[
         navbar,
         # row,
         dbc.Container(
             [
                 dbc.Row(
                     [
-                        dbc.Col(
-                            treeCard,  # Container for tree
-                            width=4,
-                        ),
-                        dbc.Col(
-                            settingsCard,  # Container for settings
-                            width=2,
-                        ),
-                        dbc.Col(
-                            graphsCard,  # Container for graphs
-                            width=6,
-                        ),
+                        dbc.Col(treeCard, width=4),  # Container for tree
+                        dbc.Col(settingsCard, width=2),  # Container for settings
+                        dbc.Col(graphsCard, width=6),  # Container for graphs
                     ]
                 )
             ],
@@ -167,14 +155,20 @@ app.layout = html.Div(
 # we use a callback to toggle the collapse on small screens
 
 
-@app.callback([Output("tree", "data"), Output("tree", "clopen_state")], [Input("search-input", "value")],
-              [State("tree", "clopenState")])
+@app.callback(
+    [Output("tree", "data"), Output("tree", "clopen_state")],
+    [Input("search-input", "value")],
+    [State("tree", "clopenState")],
+)
 def output_text(s, clopen):
     return filter_hierarchy(clopen, s)
 
 
-@app.callback(Output("navbar-collapse", "is_open"), [Input("navbar-toggler", "n_clicks")],
-              [State("navbar-collapse", "is_open")])
+@app.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
 def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
@@ -182,21 +176,24 @@ def toggle_navbar_collapse(n, is_open):
 
 
 @app.callback(
-    [Output(component_id='variable-dropdown-x', component_property='options'),
-     Output(component_id='selections-capacity', component_property='children'),
-     Output(component_id='variable-dropdown-y', component_property='options')],
-    [Input(component_id='tree', component_property='n_updates')],
-    [State(component_id='tree', component_property='selected_nodes')]
+    [
+        Output(component_id="variable-dropdown-x", component_property="options"),
+        Output(component_id="selections-capacity", component_property="children"),
+        Output(component_id="variable-dropdown-y", component_property="options"),
+    ],
+    [Input(component_id="tree", component_property="n_updates")],
+    [State(component_id="tree", component_property="selected_nodes")],
 )
 def update_dropdown(n, selected_nodes):
     """Update the dropdown when nodes from the tree are selected"""
+
     def get_option(node):
-        label = node['label']
+        label = node["label"]
         title = None
-        if '(' in label:
+        if "(" in label:
             title = label
-            label = re.sub(r'\([^)]*\)', '', label)
-        return {'label': label, 'value': node['field_id'], 'title': title}
+            label = re.sub(r"\([^)]*\)", "", label)
+        return {"label": label, "value": node["field_id"], "title": title}
 
     options = [get_option(node) for node in selected_nodes]
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
@@ -252,23 +249,17 @@ def update_graph(n, x_value, graph_type):
     if x_value is None:
         return {
             "layout": {
-                "xaxis": {
-                    "visible": False
-                },
-                "yaxis": {
-                    "visible": False
-                },
+                "xaxis": {"visible": False},
+                "yaxis": {"visible": False},
                 "annotations": [
                     {
                         "text": "Select a data category to begin",
                         "xref": "paper",
                         "yref": "paper",
                         "showarrow": False,
-                        "font": {
-                            "size": 22
-                        }
+                        "font": {"size": 22},
                     }
-                ]
+                ],
             }
         }
     return get_field_plot(x_value, graph_type)  # Plot first selected data

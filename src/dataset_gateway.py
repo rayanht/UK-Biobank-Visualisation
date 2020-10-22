@@ -57,7 +57,6 @@ def authenticate():
     return bigquery.Client.from_service_account_json("google-credentials.json")
 
 class DatasetGateway(metaclass=Singleton):
-
     def __init__(self):
         self.client: bigquery.Client
         self.client = authenticate()

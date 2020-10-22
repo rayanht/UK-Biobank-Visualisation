@@ -90,7 +90,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             }
         }
 
-        // If the number of selected items exceeds that of the max, 
+        // If the number of selected items exceeds that of the max,
         // pop the oldest item from the list and unselect it
         if (this.state.selected_nodes.length > this.state.max_selections) {
             const first = this.state.selected_nodes[0];
