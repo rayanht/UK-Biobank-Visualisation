@@ -25,11 +25,7 @@ server = app.server
 
 app.title = "UK BioBank Explorer"
 
-colors = {
-    "background": "#fdfdfd",
-    "text": "#7FDBFF",
-    "navbar-bg": "#f7f7f7",
-}
+colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
 
 hierarchy, clopen_state = get_hierarchy()
 
@@ -93,7 +89,7 @@ treeCard = dbc.Card(
                 ),
             ],
             className="d-flex flex-column",
-        ),
+        )
     ],
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
@@ -141,7 +137,7 @@ settingsCard = dbc.Card(
                 ),
             ],
             className="d-flex flex-column",
-        ),
+        )
     ],
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
@@ -149,13 +145,8 @@ settingsCard = dbc.Card(
 graphsCard = dbc.Card(
     [
         dbc.CardBody(
-            [
-                html.H4("Plot", className="mb-3 graphs-card-title"),
-                dcc.Graph(
-                    id="graph",
-                ),
-            ]
-        ),
+            [html.H4("Plot", className="mb-3 graphs-card-title"), dcc.Graph(id="graph")]
+        )
     ],
     style={"minHeight": "50rem"},  # for dummy purposes, to remove later
 )

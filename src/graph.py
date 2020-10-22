@@ -102,7 +102,7 @@ class Graph:
         )
         return fig
 
-      
+
 def get_field_plot(raw_id, graph_type):
     """Returns a graph containing columns of the same field"""
     node_id = NodeIdentifier(raw_id)

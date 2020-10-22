@@ -20,4 +20,3 @@ function hierarchytree(; kwargs...)
         wild_props = Symbol[]
         return Component("hierarchytree", "HierarchyTree", "hierarchy_tree", available_props, wild_props; kwargs...)
 end
-
