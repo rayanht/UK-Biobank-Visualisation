@@ -68,6 +68,7 @@ class Graph:
 graph = Graph()
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
+
 def violin_plot(node_id, filtered_data):
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     for col in filtered_data:
@@ -93,6 +94,7 @@ def violin_plot(node_id, filtered_data):
     )
     return fig
 
+
 def scatter_plot(node_id, filtered_data):
     fig = px.scatter(data_frame=filtered_data)
     fig.update_layout(
@@ -107,6 +109,7 @@ def scatter_plot(node_id, filtered_data):
     )
     return fig
 
+
 # returns a graph containing columns of the same field
 def get_field_plot(raw_id, graph_type):
     node_id = NodeIdentifier(raw_id)
@@ -114,6 +117,7 @@ def get_field_plot(raw_id, graph_type):
     # initialise figure
     switcher = {1: violin_plot, 2: scatter_plot}
     return switcher[graph_type](node_id, filtered_data)
+
 
 class ValueType(Enum):
     INTEGER = (11, "Integer", [1, 2, 3])
@@ -138,8 +142,8 @@ class ValueType(Enum):
         return obj
 
     def __repr__(self):
-        return '<%s.%s: %s>' % (
-                self.__class__.__name__,
-                self._name_,
-                ', '.join([repr(v) for v in self._all_values]),
-                )
+        return "<%s.%s: %s>" % (
+            self.__class__.__name__,
+            self._name_,
+            ", ".join([repr(v) for v in self._all_values]),
+        )

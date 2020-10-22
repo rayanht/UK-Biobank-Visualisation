@@ -67,14 +67,29 @@ treeCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="mb-3 tree-card-title"),
-                html.Div([
-                    dbc.Input(className="mb-1", id="search-input", value="Search"),
-                    HierarchyTree(id='tree', data=hierarchy, selected_nodes=[], max_selections=MAX_SELECTIONS,
-                                n_updates=0, clopenState=clopen_state),
-                ], className="flex-grow-1 p-1", style={"overflow": "auto"}),
-                html.Div(style={'textAlign': 'right'}, id='selections-capacity', className="mt-1")
-            ], className="d-flex flex-column"
-        ),
+                html.Div(
+                    [
+                        dbc.Input(className="mb-1", id="search-input", value="Search"),
+                        HierarchyTree(
+                            id="tree",
+                            data=hierarchy,
+                            selected_nodes=[],
+                            max_selections=MAX_SELECTIONS,
+                            n_updates=0,
+                            clopenState=clopen_state,
+                        ),
+                    ],
+                    className="flex-grow-1 p-1",
+                    style={"overflow": "auto"},
+                ),
+                html.Div(
+                    style={"textAlign": "right"},
+                    id="selections-capacity",
+                    className="mt-1",
+                ),
+            ],
+            className="d-flex flex-column",
+        )
     ],
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
@@ -84,36 +99,46 @@ settingsCard = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Settings", className="mb-3 settings-card-title"),
-                html.Div([
-                    html.H5("X-axis"),
-                    dcc.Dropdown(
-                        id='variable-dropdown-x',
-                        options=[],
-                        placeholder="Select a variable to plot",
-                        optionHeight=45
-                    ),
-                    html.H5("Y-axis", className="mt-2"),
-                    dcc.Dropdown(
-                        id='variable-dropdown-y',
-                        options=[],
-                        placeholder="Select a variable to plot",
-                        optionHeight=45,
-                        # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
-                        disabled=True
-                    ),
-                    html.H5("Graph Type", className="mt-2"),
-                    dcc.Dropdown(
-                        id="settings-graph-type-dropdown",
-                        options=[],
-                        # value=graph_selection_list[0]["value"],
-                        placeholder="Select a graph type",
-                        clearable=False,
-                        disabled=True
-                    )
-                ], className="flex-grow-1", style={"overflow": "auto"}),
-                dbc.Button("Plot graph", id="settings-card-submit", color="primary", className="mt-2"),
-            ]
-        , className="d-flex flex-column"),
+                html.Div(
+                    [
+                        html.H5("X-axis"),
+                        dcc.Dropdown(
+                            id="variable-dropdown-x",
+                            options=[],
+                            placeholder="Select a variable to plot",
+                            optionHeight=45,
+                        ),
+                        html.H5("Y-axis", className="mt-2"),
+                        dcc.Dropdown(
+                            id="variable-dropdown-y",
+                            options=[],
+                            placeholder="Select a variable to plot",
+                            optionHeight=45,
+                            # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
+                            disabled=True,
+                        ),
+                        html.H5("Graph Type", className="mt-2"),
+                        dcc.Dropdown(
+                            id="settings-graph-type-dropdown",
+                            options=[],
+                            # value=graph_selection_list[0]["value"],
+                            placeholder="Select a graph type",
+                            clearable=False,
+                            disabled=True,
+                        ),
+                    ],
+                    className="flex-grow-1",
+                    style={"overflow": "auto"},
+                ),
+                dbc.Button(
+                    "Plot graph",
+                    id="settings-card-submit",
+                    color="primary",
+                    className="mt-2",
+                ),
+            ],
+            className="d-flex flex-column",
+        )
     ],
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
@@ -121,10 +146,7 @@ settingsCard = dbc.Card(
 graphsCard = dbc.Card(
     [
         dbc.CardBody(
-            [
-                html.H4("Plot", className="mb-3 graphs-card-title"),
-                dcc.Graph(id='graph', )
-            ]
+            [html.H4("Plot", className="mb-3 graphs-card-title"), dcc.Graph(id="graph")]
         )
     ],
     style={"minHeight": "50rem"},  # for dummy purposes, to remove later
@@ -146,9 +168,9 @@ app.layout = html.Div(
                 )
             ],
             style={"padding": "2.5rem 3rem 0rem 3rem"},
-            fluid=True
-        )
-    ]
+            fluid=True,
+        ),
+    ],
 )
 
 
@@ -198,21 +220,28 @@ def update_dropdown(n, selected_nodes):
     options = [get_option(node) for node in selected_nodes]
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
 
+
 @app.callback(
-    [Output(component_id='settings-graph-type-dropdown', component_property='options'),
-     Output(component_id='settings-graph-type-dropdown', component_property='value'),
-     Output(component_id='settings-graph-type-dropdown', component_property='disabled')],
-    [Input(component_id='variable-dropdown-x', component_property='value')]
+    [
+        Output(
+            component_id="settings-graph-type-dropdown", component_property="options"
+        ),
+        Output(component_id="settings-graph-type-dropdown", component_property="value"),
+        Output(
+            component_id="settings-graph-type-dropdown", component_property="disabled"
+        ),
+    ],
+    [Input(component_id="variable-dropdown-x", component_property="value")],
 )
 def update_graph_type(variable_dropdown_x):
     """Update the dropdown when nodes from the tree are selected"""
-    if (variable_dropdown_x is None):
+    if variable_dropdown_x is None:
         return [], None, True
 
-    field_id = variable_dropdown_x # Only supports one variable for now
+    field_id = variable_dropdown_x  # Only supports one variable for now
 
     df = field_id_meta_data()
-    value_type_id = int(df.loc[df['field_id'] == str(field_id)]['value_type'].values[0])
+    value_type_id = int(df.loc[df["field_id"] == str(field_id)]["value_type"].values[0])
     value_type = ValueType(value_type_id)
 
     options = [
@@ -229,7 +258,7 @@ def update_graph_type(variable_dropdown_x):
 
     for x, _ in enumerate(options):
         graph_type = options[x]["value"]
-        if (graph_type in supported_graphs):
+        if graph_type in supported_graphs:
             graph_selection_list.append(options[x])
         else:
             options[x]["disabled"] = True
@@ -239,11 +268,15 @@ def update_graph_type(variable_dropdown_x):
 
     return graph_selection_list, graph_selection_list[0]["value"], False
 
+
 @app.callback(
-    Output(component_id='graph', component_property='figure'),
-    [Input(component_id='settings-card-submit', component_property='n_clicks')],
-    [State(component_id='variable-dropdown-x', component_property='value'),
-    State(component_id='settings-graph-type-dropdown', component_property='value')])
+    Output(component_id="graph", component_property="figure"),
+    [Input(component_id="settings-card-submit", component_property="n_clicks")],
+    [
+        State(component_id="variable-dropdown-x", component_property="value"),
+        State(component_id="settings-graph-type-dropdown", component_property="value"),
+    ],
+)
 def update_graph(n, x_value, graph_type):
     """Update the graph when the dropdown selection changes"""
     if x_value is None:
@@ -263,6 +296,7 @@ def update_graph(n, x_value, graph_type):
             }
         }
     return get_field_plot(x_value, graph_type)  # Plot first selected data
+
 
 # app.callback(
 #     Output(component_id='settings-card', component_property='children'),
