@@ -12,12 +12,12 @@ import dash_bootstrap_components as dbc
 from src.graph import get_field_plot
 from src.tree.node_utils import get_hierarchy, filter_hierarchy
 from dash.dependencies import Input, Output, State
+from src.dataset_gateway import field_id_meta_data
+from src.graph import ValueType
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
 from hierarchy_tree.HierarchyTree import HierarchyTree
 
-from src.dataset_gateway import field_id_meta_data
-from src.graph import ValueType
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -72,7 +72,7 @@ treeCard = dbc.Card(
                 html.Div([
                     dbc.Input(className="mb-1", id="search-input", value="Search"),
                     HierarchyTree(id='tree', data=hierarchy, selected_nodes=[], max_selections=MAX_SELECTIONS,
-                                n_updates=0, clopenState=clopen_state),
+                                  n_updates=0, clopenState=clopen_state),
                 ], className="flex-grow-1 p-1", style={"overflow": "auto"}),
                 html.Div(style={'textAlign': 'right'}, id='selections-capacity', className="mt-1")
             ], className="d-flex flex-column"
@@ -107,15 +107,14 @@ settingsCard = dbc.Card(
                     dcc.Dropdown(
                         id="settings-graph-type-dropdown",
                         options=[],
-                        # value=graph_selection_list[0]["value"],
                         placeholder="Select a graph type",
                         clearable=False,
                         disabled=True
                     )
                 ], className="flex-grow-1", style={"overflow": "auto"}),
                 dbc.Button("Plot graph", id="settings-card-submit", color="primary", className="mt-2"),
-            ]
-        , className="d-flex flex-column"),
+            ],
+            className="d-flex flex-column"),
     ],
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
@@ -190,16 +189,18 @@ def toggle_navbar_collapse(n, is_open):
 )
 def update_dropdown(n, selected_nodes):
     """Update the dropdown when nodes from the tree are selected"""
-    def get_option(node):
-        label = node['label']
-        title = None
-        if '(' in label:
-            title = label
-            label = re.sub(r'\([^)]*\)', '', label)
-        return {'label': label, 'value': node['field_id'], 'title': title}
-
     options = [get_option(node) for node in selected_nodes]
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
+
+
+def get_option(node):
+    label = node['label']
+    title = None
+    if '(' in label:
+        title = label
+        label = re.sub(r'\([^)]*\)', '', label).strip()
+    return {'label': label, 'value': node['field_id'], 'title': title}
+
 
 @app.callback(
     [Output(component_id='settings-graph-type-dropdown', component_property='options'),
@@ -209,7 +210,7 @@ def update_dropdown(n, selected_nodes):
 )
 def update_graph_type(variable_dropdown_x):
     """Update the dropdown when nodes from the tree are selected"""
-    if (variable_dropdown_x is None):
+    if variable_dropdown_x is None:
         return [], None, True
 
     field_id = variable_dropdown_x # Only supports one variable for now
@@ -230,23 +231,24 @@ def update_graph_type(variable_dropdown_x):
     graph_selection_list = []
     disabled_graphs = []
 
-    for x, _ in enumerate(options):
-        graph_type = options[x]["value"]
-        if (graph_type in supported_graphs):
-            graph_selection_list.append(options[x])
+    for option in options:
+        graph_type = option["value"]
+        if graph_type in supported_graphs:
+            graph_selection_list.append(option)
         else:
-            options[x]["disabled"] = True
-            disabled_graphs.append(options[x])
+            option["disabled"] = True
+            disabled_graphs.append(option)
 
     graph_selection_list.extend(disabled_graphs)
 
     return graph_selection_list, graph_selection_list[0]["value"], False
 
+
 @app.callback(
     Output(component_id='graph', component_property='figure'),
     [Input(component_id='settings-card-submit', component_property='n_clicks')],
     [State(component_id='variable-dropdown-x', component_property='value'),
-    State(component_id='settings-graph-type-dropdown', component_property='value')])
+     State(component_id='settings-graph-type-dropdown', component_property='value')])
 def update_graph(n, x_value, graph_type):
     """Update the graph when the dropdown selection changes"""
     if x_value is None:
@@ -272,9 +274,3 @@ def update_graph(n, x_value, graph_type):
             }
         }
     return get_field_plot(x_value, graph_type)  # Plot first selected data
-
-# app.callback(
-#     Output(component_id='settings-card', component_property='children'),
-#     [Input(component_id='tree', component_property='n_updates')],
-#     [State(component_id='tree', component_property='selected')]
-#     )(update_settings_card)

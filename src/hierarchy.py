@@ -1,15 +1,12 @@
 from __future__ import annotations
-
 import functools
 import json
 import os
-from io import StringIO
-
 import firebase_admin
 import pandas as pd
+from io import StringIO
 from firebase_admin import credentials
 from firebase_admin import storage
-
 from src._constants import STORAGE_BUCKET, HIERARCHY_FILENAME
 from src.dataset_gateway import Singleton
 

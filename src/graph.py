@@ -2,9 +2,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-
 from enum import Enum
-
 from src.dataset_gateway import DatasetGateway, Query
 from src.tree.node import NodeIdentifier
 from src.tree.node_utils import get_field_names_to_inst
@@ -36,6 +34,7 @@ class Graph:
         self.field_names_to_ids["FieldID"] = self.field_names_to_ids["FieldID"].apply(
             lambda field_id: str(int(field_id))
         )
+        pd.set_option("display.max_rows", None, "display.max_columns", None)
 
     def get_field_name(self, field_id):
         return self.field_names_to_ids.loc[
@@ -64,56 +63,55 @@ class Graph:
 
         return get_field_instance_name
 
-
-graph = Graph()
-pd.set_option("display.max_rows", None, "display.max_columns", None)
-
-def violin_plot(node_id, filtered_data):
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    for col in filtered_data:
-        trace = go.Violin(
-            y=filtered_data[col],
-            name=col,
-            box_visible=True,
-            line_color="black",
-            meanline_visible=True,
-            fillcolor="lightseagreen",
-            opacity=0.6,
+    def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        for col in filtered_data:
+            trace = go.Violin(
+                y=filtered_data[col],
+                name=col,
+                box_visible=True,
+                line_color="black",
+                meanline_visible=True,
+                fillcolor="lightseagreen",
+                opacity=0.6,
+            )
+            fig.add_trace(trace)
+        fig.update_layout(
+            title={
+                "text": self.get_field_name(node_id.field_id),
+                "y": 0.85,
+                "x": 0.475,
+                "xanchor": "center",
+                "yanchor": "top",
+            },
+            showlegend=False,
         )
-        fig.add_trace(trace)
-    fig.update_layout(
-        title={
-            "text": graph.get_field_name(node_id.field_id),
-            "y": 0.85,
-            "x": 0.475,
-            "xanchor": "center",
-            "yanchor": "top",
-        },
-        showlegend=False,
-    )
-    return fig
+        return fig
 
-def scatter_plot(node_id, filtered_data):
-    fig = px.scatter(data_frame=filtered_data)
-    fig.update_layout(
-        title={
-            "text": graph.get_field_name(node_id.field_id),
-            "y": 0.85,
-            "x": 0.475,
-            "xanchor": "center",
-            "yanchor": "top",
-        },
-        showlegend=False,
-    )
-    return fig
+    def scatter_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        fig = px.scatter(data_frame=filtered_data)
+        fig.update_layout(
+            title={
+                "text": self.get_field_name(node_id.field_id),
+                "y": 0.85,
+                "x": 0.475,
+                "xanchor": "center",
+                "yanchor": "top",
+            },
+            showlegend=False,
+        )
+        return fig
 
-# returns a graph containing columns of the same field
+
 def get_field_plot(raw_id, graph_type):
+    """Returns a graph containing columns of the same field"""
     node_id = NodeIdentifier(raw_id)
     filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
     # initialise figure
-    switcher = {1: violin_plot, 2: scatter_plot}
+    graph = Graph()
+    switcher = {1: graph.violin_plot, 2: graph.scatter_plot}
     return switcher[graph_type](node_id, filtered_data)
+
 
 class ValueType(Enum):
     INTEGER = (11, "Integer", [1, 2, 3])
