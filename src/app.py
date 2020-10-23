@@ -3,22 +3,21 @@
 # Run this app with `gunicorn app:server` and
 # visit http://127.0.0.1:8000/ in your web browser.
 import os
+import re
 import sys
-
 import dash
-
+import dash_core_components as dcc
+import dash_html_components as html
+import dash_bootstrap_components as dbc
 from src.graph import get_field_plot
 from src.tree.node_utils import get_hierarchy, filter_hierarchy
+from dash.dependencies import Input, Output, State
 
 from src.components.selectinstancecard import update_sel_inst_card
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'hierarchy_tree'))
-
 from hierarchy_tree.HierarchyTree import HierarchyTree
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output, State
+
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -33,6 +32,8 @@ colors = {
 }
 
 hierarchy, clopen_state = get_hierarchy()
+
+MAX_SELECTIONS = 30
 
 navbar = dbc.Navbar(
     [
@@ -67,9 +68,11 @@ treeCard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H4("Explore", className="tree-card-title"),
-                dbc.Input(id="search-input", value="Search"),
-                HierarchyTree(id='tree', data=hierarchy, selected=[], n_updates=0, clopenState=clopen_state),
+                html.H4("Explore", style={"margin-bottom": "20px"}, className="tree-card-title"),
+                dbc.Input(style={"margin-bottom": "5px"}, id="search-input", value="Search"),
+                HierarchyTree(id='tree', data=hierarchy, selected_nodes=[], max_selections=MAX_SELECTIONS,
+                              n_updates=0, clopenState=clopen_state),
+                html.Div(style={"margin-top": "2px", 'textAlign': 'right'}, id='selections-capacity')
             ]
         ),
     ],
@@ -80,12 +83,26 @@ settingsCard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H4("Settings", className="settings-card-title"),
-                html.P(
-                    "This will be where the settings component is",
-                    className="settings-card-text",
+                html.H4("Settings", style={"margin-bottom": "20px"}, className="settings-card-title"),
+                html.H5("X-axis"),
+                dcc.Dropdown(
+                    id='variable-dropdown-x',
+                    options=[],
+                    value='',
+                    placeholder="Select a variable to plot",
+                    optionHeight=45
                 ),
-                dbc.Button("Go somewhere", color="primary"),
+
+                html.H5("Y-axis", style={"margin-top": "15px"}),
+                dcc.Dropdown(
+                    id='variable-dropdown-y',
+                    options=[],
+                    value='',
+                    placeholder="Select a variable to plot",
+                    optionHeight=45,
+                    # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
+                    disabled=True
+                ),
             ]
         ),
     ],
@@ -96,7 +113,7 @@ graphsCard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H4("Plot", className="graphs-card-title"),
+                html.H4("Plot", style={"margin-bottom": "20px"}, className="graphs-card-title"),
                 dcc.Graph(id='graph', )
             ]
         ),
@@ -169,12 +186,33 @@ def toggle_navbar_collapse(n, is_open):
         return not is_open
     return is_open
 
+@app.callback(
+    [Output(component_id='variable-dropdown-x', component_property='options'),
+     Output(component_id='selections-capacity', component_property='children'),
+     Output(component_id='variable-dropdown-y', component_property='options')],
+    [Input(component_id='tree', component_property='n_updates')],
+    [State(component_id='tree', component_property='selected_nodes')]
+)
+def update_dropdown(n, selected_nodes):
+    """Update the dropdown when nodes from the tree are selected"""
+    def get_option(node):
+        label = node['label']
+        title = None
+        if '(' in label:
+            title = label
+            label = re.sub(r'\([^)]*\)', '', label)
+        return {'label': label, 'value': node['field_id'], 'title': title}
 
+    options = [get_option(node) for node in selected_nodes]
+    return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
+
+
+#TODO: EDIT THIS TO UPDATE INSTANCE SELECTION
 @app.callback(
     Output(component_id='graph', component_property='figure'),
-    Input(component_id='instance-options', component_property='value'),
-)
+    [Input('instance-options', 'value')])
 def update_graph(value):
+    """Update the graph when the dropdown selection changes"""
     if value == '':
         return {
             "layout": {
@@ -205,15 +243,11 @@ def update_graph(value):
 )
 def update_sel_inst_card_instr(value) :
     if (value == '') :
-        return "Select field to view instances"
+        return "Select an x-axis to view instances"
 
 app.callback(
     [Output(component_id='instance-options', component_property='options'),
     Output(component_id='instance-options', component_property='value')],
-    [Input(component_id='tree', component_property='n_updates')],
-    [State(component_id='tree', component_property='selected')]
+    [Input('variable-dropdown-x', 'value')],
 )(update_sel_inst_card)
 
-# For test.py
-def hello_world():
-    return "Hello world!"
