@@ -83,7 +83,7 @@ def update_graph_type(variable_dropdown_x):
         {"label": "Violin", "value": 1},
         {"label": "Scatter", "value": 2},
         {"label": "Bar", "value": 3},
-        {"label": "Pie", "value": 4, "disabled": True},
+        {"label": "Pie", "value": 4},
     ]
 
     supported_graphs = value_type.supported_graphs
