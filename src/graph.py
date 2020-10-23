@@ -128,7 +128,7 @@ def to_categorical_data(node_id, filtered_data):
     encoding_dict = data_encoding_meta_data(encoding_id)
     count_dict = dict()
 
-    for ind in filtered_data.index: 
+    for ind in filtered_data.index:
         curr_encoding =  filtered_data[node_id.db_id()][ind]
         count_dict[curr_encoding] = count_dict.get(curr_encoding, 0) + 1
 

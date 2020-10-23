@@ -96,15 +96,15 @@ def field_id_meta_data():
 
 @functools.lru_cache
 def data_encoding_meta_data(encoding_id):
-    """Gets the encoding from the biobank website, and returns it 
+    """Gets the encoding from the biobank website, and returns it
     in the form of a dict
     """
     r = requests.get(f"https://biobank.ctsu.ox.ac.uk/crystal/codown.cgi?id={encoding_id}")
 
     ENCODING_DATA = StringIO(r.text)
 
-    df = pd.read_csv(ENCODING_DATA, sep="\t", header=0) 
-    # contains dataframe that may have extra information (including node structure if the 
+    df = pd.read_csv(ENCODING_DATA, sep="\t", header=0)
+    # contains dataframe that may have extra information (including node structure if the
     # encoding is a tree), but this is not needed right now, so we will convert it to a dict
 
     return df.set_index('coding')['meaning'].to_dict()
