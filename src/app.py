@@ -73,7 +73,7 @@ app.layout = html.Div(
                     ]
                 )
             ],
-            style={"padding": "2.5rem 3rem 0rem 3rem"},
+            style={"padding": "2.5rem 3rem 2.5rem 3rem"},
             fluid=True,
         ),
     ],

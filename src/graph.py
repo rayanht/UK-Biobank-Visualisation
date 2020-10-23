@@ -3,10 +3,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 from enum import Enum
-from src.dataset_gateway import DatasetGateway, Query
+from src.dataset_gateway import DatasetGateway, Query, field_id_meta_data, data_encoding_meta_data
 from src.tree.node import NodeIdentifier
 from src.tree.node_utils import get_field_names_to_inst
-
 
 def has_multiple_instances(meta_ids):
     for i in range(len(meta_ids) - 1):
@@ -76,20 +75,38 @@ class Graph:
                 opacity=0.6,
             )
             fig.add_trace(trace)
-        fig.update_layout(
-            title={
-                "text": self.get_field_name(node_id.field_id),
-                "y": 0.85,
-                "x": 0.475,
-                "xanchor": "center",
-                "yanchor": "top",
-            },
-            showlegend=False,
-        )
-        return fig
+        return self.format_graph(fig, node_id)
 
     def scatter_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         fig = px.scatter(data_frame=filtered_data)
+        return self.format_graph(fig, node_id)
+
+    def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        # Convert categorical data into a bar plot
+        field_id_meta = field_id_meta_data()
+        encoding_id = int(field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)]["encoding_id"].values[0])
+        encoding_dict = data_encoding_meta_data(encoding_id)
+        count_dict = dict()
+
+        for ind in filtered_data.index: 
+            curr_encoding =  filtered_data[node_id.db_id()][ind]
+            count_dict[curr_encoding] = count_dict.get(curr_encoding, 0) + 1
+
+        category_list = []
+        count_list = []
+
+        for key in encoding_dict:
+            category_list.append(encoding_dict[key])
+            count_list.append(count_dict[key])
+
+        data = {'categories': category_list, 'count': count_list}
+
+        processed_df = pd.DataFrame(data, columns=['categories', 'count'])
+
+        fig = px.bar(processed_df, x='categories', y='count')
+        return self.format_graph(fig, node_id)
+
+    def format_graph(self, fig, node_id) :
         fig.update_layout(
             title={
                 "text": self.get_field_name(node_id.field_id),
@@ -101,7 +118,6 @@ class Graph:
             showlegend=False,
         )
         return fig
-
 
 def get_field_plot(raw_id, graph_type):
     """Returns a graph containing columns of the same field"""
@@ -109,8 +125,15 @@ def get_field_plot(raw_id, graph_type):
     filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
     # initialise figure
     graph = Graph()
-    switcher = {1: graph.violin_plot, 2: graph.scatter_plot}
-    return switcher[graph_type](node_id, filtered_data)
+
+    switcher = {
+        1: graph.violin_plot,
+        2: graph.scatter_plot,
+        3: graph.bar_plot
+    }
+
+    fig = switcher[graph_type](node_id, filtered_data)
+    return fig
 
 
 class ValueType(Enum):
