@@ -8,11 +8,13 @@ codecov = "*"
 pytest = "*"
 pytest-cov = "*"
 pyyaml = "*"
+pre-commit = "*"
 
 [packages]
 dash = "*"
 pandas = "*"
 dash-bootstrap-components = "*"
+defusedxml = "*"
 numpy = "*"
 gunicorn = "*"
 pyyaml = "*"
@@ -21,6 +23,8 @@ jsonpickle = "*"
 google-cloud-storage = "*"
 google-cloud-bigquery = "*"
 google-cloud-bigquery-storage = "*"
+requests = "*"
+pyarrow = "2.0.0"
 
 [requires]
 python_version = "3.8"

@@ -1,13 +1,12 @@
 from __future__ import annotations
-
 import json
 import os
-import tempfile
-from typing import List
-
+import requests
+import defusedxml.ElementTree as ETree
+import functools
 import pandas as pd
 from google.cloud import bigquery
-
+from typing import List
 from src._constants import TABLE_NAME
 from src.tree.node import NodeIdentifier
 
@@ -54,7 +53,6 @@ def authenticate():
 
 
 class DatasetGateway(metaclass=Singleton):
-
     def __init__(self):
         self.client: bigquery.Client
         self.client = authenticate()
@@ -62,3 +60,59 @@ class DatasetGateway(metaclass=Singleton):
     @classmethod
     def submit(cls, _query: Query) -> pd.DataFrame:
         return cls().client.query(_query.build()).result().to_dataframe()
+
+
+@functools.lru_cache
+def field_id_meta_data():
+    r = requests.get("https://biobank.ndph.ox.ac.uk/ukb/scdown.cgi?id=1&fmt=xml")
+
+    columns = [
+        "field_id",
+        "title",
+        "value_type",
+        "base_type",
+        "item_type",
+        "strata",
+        "instanced",
+        "arrayed",
+        "sexed",
+        "units",
+        "main_category",
+        "encoding_id",
+        "instance_id",
+        "instance_min",
+        "instance_max",
+        "array_min",
+        "array_max",
+        "notes",
+        "debut",
+        "version",
+        "num_participants",
+        "item_count",
+    ]
+
+    return parse_xml(r.text, columns)
+
+
+def parse_xml(xml_text, df_cols):
+    """Parse the input XML file and store the result in a pandas
+    DataFrame with the given columns.
+
+    The first element of df_cols is supposed to be the identifier
+    variable, which is an attribute of each node element in the
+    XML data; other features will be parsed from the text content
+    of each sub-element.
+    """
+
+    root = ETree.fromstring(xml_text, forbid_entities=False)
+    rows = []
+
+    for node in root:
+        res = []
+        for i, _ in enumerate(df_cols):
+            res.append(node.attrib.get(df_cols[i]))
+        rows.append({df_cols[i]: res[i] for i, _ in enumerate(df_cols)})
+
+    out_df = pd.DataFrame(rows, columns=df_cols)
+
+    return out_df

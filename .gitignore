@@ -138,6 +138,8 @@ dmypy.json
 # MacOS filesystem
 .DS_Store
 google-credentials.json
+
+# Dataset
 ukbb_data_field_hierarchy.csv
 ukbb_meta_data_subset.csv
 ukbb_meta_data_21079.csv
