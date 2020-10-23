@@ -1,7 +1,8 @@
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 from plotly.subplots import make_subplots
-
+from enum import Enum
 from src.dataset_gateway import DatasetGateway, Query
 from src.tree.node import NodeIdentifier
 from src.tree.node_utils import get_field_names_to_inst
@@ -33,6 +34,7 @@ class Graph:
         self.field_names_to_ids["FieldID"] = self.field_names_to_ids["FieldID"].apply(
             lambda field_id: str(int(field_id))
         )
+        pd.set_option("display.max_rows", None, "display.max_columns", None)
 
     def get_field_name(self, field_id):
         return self.field_names_to_ids.loc[
@@ -74,59 +76,106 @@ class Graph:
 
         return get_field_instance_name
 
+# TODO: possibly drop this
     # get columns of all parts of an instance of a field
-    def get_inst_data(self, field_inst_id_str, dropAny=False) :
-        # fetch columns with corresponding field id and instance id
-        filtered_data = self.meta_data.loc[:, \
-                            self.meta_data.columns.str.\
-                                startswith(field_inst_id_str + '.')].\
-                                dropna(how='all', axis=1)
+    # def get_inst_data(self, field_inst_id_str, dropAny=False) :
+    #     # fetch columns with corresponding field id and instance id
+    #     filtered_data = self.meta_data.loc[:, \
+    #                         self.meta_data.columns.str.\
+    #                             startswith(field_inst_id_str + '.')].\
+    #                             dropna(how='all', axis=1)
 
-        # drop null values
-        if dropAny:
-            filtered_data.dropna(how='any', axis=0, inplace=True)
-        else:
-            filtered_data.dropna(how='all', axis=0, inplace=True)
+    #     # drop null values
+    #     if dropAny:
+    #         filtered_data.dropna(how='any', axis=0, inplace=True)
+    #     else:
+    #         filtered_data.dropna(how='all', axis=0, inplace=True)
 
-        # rename columns
-        has_array = has_array_items(list(filtered_data.columns)) 
-        filtered_data.rename(mapper=self.get_field_instance_map(has_array), axis='columns', inplace=True)
-        return filtered_data
+    #     # rename columns
+    #     has_array = has_array_items(list(filtered_data.columns)) 
+    #     filtered_data.rename(mapper=self.get_field_instance_map(has_array), axis='columns', inplace=True)
+    #     return filtered_data
+
+    def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        for col in filtered_data:
+            trace = go.Violin(
+                y=filtered_data[col],
+                name=col,
+                box_visible=True,
+                line_color="black",
+                meanline_visible=True,
+                fillcolor="lightseagreen",
+                opacity=0.6,
+            )
+            fig.add_trace(trace)
+        fig.update_layout(
+            title={
+                "text": self.get_field_name(node_id.field_id),
+                "y": 0.85,
+                "x": 0.475,
+                "xanchor": "center",
+                "yanchor": "top",
+            },
+            showlegend=False,
+        )
+        return fig
+
+    def scatter_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        fig = px.scatter(data_frame=filtered_data)
+        fig.update_layout(
+            title={
+                "text": self.get_field_name(node_id.field_id),
+                "y": 0.85,
+                "x": 0.475,
+                "xanchor": "center",
+                "yanchor": "top",
+            },
+            showlegend=False,
+        )
+        return fig
+
 
 graph = Graph()
-pd.set_option("display.max_rows", None, "display.max_columns", None)
 
-# returns a graph containing columns of the same field
-def get_field_plot(raw_id):
+def get_field_plot(raw_id, graph_type):
+    """Returns a graph containing columns of the same field"""
     node_id = NodeIdentifier(raw_id)
     filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
     # initialise figure
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    for col in filtered_data:
-        trace = go.Violin(
-            y=filtered_data[col],
-            name=col,
-            box_visible=True,
-            line_color="black",
-            meanline_visible=True,
-            fillcolor="lightseagreen",
-            opacity=0.6,
-        )
-        fig.add_trace(trace)
-    fig.update_layout(
-        title={
-            "text": graph.get_field_name(node_id.field_id),
-            "y": 0.85,
-            "x": 0.475,
-            "xanchor": "center",
-            "yanchor": "top",
-        },
-        showlegend=False,
-    )
-    return fig
-
+    switcher = {1: graph.violin_plot, 2: graph.scatter_plot}
+    return switcher[graph_type](node_id, filtered_data)
 
 # returns a dict of options for a dropdown list of instances
 def get_inst_names_options(raw_id, isMetaId=True) :
     field_id = NodeIdentifier(raw_id).field_id
     return graph.get_inst_name_dict(field_id)
+
+class ValueType(Enum):
+    INTEGER = (11, "Integer", [1, 2, 3])
+    CAT_SINGLE = (21, "Categorical (single)", [3, 4])
+    CAT_MULT = (22, "Categorical (multiple)", [3, 4])
+    CONT = (31, "Continuous", [1, 2, 3])
+    TEXT = (41, "Text", [])
+    DATE = (51, "Date", [])
+    TIME = (61, "Time", [])
+    COMPOUND = (101, "Compound", [])
+
+    def __init__(self, type_id, label, supported_graphs):
+        self.type_id = type_id
+        self.label = label
+        self.supported_graphs = supported_graphs
+
+    def __new__(cls, *values):
+        obj = object.__new__(cls)
+        # first value is canonical value
+        obj._value_ = values[0]
+        obj._all_values = values
+        return obj
+
+    def __repr__(self):
+        return "<%s.%s: %s>" % (
+            self.__class__.__name__,
+            self._name_,
+            ", ".join([repr(v) for v in self._all_values]),
+        )
