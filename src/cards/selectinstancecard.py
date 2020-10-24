@@ -25,13 +25,14 @@ layout = dbc.Card(
 @app.callback(
     [Output(component_id='x-instance-options', component_property='options'),
     Output(component_id='x-instance-options', component_property='value')],
-    [Input('variable-dropdown-x', 'value')],
+    [Input(component_id="settings-card-submit", component_property="n_clicks")],
+    [State(component_id='variable-dropdown-x', component_property='value')],
 )
-def update_sel_inst_card(value) : 
+def update_sel_inst_card(n, x_value) : 
     """Updating list of instances that may be selected"""
-    if ((value == '') | (value is None)):
+    if ((x_value == '') | (x_value is None)):
         return [], ''
-    dict_with_inst = get_inst_names_options(value, False) # support only one variable for now
+    dict_with_inst = get_inst_names_options(x_value, False) # support only one variable for now
     options = [{'label': dict_with_inst[field_inst_id], 'value': field_inst_id} \
                 for field_inst_id in dict_with_inst]
     return options, options[0]['value']
@@ -40,8 +41,9 @@ def update_sel_inst_card(value) :
     Output(component_id='x-instance-options-instr', component_property='children'),
     Input(component_id='x-instance-options', component_property='value')
 )
-def update_sel_inst_card_instr(value) :
-    if (value == '') :
+def update_sel_inst_card_instr(x_value) :
+    """Updating description of x-axis variable instance box"""
+    if (x_value == '') :
         return "Select an x-axis to view instances"
     else :
-        return "Choose instance of field to plot on x-axis"
+        return "Choose other instances of field to plot on x-axis"
