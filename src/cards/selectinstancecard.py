@@ -15,8 +15,18 @@ layout = dbc.Card(
             children=
             [
                 html.H5("Select Instance", className="sel-instance-card-title"),
-                dcc.Dropdown(id='x-instance-options'),
-                html.Div(id='x-instance-options-instr')
+                dcc.Dropdown(
+                    id='x-instance-options',
+                    placeholder="Select an x-axis variable to view instances",
+                ),
+                html.Div(id='x-instance-options-instr'),
+                dcc.Dropdown(
+                    id="y-instance-options",
+                    placeholder="Select a y-axis variable to view instances",
+                    # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
+                    disabled=True,
+                ),
+                html.Div(id='y-instance-options-instr'),
             ],
         )
     ]
@@ -29,21 +39,43 @@ layout = dbc.Card(
     [State(component_id='variable-dropdown-x', component_property='value')],
 )
 def update_sel_inst_card(n, x_value) : 
-    """Updating list of instances that may be selected"""
+    """Updating list of instances that may be selected on x-axis"""
     if ((x_value == '') | (x_value is None)):
         return [], ''
-    dict_with_inst = get_inst_names_options(x_value, False) # support only one variable for now
+    dict_with_inst = get_inst_names_options(x_value, False) 
     options = [{'label': dict_with_inst[field_inst_id], 'value': field_inst_id} \
                 for field_inst_id in dict_with_inst]
-    return options, options[0]['value']
+    return options, options[0]['value'] # select first instance by default
 
 @app.callback(
     Output(component_id='x-instance-options-instr', component_property='children'),
     Input(component_id='x-instance-options', component_property='value')
 )
-def update_sel_inst_card_instr(x_value) :
-    """Updating description of x-axis variable instance box"""
-    if (x_value == '') :
-        return "Select an x-axis to view instances"
-    else :
+def update_sel_inst_card_x_instr(x_value) :
+    """Update description of x-axis variable instance box"""
+    if (x_value != '') :
         return "Choose other instances of field to plot on x-axis"
+
+@app.callback(
+    [Output(component_id='y-instance-options', component_property='options'),
+    Output(component_id='y-instance-options', component_property='value')],
+    [Input(component_id="settings-card-submit", component_property="n_clicks")],
+    [State(component_id='variable-dropdown-y', component_property='value')],
+)
+def update_sel_inst_card(n, y_value) : 
+    """Updating list of instances that may be selected on y-axis"""
+    if ((y_value == '') | (y_value is None)):
+        return [], ''
+    dict_with_inst = get_inst_names_options(y_value, False)
+    options = [{'label': dict_with_inst[field_inst_id], 'value': field_inst_id} \
+                for field_inst_id in dict_with_inst]
+    return options, options[0]['value'] # select first instance by default
+
+@app.callback(
+    Output(component_id='y-instance-options-instr', component_property='children'),
+    Input(component_id='y-instance-options', component_property='value')
+)
+def update_sel_inst_card_y_instr(y_value) :
+    """Update description of y-axis variable instance box"""
+    if (y_value != '') :
+        return "Choose other instances of field to plot on y-axis"
