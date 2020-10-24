@@ -3,7 +3,6 @@
 # Run this app with `gunicorn app:server` and
 # visit http://127.0.0.1:8000/ in your web browser.
 import os
-import re
 import sys
 import dash_html_components as html
 import dash_bootstrap_components as dbc

@@ -3,7 +3,6 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from src.graph import get_inst_names_options
-from src.tree.node import NodeIdentifier
 
 from src.dash_app import app
 from dash.dependencies import Input, Output, State
@@ -14,19 +13,21 @@ layout = dbc.Card(
             id='select-instance-card',
             children=
             [
-                html.H5("Select Instance", className="sel-instance-card-title"),
+                html.H4("Select Instance", className="mb-3 settings-card-title"),
+                html.H5("X-Axis Instance", className="mt-2"),
+                html.Div(id='x-instance-options-instr'),
                 dcc.Dropdown(
                     id='x-instance-options',
                     placeholder="Select an x-axis variable to view instances",
                 ),
-                html.Div(id='x-instance-options-instr'),
+                html.H5("Y-Axis Instance", className="mt-2"),
+                html.Div(id='y-instance-options-instr'),
                 dcc.Dropdown(
                     id="y-instance-options",
                     placeholder="Select a y-axis variable to view instances",
                     # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
                     disabled=True,
                 ),
-                html.Div(id='y-instance-options-instr'),
             ],
         )
     ]
@@ -38,11 +39,11 @@ layout = dbc.Card(
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [State(component_id='variable-dropdown-x', component_property='value')],
 )
-def update_sel_inst_card(n, x_value) : 
+def update_x_sel_inst(n, x_value) :
     """Updating list of instances that may be selected on x-axis"""
     if ((x_value == '') | (x_value is None)):
         return [], ''
-    dict_with_inst = get_inst_names_options(x_value, False) 
+    dict_with_inst = get_inst_names_options(x_value, False)
     options = [{'label': dict_with_inst[field_inst_id], 'value': field_inst_id} \
                 for field_inst_id in dict_with_inst]
     return options, options[0]['value'] # select first instance by default
@@ -51,7 +52,7 @@ def update_sel_inst_card(n, x_value) :
     Output(component_id='x-instance-options-instr', component_property='children'),
     Input(component_id='x-instance-options', component_property='value')
 )
-def update_sel_inst_card_x_instr(x_value) :
+def update_x_sel_inst_instr(x_value) :
     """Update description of x-axis variable instance box"""
     if (x_value != '') :
         return "Choose other instances of field to plot on x-axis"
@@ -62,7 +63,7 @@ def update_sel_inst_card_x_instr(x_value) :
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [State(component_id='variable-dropdown-y', component_property='value')],
 )
-def update_sel_inst_card(n, y_value) : 
+def update_y_sel_inst(n, y_value) :
     """Updating list of instances that may be selected on y-axis"""
     if ((y_value == '') | (y_value is None)):
         return [], ''
@@ -75,7 +76,7 @@ def update_sel_inst_card(n, y_value) :
     Output(component_id='y-instance-options-instr', component_property='children'),
     Input(component_id='y-instance-options', component_property='value')
 )
-def update_sel_inst_card_y_instr(y_value) :
+def update_y_sel_inst_instr(y_value) :
     """Update description of y-axis variable instance box"""
     if (y_value != '') :
         return "Choose other instances of field to plot on y-axis"
