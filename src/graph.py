@@ -76,26 +76,6 @@ class Graph:
 
         return get_field_instance_name
 
-# TODO: possibly drop this
-    # get columns of all parts of an instance of a field
-    # def get_inst_data(self, field_inst_id_str, dropAny=False) :
-    #     # fetch columns with corresponding field id and instance id
-    #     filtered_data = self.meta_data.loc[:, \
-    #                         self.meta_data.columns.str.\
-    #                             startswith(field_inst_id_str + '.')].\
-    #                             dropna(how='all', axis=1)
-
-    #     # drop null values
-    #     if dropAny:
-    #         filtered_data.dropna(how='any', axis=0, inplace=True)
-    #     else:
-    #         filtered_data.dropna(how='all', axis=0, inplace=True)
-
-    #     # rename columns
-    #     has_array = has_array_items(list(filtered_data.columns)) 
-    #     filtered_data.rename(mapper=self.get_field_instance_map(has_array), axis='columns', inplace=True)
-    #     return filtered_data
-
     def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         for col in filtered_data:

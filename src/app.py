@@ -9,9 +9,6 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
-# TODO: refactor select instance and remove these dependencies
-import dash_core_components as dcc
-
 sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
 
 from src.dash_app import app
