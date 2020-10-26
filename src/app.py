@@ -79,6 +79,7 @@ app.layout = html.Div(
     ],
 )
 
+
 # we use a callback to toggle the collapse on small screens
 @app.callback(
     Output("navbar-collapse", "is_open"),
