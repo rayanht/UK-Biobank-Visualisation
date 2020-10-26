@@ -87,6 +87,8 @@ def flatten(
     :return: None, the routine is executed in-place
     """
     if clopen_state.get(str(encoded_tree["id"])):
+        if encoded_tree["node_type"] == "leaf":
+            encoded_tree["isSelected"] = True
         encoded_tree["isExpanded"] = clopen_state[str(encoded_tree["id"])]
     else:
         clopen_state[str(encoded_tree["id"])] = False
