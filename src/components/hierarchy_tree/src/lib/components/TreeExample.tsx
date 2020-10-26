@@ -48,6 +48,11 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         if (prevProps.nodes !== this.props.nodes) {
             this.setState(prevState => ({...prevState, nodes: this.props.nodes}));
         }
+        this.forEachNode(this.props.nodes, n => {
+            if (n.isSelected) {
+                n.secondaryLabel = <Icon icon={"tick"}/>;
+            }
+        })
     }
 
     public render() {
@@ -82,11 +87,13 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         if (nodeData.isSelected) {
             this.state.selected_nodes.push(nodeData);
             nodeData.secondaryLabel = <Icon icon={"tick"}/>;
+            this.handleNodeExpand(nodeData);
         } else {
             const index = this.state.selected_nodes.indexOf(nodeData);
             if (index > -1) {
                 this.state.selected_nodes.splice(index, 1)
                 nodeData.secondaryLabel = null;
+                this.handleNodeCollapse(nodeData);
             }
         }
 
@@ -96,6 +103,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             const first = this.state.selected_nodes[0];
             first.isSelected = false;
             first.secondaryLabel = null;
+            this.handleNodeCollapse(first);
             this.state.selected_nodes.shift();
         }
 
@@ -116,4 +124,15 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
+
+    private forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void) {
+        if (nodes == null) {
+            return;
+        }
+
+        for (const node of nodes) {
+            callback(node);
+            this.forEachNode(node.childNodes, callback);
+        }
+    }
 }
