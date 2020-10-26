@@ -46,9 +46,10 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     componentDidUpdate(prevProps) {
         if (prevProps.nodes !== this.props.nodes) {
-            this.setState(prevState => ({...prevState, nodes: this.props.nodes}));
+            const newSelected = prevProps.selected_nodes.map(n => this.searchNodes(this.props.nodes, n.id.toString()));
+            this.setState(prevState => ({...prevState, nodes: this.props.nodes, selected_nodes: newSelected}));
         }
-        this.forEachNode(this.props.nodes, n => {
+        this.forEachNode(this.props.nodes, (n) => {
             if (n.isSelected) {
                 n.secondaryLabel = <Icon icon={"tick"}/>;
             }
@@ -133,6 +134,22 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         for (const node of nodes) {
             callback(node);
             this.forEachNode(node.childNodes, callback);
+        }
+    }
+
+    private searchNodes(nodes: ITreeNode[], id: string) {
+        if (nodes == null) {
+            return;
+        }
+
+        for (const node of nodes) {
+            if (node.id.toString() == id) {
+                return node;
+            }
+            const n = this.searchNodes(node.childNodes, id);
+            if (n != null) {
+                return n;
+            }
         }
     }
 }
