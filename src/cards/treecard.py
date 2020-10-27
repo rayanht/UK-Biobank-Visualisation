@@ -47,6 +47,7 @@ layout = dbc.Card(
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
 
+
 @app.callback(
     [Output("tree", "data"), Output("tree", "clopen_state")],
     [Input("search-input", "value")],
@@ -54,6 +55,7 @@ layout = dbc.Card(
 )
 def output_text(s, clopen):
     return filter_hierarchy(clopen, s)
+
 
 @app.callback(
     [
