@@ -12,6 +12,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
 
 from src.dash_app import app
 from src.cards import settingscard
+from src.cards import statscard
 from src.cards import treecard
 from src.cards import graphscard
 
@@ -58,6 +59,8 @@ settingsCard = settingscard.layout
 
 graphsCard = graphscard.layout
 
+statsCard = statscard.layout
+
 app.layout = html.Div(
     style={"backgroundColor": colors["background"], "height": "100vh"},
     children=[
@@ -67,11 +70,19 @@ app.layout = html.Div(
             [
                 dbc.Row(
                     [
-                        dbc.Col(treeCard, width=4),  # Container for tree
-                        dbc.Col(settingsCard, width=2),  # Container for settings
-                        dbc.Col(graphsCard, width=6),  # Container for graphs
-                    ]
-                )
+                        dbc.Col(treeCard, width=3),  # Container for tree
+                        dbc.Col(settingsCard, width=3),  # Container for settings
+                        dbc.Col(children=[
+                            dbc.Row(
+                                dbc.Col(graphsCard), # Container for graphs
+                            ),
+                            dbc.Row(
+                                dbc.Col(statsCard), # Container for summary statistics
+                            )
+                            ],
+                        )
+                    ],
+                ),
             ],
             style={"padding": "2.5rem 3rem 0rem 3rem"},
             fluid=True,
