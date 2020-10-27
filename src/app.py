@@ -72,17 +72,19 @@ app.layout = html.Div(
                     [
                         dbc.Col(treeCard, width=3),  # Container for tree
                         dbc.Col(settingsCard, width=3),  # Container for settings
-                        dbc.Col(children=[
-                            dbc.Row(
-                                dbc.Col(graphsCard), # Container for graphs
-                            ),
-                            dbc.Row(
-                                dbc.Col(statsCard), # Container for summary statistics
-                            )
-                            ],
-                        )
-                    ],
-                ),
+                        dbc.Col(
+                            children=[
+                                dbc.Row(dbc.Col(graphsCard)),  # Container for graphs
+                                dbc.Row(
+                                    dbc.Col(
+                                        statsCard
+                                    ),  # Container for summary statistics
+                                    className="mt-3",
+                                ),
+                            ]
+                        ),
+                    ]
+                )
             ],
             style={"padding": "2.5rem 3rem 0rem 3rem"},
             fluid=True,

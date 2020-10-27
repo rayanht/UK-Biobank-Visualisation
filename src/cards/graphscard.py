@@ -8,5 +8,5 @@ layout = dbc.Card(
             [html.H4("Plot", className="mb-3 graphs-card-title"), dcc.Graph(id="graph")]
         )
     ],
-    style={"minHeight": "39rem"},  # for dummy purposes, to remove later
+    style={"height": "34rem"},  # for dummy purposes, to remove later
 )

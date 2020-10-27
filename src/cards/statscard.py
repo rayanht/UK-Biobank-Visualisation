@@ -9,10 +9,10 @@ from src.tree.node import NodeIdentifier
 layout = dbc.Card(
     [
         html.H4("Summary statistics", className="summary-stats-title"),
-        dbc.Table(id='statistics', size='sm')
-
-     ],
-    body=True
+        dbc.Table(id="statistics", size="sm"),
+    ],
+    style={"height": "15rem"},
+    body=True,
 )
 
 
@@ -30,4 +30,6 @@ def update_statistics(n, x_value, graph_type):
         return str("Not much here")
     node_id = NodeIdentifier(x_value)
     filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
-    return dbc.Table.from_dataframe(filtered_data.describe().transpose(), striped=True, bordered=True, hover=True)
+    return dbc.Table.from_dataframe(
+        filtered_data.describe().transpose(), striped=True, bordered=True, hover=True
+    )
