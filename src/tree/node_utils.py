@@ -9,11 +9,12 @@ from src.hierarchy import HierarchyLoader
 from src.tree.node import Node
 
 
-def build(raw: pd.DataFrame, prefix: str = "") -> Node:
+def build(raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = "") -> Node:
     """
     Build tree by adding all intermediate nodes, and only leaf nodes that match the prefix
 
     :param raw: A raw hierarchy file loaded from its CSV representation
+    :param counter: An integer Generator used to uniquely identify the nodes
     :param prefix: optional, used to filter out nodes during search operations
     :return: Node object that encodes the hierarchy
     """
@@ -22,14 +23,14 @@ def build(raw: pd.DataFrame, prefix: str = "") -> Node:
         lambda node_id: list(filter(lambda s: s != "0", node_id.split(".")))
     )
 
-    root = Node("root", "root")
+    root = Node("root", next(counter), "root")
     for row in r.itertuples(index=True, name="Pandas"):
         node_type = row.NodeType
         field_id = str(int(row.FieldID)) if not pd.isnull(row.FieldID) else None
         instance_id = (
             str(int(row.InstanceID)) if not pd.isnull(row.InstanceID) else None
         )
-        node = Node(row.NodeName, node_type, field_id, instance_id)
+        node = Node(row.NodeName, next(counter), node_type, field_id, instance_id)
         if node_type == "leaf":
             if prefix == "" or prefix == "Search" or search_word(prefix, row.NodeName):
                 root.add_child(row.NodeID, node)
@@ -76,21 +77,21 @@ def gen():
 
 
 def flatten(
-    counter: Generator[int, None, None], encoded_tree: dict, clopen_state: dict
+    encoded_tree: dict, clopen_state: dict
 ) -> None:
     """
     Transform and enriches an encoded tree into the format expected by the frontend library.
 
-    :param counter: An integer Generator used to uniquely identify the nodes
     :param encoded_tree: A tree as returned by the transcode function
     :param clopen_state: A dictionary that keeps track of the open-closed state of a node in the UI
     :return: None, the routine is executed in-place
     """
-    encoded_tree["id"] = next(counter)
     if clopen_state.get(str(encoded_tree["id"])):
+        if encoded_tree["node_type"] == "leaf":
+            encoded_tree["isSelected"] = True
         encoded_tree["isExpanded"] = clopen_state[str(encoded_tree["id"])]
     else:
-        clopen_state[encoded_tree["id"]] = False
+        clopen_state[str(encoded_tree["id"])] = False
     if "childNodes" not in encoded_tree.keys():
         return
     elif encoded_tree["node_type"] == "leaf":
@@ -100,7 +101,7 @@ def flatten(
         encoded_tree["icon"] = "folder-close"
         encoded_tree["childNodes"] = list(encoded_tree["childNodes"].values())
         for v in encoded_tree["childNodes"]:
-            flatten(counter, v, clopen_state)
+            flatten(v, clopen_state)
 
 
 def prune(enriched_tree: dict) -> bool:
@@ -129,8 +130,8 @@ def filter_hierarchy(clopen_state: dict, prefix: str = None) -> (List[dict], dic
     """
     counter = gen()
     hierarchy = HierarchyLoader.fetch_hierarchy()
-    tree = transcode(build(hierarchy, prefix))
-    flatten(counter, tree, clopen_state)
+    tree = transcode(build(hierarchy, counter, prefix))
+    flatten(tree, clopen_state)
     prune(tree)
     return tree["childNodes"], clopen_state
 
@@ -139,9 +140,9 @@ def get_hierarchy() -> (List[dict], dict):
     """Return a tree with the full hierarchy and a blank state"""
     counter = gen()
     hierarchy = HierarchyLoader.fetch_hierarchy()
-    tree = transcode(build(hierarchy))
+    tree = transcode(build(hierarchy, counter))
     clopen_state = {}
-    flatten(counter, tree, clopen_state)
+    flatten(tree, clopen_state)
     prune(tree)
     return tree["childNodes"], clopen_state
 
