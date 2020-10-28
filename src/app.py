@@ -14,12 +14,15 @@ from src.dash_app import app
 from src.cards import settingscard
 from src.cards import treecard
 from src.cards import graphscard
+from src.cards import selectinstancecard
 
 server = app.server
 
 app.title = "UK BioBank Explorer"
 
 colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
+
+MAX_SELECTIONS = 30
 
 navbar = dbc.Navbar(
     [
@@ -58,6 +61,8 @@ settingsCard = settingscard.layout
 
 graphsCard = graphscard.layout
 
+selectInstanceCard = selectinstancecard.layout
+
 app.layout = html.Div(
     style={"backgroundColor": colors["background"], "height": "100vh"},
     children=[
@@ -69,7 +74,9 @@ app.layout = html.Div(
                     [
                         dbc.Col(treeCard, width=4),  # Container for tree
                         dbc.Col(settingsCard, width=2),  # Container for settings
-                        dbc.Col(graphsCard, width=6),  # Container for graphs
+                        dbc.Col(
+                            [selectInstanceCard, graphsCard], width=6
+                        ),  # Container for graphs
                     ]
                 )
             ],
