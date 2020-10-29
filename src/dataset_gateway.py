@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+from io import StringIO
 import os
 import requests
 import defusedxml.ElementTree as ETree
@@ -93,6 +94,20 @@ def field_id_meta_data():
 
     return parse_xml(r.text, columns)
 
+@functools.lru_cache
+def data_encoding_meta_data(encoding_id):
+    """Gets the encoding from the biobank website, and returns it
+    in the form of a dict
+    """
+    r = requests.get(f"https://biobank.ctsu.ox.ac.uk/crystal/codown.cgi?id={encoding_id}")
+
+    ENCODING_DATA = StringIO(r.text)
+
+    df = pd.read_csv(ENCODING_DATA, sep="\t", header=0)
+    # contains dataframe that may have extra information (including node structure if the
+    # encoding is a tree), but this is not needed right now, so we will convert it to a dict
+
+    return df.set_index('coding')['meaning'].to_dict()
 
 def parse_xml(xml_text, df_cols):
     """Parse the input XML file and store the result in a pandas

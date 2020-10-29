@@ -56,6 +56,7 @@ layout = dbc.Card(
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
 
+
 @app.callback(
     [
         Output(
@@ -82,8 +83,8 @@ def update_graph_type(variable_dropdown_x):
     options = [
         {"label": "Violin", "value": 1},
         {"label": "Scatter", "value": 2},
-        {"label": "Bar", "value": 3, "disabled": True},
-        {"label": "Pie", "value": 4, "disabled": True},
+        {"label": "Bar", "value": 3},
+        {"label": "Pie", "value": 4},
     ]
 
     supported_graphs = value_type.supported_graphs
@@ -106,15 +107,15 @@ def update_graph_type(variable_dropdown_x):
 
 @app.callback(
     Output(component_id="graph", component_property="figure"),
-    [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
-        State(component_id="variable-dropdown-x", component_property="value"),
-        State(component_id="settings-graph-type-dropdown", component_property="value"),
+        Input(component_id="settings-card-submit", component_property="n_clicks"),
+        Input(component_id="x-instance-options", component_property="value"),
     ],
+    [State(component_id="settings-graph-type-dropdown", component_property="value")],
 )
 def update_graph(n, x_value, graph_type):
-    """Update the graph when the dropdown selection changes"""
-    if x_value is None:
+    """Update the graph when field or instance selection changes"""
+    if (x_value is None) | (x_value == ""):
         return {
             "layout": {
                 "xaxis": {"visible": False},

@@ -3,7 +3,12 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 from enum import Enum
-from src.dataset_gateway import DatasetGateway, Query
+from src.dataset_gateway import (
+    DatasetGateway,
+    Query,
+    field_id_meta_data,
+    data_encoding_meta_data,
+)
 from src.tree.node import NodeIdentifier
 from src.tree.node_utils import get_field_names_to_inst
 
@@ -41,6 +46,21 @@ class Graph:
             self.field_names_to_ids["FieldID"] == field_id, "NodeName"
         ].item()
 
+    def get_inst_name_dict(self, field_id):
+        inst_names = self.field_names_to_inst.loc[
+            self.field_names_to_inst["FieldID"] == int(field_id)
+        ]
+        if len(inst_names) > 1:
+            # There are multiple instances. Drop row with field name
+            inst_names = inst_names.loc[inst_names["InstanceID"].notnull()]
+            inst_names["MetaID"] = inst_names.apply(
+                lambda row: f"{field_id}-{int(row.InstanceID)}.0", axis=1
+            )
+        else:
+            inst_names["MetaID"] = field_id + "-0.0"
+        inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
+        return inst_name_dict
+
     def get_field_instance_map(self, has_instances, has_array):
         def get_field_instance_name(meta_id):
             meta_id = NodeIdentifier(meta_id)
@@ -76,48 +96,93 @@ class Graph:
                 opacity=0.6,
             )
             fig.add_trace(trace)
-        fig.update_layout(
-            title={
-                "text": self.get_field_name(node_id.field_id),
-                "y": 0.85,
-                "x": 0.475,
-                "xanchor": "center",
-                "yanchor": "top",
-            },
-            showlegend=False,
-        )
-        return fig
+        return self.format_graph(fig, node_id, False)
 
     def scatter_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         fig = px.scatter(data_frame=filtered_data)
+        return self.format_graph(fig, node_id, False)
+
+    def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        processed_df = to_categorical_data(node_id, filtered_data)
+        fig = px.bar(processed_df, x="categories", y="count")
+        return self.format_graph(fig, node_id, False)
+
+    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+        processed_df = to_categorical_data(node_id, filtered_data)
+        fig = px.pie(processed_df, names="categories", values="count")
+        return self.format_graph(fig, node_id, True)
+
+    def format_graph(self, fig, node_id, showlegend):
         fig.update_layout(
             title={
                 "text": self.get_field_name(node_id.field_id),
-                "y": 0.85,
+                "y": 0.95,
                 "x": 0.475,
                 "xanchor": "center",
                 "yanchor": "top",
             },
-            showlegend=False,
+            showlegend=showlegend,
         )
         return fig
+
+
+graph = Graph()
 
 
 def get_field_plot(raw_id, graph_type):
     """Returns a graph containing columns of the same field"""
     node_id = NodeIdentifier(raw_id)
     filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
-    # initialise figure
-    graph = Graph()
-    switcher = {1: graph.violin_plot, 2: graph.scatter_plot}
-    return switcher[graph_type](node_id, filtered_data)
+
+    switcher = {
+        1: graph.violin_plot,
+        2: graph.scatter_plot,
+        3: graph.bar_plot,
+        4: graph.pie_plot,
+    }
+
+    fig = switcher[graph_type](node_id, filtered_data)
+    return fig
+
+
+def to_categorical_data(node_id, filtered_data):
+    # Convert categorical data into a bar plot
+    field_id_meta = field_id_meta_data()
+    encoding_id = int(
+        field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
+            "encoding_id"
+        ].values[0]
+    )
+    encoding_dict = data_encoding_meta_data(encoding_id)
+    count_dict = dict()
+
+    for ind in filtered_data.index:
+        curr_encoding = filtered_data[node_id.db_id()][ind]
+        count_dict[curr_encoding] = count_dict.get(curr_encoding, 0) + 1
+
+    category_list = []
+    count_list = []
+
+    for key in encoding_dict:
+        category_list.append(encoding_dict[key])
+        count_list.append(count_dict[key])
+
+    data = {"categories": category_list, "count": count_list}
+
+    return pd.DataFrame(data, columns=["categories", "count"])
+
+
+# returns a dict of options for a dropdown list of instances
+def get_inst_names_options(raw_id, isMetaId=True):
+    field_id = NodeIdentifier(raw_id).field_id
+    return graph.get_inst_name_dict(field_id)
 
 
 class ValueType(Enum):
-    INTEGER = (11, "Integer", [1, 2, 3])
+    INTEGER = (11, "Integer", [1, 2])
     CAT_SINGLE = (21, "Categorical (single)", [3, 4])
     CAT_MULT = (22, "Categorical (multiple)", [3, 4])
-    CONT = (31, "Continuous", [1, 2, 3])
+    CONT = (31, "Continuous", [1, 2])
     TEXT = (41, "Text", [])
     DATE = (51, "Date", [])
     TIME = (61, "Time", [])

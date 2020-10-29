@@ -15,12 +15,15 @@ from src.cards import settingscard
 from src.cards import statscard
 from src.cards import treecard
 from src.cards import graphscard
+from src.cards import selectinstancecard
 
 server = app.server
 
 app.title = "UK BioBank Explorer"
 
 colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
+
+MAX_SELECTIONS = 30
 
 navbar = dbc.Navbar(
     [
@@ -61,6 +64,9 @@ graphsCard = graphscard.layout
 
 statsCard = statscard.layout
 
+selectInstanceCard = selectinstancecard.layout
+
+
 app.layout = html.Div(
     style={"backgroundColor": colors["background"], "height": "100vh"},
     children=[
@@ -70,15 +76,19 @@ app.layout = html.Div(
             [
                 dbc.Row(
                     [
-                        dbc.Col(treeCard, width=3),  # Container for tree
-                        dbc.Col(settingsCard, width=3),  # Container for settings
+                        dbc.Col(treeCard, width=4),  # Container for tree
+                        dbc.Col(settingsCard, width=2),  # Container for settings
                         dbc.Col(
                             children=[
-                                dbc.Row(dbc.Col(graphsCard)),  # Container for graphs
+                                dbc.Row(
+                                  dbc.Col(
+                                    [selectInstanceCard, graphsCard], width=6 # Container for graphs      
+                                  )
+                                ),
                                 dbc.Row(
                                     dbc.Col(
-                                        statsCard
-                                    ),  # Container for summary statistics
+                                        statsCard # Container for summary statistics
+                                    ),
                                     className="mt-3",
                                 ),
                             ]
@@ -86,7 +96,7 @@ app.layout = html.Div(
                     ]
                 )
             ],
-            style={"padding": "2.5rem 3rem 0rem 3rem"},
+            style={"padding": "2.5rem 3rem 2.5rem 3rem"},
             fluid=True,
         ),
     ],

@@ -20,9 +20,9 @@ layout = dbc.Card(
         dbc.CardBody(
             [
                 html.H4("Explore", className="mb-3 tree-card-title"),
+                dbc.Input(className="mb-1", id="search-input", value="Search"),
                 html.Div(
                     [
-                        dbc.Input(className="mb-1", id="search-input", value="Search"),
                         HierarchyTree(
                             id="tree",
                             data=hierarchy,
