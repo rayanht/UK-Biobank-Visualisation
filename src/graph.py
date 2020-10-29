@@ -222,10 +222,10 @@ def get_inst_names_options(raw_id, isMetaId=True):
 
 
 class ValueType(Enum):
-    INTEGER = (11, "Integer", [1, 2])
+    INTEGER = (11, "Integer", [1])
     CAT_SINGLE = (21, "Categorical (single)", [3, 4])
     CAT_MULT = (22, "Categorical (multiple)", [3, 4])
-    CONT = (31, "Continuous", [1, 2])
+    CONT = (31, "Continuous", [1])
     TEXT = (41, "Text", [])
     DATE = (51, "Date", [])
     TIME = (61, "Time", [])
