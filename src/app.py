@@ -63,7 +63,7 @@ graphsCard = graphscard.layout
 
 statsCard = statscard.layout
 
-selectInstanceCard = selectinstancecard.layout
+# selectInstanceCard = selectinstancecard.layout
 
 
 app.layout = html.Div(
@@ -79,14 +79,10 @@ app.layout = html.Div(
                         dbc.Col(settingsCard, width=2),  # Container for settings
                         dbc.Col(
                             children=[
-                                dbc.Row(
-                                  dbc.Col(
-                                    [selectInstanceCard, graphsCard], width=6 # Container for graphs
-                                  )
-                                ),
+                                dbc.Row(dbc.Col(graphsCard)),  # Container for graphs
                                 dbc.Row(
                                     dbc.Col(
-                                        statsCard # Container for summary statistics
+                                        statsCard  # Container for summary statistics
                                     ),
                                     className="mt-3",
                                 ),
