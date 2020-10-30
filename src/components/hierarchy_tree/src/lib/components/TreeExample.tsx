@@ -46,7 +46,13 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     componentDidUpdate(prevProps) {
         if (prevProps.nodes !== this.props.nodes) {
-            const newSelected = prevProps.selected_nodes.map(n => this.searchNodes(this.props.nodes, n.id.toString()));
+            const newSelected = prevProps.selected_nodes.map((n) => {
+                const node = this.searchNodes(this.props.nodes, n.id.toString());
+                if (node == undefined) {
+                    return n;
+                }
+                return node;
+            });
             this.setState(prevState => ({...prevState, nodes: this.props.nodes, selected_nodes: newSelected}));
         }
         this.forEachNode(this.props.nodes, (n) => {
