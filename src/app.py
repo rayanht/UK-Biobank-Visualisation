@@ -82,7 +82,7 @@ app.layout = html.Div(
                             children=[
                                 dbc.Row(
                                   dbc.Col(
-                                    [selectInstanceCard, graphsCard], width=6 # Container for graphs      
+                                    [selectInstanceCard, graphsCard], width=6 # Container for graphs
                                   )
                                 ),
                                 dbc.Row(
