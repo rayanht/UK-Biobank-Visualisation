@@ -36,6 +36,10 @@ class Query:
     def from_identifier(cls, node_identifier: NodeIdentifier) -> Query:
         return Query([node_identifier.db_id()])
 
+    @classmethod
+    def from_identifiers(cls, node_identifiers: List[NodeIdentifier]) -> Query:
+        return Query([node_identifier.db_id() for node_identifier in node_identifiers])
+
     def limit_output(self, limit: int):
         self.limit = limit
         return self
@@ -94,12 +98,15 @@ def field_id_meta_data():
 
     return parse_xml(r.text, columns)
 
+
 @functools.lru_cache
 def data_encoding_meta_data(encoding_id):
     """Gets the encoding from the biobank website, and returns it
     in the form of a dict
     """
-    r = requests.get(f"https://biobank.ctsu.ox.ac.uk/crystal/codown.cgi?id={encoding_id}")
+    r = requests.get(
+        f"https://biobank.ctsu.ox.ac.uk/crystal/codown.cgi?id={encoding_id}"
+    )
 
     ENCODING_DATA = StringIO(r.text)
 
@@ -107,7 +114,8 @@ def data_encoding_meta_data(encoding_id):
     # contains dataframe that may have extra information (including node structure if the
     # encoding is a tree), but this is not needed right now, so we will convert it to a dict
 
-    return df.set_index('coding')['meaning'].to_dict()
+    return df.set_index("coding")["meaning"].to_dict()
+
 
 def parse_xml(xml_text, df_cols):
     """Parse the input XML file and store the result in a pandas

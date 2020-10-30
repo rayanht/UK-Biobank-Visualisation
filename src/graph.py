@@ -46,10 +46,13 @@ class Graph:
             self.field_names_to_ids["FieldID"] == field_id, "NodeName"
         ].item()
 
+    def get_graph_axes_title(self, node_id: NodeIdentifier):
+        return f"{self.get_field_name(node_id.field_id)} ({node_id.db_id()})"
+
     def get_inst_name_dict(self, field_id):
         inst_names = self.field_names_to_inst.loc[
             self.field_names_to_inst["FieldID"] == int(field_id)
-        ]
+        ].copy()
         if len(inst_names) > 1:
             # There are multiple instances. Drop row with field name
             inst_names = inst_names.loc[inst_names["InstanceID"].notnull()]
@@ -98,9 +101,18 @@ class Graph:
             fig.add_trace(trace)
         return self.format_graph(fig, node_id, False)
 
-    def scatter_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
-        fig = px.scatter(data_frame=filtered_data)
-        return self.format_graph(fig, node_id, False)
+    def scatter_plot(
+        self,
+        node_id_x: NodeIdentifier,
+        node_id_y: NodeIdentifier,
+        filtered_data: pd.DataFrame,
+    ):
+        fig = px.scatter(
+            data_frame=filtered_data,
+            x=self.get_graph_axes_title(node_id_x),
+            y=self.get_graph_axes_title(node_id_y),
+        )
+        return self.format_graph_two_var(fig, node_id_x, node_id_y, False)
 
     def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         processed_df = to_categorical_data(node_id, filtered_data)
@@ -125,23 +137,54 @@ class Graph:
         )
         return fig
 
+    def format_graph_two_var(self, fig, node_id_x, node_id_y, showlegend):
+        fig.update_layout(
+            title={
+                "text": f"{self.get_field_name(node_id_y.field_id)} against {self.get_field_name(node_id_x.field_id)}",
+                "y": 0.95,
+                "x": 0.475,
+                "xanchor": "center",
+                "yanchor": "top",
+            },
+            showlegend=showlegend,
+        )
+        return fig
+
 
 graph = Graph()
+switcher = {
+    1: graph.violin_plot,
+    2: graph.scatter_plot,
+    3: graph.bar_plot,
+    4: graph.pie_plot,
+}
 
 
 def get_field_plot(raw_id, graph_type):
     """Returns a graph containing columns of the same field"""
     node_id = NodeIdentifier(raw_id)
-    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id))
-
-    switcher = {
-        1: graph.violin_plot,
-        2: graph.scatter_plot,
-        3: graph.bar_plot,
-        4: graph.pie_plot,
-    }
+    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id)).rename(
+        columns={node_id.db_id(): graph.get_graph_axes_title(node_id)}
+    )
 
     fig = switcher[graph_type](node_id, filtered_data)
+    return fig
+
+
+def get_two_field_plot(raw_id_x, raw_id_y, graph_type):
+    """Returns a graph with two variables"""
+    node_id_x = NodeIdentifier(raw_id_x)
+    node_id_y = NodeIdentifier(raw_id_y)
+    filtered_data_x = DatasetGateway.submit(
+        Query.from_identifiers([node_id_x, node_id_y])
+    ).rename(
+        columns={
+            node_id_x.db_id(): graph.get_graph_axes_title(node_id_x),
+            node_id_y.db_id(): graph.get_graph_axes_title(node_id_y),
+        }
+    )
+
+    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x)
     return fig
 
 
@@ -157,7 +200,7 @@ def to_categorical_data(node_id, filtered_data):
     count_dict = dict()
 
     for ind in filtered_data.index:
-        curr_encoding = filtered_data[node_id.db_id()][ind]
+        curr_encoding = filtered_data[graph.get_graph_axes_title(node_id)][ind]
         count_dict[curr_encoding] = count_dict.get(curr_encoding, 0) + 1
 
     category_list = []
@@ -179,10 +222,10 @@ def get_inst_names_options(raw_id, isMetaId=True):
 
 
 class ValueType(Enum):
-    INTEGER = (11, "Integer", [1, 2])
+    INTEGER = (11, "Integer", [1])
     CAT_SINGLE = (21, "Categorical (single)", [3, 4])
     CAT_MULT = (22, "Categorical (multiple)", [3, 4])
-    CONT = (31, "Continuous", [1, 2])
+    CONT = (31, "Continuous", [1])
     TEXT = (41, "Text", [])
     DATE = (51, "Date", [])
     TIME = (61, "Time", [])

@@ -15,7 +15,6 @@ from src.cards import settingscard
 from src.cards import statscard
 from src.cards import treecard
 from src.cards import graphscard
-from src.cards import selectinstancecard
 
 server = app.server
 
