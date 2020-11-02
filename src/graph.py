@@ -179,10 +179,7 @@ def to_categorical_data(node_id, filtered_data):
     # Get column of interest, dropping first row which contains node_id
     column_of_interest = filtered_data[graph.get_graph_axes_title(node_id)].drop(0)
 
-    encoding_counts = column_of_interest.value_counts(
-        #dropna=True,
-        #sort=True
-    ).rename_axis('unique_values').reset_index(name='counts')
+    encoding_counts = column_of_interest.value_counts(dropna=True).rename_axis('unique_values').reset_index(name='counts')
     encoding_counts['categories'] = encoding_counts['unique_values'].astype(int).map(encoding_dict)
 
     return encoding_counts[["categories", "counts"]]
