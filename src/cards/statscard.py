@@ -20,7 +20,7 @@ layout = dbc.Card(
     Output(component_id="statistics", component_property="children"),
     Input(component_id="settings-card-submit", component_property="n_clicks"),
     [
-        State(component_id="variable-dropdown-x", component_property="value"),
+        State(component_id="x-instance-options", component_property="value"),
         State(component_id="settings-graph-type-dropdown", component_property="value"),
     ],
 )
