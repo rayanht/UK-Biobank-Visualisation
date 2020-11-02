@@ -17,34 +17,55 @@ hierarchy, clopen_state = get_hierarchy()
 
 layout = dbc.Card(
     [
-        dbc.CardBody(
-            [
-                html.H4("Explore", className="mb-3 tree-card-title"),
-                dbc.Input(className="mb-1", id="search-input", value="Search"),
-                html.Div(
-                    [
-                        HierarchyTree(
-                            id="tree",
-                            data=hierarchy,
-                            selected_nodes=[],
-                            max_selections=MAX_SELECTIONS,
-                            n_updates=0,
-                            clopenState=clopen_state,
-                        ),
-                    ],
-                    className="flex-grow-1 p-1",
-                    style={"overflow": "auto"},
-                ),
-                html.Div(
-                    style={"textAlign": "right"},
-                    id="selections-capacity",
-                    className="mt-1",
-                ),
-            ],
-            className="d-flex flex-column",
-        )
-    ],
-    style={"height": "50rem"},  # for dummy purposes, to remove later
+        dbc.CardHeader(
+            dbc.Button(html.H5("Explore"), color="link", id="tree-collapse-toggle")
+        ),
+        dbc.Collapse(
+            dbc.CardBody(
+                [
+                    # html.H4("Explore", className="mb-3 tree-card-title"),
+                    dbc.Input(className="mb-1", id="search-input", value="Search"),
+                    html.Div(
+                        [
+                            HierarchyTree(
+                                id="tree",
+                                data=hierarchy,
+                                selected_nodes=[],
+                                max_selections=MAX_SELECTIONS,
+                                n_updates=0,
+                                clopenState=clopen_state,
+                            )
+                        ],
+                        className="flex-grow-1 p-1",
+                        style={"overflow": "auto"},
+                    ),
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                html.Div(
+                                    style={"textAlign": "right"},
+                                    id="selections-capacity",
+                                    className="mt-1",
+                                ),
+                                align="center",
+                            ),
+                            # dbc.Button(
+                            #     "Next",
+                            #     id="tree-next-btn",
+                            #     color="primary",
+                            #     className="mr-3"
+                            # )
+                        ],
+                        justify="end",
+                    ),
+                ],
+                className="d-flex flex-column",
+                style={"height": "40rem"},
+            ),
+            id=f"collapse-tree",
+            is_open=True,
+        ),
+    ]
 )
 
 
@@ -70,6 +91,15 @@ def update_dropdown(n, selected_nodes):
     """Update the dropdown when nodes from the tree are selected"""
     options = [get_option(node) for node in selected_nodes]
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
+
+
+# @app.callback(
+#     [Output("collapse-settings", "is_open"),
+#     Output("collapse-tree", "is_open")],
+#     [Input("tree-next-btn", "n_clicks")]
+# )
+# def open_next(n):
+#     return True, False
 
 
 def get_option(node):
