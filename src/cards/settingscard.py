@@ -1,12 +1,11 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from src.graph import get_field_plot, get_two_field_plot
+
+from src.graph import get_field_plot, get_two_field_plot, ValueType, get_inst_names_options
+from src.tree.node_utils import get_option
 from dash.dependencies import Input, Output, State
 from src.dataset_gateway import field_id_meta_data
-from src.graph import ValueType
-
-from src.graph import get_inst_names_options
 
 from src.dash_app import app
 
@@ -62,6 +61,13 @@ layout = dbc.Card(
                             style={"display": "none"},
                             className="mt-2",
                         ),
+                        html.H5("Colour", className="mt-3"),
+                        dcc.Dropdown(
+                            id="settings-graph-colour-dropdown",
+                            options=[],
+                            placeholder="Optional: Group data by category",
+                            clearable=True,
+                        ),
                         html.H5("Graph Type", className="mt-3"),
                         dcc.Dropdown(
                             id="settings-graph-type-dropdown",
@@ -70,14 +76,6 @@ layout = dbc.Card(
                             clearable=False,
                             disabled=True,
                         ),
-                        # html.H5("Y-Axis Instance", className="mt-2"),
-                        # html.Div(id='y-instance-options-instr'),
-                        # dcc.Dropdown(
-                        #     id="y-instance-options",
-                        #     placeholder="Select a y-axis variable to view instances",
-                        #     # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
-                        #     disabled=True,
-                        # ),
                     ],
                     className="flex-grow-1",
                     style={"overflow": "auto"},
@@ -95,6 +93,24 @@ layout = dbc.Card(
     style={"height": "50rem"},  # for dummy purposes, to remove later
 )
 
+# For getting colour options
+@app.callback(
+    Output(component_id="settings-graph-colour-dropdown", component_property="options"),
+    [Input(component_id="tree", component_property="data")],
+)
+def get_baseline_nodes(hierarchy):
+    baseline_children = hierarchy[0]['childNodes'][0]['childNodes']
+    leaf_baseline = [child for child in baseline_children if isLeaf(child)]
+    print("The baseline characteristic leaf nodes in tree is ", leaf_baseline)
+    options = [get_option(node) for node in leaf_baseline]
+    return options
+
+def isLeaf(node):
+    try:
+        return not node['hasCaret']
+    except KeyError:
+        print("This node: does not have Caret attribute")
+        return True;
 
 @app.callback(
     [
@@ -271,8 +287,6 @@ def update_y_sel_inst(y_value):
 
 
 # for plotting graph
-
-
 @app.callback(
     Output(component_id="graph", component_property="figure"),
     [Input(component_id="settings-card-submit", component_property="n_clicks")],

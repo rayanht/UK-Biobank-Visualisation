@@ -153,3 +153,12 @@ def get_field_names_to_inst():
         fields_info["RelatedFieldID"].isnull() & fields_info["FieldID"].notnull()
     ][["FieldID", "NodeName", "InstanceID"]]
     return field_names_to_inst
+
+def get_option(node):
+    label = node["label"]
+    title = None
+    if "(" in label:
+        title = label
+        label = re.sub(r"\([^)]*\)", "", label).strip()
+    return {"label": label, "value": node["field_id"], "title": title}
+    

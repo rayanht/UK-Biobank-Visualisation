@@ -3,7 +3,7 @@ import re
 import sys
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from src.tree.node_utils import get_hierarchy, filter_hierarchy
+from src.tree.node_utils import get_hierarchy, filter_hierarchy, get_option
 from dash.dependencies import Input, Output, State
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
@@ -71,11 +71,3 @@ def update_dropdown(n, selected_nodes):
     options = [get_option(node) for node in selected_nodes]
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
 
-
-def get_option(node):
-    label = node["label"]
-    title = None
-    if "(" in label:
-        title = label
-        label = re.sub(r"\([^)]*\)", "", label).strip()
-    return {"label": label, "value": node["field_id"], "title": title}
