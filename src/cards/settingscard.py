@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from src.graph import get_field_plot, get_two_field_plot, ValueType, get_inst_names_options
+from src.graph import get_field_plot, get_two_field_plot, ValueType, get_inst_names_options, graph
 from src.tree.node_utils import get_option
 from dash.dependencies import Input, Output, State
 from src.dataset_gateway import field_id_meta_data
@@ -61,12 +61,20 @@ layout = dbc.Card(
                             style={"display": "none"},
                             className="mt-2",
                         ),
-                        html.H5("Colour", className="mt-3"),
-                        dcc.Dropdown(
-                            id="settings-graph-colour-dropdown",
-                            options=[],
-                            placeholder="Optional: Group data by category",
-                            clearable=True,
+                        html.Div(    
+                            id="colour-selection-div",
+                            children=[
+                                html.H6("Colour"),
+                                dcc.Dropdown(
+                                    id="settings-graph-colour-dropdown",
+                                    options=[],
+                                    placeholder="Optional: Group data by category",
+                                    clearable=True,
+                                    optionHeight=70,
+                                ),
+                            ],
+                            style={"display": "none"},
+                            className="mt-2"
                         ),
                         html.H5("Graph Type", className="mt-3"),
                         dcc.Dropdown(
@@ -95,21 +103,32 @@ layout = dbc.Card(
 
 # For getting colour options
 @app.callback(
-    Output(component_id="settings-graph-colour-dropdown", component_property="options"),
-    [Input(component_id="tree", component_property="data")],
+    [
+        Output(component_id="colour-selection-div", component_property="style"),
+        Output(component_id="settings-graph-colour-dropdown", component_property="options"),
+        Output(component_id="settings-graph-colour-dropdown", component_property="value"),
+    ],
+    [
+        Input(component_id="tree", component_property="data"),
+        Input(component_id="settings-graph-type-dropdown", component_property="value"),
+    ],
 )
-def get_baseline_nodes(hierarchy):
+def get_baseline_nodes(hierarchy, graph_type):
+    """Updates colour options with baselines characteristic nodes after tree has been loaded"""
+    if ((graph_type == 1) | (graph_type == None)):
+        # Currently does not support colour for violin plot
+        return {"display": "none"}, [], None
+    
     baseline_children = hierarchy[0]['childNodes'][0]['childNodes']
     leaf_baseline = [child for child in baseline_children if isLeaf(child)]
-    print("The baseline characteristic leaf nodes in tree is ", leaf_baseline)
     options = [get_option(node) for node in leaf_baseline]
-    return options
+    return {"display": "block"}, options, None
 
 def isLeaf(node):
+    """Returns true if node is a leaf"""
     try:
         return not node['hasCaret']
     except KeyError:
-        print("This node: does not have Caret attribute")
         return True;
 
 @app.callback(
@@ -294,9 +313,10 @@ def update_y_sel_inst(y_value):
         State(component_id="settings-graph-type-dropdown", component_property="value"),
         State(component_id="x-instance-options", component_property="value"),
         State(component_id="y-instance-options", component_property="value"),
+        State(component_id="settings-graph-colour-dropdown", component_property="value")
     ],
 )
-def update_graph(n, graph_type, x_value, y_value):
+def update_graph(n, graph_type, x_value, y_value, colour):
     """Update the graph when the plot button is pressed"""
     if not x_value:
         return {
@@ -315,5 +335,5 @@ def update_graph(n, graph_type, x_value, y_value):
             }
         }
     if not y_value:
-        return get_field_plot(x_value, graph_type)  # Plot first selected data
-    return get_two_field_plot(x_value, y_value, graph_type)
+        return get_field_plot(x_value, graph_type, colour)  # Plot first selected data
+    return get_two_field_plot(x_value, y_value, graph_type, colour)

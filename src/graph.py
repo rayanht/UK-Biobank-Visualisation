@@ -64,26 +64,33 @@ class Graph:
         inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
         return inst_name_dict
 
-    def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+    def violin_plot(
+        self, 
+        node_id: NodeIdentifier, 
+        filtered_data: pd.DataFrame, 
+        colour_name: str
+    ):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         for col in filtered_data:
-            trace = go.Violin(
-                y=filtered_data[col],
-                name=col,
-                box_visible=True,
-                line_color="black",
-                meanline_visible=True,
-                fillcolor="lightseagreen",
-                opacity=0.6,
-            )
-            fig.add_trace(trace)
+            if (col != colour_name):
+                trace = go.Violin(
+                    y=filtered_data[col],
+                    name=col,
+                    box_visible=True,
+                    line_color="black",
+                    meanline_visible=True,
+                    fillcolor="lightseagreen",
+                    opacity=0.6,
+                )
+                fig.add_trace(trace)
         return self.format_graph(fig, node_id, False)
 
     def scatter_plot(
         self,
         node_id_x: NodeIdentifier,
         node_id_y: NodeIdentifier,
-        filtered_data: pd.DataFrame,
+        filtered_data: pd.DataFrame, 
+        colour_name: str
     ):
         fig = px.scatter(
             data_frame=filtered_data,
@@ -92,12 +99,28 @@ class Graph:
         )
         return self.format_graph_two_var(fig, node_id_x, node_id_y, False)
 
-    def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+    def bar_plot(
+        self, 
+        node_id: NodeIdentifier, 
+        filtered_data: pd.DataFrame, 
+        colour_name: str
+    ):
+        #TODO: don't drop colour after it is supported in count_values
+        if (colour_name != None):
+            filtered_data.drop(colour_name, axis='columns', inplace=True)
         processed_df = to_categorical_data(node_id, filtered_data)
         fig = px.bar(processed_df, x="categories", y="counts")
         return self.format_graph(fig, node_id, False)
 
-    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
+    def pie_plot(
+        self, 
+        node_id: NodeIdentifier, 
+        filtered_data: pd.DataFrame, 
+        colour_name: str
+    ):
+        #TODO: don't drop colour after it is supported in count_values
+        if (colour_name != None):
+            filtered_data.drop(colour_name, axis='columns', inplace=True)
         processed_df = to_categorical_data(node_id, filtered_data)
         fig = px.pie(processed_df, names="categories", values="counts")
         return self.format_graph(fig, node_id, True)
@@ -138,33 +161,39 @@ switcher = {
 }
 
 
-def get_field_plot(raw_id, graph_type):
+def get_field_plot(raw_id, graph_type, colour):
     """Returns a graph containing columns of the same field"""
     node_id = NodeIdentifier(raw_id)
-    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id)).rename(
-        columns={node_id.db_id(): graph.get_graph_axes_title(node_id)}
+    colour_id = NodeIdentifier(colour) if (colour != None) else None
+    colour_name = graph.get_graph_axes_title(colour_id) if (colour_id != None) else None
+    filtered_data = DatasetGateway.submit(
+            Query.from_identifiers([node_id, colour_id])
+        ).rename(
+        columns=get_column_names([node_id, colour_id])
     )
 
-    fig = switcher[graph_type](node_id, filtered_data)
+    fig = switcher[graph_type](node_id, filtered_data, colour_name)
     return fig
 
 
-def get_two_field_plot(raw_id_x, raw_id_y, graph_type):
+def get_two_field_plot(raw_id_x, raw_id_y, graph_type, colour):
     """Returns a graph with two variables"""
     node_id_x = NodeIdentifier(raw_id_x)
     node_id_y = NodeIdentifier(raw_id_y)
+    colour_id = NodeIdentifier(colour)
+    colour_name = graph.get_graph_axes_title(colour_id)
     filtered_data_x = DatasetGateway.submit(
-        Query.from_identifiers([node_id_x, node_id_y])
+        Query.from_identifiers([node_id_x, node_id_y, colour_id])
     ).rename(
-        columns={
-            node_id_x.db_id(): graph.get_graph_axes_title(node_id_x),
-            node_id_y.db_id(): graph.get_graph_axes_title(node_id_y),
-        }
+        columns=get_column_names([node_id_x, node_id_y, colour_id])
     )
 
-    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x)
+    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x, colour_name)
     return fig
 
+def get_column_names(node_ids):
+    return {node_id.db_id() : graph.get_graph_axes_title(node_id) 
+            for node_id in node_ids if (node_id != None)}
 
 def to_categorical_data(node_id, filtered_data):
     # Convert categorical data into a bar plot

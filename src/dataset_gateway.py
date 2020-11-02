@@ -38,7 +38,7 @@ class Query:
 
     @classmethod
     def from_identifiers(cls, node_identifiers: List[NodeIdentifier]) -> Query:
-        return Query([node_identifier.db_id() for node_identifier in node_identifiers])
+        return Query([node_identifier.db_id() for node_identifier in node_identifiers if node_identifier != None])
 
     def limit_output(self, limit: int):
         self.limit = limit
