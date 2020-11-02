@@ -96,6 +96,7 @@ class Graph:
             data_frame=filtered_data,
             x=self.get_graph_axes_title(node_id_x),
             y=self.get_graph_axes_title(node_id_y),
+            color=colour_name,
         )
         return self.format_graph_two_var(fig, node_id_x, node_id_y, False)
 
@@ -180,8 +181,8 @@ def get_two_field_plot(raw_id_x, raw_id_y, graph_type, colour):
     """Returns a graph with two variables"""
     node_id_x = NodeIdentifier(raw_id_x)
     node_id_y = NodeIdentifier(raw_id_y)
-    colour_id = NodeIdentifier(colour)
-    colour_name = graph.get_graph_axes_title(colour_id)
+    colour_id = NodeIdentifier(colour) if (colour != None) else None
+    colour_name = graph.get_graph_axes_title(colour_id) if (colour_id != None) else None
     filtered_data_x = DatasetGateway.submit(
         Query.from_identifiers([node_id_x, node_id_y, colour_id])
     ).rename(

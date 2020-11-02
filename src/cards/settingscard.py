@@ -115,8 +115,8 @@ layout = dbc.Card(
 )
 def get_baseline_nodes(hierarchy, graph_type):
     """Updates colour options with baselines characteristic nodes after tree has been loaded"""
-    if ((graph_type == 1) | (graph_type == None)):
-        # Currently does not support colour for violin plot
+    if (graph_type != 2):
+        # Currently only support colour for scatter plot
         return {"display": "none"}, [], None
     
     baseline_children = hierarchy[0]['childNodes'][0]['childNodes']
