@@ -12,8 +12,9 @@ from src.dash_app import app
 
 layout = dbc.Card(
     [
-        dbc.CardHeader(
-            dbc.Button(html.H5("Settings"), color="link", id="settings-collapse-toggle")
+        html.A(
+            dbc.CardHeader(html.H5("Settings", className="ml-1")),
+            id="settings-collapse-toggle",
         ),
         dbc.Collapse(
             dbc.CardBody(
