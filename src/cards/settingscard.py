@@ -94,7 +94,7 @@ layout = dbc.Card(
                     ),
                 ],
                 className="d-flex flex-column",
-                style={"height": "40rem"},
+                style={"height": "41rem"},
             ),
             id=f"collapse-settings",
         ),

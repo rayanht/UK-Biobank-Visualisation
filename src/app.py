@@ -115,13 +115,18 @@ def toggle_navbar_collapse(n, is_open):
 
 
 collapseable_cards = ["settings", "tree"]
+collapseable_card_toggles = [
+    "settings-collapse-toggle",
+    "tree-collapse-toggle",
+    "tree-next-btn",
+]
 
 
 @app.callback(
     [Output(f"collapse-{i}", "is_open") for i in collapseable_cards],
-    [Input(f"{i}-collapse-toggle", "n_clicks") for i in collapseable_cards],
+    [Input(i, "n_clicks") for i in collapseable_card_toggles],
 )
-def toggle_accordion(n1, n2):
+def toggle_accordion(n1, n2, n3):
     ctx = dash.callback_context
 
     if not ctx.triggered:
@@ -129,7 +134,9 @@ def toggle_accordion(n1, n2):
     else:
         button_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-    if button_id == "settings-collapse-toggle" and n1:
+    if (button_id == "settings-collapse-toggle" or button_id == "tree-next-btn") and (
+        n1 or n3
+    ):
         return True, False
     elif button_id == "tree-collapse-toggle" and n2:
         return False, True
