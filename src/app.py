@@ -138,6 +138,4 @@ def toggle_accordion(n1, n2, n3):
         n1 or n3
     ):
         return True, False
-    elif button_id == "tree-collapse-toggle" and n2:
-        return False, True
     return False, True
