@@ -7,7 +7,7 @@ from src.dataset_gateway import field_id_meta_data, DatasetGateway, Query
 from src.graph import ValueType
 from src.graph import get_inst_names_options
 from src.dash_app import app
-from src.selected_subset import SelectedSubset
+import src.utils as utils
 from src.tree.node import NodeIdentifier
 
 layout = dbc.Card(
@@ -287,12 +287,11 @@ def update_graph(n, graph_type, x_value, y_value):
             }
         }, True
     node_id_x = NodeIdentifier(x_value)
-    subset = SelectedSubset()
 
     # If only 1 variable is selected, just plot that variable and update SelectedSubset
     if not y_value:
         filtered_data = DatasetGateway.submit(Query.from_identifier(node_id_x))
-        subset.update(filtered_data)
+        utils.subset = filtered_data
         return (
             get_field_plot(node_id_x, graph_type, filtered_data),
             False,
@@ -303,5 +302,5 @@ def update_graph(n, graph_type, x_value, y_value):
     filtered_data = DatasetGateway.submit(
         Query.from_identifiers([node_id_x, node_id_y])
     )
-    subset.update(filtered_data)
+    utils.subset = filtered_data
     return get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data), False

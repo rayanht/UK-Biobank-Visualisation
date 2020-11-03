@@ -1,15 +1,14 @@
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
+import src.utils as utils
 from dash_extensions import Download
 from dash_extensions.snippets import send_data_frame
 from src.dash_app import app
 from dash.dependencies import Input, Output
-from src.selected_subset import SelectedSubset
+
 
 download_icon = html.I(id="submit-button", n_clicks=0, className="fa fa-download")
-
-subset = SelectedSubset()
 
 layout = dbc.Card(
     [
@@ -40,7 +39,7 @@ layout = dbc.Card(
 def generate_csv(n_clicks):
     if n_clicks > 0:
         return send_data_frame(
-            subset.instance.data.to_csv,
+            utils.subset.to_csv,
             "ukbb_metadata_variable_subset.csv",
             index=False,
         )
