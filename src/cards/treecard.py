@@ -17,8 +17,9 @@ hierarchy, clopen_state = get_hierarchy()
 
 layout = dbc.Card(
     [
-        dbc.CardHeader(
-            dbc.Button(html.H5("Explore"), color="link", id="tree-collapse-toggle")
+        html.A(
+            dbc.CardHeader(html.H5("Explore", className="ml-1")),
+            id="tree-collapse-toggle",
         ),
         dbc.Collapse(
             dbc.CardBody(
