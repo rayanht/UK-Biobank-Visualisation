@@ -74,14 +74,6 @@ layout = dbc.Card(
                                 clearable=False,
                                 disabled=True,
                             ),
-                            # html.H5("Y-Axis Instance", className="mt-2"),
-                            # html.Div(id='y-instance-options-instr'),
-                            # dcc.Dropdown(
-                            #     id="y-instance-options",
-                            #     placeholder="Select a y-axis variable to view instances",
-                            #     # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
-                            #     disabled=True,
-                            # ),
                         ],
                         className="flex-grow-1",
                         style={"overflow": "auto"},
@@ -214,8 +206,6 @@ def update_y_axis_disabled(x_value, y_value):
 
 
 # for instance selection
-
-
 @app.callback(
     [
         Output(component_id="x-instance-selection-div", component_property="style"),
@@ -277,8 +267,6 @@ def update_y_sel_inst(y_value):
 
 
 # for plotting graph
-
-
 @app.callback(
     Output(component_id="graph", component_property="figure"),
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
