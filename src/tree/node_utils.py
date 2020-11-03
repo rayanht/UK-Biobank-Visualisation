@@ -9,7 +9,9 @@ from src.hierarchy import HierarchyLoader
 from src.tree.node import Node
 
 
-def build(raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = "") -> Node:
+def build(
+    raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = ""
+) -> Node:
     """
     Build tree by adding all intermediate nodes, and only leaf nodes that match the prefix
 
@@ -76,9 +78,7 @@ def gen():
         i += 1
 
 
-def flatten(
-    encoded_tree: dict, clopen_state: dict
-) -> None:
+def flatten(encoded_tree: dict, clopen_state: dict) -> None:
     """
     Transform and enriches an encoded tree into the format expected by the frontend library.
 

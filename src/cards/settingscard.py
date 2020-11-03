@@ -3,11 +3,9 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from src.graph import get_field_plot, get_two_field_plot
 from dash.dependencies import Input, Output, State
-from src.dataset_gateway import field_id_meta_data
+from src.dataset_gateway import field_id_meta_data, DatasetGateway, Query
 from src.graph import ValueType
-
 from src.graph import get_inst_names_options
-
 from src.dash_app import app
 
 layout = dbc.Card(
@@ -70,14 +68,6 @@ layout = dbc.Card(
                             clearable=False,
                             disabled=True,
                         ),
-                        # html.H5("Y-Axis Instance", className="mt-2"),
-                        # html.Div(id='y-instance-options-instr'),
-                        # dcc.Dropdown(
-                        #     id="y-instance-options",
-                        #     placeholder="Select a y-axis variable to view instances",
-                        #     # TODO: remove this when we are able to plot 2 variables at once (i.e. enable second variable)
-                        #     disabled=True,
-                        # ),
                     ],
                     className="flex-grow-1",
                     style={"overflow": "auto"},
@@ -220,27 +210,7 @@ def update_y_axis_disabled(x_value, y_value):
 )
 def update_x_sel_inst(x_value):
     """Updating list of instances that may be selected on x-axis"""
-    if not x_value:
-        return {"display": "none"}, [], ""
-
-    dict_with_inst = get_inst_names_options(x_value, False)
-    options = [
-        {
-            "label": prune_instance_label(dict_with_inst[field_inst_id]),
-            "value": field_inst_id,
-        }
-        for field_inst_id in dict_with_inst
-    ]
-
-    div_visible = {"display": "block"} if len(options) != 1 else {"display": "none"}
-
-    return div_visible, options, options[0]["value"]  # select first instance by default
-
-
-def prune_instance_label(label):
-    # deletes everything after the year, which ends in a close parenthesis
-    sep = ")"
-    return label.split(sep, 1)[0] + sep
+    return get_updated_instances(x_value)
 
 
 @app.callback(
@@ -253,10 +223,21 @@ def prune_instance_label(label):
 )
 def update_y_sel_inst(y_value):
     """Updating list of instances that may be selected on y-axis"""
-    if not y_value:
+    return get_updated_instances(y_value)
+
+
+def prune_instance_label(label):
+    # deletes everything after the year, which ends in a close parenthesis
+    sep = ")"
+    return label.split(sep, 1)[0] + sep
+
+
+def get_updated_instances(value):
+    """Updating list of instances that may be selected"""
+    if not value:
         return {"display": "none"}, [], ""
 
-    dict_with_inst = get_inst_names_options(y_value, False)
+    dict_with_inst = get_inst_names_options(value)
     options = [
         {
             "label": prune_instance_label(dict_with_inst[field_inst_id]),
