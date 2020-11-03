@@ -64,28 +64,6 @@ class Graph:
         inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
         return inst_name_dict
 
-    def get_field_instance_map(self, has_instances, has_array):
-        def get_field_instance_name(meta_id):
-            meta_id = NodeIdentifier(meta_id)
-            field_id = meta_id.field_id
-            inst_id = meta_id.instance_id
-            df_with_name = (
-                self.field_names_to_inst.loc[
-                    (self.field_names_to_inst["FieldID"] == field_id)
-                    & (self.field_names_to_inst["InstanceID"] == inst_id)
-                ]["NodeName"]
-                if has_instances
-                else self.field_names_to_inst.loc[
-                    (self.field_names_to_inst["FieldID"] == field_id)
-                ]["NodeName"]
-            )
-            if has_array:
-                part_id = meta_id.part_id
-                return df_with_name.item() + "[" + str(part_id) + "]"
-            return df_with_name.item()
-
-        return get_field_instance_name
-
     def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         for col in filtered_data:
@@ -116,12 +94,12 @@ class Graph:
 
     def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         processed_df = to_categorical_data(node_id, filtered_data)
-        fig = px.bar(processed_df, x="categories", y="count")
+        fig = px.bar(processed_df, x="categories", y="counts")
         return self.format_graph(fig, node_id, False)
 
     def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame):
         processed_df = to_categorical_data(node_id, filtered_data)
-        fig = px.pie(processed_df, names="categories", values="count")
+        fig = px.pie(processed_df, names="categories", values="counts")
         return self.format_graph(fig, node_id, True)
 
     def format_graph(self, fig, node_id, showlegend):
@@ -192,22 +170,14 @@ def to_categorical_data(node_id, filtered_data):
         ].values[0]
     )
     encoding_dict = data_encoding_meta_data(encoding_id)
-    count_dict = dict()
 
-    for ind in filtered_data.index:
-        curr_encoding = filtered_data[graph.get_graph_axes_title(node_id)][ind]
-        count_dict[curr_encoding] = count_dict.get(curr_encoding, 0) + 1
+    # Get column of interest, dropping first row which contains node_id
+    column_of_interest = filtered_data[graph.get_graph_axes_title(node_id)].drop(0)
 
-    category_list = []
-    count_list = []
+    encoding_counts = column_of_interest.value_counts(dropna=True).rename_axis('unique_values').reset_index(name='counts')
+    encoding_counts['categories'] = encoding_counts['unique_values'].astype(int).map(encoding_dict)
 
-    for key in encoding_dict:
-        category_list.append(encoding_dict[key])
-        count_list.append(count_dict[key])
-
-    data = {"categories": category_list, "count": count_list}
-
-    return pd.DataFrame(data, columns=["categories", "count"])
+    return encoding_counts[["categories", "counts"]]
 
 
 # returns a dict of options for a dropdown list of instances
