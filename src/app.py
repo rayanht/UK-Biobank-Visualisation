@@ -63,9 +63,6 @@ graphsCard = graphscard.layout
 
 statsCard = statscard.layout
 
-# selectInstanceCard = selectinstancecard.layout
-
-
 app.layout = html.Div(
     style={"backgroundColor": colors["background"], "height": "100vh"},
     children=[

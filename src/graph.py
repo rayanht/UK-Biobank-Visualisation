@@ -160,10 +160,9 @@ switcher = {
 }
 
 
-def get_field_plot(raw_id, graph_type):
+def get_field_plot(node_id, graph_type, filtered_data):
     """Returns a graph containing columns of the same field"""
-    node_id = NodeIdentifier(raw_id)
-    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id)).rename(
+    filtered_data = filtered_data.rename(
         columns={node_id.db_id(): graph.get_graph_axes_title(node_id)}
     )
 
@@ -171,13 +170,9 @@ def get_field_plot(raw_id, graph_type):
     return fig
 
 
-def get_two_field_plot(raw_id_x, raw_id_y, graph_type):
+def get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data):
     """Returns a graph with two variables"""
-    node_id_x = NodeIdentifier(raw_id_x)
-    node_id_y = NodeIdentifier(raw_id_y)
-    filtered_data_x = DatasetGateway.submit(
-        Query.from_identifiers([node_id_x, node_id_y])
-    ).rename(
+    filtered_data_x = filtered_data.rename(
         columns={
             node_id_x.db_id(): graph.get_graph_axes_title(node_id_x),
             node_id_y.db_id(): graph.get_graph_axes_title(node_id_y),

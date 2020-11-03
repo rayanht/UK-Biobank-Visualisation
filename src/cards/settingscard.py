@@ -7,6 +7,8 @@ from src.dataset_gateway import field_id_meta_data, DatasetGateway, Query
 from src.graph import ValueType
 from src.graph import get_inst_names_options
 from src.dash_app import app
+from src.selected_subset import SelectedSubset
+from src.tree.node import NodeIdentifier
 
 layout = dbc.Card(
     [
@@ -255,7 +257,10 @@ def get_updated_instances(value):
 
 
 @app.callback(
-    Output(component_id="graph", component_property="figure"),
+    [
+        Output(component_id="graph", component_property="figure"),
+        Output(component_id="download-btn", component_property="disabled"),
+    ],
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
         State(component_id="settings-graph-type-dropdown", component_property="value"),
@@ -264,7 +269,7 @@ def get_updated_instances(value):
     ],
 )
 def update_graph(n, graph_type, x_value, y_value):
-    """Update the graph when the plot button is pressed"""
+    """Update the graph and selected subset for download when the plot button is pressed"""
     if not x_value:
         return {
             "layout": {
@@ -280,7 +285,23 @@ def update_graph(n, graph_type, x_value, y_value):
                     }
                 ],
             }
-        }
+        }, True
+    node_id_x = NodeIdentifier(x_value)
+    subset = SelectedSubset()
+
+    # If only 1 variable is selected, just plot that variable and update SelectedSubset
     if not y_value:
-        return get_field_plot(x_value, graph_type)  # Plot first selected data
-    return get_two_field_plot(x_value, y_value, graph_type)
+        filtered_data = DatasetGateway.submit(Query.from_identifier(node_id_x))
+        subset.update(filtered_data)
+        return (
+            get_field_plot(node_id_x, graph_type, filtered_data),
+            False,
+        )  # Plot first selected data
+
+    # If 2 variable are selected, plot them against each other and update SelectedSubset
+    node_id_y = NodeIdentifier(y_value)
+    filtered_data = DatasetGateway.submit(
+        Query.from_identifiers([node_id_x, node_id_y])
+    )
+    subset.update(filtered_data)
+    return get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data), False
