@@ -49,18 +49,19 @@ layout = dbc.Card(
                                 ),
                                 align="center",
                             ),
-                            # dbc.Button(
-                            #     "Next",
-                            #     id="tree-next-btn",
-                            #     color="primary",
-                            #     className="mr-3"
-                            # )
+                            dbc.Button(
+                                "Next",
+                                id="tree-next-btn",
+                                color="primary",
+                                className="mr-3",
+                            ),
                         ],
                         justify="end",
+                        className="mt-2",
                     ),
                 ],
                 className="d-flex flex-column",
-                style={"height": "40rem"},
+                style={"height": "41rem"},
             ),
             id=f"collapse-tree",
             is_open=True,
@@ -91,15 +92,6 @@ def update_dropdown(n, selected_nodes):
     """Update the dropdown when nodes from the tree are selected"""
     options = [get_option(node) for node in selected_nodes]
     return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
-
-
-# @app.callback(
-#     [Output("collapse-settings", "is_open"),
-#     Output("collapse-tree", "is_open")],
-#     [Input("tree-next-btn", "n_clicks")]
-# )
-# def open_next(n):
-#     return True, False
 
 
 def get_option(node):
