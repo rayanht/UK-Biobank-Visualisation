@@ -145,7 +145,7 @@ def get_field_plot(raw_id, graph_type):
         columns={node_id.db_id(): graph.get_graph_axes_title(node_id)}
     )
 
-    fig = switcher[graph_type](node_id, filtered_data)
+    fig = switcher[graph_type](node_id, filtered_data), filtered_data.to_json(date_format='iso', orient='split')
     return fig
 
 
@@ -162,7 +162,7 @@ def get_two_field_plot(raw_id_x, raw_id_y, graph_type):
         }
     )
 
-    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x)
+    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x), filtered_data_x.to_json(date_format='iso', orient='split')
     return fig
 
 

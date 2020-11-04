@@ -70,6 +70,9 @@ layout = dbc.Card(
                             clearable=False,
                             disabled=True,
                         ),
+                        #TODO: Possibly delete this if client-side cache is implemented
+                        # Hidden div inside the app that stores the intermediate value
+                        html.Div(id='json_filtered_data', style={'display': 'none'})
                         # html.H5("Y-Axis Instance", className="mt-2"),
                         # html.Div(id='y-instance-options-instr'),
                         # dcc.Dropdown(
@@ -274,7 +277,10 @@ def update_y_sel_inst(y_value):
 
 
 @app.callback(
-    Output(component_id="graph", component_property="figure"),
+    [
+        Output(component_id="graph", component_property="figure"),
+        Output(component_id="json_filtered_data", component_property="children"),
+    ],
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
         State(component_id="settings-graph-type-dropdown", component_property="value"),
@@ -299,7 +305,7 @@ def update_graph(n, graph_type, x_value, y_value):
                     }
                 ],
             }
-        }
+        }, None
     if not y_value:
         return get_field_plot(x_value, graph_type)  # Plot first selected data
     return get_two_field_plot(x_value, y_value, graph_type)
