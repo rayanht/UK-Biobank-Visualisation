@@ -1,4 +1,5 @@
 import pandas as pd
+import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
@@ -138,32 +139,24 @@ switcher = {
 }
 
 
-def get_field_plot(raw_id, graph_type):
+def get_statistics(data, x_value):
+    """Update the summary statistics when the dropdown selection changes"""
+    if (x_value is None) | (data is None):
+        return "No data to display"
+
+    return dbc.Table.from_dataframe(
+        data.describe().transpose(), striped=True, bordered=True, hover=True
+    )
+
+
+def get_field_plot(filtered_data, node_id, graph_type):
     """Returns a graph containing columns of the same field"""
-    node_id = NodeIdentifier(raw_id)
-    filtered_data = DatasetGateway.submit(Query.from_identifier(node_id)).rename(
-        columns={node_id.db_id(): graph.get_graph_axes_title(node_id)}
-    )
-
-    fig = switcher[graph_type](node_id, filtered_data), filtered_data.to_json(date_format='iso', orient='split')
-    return fig
+    return switcher[graph_type](node_id, filtered_data)
 
 
-def get_two_field_plot(raw_id_x, raw_id_y, graph_type):
+def get_two_field_plot(filtered_data, node_id_x, node_id_y, graph_type):
     """Returns a graph with two variables"""
-    node_id_x = NodeIdentifier(raw_id_x)
-    node_id_y = NodeIdentifier(raw_id_y)
-    filtered_data_x = DatasetGateway.submit(
-        Query.from_identifiers([node_id_x, node_id_y])
-    ).rename(
-        columns={
-            node_id_x.db_id(): graph.get_graph_axes_title(node_id_x),
-            node_id_y.db_id(): graph.get_graph_axes_title(node_id_y),
-        }
-    )
-
-    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x), filtered_data_x.to_json(date_format='iso', orient='split')
-    return fig
+    return switcher[graph_type](node_id_x, node_id_y, filtered_data)
 
 
 def to_categorical_data(node_id, filtered_data):
@@ -179,8 +172,14 @@ def to_categorical_data(node_id, filtered_data):
     # Get column of interest, dropping first row which contains node_id
     column_of_interest = filtered_data[graph.get_graph_axes_title(node_id)].drop(0)
 
-    encoding_counts = column_of_interest.value_counts(dropna=True).rename_axis('unique_values').reset_index(name='counts')
-    encoding_counts['categories'] = encoding_counts['unique_values'].astype(int).map(encoding_dict)
+    encoding_counts = (
+        column_of_interest.value_counts(dropna=True)
+        .rename_axis("unique_values")
+        .reset_index(name="counts")
+    )
+    encoding_counts["categories"] = (
+        encoding_counts["unique_values"].astype(int).map(encoding_dict)
+    )
 
     return encoding_counts[["categories", "counts"]]
 
