@@ -10,7 +10,7 @@ from dash.dependencies import Input, Output, State
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
 
-from src.dash_app import app
+from src.dash_app import app, dash
 from src.cards import settingscard
 from src.cards import statscard
 from src.cards import treecard
@@ -72,8 +72,12 @@ app.layout = html.Div(
             [
                 dbc.Row(
                     [
-                        dbc.Col(treeCard, width=4),  # Container for tree
-                        dbc.Col(settingsCard, width=2),  # Container for settings
+                        dbc.Col(
+                            html.Div([treeCard, settingsCard], className="accordion"),
+                            width=5,
+                        ),
+                        # dbc.Col(treeCard, width=5),  # Container for tree
+                        # dbc.Col(settingsCard, width=2),  # Container for settings
                         dbc.Col(
                             children=[
                                 dbc.Row(dbc.Col(graphsCard)),  # Container for graphs
@@ -105,3 +109,30 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
+
+
+collapseable_cards = ["settings", "tree"]
+collapseable_card_toggles = [
+    "settings-collapse-toggle",
+    "tree-collapse-toggle",
+    "tree-next-btn",
+]
+
+
+@app.callback(
+    [Output(f"collapse-{i}", "is_open") for i in collapseable_cards],
+    [Input(i, "n_clicks") for i in collapseable_card_toggles],
+)
+def toggle_accordion(n1, n2, n3):
+    ctx = dash.callback_context
+
+    if not ctx.triggered:
+        return False, True
+    else:
+        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if (button_id == "settings-collapse-toggle" or button_id == "tree-next-btn") and (
+        n1 or n3
+    ):
+        return True, False
+    return False, True
