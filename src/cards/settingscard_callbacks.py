@@ -1,18 +1,18 @@
 from dash.dependencies import Input, Output, State
 
-from src.dash_app import app
+from src.dash_app import dash, app
 
 from src.dataset_gateway import DatasetGateway, Query, field_id_meta_data
 from src.graph import (
-    graph,
+    filter_data,
     get_field_plot,
-    get_two_field_plot,
     get_statistics,
     get_inst_names_options,
+    prune_data,
     ValueType,
 )
 from src.dash_app import app
-
+import pandas as pd
 from src.tree.node import NodeIdentifier
 
 
@@ -190,22 +190,147 @@ def update_y_sel_inst(y_value):
     return div_visible, options, options[0]["value"]  # select first instance by default
 
 
-# for plotting graph
+# update options (possibly merge with apply_graph_settings to prevent sending cached_data twice?)
 @app.callback(
     [
+        # x slider
+        Output(component_id="x-filter-slider", component_property="min"),
+        Output(component_id="x-filter-slider", component_property="max"),
+        Output(component_id="x-filter-slider", component_property="value"),
+        Output(component_id="x-filter-slider", component_property="marks"),
+        Output(component_id="x-filter-slider-div", component_property="style"),
+        # y slider
+        Output(component_id="y-filter-slider", component_property="min"),
+        Output(component_id="y-filter-slider", component_property="max"),
+        Output(component_id="y-filter-slider", component_property="value"),
+        Output(component_id="y-filter-slider", component_property="marks"),
+        Output(component_id="y-filter-slider-div", component_property="style"),
+    ],
+    [
+        Input(component_id="graph-data", component_property="data"),
+        Input(component_id="x-instance-options", component_property="value"),
+        Input(component_id="y-instance-options", component_property="value"),
+    ],
+)
+def update_settings_options(cached_data, x_value, y_value):
+    x_filter_tuple = y_filter_tuple = (
+        dash.no_update,
+        dash.no_update,
+        None,
+        dash.no_update,
+        dash.no_update,
+    )
+
+    if not cached_data:
+        return x_filter_tuple + y_filter_tuple
+
+    filtered_data = pd.read_json(cached_data["data"], orient="split")
+
+    # update x-axis settings
+    if cached_data["x-value"] != "":
+        x_filter_tuple = get_range_slider_tuple(
+            filtered_data, x_value, cached_data["x-value"]
+        )
+
+    # update y-axis settings
+    if cached_data["y-value"] != "":
+        y_filter_tuple = get_range_slider_tuple(
+            filtered_data, y_value, cached_data["y-value"]
+        )
+
+    return x_filter_tuple + y_filter_tuple
+
+
+def get_range_slider_tuple(filtered_data, curr_value, stored_value):
+    if stored_value != curr_value:
+        return (
+            dash.no_update,
+            dash.no_update,
+            None,
+            dash.no_update,
+            {"display": "none"},
+        )
+    node_id = NodeIdentifier(stored_value)
+    df = filtered_data[node_id.db_id()]
+    df_min = int(df.min())
+    df_max = int(df.max())
+    return (
+        df_min,
+        df_max,
+        [df_min, df_max],
+        {df_min: str(df_min), df_max: str(df_max)},
+        {"display": "block"},
+    )
+
+
+# store x_value and y_value too in the dcc.store,
+# if not the same as current selected ones, then no_update. it will be called again once the store is updated with new and correct data
+# if the same, then update using the settings
+# this makes it faster for changing settings without having to query database again
+@app.callback(
+    [
+        Output(component_id="graph-data", component_property="data"),
         Output(component_id="graph", component_property="figure"),
         Output(component_id="statistics", component_property="children"),
     ],
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
-        State(component_id="settings-graph-type-dropdown", component_property="value"),
+        State(component_id="graph-data", component_property="data"),
         State(component_id="x-instance-options", component_property="value"),
         State(component_id="y-instance-options", component_property="value"),
+        State(component_id="settings-graph-type-dropdown", component_property="value"),
+        # filters
+        State(component_id="x-filter-slider", component_property="value"),
+        State(component_id="y-filter-slider", component_property="value"),
     ],
 )
-def get_data(n, graph_type, x_value, y_value):
-    if not x_value:
+def get_data(n, cached_data, x_value, y_value, graph_type, x_filter, y_filter):
+    new_cached_data = dash.no_update
+    data = None
+    # get new data if cached data is outdated
+    if (
+        not cached_data
+        or cached_data["x-value"] != x_value
+        or cached_data["y-value"] != y_value
+    ):
+        if not x_value:
+            new_cached_data = None
+            data = None
+        else:
+            node_id_x = NodeIdentifier(x_value)
+            if not y_value:
+                data = prune_data(
+                    DatasetGateway.submit(Query.from_identifier(node_id_x))
+                )
+                new_cached_data = {
+                    "x-value": x_value,
+                    "y-value": "",
+                    "data": data.to_json(date_format="iso", orient="split"),
+                }
+                print("Getting new data!")
+            else:
+                node_id_y = NodeIdentifier(y_value)
+                data = prune_data(
+                    DatasetGateway.submit(
+                        Query.from_identifiers([node_id_x, node_id_y])
+                    )
+                )
+                new_cached_data = {
+                    "x-value": x_value,
+                    "y-value": y_value,
+                    "data": data.to_json(date_format="iso", orient="split"),
+                }
+                print("Getting new data!")
+    # if cache data is not outdated, use it
+    else:
+        print(
+            f"using cached data for {cached_data['x-value']} and {cached_data['y-value']}, current x is {x_value} y is {y_value}"
+        )
+        data = pd.read_json(cached_data["data"], orient="split")
+
+    if data is None:
         return (
+            new_cached_data,
             {
                 "layout": {
                     "xaxis": {"visible": False},
@@ -223,25 +348,11 @@ def get_data(n, graph_type, x_value, y_value):
             },
             "No data to display",
         )
-    node_id_x = NodeIdentifier(x_value)
-    if not y_value:
-        filtered_data = DatasetGateway.submit(Query.from_identifier(node_id_x)).rename(
-            columns={node_id_x.db_id(): graph.get_graph_axes_title(node_id_x)}
-        )
-        return (
-            get_field_plot(filtered_data, x_value, graph_type),
-            get_statistics(filtered_data, x_value),
-        )
-    node_id_y = NodeIdentifier(y_value)
-    filtered_data = DatasetGateway.submit(
-        Query.from_identifiers([node_id_x, node_id_y])
-    ).rename(
-        columns={
-            node_id_x.db_id(): graph.get_graph_axes_title(node_id_x),
-            node_id_y.db_id(): graph.get_graph_axes_title(node_id_y),
-        }
-    )
+
+    # filter data
+    filtered_data = filter_data(data, x_value, y_value, x_filter, y_filter)
     return (
-        get_two_field_plot(filtered_data, node_id_x, node_id_y, graph_type),
-        get_statistics(filtered_data, x_value),
+        new_cached_data,
+        get_field_plot(filtered_data, x_value, y_value, graph_type),
+        get_statistics(filtered_data, x_value, y_value),
     )

@@ -33,6 +33,18 @@ layout = dbc.Card(
                             style={"display": "none"},
                             className="mt-2",
                         ),
+                        html.Div(
+                            id="x-filter-slider-div",
+                            children=[
+                                html.H6("Filter values", className="mt-2"),
+                                dcc.RangeSlider(
+                                    id="x-filter-slider",
+                                    allowCross=False,
+                                    tooltip={"trigger": "hover", "placement": "bottom"},
+                                ),
+                            ],
+                            style={"display": "none"},
+                        ),
                         html.H5("Y-axis", className="mt-3"),
                         html.H6("Variable"),
                         dcc.Dropdown(
@@ -56,6 +68,18 @@ layout = dbc.Card(
                             style={"display": "none"},
                             className="mt-2",
                         ),
+                        html.Div(
+                            id="y-filter-slider-div",
+                            children=[
+                                html.H6("Filter values", className="mt-2"),
+                                dcc.RangeSlider(
+                                    id="y-filter-slider",
+                                    allowCross=False,
+                                    tooltip={"trigger": "hover", "placement": "bottom"},
+                                ),
+                            ],
+                            style={"display": "none"},
+                        ),
                         html.H5("Graph Type", className="mt-3"),
                         dcc.Dropdown(
                             id="settings-graph-type-dropdown",
@@ -66,7 +90,7 @@ layout = dbc.Card(
                         ),
                         # TODO: Possibly delete this if client-side cache is implemented
                         # Hidden div inside the app that stores the intermediate value
-                        html.Div(id="json_filtered_data", style={"display": "none"})
+                        # html.Div(id="json_filtered_data", style={"display": "none"})
                         # html.H5("Y-Axis Instance", className="mt-2"),
                         # html.Div(id='y-instance-options-instr'),
                         # dcc.Dropdown(

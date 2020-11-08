@@ -71,6 +71,7 @@ app.layout = html.Div(
     style={"backgroundColor": colors["background"], "height": "100vh"},
     children=[
         navbar,
+        dcc.Store(id="graph-data"),
         # row,
         dbc.Container(
             [

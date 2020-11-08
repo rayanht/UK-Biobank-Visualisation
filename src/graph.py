@@ -1,4 +1,5 @@
 import pandas as pd
+from pandas.core.frame import DataFrame
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import plotly.express as px
@@ -139,7 +140,32 @@ switcher = {
 }
 
 
-def get_statistics(data, x_value):
+def prune_data(dataframe: DataFrame):
+    prune_data = dataframe.replace("", float("NaN"))
+    data_columns = prune_data.columns
+    for column in data_columns:
+        prune_data[column] = pd.to_numeric(prune_data[column], errors="coerce")
+    remove_non_numeric = prune_data.dropna(how="any")
+    return remove_non_numeric
+
+
+def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
+    # filter by x_value
+    filtered_data = dataframe
+    if x_value != "" and x_filter is not None:
+        node_id_x = NodeIdentifier(x_value)
+        filtered_data = filtered_data[
+            filtered_data[node_id_x.db_id()].between(x_filter[0], x_filter[1])
+        ]
+    if y_value != "" and y_filter is not None:
+        node_id_y = NodeIdentifier(y_value)
+        filtered_data = filtered_data[
+            filtered_data[node_id_y.db_id()].between(y_filter[0], y_filter[1])
+        ]
+    return filtered_data
+
+
+def get_statistics(data, x_value, y_value=None):
     """Update the summary statistics when the dropdown selection changes"""
     if (x_value is None) | (data is None):
         return "No data to display"
@@ -149,14 +175,22 @@ def get_statistics(data, x_value):
     )
 
 
-def get_field_plot(filtered_data, node_id, graph_type):
+def get_field_plot(filtered_data: DataFrame, str_id_x, str_id_y, graph_type):
     """Returns a graph containing columns of the same field"""
-    return switcher[graph_type](node_id, filtered_data)
-
-
-def get_two_field_plot(filtered_data, node_id_x, node_id_y, graph_type):
-    """Returns a graph with two variables"""
-    return switcher[graph_type](node_id_x, node_id_y, filtered_data)
+    node_id_x = NodeIdentifier(str_id_x)
+    if not str_id_y:
+        renamed_data = filtered_data.rename(
+            columns={node_id_x.db_id(): graph.get_graph_axes_title(node_id_x)}
+        )
+        return switcher[graph_type](node_id_x, renamed_data)
+    node_id_y = NodeIdentifier(str_id_y)
+    renamed_data = filtered_data.rename(
+        columns={
+            node_id_x.db_id(): graph.get_graph_axes_title(node_id_x),
+            node_id_y.db_id(): graph.get_graph_axes_title(node_id_y),
+        }
+    )
+    return switcher[graph_type](node_id_x, node_id_y, renamed_data)
 
 
 def to_categorical_data(node_id, filtered_data):
@@ -170,16 +204,14 @@ def to_categorical_data(node_id, filtered_data):
     encoding_dict = data_encoding_meta_data(encoding_id)
 
     # Get column of interest, dropping first row which contains node_id
-    column_of_interest = filtered_data[graph.get_graph_axes_title(node_id)].drop(0)
+    column_of_interest = filtered_data[graph.get_graph_axes_title(node_id)]
 
     encoding_counts = (
         column_of_interest.value_counts(dropna=True)
         .rename_axis("unique_values")
         .reset_index(name="counts")
     )
-    encoding_counts["categories"] = (
-        encoding_counts["unique_values"].astype(int).map(encoding_dict)
-    )
+    encoding_counts["categories"] = encoding_counts["unique_values"].map(encoding_dict)
 
     return encoding_counts[["categories", "counts"]]
 
