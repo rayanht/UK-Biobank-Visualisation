@@ -172,6 +172,8 @@ def get_field_plot(raw_id, graph_type, colour):
         ).rename(
         columns=get_column_names([node_id, colour_id])
     )
+    # Drop row that contains column ids
+    filtered_data = drop_row_with_col_id(filtered_data, node_id)
 
     fig = switcher[graph_type](node_id, filtered_data, colour_name)
     return fig
@@ -188,9 +190,17 @@ def get_two_field_plot(raw_id_x, raw_id_y, graph_type, colour):
     ).rename(
         columns=get_column_names([node_id_x, node_id_y, colour_id])
     )
-
+    # Drop row that contains column ids
+    filtered_data_x = drop_row_with_col_id(filtered_data_x, node_id_x)
+    
     fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x, colour_name)
     return fig
+
+def drop_row_with_col_id(data, node_id):
+    column_id_rows = data[data[graph.get_graph_axes_title(node_id)] == node_id.meta_id()].index.values
+    for row_id in reversed(column_id_rows):
+        data = data.drop(row_id)
+    return data
 
 def get_column_names(node_ids):
     return {node_id.db_id() : graph.get_graph_axes_title(node_id) 
@@ -206,8 +216,8 @@ def to_categorical_data(node_id, filtered_data):
     )
     encoding_dict = data_encoding_meta_data(encoding_id)
 
-    # Get column of interest, dropping first row which contains node_id
-    column_of_interest = filtered_data[graph.get_graph_axes_title(node_id)].drop(0)
+    # Get column of interest, dropping row that contains node_id
+    column_of_interest = drop_row_with_col_id(filtered_data[graph.get_graph_axes_title(node_id)], node_id)
 
     encoding_counts = column_of_interest.value_counts(dropna=True).rename_axis('unique_values').reset_index(name='counts')
     encoding_counts['categories'] = encoding_counts['unique_values'].astype(int).map(encoding_dict)

@@ -20,6 +20,9 @@ class NodeIdentifier:
     def db_id(self):
         return f"_{self.field_id}_{self.instance_id}_{self.part_id}"
 
+    def meta_id(self):
+        return f"{self.field_id}-{self.instance_id}.{self.part_id}"
+
 
 class Node:
     def __init__(
