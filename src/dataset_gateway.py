@@ -34,11 +34,13 @@ class Query:
 
     @classmethod
     def from_identifier(cls, node_identifier: NodeIdentifier) -> Query:
-        return Query([node_identifier.db_id()])
+        return Query(["eid", node_identifier.db_id()])
 
     @classmethod
     def from_identifiers(cls, node_identifiers: List[NodeIdentifier]) -> Query:
-        return Query([node_identifier.db_id() for node_identifier in node_identifiers if node_identifier != None])
+        return Query(
+            ["eid", *[node_identifier.db_id() for node_identifier in node_identifiers]]
+        )
 
     def limit_output(self, limit: int):
         self.limit = limit

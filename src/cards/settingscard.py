@@ -5,100 +5,109 @@ import dash_bootstrap_components as dbc
 from src.graph import get_field_plot, get_two_field_plot, ValueType, get_inst_names_options, graph
 from src.tree.node_utils import get_option
 from dash.dependencies import Input, Output, State
-from src.dataset_gateway import field_id_meta_data
+from src.dataset_gateway import field_id_meta_data, DatasetGateway, Query
 
 from src.dash_app import app
+import src.utils as utils
+from src.tree.node import NodeIdentifier
 
 layout = dbc.Card(
     [
-        dbc.CardBody(
-            [
-                html.H4("Settings", className="mb-3 settings-card-title"),
-                html.Div(
-                    [
-                        html.H5("X-axis"),
-                        html.H6("Variable"),
-                        dcc.Dropdown(
-                            id="variable-dropdown-x",
-                            options=[],
-                            placeholder="Select a variable to plot",
-                            optionHeight=45,
-                        ),
-                        html.Div(
-                            id="x-instance-selection-div",
-                            children=[
-                                html.H6("Instance"),
-                                dcc.Dropdown(
-                                    id="x-instance-options",
-                                    options=[],
-                                    placeholder="Select an instance",
-                                    optionHeight=70,
-                                ),
-                            ],
-                            style={"display": "none"},
-                            className="mt-2",
-                        ),
-                        html.H5("Y-axis", className="mt-3"),
-                        html.H6("Variable"),
-                        dcc.Dropdown(
-                            id="variable-dropdown-y",
-                            options=[],
-                            placeholder="Select a variable to plot",
-                            optionHeight=45,
-                            disabled=True,
-                        ),
-                        html.Div(
-                            id="y-instance-selection-div",
-                            children=[
-                                html.H6("Instance"),
-                                dcc.Dropdown(
-                                    id="y-instance-options",
-                                    options=[],
-                                    placeholder="Select an instance",
-                                    optionHeight=70,
-                                ),
-                            ],
-                            style={"display": "none"},
-                            className="mt-2",
-                        ),
-                        html.Div(    
-                            id="colour-selection-div",
-                            children=[
-                                html.H6("Colour"),
-                                dcc.Dropdown(
-                                    id="settings-graph-colour-dropdown",
-                                    options=[],
-                                    placeholder="Optional: Group data by category",
-                                    clearable=True,
-                                    optionHeight=70,
-                                ),
-                            ],
-                            style={"display": "none"},
-                            className="mt-2"
-                        ),
-                        html.H5("Graph Type", className="mt-3"),
-                        dcc.Dropdown(
-                            id="settings-graph-type-dropdown",
-                            options=[],
-                            placeholder="Select a graph type",
-                            clearable=False,
-                            disabled=True,
-                        ),
-                    ],
-                    className="flex-grow-1",
-                    style={"overflow": "auto"},
-                ),
-                dbc.Button(
-                    "Plot graph",
-                    id="settings-card-submit",
-                    color="primary",
-                    className="mt-2",
-                ),
-            ],
-            className="d-flex flex-column",
-        )
-    ],
-    style={"height": "50rem"},  # for dummy purposes, to remove later
+        html.A(
+            dbc.CardHeader(html.H5("Settings", className="ml-1")),
+            id="settings-collapse-toggle",
+        ),
+        dbc.Collapse(
+            dbc.CardBody(
+                [
+                    # html.H4("Settings", className="mb-3 settings-card-title"),
+                    html.Div(
+                        [
+                            html.H5("X-axis"),
+                            html.H6("Variable"),
+                            dcc.Dropdown(
+                                id="variable-dropdown-x",
+                                options=[],
+                                placeholder="Select a variable to plot",
+                                optionHeight=45,
+                            ),
+                            html.Div(
+                                id="x-instance-selection-div",
+                                children=[
+                                    html.H6("Instance"),
+                                    dcc.Dropdown(
+                                        id="x-instance-options",
+                                        options=[],
+                                        placeholder="Select an instance",
+                                        optionHeight=70,
+                                    ),
+                                ],
+                                style={"display": "none"},
+                                className="mt-2",
+                            ),
+                            html.H5("Y-axis", className="mt-3"),
+                            html.H6("Variable"),
+                            dcc.Dropdown(
+                                id="variable-dropdown-y",
+                                options=[],
+                                placeholder="Select a variable to plot",
+                                optionHeight=45,
+                                disabled=True,
+                            ),
+                            html.Div(
+                                id="y-instance-selection-div",
+                                children=[
+                                    html.H6("Instance"),
+                                    dcc.Dropdown(
+                                        id="y-instance-options",
+                                        options=[],
+                                        placeholder="Select an instance",
+                                        optionHeight=70,
+                                    ),
+                                ],
+                                style={"display": "none"},
+                                className="mt-2",
+                            ),
+                            html.Div(    
+                                id="colour-selection-div",
+                                children=[
+                                    html.H6("Colour"),
+                                    dcc.Dropdown(
+                                        id="settings-graph-colour-dropdown",
+                                        options=[],
+                                        placeholder="Optional: Group data by category",
+                                        clearable=True,
+                                        optionHeight=70,
+                                    ),
+                                ],
+                                style={"display": "none"},
+                                className="mt-2"
+                            ),
+                            html.H5("Graph Type", className="mt-3"),
+                            dcc.Dropdown(
+                                id="settings-graph-type-dropdown",
+                                options=[],
+                                placeholder="Select a graph type",
+                                clearable=False,
+                                disabled=True,
+                            ),
+                        ],
+                        className="flex-grow-1",
+                        style={"overflow": "auto"},
+                    ),
+                    dbc.Button(
+                        "Plot graph",
+                        id="settings-card-submit",
+                        color="primary",
+                        className="mt-2",
+                    ),
+                ],
+                className="d-flex flex-column",
+                style={"height": "41rem"},
+            ),
+            id=f"collapse-settings",
+        ),
+    ]
 )
 
 # For getting colour options
@@ -259,27 +268,7 @@ def update_y_axis_disabled(x_value, y_value):
 )
 def update_x_sel_inst(x_value):
     """Updating list of instances that may be selected on x-axis"""
-    if not x_value:
-        return {"display": "none"}, [], ""
-
-    dict_with_inst = get_inst_names_options(x_value, False)
-    options = [
-        {
-            "label": prune_instance_label(dict_with_inst[field_inst_id]),
-            "value": field_inst_id,
-        }
-        for field_inst_id in dict_with_inst
-    ]
-
-    div_visible = {"display": "block"} if len(options) != 1 else {"display": "none"}
-
-    return div_visible, options, options[0]["value"]  # select first instance by default
-
-
-def prune_instance_label(label):
-    # deletes everything after the year, which ends in a close parenthesis
-    sep = ")"
-    return label.split(sep, 1)[0] + sep
+    return get_updated_instances(x_value)
 
 
 @app.callback(
@@ -292,10 +281,21 @@ def prune_instance_label(label):
 )
 def update_y_sel_inst(y_value):
     """Updating list of instances that may be selected on y-axis"""
-    if not y_value:
+    return get_updated_instances(y_value)
+
+
+def prune_instance_label(label):
+    # deletes everything after the year, which ends in a close parenthesis
+    sep = ")"
+    return label.split(sep, 1)[0] + sep
+
+
+def get_updated_instances(value):
+    """Updating list of instances that may be selected"""
+    if not value:
         return {"display": "none"}, [], ""
 
-    dict_with_inst = get_inst_names_options(y_value, False)
+    dict_with_inst = get_inst_names_options(value)
     options = [
         {
             "label": prune_instance_label(dict_with_inst[field_inst_id]),
@@ -311,7 +311,10 @@ def update_y_sel_inst(y_value):
 
 # for plotting graph
 @app.callback(
-    Output(component_id="graph", component_property="figure"),
+    [
+        Output(component_id="graph", component_property="figure"),
+        Output(component_id="download-btn", component_property="disabled"),
+    ],
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
         State(component_id="settings-graph-type-dropdown", component_property="value"),
@@ -321,7 +324,7 @@ def update_y_sel_inst(y_value):
     ],
 )
 def update_graph(n, graph_type, x_value, y_value, colour):
-    """Update the graph when the plot button is pressed"""
+    """Update the graph and selected subset for download when the plot button is pressed"""
     if not x_value:
         return {
             "layout": {
@@ -337,7 +340,30 @@ def update_graph(n, graph_type, x_value, y_value, colour):
                     }
                 ],
             }
-        }
+        }, True
+    node_id_x = NodeIdentifier(x_value)
+    colour_id = NodeIdentifier(colour) if (colour != None) else None
+    columns_of_interest = [node_id_x] if (colour_id == None) else [node_id_x, colour_id]
+
+    # If only 1 variable is selected, just plot that variable and update SelectedSubset
     if not y_value:
-        return get_field_plot(x_value, graph_type, colour)  # Plot first selected data
-    return get_two_field_plot(x_value, y_value, graph_type, colour)
+        filtered_data = DatasetGateway.submit(
+            Query.from_identifiers(columns_of_interest)
+        )
+        utils.subset = filtered_data
+        return (
+            get_field_plot(node_id_x, graph_type, filtered_data, colour_id),
+            False,
+        )  # Plot first selected data
+
+    # If 2 variable are selected, plot them against each other and update SelectedSubset
+    node_id_y = NodeIdentifier(y_value)
+    columns_of_interest = [node_id_x, node_id_y] \
+                            if (colour_id == None) else \
+                                [node_id_x, node_id_y, colour_id]
+
+    filtered_data = DatasetGateway.submit(
+        Query.from_identifiers(columns_of_interest)
+    )
+    utils.subset = filtered_data
+    return get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data, colour_id), False

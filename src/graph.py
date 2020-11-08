@@ -65,15 +65,10 @@ class Graph:
         inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
         return inst_name_dict
 
-    def violin_plot(
-        self, 
-        node_id: NodeIdentifier, 
-        filtered_data: pd.DataFrame, 
-        colour_name: str
-    ):
-        fig = go.Figure()
+    def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_name: str):
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
         for col in filtered_data:
-            if (col != colour_name) :
+            if ((col != colour_name) & (col != 'eid')) :
                 for trace in self.get_violin_traces(col, filtered_data, colour_name):
                     fig.add_trace(trace)
         for trace in self.get_empty_sex_traces():
@@ -152,23 +147,13 @@ class Graph:
         )
         return self.format_graph_two_var(fig, node_id_x, node_id_y, (colour_name != None))
 
-    def bar_plot(
-        self, 
-        node_id: NodeIdentifier, 
-        filtered_data: pd.DataFrame, 
-        colour_name: str
-    ):
+    def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_name: str):
         processed_df = to_categorical_data(node_id, filtered_data, colour_name)
         fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
-        return self.format_graph(fig, node_id, False)
+        return self.format_graph(fig, node_id, (colour_name != None))
 
-    def pie_plot(
-        self, 
-        node_id: NodeIdentifier, 
-        filtered_data: pd.DataFrame, 
-        colour_name: str
-    ):
-        processed_df = to_categorical_data(node_id, filtered_data, colour_name)
+    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_name: str):
+        processed_df = to_categorical_data(node_id, filtered_data)
         fig = px.pie(processed_df, names="categories", values="counts")
         return self.format_graph(fig, node_id, True)
 
@@ -208,16 +193,11 @@ switcher = {
 }
 
 
-def get_field_plot(raw_id, graph_type, colour):
+def get_field_plot(node_id, graph_type, filtered_data, colour_id=None):
     """Returns a graph containing columns of the same field"""
-    node_id = NodeIdentifier(raw_id)
-    colour_id = NodeIdentifier(colour) if (colour != None) else None
     colour_name = graph.get_graph_axes_title(colour_id) if (colour_id != None) else None
-    filtered_data = DatasetGateway.submit(
-            Query.from_identifiers([node_id, colour_id])
-        ).rename(
-        columns=get_column_names([node_id, colour_id])
-    )
+    filtered_data = filtered_data.rename(columns=get_column_names([node_id, colour_id]))
+
     # Drop row that contains column ids
     filtered_data = drop_row_with_col_id(filtered_data, node_id)
 
@@ -225,17 +205,11 @@ def get_field_plot(raw_id, graph_type, colour):
     return fig
 
 
-def get_two_field_plot(raw_id_x, raw_id_y, graph_type, colour):
+def get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data, colour_id=None):
     """Returns a graph with two variables"""
-    node_id_x = NodeIdentifier(raw_id_x)
-    node_id_y = NodeIdentifier(raw_id_y)
-    colour_id = NodeIdentifier(colour) if (colour != None) else None
     colour_name = graph.get_graph_axes_title(colour_id) if (colour_id != None) else None
-    filtered_data_x = DatasetGateway.submit(
-        Query.from_identifiers([node_id_x, node_id_y, colour_id])
-    ).rename(
-        columns=get_column_names([node_id_x, node_id_y, colour_id])
-    )
+    filtered_data_x = filtered_data.rename(columns=get_column_names([node_id_x, node_id_y, colour_id]))
+
     # Drop row that contains column ids
     filtered_data_x = drop_row_with_col_id(filtered_data_x, node_id_x)
     
@@ -263,6 +237,9 @@ def to_categorical_data(node_id, filtered_data, colour_name = None):
     encoding_dict = data_encoding_meta_data(encoding_id)
 
     # Define columns of interest
+    subset = [graph.get_graph_axes_title(node_id)] \
+                            if (colour_name == None) else \
+                                [graph.get_graph_axes_title(node_id), colour_name]
     columns_of_interest = [graph.get_graph_axes_title(node_id), 'counts'] \
                             if (colour_name == None) else \
                                 [graph.get_graph_axes_title(node_id), colour_name, 'counts']
@@ -271,7 +248,11 @@ def to_categorical_data(node_id, filtered_data, colour_name = None):
                                 [colour_name, "categories", "counts"]
 
     # Get count of occurrences of data
-    encoding_counts = filtered_data.value_counts(sort=False).reset_index()
+    encoding_counts = filtered_data.value_counts(sort=False, subset=subset).reset_index()
+
+    print("Columns of encoding counts are: ")
+    print(encoding_counts.columns)
+    
     encoding_counts.columns = columns_of_interest
     encoding_counts['categories'] = encoding_counts[graph.get_graph_axes_title(node_id)].astype(int).map(encoding_dict)
 
@@ -279,7 +260,7 @@ def to_categorical_data(node_id, filtered_data, colour_name = None):
 
 
 # returns a dict of options for a dropdown list of instances
-def get_inst_names_options(raw_id, isMetaId=True):
+def get_inst_names_options(raw_id):
     field_id = NodeIdentifier(raw_id).field_id
     return graph.get_inst_name_dict(field_id)
 
