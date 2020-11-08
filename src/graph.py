@@ -71,10 +71,24 @@ class Graph:
         filtered_data: pd.DataFrame, 
         colour_name: str
     ):
-        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        fig = go.Figure()
         for col in filtered_data:
-            if (col != colour_name):
-                trace = go.Violin(
+            if (col != colour_name) :
+                for trace in self.get_violin_traces(col, filtered_data, colour_name):
+                    fig.add_trace(trace)
+        for trace in self.get_empty_sex_traces():
+            fig.add_trace(trace)
+        fig.update_layout(violinmode='overlay', violingap=0)
+        return self.format_graph(fig, node_id, (colour_name != None))
+    
+    def get_violin_traces(
+        self,
+        col: str,
+        filtered_data: pd.DataFrame, 
+        colour_name: str
+    ):
+        if (colour_name == None):
+            trace = go.Violin(
                     y=filtered_data[col],
                     name=col,
                     box_visible=True,
@@ -83,8 +97,45 @@ class Graph:
                     fillcolor="lightseagreen",
                     opacity=0.6,
                 )
-                fig.add_trace(trace)
-        return self.format_graph(fig, node_id, False)
+            return [trace]  
+        trace1 = go.Violin(
+                    y=filtered_data[col][filtered_data[colour_name] == '0'],
+                    legendgroup='Female', scalegroup=col, name=col,
+                    side='negative',
+                    meanline_visible=True, 
+                    box_visible=True,
+                    line_color="blue",
+                    fillcolor="blue",
+                    opacity=0.6,
+                    showlegend=False,
+                )
+        trace2 = go.Violin(
+                    y=filtered_data[col][filtered_data[colour_name] == '1'],
+                    legendgroup='Male', scalegroup=col, name=col,
+                    side='positive',
+                    meanline_visible=True, 
+                    box_visible=True,
+                    line_color="orange",
+                    fillcolor="orange",
+                    opacity=0.6,
+                    showlegend=False,
+                )
+        return [trace1, trace2]
+
+    def get_empty_sex_traces(self):
+        trace1 = go.Violin(
+                    y=[None],
+                    legendgroup='Female', scalegroup='Female', name='Female',
+                    line_color="blue",
+                    fillcolor="blue",
+                )
+        trace2 = go.Violin(
+                    y=[None],
+                    legendgroup='Male', scalegroup='Male', name='Male',
+                    line_color="orange",
+                    fillcolor="orange",
+                )
+        return [trace1, trace2]
 
     def scatter_plot(
         self,
@@ -99,7 +150,7 @@ class Graph:
             y=self.get_graph_axes_title(node_id_y),
             color=colour_name,
         )
-        return self.format_graph_two_var(fig, node_id_x, node_id_y, False)
+        return self.format_graph_two_var(fig, node_id_x, node_id_y, (colour_name != None))
 
     def bar_plot(
         self, 

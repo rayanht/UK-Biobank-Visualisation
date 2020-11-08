@@ -115,13 +115,16 @@ layout = dbc.Card(
 )
 def get_baseline_nodes(hierarchy, graph_type):
     """Updates colour options with baselines characteristic nodes after tree has been loaded"""
-    if ((graph_type != 2) & (graph_type != 3)):
-        # Currently only support colour for scatter plot and bar
+    if ((graph_type == 4) | (graph_type == None)):
+        # Currently do not support colour for pie charts
         return {"display": "none"}, [], None
     
     baseline_children = hierarchy[0]['childNodes'][0]['childNodes']
     leaf_baseline = [child for child in baseline_children if isLeaf(child)]
     options = [get_option(node) for node in leaf_baseline]
+    if (graph_type == 1):
+        # Violin plot can only use Sex as colour argument
+        options = [option for option in options if is_sex_option(option)]
     return {"display": "block"}, options, None
 
 def isLeaf(node):
@@ -130,6 +133,9 @@ def isLeaf(node):
         return not node['hasCaret']
     except KeyError:
         return True;
+
+def is_sex_option(option):
+    return option['value'] == '31'
 
 @app.callback(
     [
@@ -243,8 +249,6 @@ def update_y_axis_disabled(x_value, y_value):
 
 
 # for instance selection
-
-
 @app.callback(
     [
         Output(component_id="x-instance-selection-div", component_property="style"),
