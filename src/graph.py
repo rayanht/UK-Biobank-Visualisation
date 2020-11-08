@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
@@ -106,11 +107,8 @@ class Graph:
         filtered_data: pd.DataFrame, 
         colour_name: str
     ):
-        #TODO: don't drop colour after it is supported in count_values
-        if (colour_name != None):
-            filtered_data.drop(colour_name, axis='columns', inplace=True)
-        processed_df = to_categorical_data(node_id, filtered_data)
-        fig = px.bar(processed_df, x="categories", y="counts")
+        processed_df = to_categorical_data(node_id, filtered_data, colour_name)
+        fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
         return self.format_graph(fig, node_id, False)
 
     def pie_plot(
@@ -119,10 +117,7 @@ class Graph:
         filtered_data: pd.DataFrame, 
         colour_name: str
     ):
-        #TODO: don't drop colour after it is supported in count_values
-        if (colour_name != None):
-            filtered_data.drop(colour_name, axis='columns', inplace=True)
-        processed_df = to_categorical_data(node_id, filtered_data)
+        processed_df = to_categorical_data(node_id, filtered_data, colour_name)
         fig = px.pie(processed_df, names="categories", values="counts")
         return self.format_graph(fig, node_id, True)
 
@@ -206,7 +201,7 @@ def get_column_names(node_ids):
     return {node_id.db_id() : graph.get_graph_axes_title(node_id) 
             for node_id in node_ids if (node_id != None)}
 
-def to_categorical_data(node_id, filtered_data):
+def to_categorical_data(node_id, filtered_data, colour_name = None):
     # Convert categorical data into a bar plot
     field_id_meta = field_id_meta_data()
     encoding_id = int(
@@ -216,13 +211,20 @@ def to_categorical_data(node_id, filtered_data):
     )
     encoding_dict = data_encoding_meta_data(encoding_id)
 
-    # Get column of interest, dropping row that contains node_id
-    column_of_interest = drop_row_with_col_id(filtered_data[graph.get_graph_axes_title(node_id)], node_id)
+    # Define columns of interest
+    columns_of_interest = [graph.get_graph_axes_title(node_id), 'counts'] \
+                            if (colour_name == None) else \
+                                [graph.get_graph_axes_title(node_id), colour_name, 'counts']
+    columns_to_return = ["categories", "counts"] \
+                            if (colour_name == None) else \
+                                [colour_name, "categories", "counts"]
 
-    encoding_counts = column_of_interest.value_counts(dropna=True).rename_axis('unique_values').reset_index(name='counts')
-    encoding_counts['categories'] = encoding_counts['unique_values'].astype(int).map(encoding_dict)
+    # Get count of occurrences of data
+    encoding_counts = filtered_data.value_counts(sort=False).reset_index()
+    encoding_counts.columns = columns_of_interest
+    encoding_counts['categories'] = encoding_counts[graph.get_graph_axes_title(node_id)].astype(int).map(encoding_dict)
 
-    return encoding_counts[["categories", "counts"]]
+    return encoding_counts[columns_to_return]
 
 
 # returns a dict of options for a dropdown list of instances
