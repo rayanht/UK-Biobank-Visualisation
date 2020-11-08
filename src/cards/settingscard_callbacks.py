@@ -128,8 +128,6 @@ def update_y_axis_disabled(x_value, y_value):
 
 
 # for instance selection
-
-
 @app.callback(
     [
         Output(component_id="x-instance-selection-div", component_property="style"),
@@ -140,27 +138,7 @@ def update_y_axis_disabled(x_value, y_value):
 )
 def update_x_sel_inst(x_value):
     """Updating list of instances that may be selected on x-axis"""
-    if not x_value:
-        return {"display": "none"}, [], ""
-
-    dict_with_inst = get_inst_names_options(x_value, False)
-    options = [
-        {
-            "label": prune_instance_label(dict_with_inst[field_inst_id]),
-            "value": field_inst_id,
-        }
-        for field_inst_id in dict_with_inst
-    ]
-
-    div_visible = {"display": "block"} if len(options) != 1 else {"display": "none"}
-
-    return div_visible, options, options[0]["value"]  # select first instance by default
-
-
-def prune_instance_label(label):
-    # deletes everything after the year, which ends in a close parenthesis
-    sep = ")"
-    return label.split(sep, 1)[0] + sep
+    return get_updated_instances(x_value)
 
 
 @app.callback(
@@ -173,10 +151,21 @@ def prune_instance_label(label):
 )
 def update_y_sel_inst(y_value):
     """Updating list of instances that may be selected on y-axis"""
-    if not y_value:
+    return get_updated_instances(y_value)
+
+
+def prune_instance_label(label):
+    # deletes everything after the year, which ends in a close parenthesis
+    sep = ")"
+    return label.split(sep, 1)[0] + sep
+
+
+def get_updated_instances(value):
+    """Updating list of instances that may be selected"""
+    if not value:
         return {"display": "none"}, [], ""
 
-    dict_with_inst = get_inst_names_options(y_value, False)
+    dict_with_inst = get_inst_names_options(value)
     options = [
         {
             "label": prune_instance_label(dict_with_inst[field_inst_id]),
@@ -270,8 +259,10 @@ def get_range_slider_tuple(filtered_data, curr_value, stored_value):
 @app.callback(
     [
         Output(component_id="graph-data", component_property="data"),
+        Output(component_id="plotted-data", component_property="data"),
         Output(component_id="graph", component_property="figure"),
         Output(component_id="statistics", component_property="children"),
+        Output(component_id="download-btn", component_property="disabled"),
     ],
     [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
@@ -331,6 +322,7 @@ def get_data(n, cached_data, x_value, y_value, graph_type, x_filter, y_filter):
     if data is None:
         return (
             new_cached_data,
+            None,
             {
                 "layout": {
                     "xaxis": {"visible": False},
@@ -347,12 +339,19 @@ def get_data(n, cached_data, x_value, y_value, graph_type, x_filter, y_filter):
                 }
             },
             "No data to display",
+            True,
         )
 
     # filter data
     filtered_data = filter_data(data, x_value, y_value, x_filter, y_filter)
+    plotted_data_json = filtered_data.to_json(date_format="iso", orient="split")
+
+    removed_eids = filtered_data.loc[:, filtered_data.columns != "eid"]
+
     return (
         new_cached_data,
-        get_field_plot(filtered_data, x_value, y_value, graph_type),
-        get_statistics(filtered_data, x_value, y_value),
+        plotted_data_json,
+        get_field_plot(removed_eids, x_value, y_value, graph_type),
+        get_statistics(removed_eids, x_value, y_value),
+        False,
     )

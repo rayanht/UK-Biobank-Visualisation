@@ -217,7 +217,7 @@ def to_categorical_data(node_id, filtered_data):
 
 
 # returns a dict of options for a dropdown list of instances
-def get_inst_names_options(raw_id, isMetaId=True):
+def get_inst_names_options(raw_id):
     field_id = NodeIdentifier(raw_id).field_id
     return graph.get_inst_name_dict(field_id)
 

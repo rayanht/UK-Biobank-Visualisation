@@ -17,34 +17,57 @@ hierarchy, clopen_state = get_hierarchy()
 
 layout = dbc.Card(
     [
-        dbc.CardBody(
-            [
-                html.H4("Explore", className="mb-3 tree-card-title"),
-                dbc.Input(className="mb-1", id="search-input", value="Search"),
-                html.Div(
-                    [
-                        HierarchyTree(
-                            id="tree",
-                            data=hierarchy,
-                            selected_nodes=[],
-                            max_selections=MAX_SELECTIONS,
-                            n_updates=0,
-                            clopenState=clopen_state,
-                        ),
-                    ],
-                    className="flex-grow-1 p-1",
-                    style={"overflow": "auto"},
-                ),
-                html.Div(
-                    style={"textAlign": "right"},
-                    id="selections-capacity",
-                    className="mt-1",
-                ),
-            ],
-            className="d-flex flex-column",
-        )
-    ],
-    style={"height": "50rem"},  # for dummy purposes, to remove later
+        html.A(
+            dbc.CardHeader(html.H5("Explore", className="ml-1")),
+            id="tree-collapse-toggle",
+        ),
+        dbc.Collapse(
+            dbc.CardBody(
+                [
+                    # html.H4("Explore", className="mb-3 tree-card-title"),
+                    dbc.Input(className="mb-1", id="search-input", value="Search"),
+                    html.Div(
+                        [
+                            HierarchyTree(
+                                id="tree",
+                                data=hierarchy,
+                                selected_nodes=[],
+                                max_selections=MAX_SELECTIONS,
+                                n_updates=0,
+                                clopenState=clopen_state,
+                            )
+                        ],
+                        className="flex-grow-1 p-1",
+                        style={"overflow": "auto"},
+                    ),
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                html.Div(
+                                    style={"textAlign": "right"},
+                                    id="selections-capacity",
+                                    className="mt-1",
+                                ),
+                                align="center",
+                            ),
+                            dbc.Button(
+                                "Next",
+                                id="tree-next-btn",
+                                color="primary",
+                                className="mr-3",
+                            ),
+                        ],
+                        justify="end",
+                        className="mt-2",
+                    ),
+                ],
+                className="d-flex flex-column",
+                style={"height": "41rem"},
+            ),
+            id=f"collapse-tree",
+            is_open=True,
+        ),
+    ]
 )
 
 
