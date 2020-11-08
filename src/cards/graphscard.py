@@ -41,7 +41,7 @@ layout = dbc.Card(
             ]
         )
     ],
-    style={"height": "36rem"},  # for dummy purposes, to remove later
+    style={"height": "34rem"},  # for dummy purposes, to remove later
 )
 
 
