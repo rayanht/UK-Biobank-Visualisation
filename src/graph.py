@@ -1,3 +1,4 @@
+from os import name
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -5,13 +6,11 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 from enum import Enum
 from src.dataset_gateway import (
-    DatasetGateway,
-    Query,
     field_id_meta_data,
     data_encoding_meta_data,
 )
 from src.tree.node import NodeIdentifier
-from src.tree.node_utils import get_field_names_to_inst
+from src.tree.node_utils import get_field_names_to_inst, get_sex_node_identifier
 
 
 def has_multiple_instances(meta_ids):
@@ -65,24 +64,25 @@ class Graph:
         inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
         return inst_name_dict
 
-    def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_name: str):
+    def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
+        colour_name = None if (colour_id == None) else self.get_graph_axes_title(colour_id)
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         for col in filtered_data:
             if ((col != colour_name) & (col != 'eid')) :
-                for trace in self.get_violin_traces(col, filtered_data, colour_name):
+                for trace in self.get_violin_traces(col, filtered_data, colour_id):
                     fig.add_trace(trace)
         for trace in self.get_empty_sex_traces():
             fig.add_trace(trace)
         fig.update_layout(violinmode='overlay', violingap=0)
-        return self.format_graph(fig, node_id, (colour_name != None))
+        return self.format_graph(fig, node_id, (colour_id != None))
     
     def get_violin_traces(
         self,
         col: str,
         filtered_data: pd.DataFrame, 
-        colour_name: str
+        colour_id: NodeIdentifier
     ):
-        if (colour_name == None):
+        if (colour_id == None):
             trace = go.Violin(
                     y=filtered_data[col],
                     name=col,
@@ -93,6 +93,7 @@ class Graph:
                     opacity=0.6,
                 )
             return [trace]  
+        colour_name = self.get_graph_axes_title(colour_id)
         trace1 = go.Violin(
                     y=filtered_data[col][filtered_data[colour_name] == '0'],
                     legendgroup='Female', scalegroup=col, name=col,
@@ -137,22 +138,29 @@ class Graph:
         node_id_x: NodeIdentifier,
         node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame, 
-        colour_name: str
+        colour_id: NodeIdentifier
     ):
+        if (colour_id != None):
+                if (get_sex_node_identifier().db_id() == colour_id.db_id()):
+                    # If sex is chosen as colour, rename entries to 'Male' or 'Female'
+                    rename_colour_entries(filtered_data, colour_id)
+
+        colour_name = None if (colour_id == None) else self.get_graph_axes_title(colour_id)
         fig = px.scatter(
             data_frame=filtered_data,
             x=self.get_graph_axes_title(node_id_x),
             y=self.get_graph_axes_title(node_id_y),
             color=colour_name,
         )
-        return self.format_graph_two_var(fig, node_id_x, node_id_y, (colour_name != None))
+        return self.format_graph_two_var(fig, node_id_x, node_id_y, (colour_id != None))
 
-    def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_name: str):
+    def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
+        colour_name = None if (colour_id == None) else self.get_graph_axes_title(colour_id)
         processed_df = to_categorical_data(node_id, filtered_data, colour_name)
         fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
-        return self.format_graph(fig, node_id, (colour_name != None))
+        return self.format_graph(fig, node_id, (colour_id != None))
 
-    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_name: str):
+    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
         processed_df = to_categorical_data(node_id, filtered_data)
         fig = px.pie(processed_df, names="categories", values="counts")
         return self.format_graph(fig, node_id, True)
@@ -195,25 +203,23 @@ switcher = {
 
 def get_field_plot(node_id, graph_type, filtered_data, colour_id=None):
     """Returns a graph containing columns of the same field"""
-    colour_name = graph.get_graph_axes_title(colour_id) if (colour_id != None) else None
     filtered_data = filtered_data.rename(columns=get_column_names([node_id, colour_id]))
 
     # Drop row that contains column ids
     filtered_data = drop_row_with_col_id(filtered_data, node_id)
 
-    fig = switcher[graph_type](node_id, filtered_data, colour_name)
+    fig = switcher[graph_type](node_id, filtered_data, colour_id)
     return fig
 
 
 def get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data, colour_id=None):
     """Returns a graph with two variables"""
-    colour_name = graph.get_graph_axes_title(colour_id) if (colour_id != None) else None
     filtered_data_x = filtered_data.rename(columns=get_column_names([node_id_x, node_id_y, colour_id]))
 
     # Drop row that contains column ids
     filtered_data_x = drop_row_with_col_id(filtered_data_x, node_id_x)
     
-    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x, colour_name)
+    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x, colour_id)
     return fig
 
 def drop_row_with_col_id(data, node_id):
@@ -250,13 +256,23 @@ def to_categorical_data(node_id, filtered_data, colour_name = None):
     # Get count of occurrences of data
     encoding_counts = filtered_data.value_counts(sort=False, subset=subset).reset_index()
 
-    print("Columns of encoding counts are: ")
-    print(encoding_counts.columns)
-    
     encoding_counts.columns = columns_of_interest
     encoding_counts['categories'] = encoding_counts[graph.get_graph_axes_title(node_id)].astype(int).map(encoding_dict)
 
     return encoding_counts[columns_to_return]
+
+# Returns a dataframe with the specified column converted to its encoding label
+def rename_colour_entries(filtered_data, node_id):
+    field_id_meta = field_id_meta_data()
+    encoding_id = int(
+        field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
+            "encoding_id"
+        ].values[0]
+    )
+    encoding_dict = data_encoding_meta_data(encoding_id)
+    column_name = graph.get_graph_axes_title(node_id)
+    filtered_data[column_name] = filtered_data[column_name].astype(int).map(encoding_dict)
+    return filtered_data
 
 
 # returns a dict of options for a dropdown list of instances

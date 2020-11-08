@@ -6,7 +6,7 @@ import jsonpickle
 import pandas as pd
 
 from src.hierarchy import HierarchyLoader
-from src.tree.node import Node
+from src.tree.node import Node, NodeIdentifier
 
 
 def build(
@@ -161,4 +161,7 @@ def get_option(node):
         title = label
         label = re.sub(r"\([^)]*\)", "", label).strip()
     return {"label": label, "value": node["field_id"], "title": title}
+
+def get_sex_node_identifier():
+    return NodeIdentifier('31')
     
