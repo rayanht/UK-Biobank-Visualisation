@@ -12,6 +12,7 @@ pre-commit = "*"
 
 [packages]
 dash = "*"
+dash-extensions = "*"
 pandas = "*"
 dash-bootstrap-components = "*"
 defusedxml = "*"

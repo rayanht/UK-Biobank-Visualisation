@@ -164,4 +164,15 @@ def get_option(node):
 
 def get_sex_node_identifier():
     return NodeIdentifier('31')
+
+
+def is_leaf(node):
+    """Returns true if node is a leaf"""
+    try:
+        return not node['hasCaret']
+    except KeyError:
+        return True;
+
+def is_sex_option(option):
+    return option['value'] == '31'
     

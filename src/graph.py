@@ -1,6 +1,7 @@
 from os import name
 import pandas as pd
-import numpy as np
+from pandas.core.frame import DataFrame
+import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
@@ -65,14 +66,10 @@ class Graph:
         return inst_name_dict
 
     def violin_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
-        colour_name = None if (colour_id == None) else self.get_graph_axes_title(colour_id)
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         for col in filtered_data:
-            if ((col != colour_name) & (col != 'eid')) :
-                for trace in self.get_violin_traces(col, filtered_data, colour_id):
-                    fig.add_trace(trace)
-        for trace in self.get_empty_sex_traces():
-            fig.add_trace(trace)
+            for trace in self.get_violin_traces(col, filtered_data, colour_id):
+                fig.add_trace(trace)
         fig.update_layout(violinmode='overlay', violingap=0)
         return self.format_graph(fig, node_id, (colour_id != None))
     
@@ -80,7 +77,7 @@ class Graph:
         self,
         col: str,
         filtered_data: pd.DataFrame, 
-        colour_id: NodeIdentifier
+        colour_id: NodeIdentifier,
     ):
         if (colour_id == None):
             trace = go.Violin(
@@ -93,30 +90,32 @@ class Graph:
                     opacity=0.6,
                 )
             return [trace]  
-        colour_name = self.get_graph_axes_title(colour_id)
-        trace1 = go.Violin(
-                    y=filtered_data[col][filtered_data[colour_name] == '0'],
-                    legendgroup='Female', scalegroup=col, name=col,
-                    side='negative',
-                    meanline_visible=True, 
-                    box_visible=True,
-                    line_color="blue",
-                    fillcolor="blue",
-                    opacity=0.6,
-                    showlegend=False,
-                )
-        trace2 = go.Violin(
-                    y=filtered_data[col][filtered_data[colour_name] == '1'],
-                    legendgroup='Male', scalegroup=col, name=col,
-                    side='positive',
-                    meanline_visible=True, 
-                    box_visible=True,
-                    line_color="orange",
-                    fillcolor="orange",
-                    opacity=0.6,
-                    showlegend=False,
-                )
-        return [trace1, trace2]
+        colour_axes_name = self.get_graph_axes_title(colour_id)
+        if (col != colour_axes_name):
+            trace1 = go.Violin(
+                        y=filtered_data[col][filtered_data[colour_axes_name] == 0],
+                        legendgroup='Female', scalegroup=col, name=col,
+                        side='negative',
+                        meanline_visible=True, 
+                        box_visible=True,
+                        line_color="blue",
+                        fillcolor="blue",
+                        opacity=0.6,
+                        showlegend=False,
+                    )
+            trace2 = go.Violin(
+                        y=filtered_data[col][filtered_data[colour_axes_name] == 1],
+                        legendgroup='Male', scalegroup=col, name=col,
+                        side='positive',
+                        meanline_visible=True, 
+                        box_visible=True,
+                        line_color="orange",
+                        fillcolor="orange",
+                        opacity=0.6,
+                        showlegend=False,
+                    )
+            return [trace1, trace2]
+        return self.get_empty_sex_traces()
 
     def get_empty_sex_traces(self):
         trace1 = go.Violin(
@@ -156,11 +155,13 @@ class Graph:
 
     def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
         colour_name = None if (colour_id == None) else self.get_graph_axes_title(colour_id)
+        print("Converting to categorical data...")
         processed_df = to_categorical_data(node_id, filtered_data, colour_name)
+        print("Converted to categorical data. Generating graph...")
         fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
         return self.format_graph(fig, node_id, (colour_id != None))
 
-    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
+    def pie_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id = None):
         processed_df = to_categorical_data(node_id, filtered_data)
         fig = px.pie(processed_df, names="categories", values="counts")
         return self.format_graph(fig, node_id, True)
@@ -201,29 +202,61 @@ switcher = {
 }
 
 
-def get_field_plot(node_id, graph_type, filtered_data, colour_id=None):
+def prune_data(dataframe: DataFrame):
+    prune_data = dataframe.replace("", float("NaN"))
+    data_columns = prune_data.columns
+    for column in data_columns:
+        prune_data[column] = pd.to_numeric(prune_data[column], errors="coerce")
+    remove_non_numeric = prune_data.dropna(how="any")
+    return remove_non_numeric
+
+
+def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
+    # filter by x_value
+    filtered_data = dataframe
+    if x_value != "" and x_filter is not None:
+        node_id_x = NodeIdentifier(x_value)
+        filtered_data = filtered_data[
+            filtered_data[node_id_x.db_id()].between(x_filter[0], x_filter[1])
+        ]
+    if y_value != "" and y_filter is not None:
+        node_id_y = NodeIdentifier(y_value)
+        filtered_data = filtered_data[
+            filtered_data[node_id_y.db_id()].between(y_filter[0], y_filter[1])
+        ]
+    return filtered_data
+
+
+def get_statistics(data, x_value, y_value=None):
+    """Update the summary statistics when the dropdown selection changes"""
+    if (x_value is None) | (data is None):
+        return "No data to display"
+
+    return dbc.Table.from_dataframe(
+        data.describe().transpose(), striped=True, bordered=True, hover=True
+    )
+
+
+def get_field_plot(filtered_data: DataFrame, str_id_x, str_id_y, str_id_colour, graph_type):
     """Returns a graph containing columns of the same field"""
-    filtered_data = filtered_data.rename(columns=get_column_names([node_id, colour_id]))
-
+    node_id_x = NodeIdentifier(str_id_x)
+    colour_id = NodeIdentifier(str_id_colour) if (str_id_colour != None) else None
     # Drop row that contains column ids
-    filtered_data = drop_row_with_col_id(filtered_data, node_id)
+    filtered_data = drop_row_with_col_id(filtered_data, node_id_x)
 
-    fig = switcher[graph_type](node_id, filtered_data, colour_id)
-    return fig
-
-
-def get_two_field_plot(node_id_x, node_id_y, graph_type, filtered_data, colour_id=None):
-    """Returns a graph with two variables"""
-    filtered_data_x = filtered_data.rename(columns=get_column_names([node_id_x, node_id_y, colour_id]))
-
-    # Drop row that contains column ids
-    filtered_data_x = drop_row_with_col_id(filtered_data_x, node_id_x)
-    
-    fig = switcher[graph_type](node_id_x, node_id_y, filtered_data_x, colour_id)
-    return fig
+    if not str_id_y:
+        renamed_data = filtered_data.rename(
+            columns=get_column_names([node_id_x, colour_id])
+        )
+        return switcher[graph_type](node_id_x, renamed_data, colour_id)
+    node_id_y = NodeIdentifier(str_id_y)
+    renamed_data = filtered_data.rename(
+        columns=get_column_names([node_id_x, node_id_y, colour_id])
+    )
+    return switcher[graph_type](node_id_x, node_id_y, renamed_data, colour_id)
 
 def drop_row_with_col_id(data, node_id):
-    column_id_rows = data[data[graph.get_graph_axes_title(node_id)] == node_id.meta_id()].index.values
+    column_id_rows = data[data[node_id.db_id()] == node_id.meta_id()].index.values
     for row_id in reversed(column_id_rows):
         data = data.drop(row_id)
     return data
@@ -235,11 +268,13 @@ def get_column_names(node_ids):
 def to_categorical_data(node_id, filtered_data, colour_name = None):
     # Convert categorical data into a bar plot
     field_id_meta = field_id_meta_data()
+    print("Fetched meta data of field id. Retrieving encodings...")
     encoding_id = int(
         field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
             "encoding_id"
         ].values[0]
     )
+    print("Encodings retrieved. Converting to dict...")
     encoding_dict = data_encoding_meta_data(encoding_id)
 
     # Define columns of interest
@@ -254,9 +289,11 @@ def to_categorical_data(node_id, filtered_data, colour_name = None):
                                 [colour_name, "categories", "counts"]
 
     # Get count of occurrences of data
+    print("Counting occurences of data...")
     encoding_counts = filtered_data.value_counts(sort=False, subset=subset).reset_index()
-
+    print("Counted occurences of data.")
     encoding_counts.columns = columns_of_interest
+    print("Matching encoding to labels...")
     encoding_counts['categories'] = encoding_counts[graph.get_graph_axes_title(node_id)].astype(int).map(encoding_dict)
 
     return encoding_counts[columns_to_return]
