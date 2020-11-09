@@ -5,6 +5,7 @@ from typing import Generator, List
 import jsonpickle
 import pandas as pd
 
+from src._constants import SEX_FIELD_ID
 from src.hierarchy import HierarchyLoader
 from src.tree.node import Node, NodeIdentifier
 
@@ -163,7 +164,7 @@ def get_option(node):
     return {"label": label, "value": node["field_id"], "title": title}
 
 def get_sex_node_identifier():
-    return NodeIdentifier('31')
+    return NodeIdentifier(SEX_FIELD_ID)
 
 
 def is_leaf(node):
@@ -174,5 +175,5 @@ def is_leaf(node):
         return True;
 
 def is_sex_option(option):
-    return option['value'] == '31'
+    return option['value'] == SEX_FIELD_ID
     
