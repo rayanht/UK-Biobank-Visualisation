@@ -155,9 +155,7 @@ class Graph:
 
     def bar_plot(self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id: NodeIdentifier):
         colour_name = None if (colour_id == None) else self.get_graph_axes_title(colour_id)
-        print("Converting to categorical data...")
-        processed_df = to_categorical_data(node_id, filtered_data, colour_name)
-        print("Converted to categorical data. Generating graph...")
+        processed_df = to_categorical_data(node_id, filtered_data, colour_name)\
         fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
         return self.format_graph(fig, node_id, (colour_id != None))
 
@@ -268,13 +266,11 @@ def get_column_names(node_ids):
 def to_categorical_data(node_id, filtered_data, colour_name = None):
     # Convert categorical data into a bar plot
     field_id_meta = field_id_meta_data()
-    print("Fetched meta data of field id. Retrieving encodings...")
     encoding_id = int(
         field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
             "encoding_id"
         ].values[0]
     )
-    print("Encodings retrieved. Converting to dict...")
     encoding_dict = data_encoding_meta_data(encoding_id)
 
     # Define columns of interest
@@ -289,11 +285,8 @@ def to_categorical_data(node_id, filtered_data, colour_name = None):
                                 [colour_name, "categories", "counts"]
 
     # Get count of occurrences of data
-    print("Counting occurences of data...")
     encoding_counts = filtered_data.value_counts(sort=False, subset=subset).reset_index()
-    print("Counted occurences of data.")
     encoding_counts.columns = columns_of_interest
-    print("Matching encoding to labels...")
     encoding_counts['categories'] = encoding_counts[graph.get_graph_axes_title(node_id)].astype(int).map(encoding_dict)
 
     return encoding_counts[columns_to_return]
