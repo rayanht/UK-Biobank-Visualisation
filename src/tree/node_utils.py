@@ -5,11 +5,14 @@ from typing import Generator, List
 import jsonpickle
 import pandas as pd
 
+from src._constants import SEX_FIELD_ID
 from src.hierarchy import HierarchyLoader
-from src.tree.node import Node
+from src.tree.node import Node, NodeIdentifier
 
 
-def build(raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = "") -> Node:
+def build(
+    raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = ""
+) -> Node:
     """
     Build tree by adding all intermediate nodes, and only leaf nodes that match the prefix
 
@@ -76,9 +79,7 @@ def gen():
         i += 1
 
 
-def flatten(
-    encoded_tree: dict, clopen_state: dict
-) -> None:
+def flatten(encoded_tree: dict, clopen_state: dict) -> None:
     """
     Transform and enriches an encoded tree into the format expected by the frontend library.
 
@@ -153,3 +154,26 @@ def get_field_names_to_inst():
         fields_info["RelatedFieldID"].isnull() & fields_info["FieldID"].notnull()
     ][["FieldID", "NodeName", "InstanceID"]]
     return field_names_to_inst
+
+def get_option(node):
+    label = node["label"]
+    title = None
+    if "(" in label:
+        title = label
+        label = re.sub(r"\([^)]*\)", "", label).strip()
+    return {"label": label, "value": node["field_id"], "title": title}
+
+def get_sex_node_identifier():
+    return NodeIdentifier(SEX_FIELD_ID)
+
+
+def is_leaf(node):
+    """Returns true if node is a leaf"""
+    try:
+        return not node['hasCaret']
+    except KeyError:
+        return True;
+
+def is_sex_option(option):
+    return option['value'] == SEX_FIELD_ID
+    
