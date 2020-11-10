@@ -3,15 +3,15 @@ import re
 import sys
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from src.tree.node_utils import get_hierarchy, filter_hierarchy, get_option
 from dash.dependencies import Input, Output, State
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
+
 from hierarchy_tree.HierarchyTree import HierarchyTree
+from src.tree.node_utils import get_hierarchy, filter_hierarchy, get_option
+from src._constants import MAX_SELECTIONS
 
 from src.dash_app import app
-
-MAX_SELECTIONS = 30
 
 hierarchy, clopen_state = get_hierarchy()
 
@@ -79,18 +79,4 @@ layout = dbc.Card(
 def output_text(s, clopen):
     return filter_hierarchy(clopen, s)
 
-
-@app.callback(
-    [
-        Output(component_id="variable-dropdown-x", component_property="options"),
-        Output(component_id="selections-capacity", component_property="children"),
-        Output(component_id="variable-dropdown-y", component_property="options"),
-    ],
-    [Input(component_id="tree", component_property="n_updates")],
-    [State(component_id="tree", component_property="selected_nodes")],
-)
-def update_dropdown(n, selected_nodes):
-    """Update the dropdown when nodes from the tree are selected"""
-    options = [get_option(node) for node in selected_nodes]
-    return options, f"{len(options)}/{MAX_SELECTIONS} variables selected", options
 
