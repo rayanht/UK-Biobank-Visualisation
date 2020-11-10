@@ -5,41 +5,36 @@ from src.dash_app import dash, app
 
 from dash.dependencies import Input, MATCH, Output, State
 from src.tree.node import NodeIdentifier
-from src.setting.instance_setting import get_div_id as get_instance_div_id
+from src.setting.instance_setting import get_dropdown_id as get_instance_dropdown_id
 
-def get_option_dropdown(var:str):
+
+def get_option_dropdown(var: str):
     return html.Div(
-                id={
-                    'var': var,
-                    'type': 'filter-slider-div',
-                },
-                children=[
-                    html.H6("Filter values", className="mt-2"),
-                    dcc.RangeSlider(
-                        id={
-                            'var': var,
-                            'type': 'filter-slider',
-                        },
-                        allowCross=False,
-                        tooltip={
-                            "trigger": "hover",
-                            "placement": "bottom",
-                        },
-                    ),
-                ],
-                style={"display": "none"},
-            )
+        id={"var": var, "type": "filter-slider-div"},
+        children=[
+            html.H6("Filter values", className="mt-2"),
+            dcc.RangeSlider(
+                id={"var": var, "type": "filter-slider"},
+                allowCross=False,
+                tooltip={"trigger": "hover", "placement": "bottom"},
+            ),
+        ],
+        style={"display": "none"},
+    )
+
 
 def get_slider_id(var=MATCH):
-    return {'var': var, 'type': 'filter-slider'}
+    return {"var": var, "type": "filter-slider"}
+
 
 def get_div_id(var=MATCH):
-    return {'var': var, 'type': 'filter-slider-div'}
+    return {"var": var, "type": "filter-slider-div"}
+
 
 # update options (possibly merge with apply_graph_settings to prevent sending cached_data twice?)
 @app.callback(
     [
-        Output(component_id=get_div_id(), component_property="min"),
+        Output(component_id=get_slider_id(), component_property="min"),
         Output(component_id=get_slider_id(), component_property="max"),
         Output(component_id=get_slider_id(), component_property="value"),
         Output(component_id=get_slider_id(), component_property="marks"),
@@ -47,14 +42,12 @@ def get_div_id(var=MATCH):
     ],
     [
         Input(component_id="graph-data", component_property="data"),
-        Input(component_id=get_instance_div_id(), component_property="value"),
+        Input(component_id=get_instance_dropdown_id(), component_property="value"),
     ],
-    [
-        State(component_id=get_instance_div_id(), component_property='id'),
-    ]
+    [State(component_id=get_instance_dropdown_id(), component_property="id")],
 )
 def update_settings_options(cached_data, value, id):
-    var = id['var']
+    var = id["var"]
     filter_tuple = (
         dash.no_update,
         dash.no_update,
@@ -66,12 +59,11 @@ def update_settings_options(cached_data, value, id):
     if not cached_data:
         return filter_tuple
 
-    filtered_data = pd.read_json(cached_data["data"], orient="split")
-
-    # update x-axis settings
-    if cached_data[f'{var}-value'] != "":
-        x_filter_tuple = get_range_slider_tuple(
-            filtered_data, value, cached_data[f'{var}-value']
+    # update settings
+    if cached_data[f"{var}-value"] != "":
+        filtered_data = pd.read_json(cached_data["data"], orient="split")
+        filter_tuple = get_range_slider_tuple(
+            filtered_data, value, cached_data[f"{var}-value"]
         )
 
     return filter_tuple
