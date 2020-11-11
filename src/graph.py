@@ -2,6 +2,7 @@ import pandas as pd
 from pandas.core.frame import DataFrame
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
+import numpy as np
 import plotly.express as px
 from plotly.subplots import make_subplots
 from enum import Enum
@@ -165,13 +166,23 @@ def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
     return filtered_data
 
 
-def get_statistics(data, x_value, y_value=None):
+def get_statistics(data, x_value, node_id_x : NodeIdentifier, y_value=None, node_id_y : NodeIdentifier = None):
     """Update the summary statistics when the dropdown selection changes"""
     if (x_value is None) | (data is None):
         return "No data to display"
 
+    data_x = data.iloc[:, 0]
+    stats_x = data_x.describe()
+    stats = pd.DataFrame(stats_x)
+    var_names = [graph.get_field_name(node_id_x.field_id)]
+    if not (node_id_y is None):
+        stats_y = data.iloc[:, 1].describe()
+        stats = pd.concat([stats_x, stats_y], axis=1)
+        var_names.append(graph.get_field_name(node_id_y.field_id))
+    stats = stats.transpose()
+    stats.insert(0, 'Variables', var_names)
     return dbc.Table.from_dataframe(
-        data.describe().transpose(), striped=True, bordered=True, hover=True
+        stats, striped=True, bordered=True, hover=True
     )
 
 

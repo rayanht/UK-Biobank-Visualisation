@@ -278,6 +278,7 @@ def get_range_slider_tuple(filtered_data, curr_value, stored_value):
 def get_data(n, cached_data, x_value, y_value, graph_type, x_filter, y_filter):
     new_cached_data = dash.no_update
     data = None
+    node_id_y = None
     # get new data if cached data is outdated
     if (
         not cached_data
@@ -352,6 +353,6 @@ def get_data(n, cached_data, x_value, y_value, graph_type, x_filter, y_filter):
         new_cached_data,
         plotted_data_json,
         get_field_plot(removed_eids, x_value, y_value, graph_type),
-        get_statistics(removed_eids, x_value, y_value),
+        get_statistics(removed_eids, x_value, node_id_x, y_value, node_id_y),
         False,
     )
