@@ -9,7 +9,7 @@ export interface IHierachyTreeNode extends ITreeNode {
     unselected_children?: IHierachyTreeNode[];
 }
 
-export interface ITreeExampleState {
+export interface IHierarchyTreeState {
     nodes: IHierachyTreeNode[];
     selected_nodes: IHierachyTreeNode[];
     n_updates: number;
@@ -20,8 +20,8 @@ export interface ITreeExampleState {
 
 // use Component so it re-renders every time: `nodes` are not a primitive type
 // and therefore aren't included in shallow prop comparison
-export class TreeExample extends React.Component<ITreeExampleState> {
-    public state: ITreeExampleState = {
+export class BiobankTree extends React.Component<IHierarchyTreeState> {
+    public state: IHierarchyTreeState = {
         selected_nodes: this.props.selected_nodes,
         nodes: this.props.nodes,
         n_updates: this.props.n_updates,
@@ -31,6 +31,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
     };
 
     componentDidUpdate(prevProps) {
+        // Replace selected nodes by the new nodes, using previous ids, since the references were lost
         if (prevProps.nodes !== this.props.nodes) {
             const newSelected = prevProps.selected_nodes.map((n) => {
                 const node = this.searchNodes(this.props.nodes, n.id.toString());
@@ -41,12 +42,11 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             });
             this.setState(prevState => ({...prevState, nodes: this.props.nodes, selected_nodes: newSelected}));
         }
+
+        // Add a tick icon to all selected nodes
         this.forEachNode(this.props.nodes, (n) => {
             if (n.isSelected) {
                 n.secondaryLabel = <Icon icon={"tick"}/>;
-            }
-            if (n.hasCaret && this.hasSelected(n)) {
-
             }
         })
     }
@@ -110,50 +110,66 @@ export class TreeExample extends React.Component<ITreeExampleState> {
     };
 
     private handleNodeCollapse = (nodeData: IHierachyTreeNode) => {
+        // If the node doesn't have any 'unselected children', then it should be collapsed normally
         if (nodeData.unselected_children == undefined) {
+
             if (this.hasSelected(nodeData)) {
                 nodeData.unselected_children = []
                 for (const child of nodeData.childNodes) {
-                    if (!this.hasSelected(child)) {
-                        nodeData.unselected_children.push(child);
-                    } else {
+
+                    // If the node contains a selected node at any depth, those nodes and all their parent nodes
+                    // should remain and not be collapsed. We do want to collapse all child nodes recursively though.
+                    if (this.hasSelected(child)) {
                         const c = child as IHierachyTreeNode
                         if (child.childNodes != null && c.unselected_children == undefined) {
                             this.handleNodeCollapse(child)
                         }
+
+                    // All other nodes should be moved to the 'unselected_nodes field of their parent
+                    } else {
+                        nodeData.unselected_children.push(child);
                     }
                 }
+
+                // Remove all 'unselected nodes'
                 for (const node of nodeData.unselected_children) {
                     const index = nodeData.childNodes.indexOf(node);
                     if (index > -1) {
                         nodeData.childNodes.splice(index, 1);
                     }
                 }
+            // If this node doesn't contain any selected children, just collapse it normally
             } else {
                 nodeData.isExpanded = false;
                 this.state.setClopenState(nodeData.id, false);
             }
+
+        // If the node already has 'unselected children',
+        // we should instead add those children back to the node and sort them
         } else {
             nodeData.childNodes = nodeData.childNodes.concat(nodeData.unselected_children);
-            nodeData.childNodes.sort(TreeExample.sortByLabel)
+            nodeData.childNodes.sort(BiobankTree.sortByLabel)
             nodeData.unselected_children = undefined;
         }
         this.setState(this.state);
     }
 
+    // Expand the node and sort its children alphabetically based on label
     private handleNodeExpand = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = true;
         if (nodeData.childNodes != undefined) {
-            nodeData.childNodes.sort(TreeExample.sortByLabel)
+            nodeData.childNodes.sort(BiobankTree.sortByLabel)
         }
         this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
 
+    // A custom comparator for tree nodes based on label alphabetical order
     private static sortByLabel(a: IHierachyTreeNode, b: IHierachyTreeNode) {
         return a.label > b.label ? 1 : a.label < b.label ? -1 : 0
     }
 
+    // For every node (and all corresponding children) call the void callback
     private forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void) {
         if (nodes == null) {
             return;
@@ -165,6 +181,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         }
     }
 
+    // Check if a node has a selected child at any depth
     private hasSelected(node: IHierachyTreeNode) {
         if (node.isSelected) {
             return true;
@@ -179,6 +196,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         return false;
     }
 
+    // Search all nodes for one with the given id, and return it
     private searchNodes(nodes: ITreeNode[], id: string) {
         if (nodes == null) {
             return;

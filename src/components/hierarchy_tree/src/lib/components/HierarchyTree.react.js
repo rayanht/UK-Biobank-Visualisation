@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {TreeExample} from "./TreeExample";
+import {BiobankTree} from "./BiobankTree";
 
 export default class HierarchyTree extends Component {
 
@@ -10,7 +10,7 @@ export default class HierarchyTree extends Component {
             clopenState[id] = state;
         }
         return (
-            <TreeExample id={id} nodes={data} selected_nodes={selected_nodes} max_selections={max_selections}
+            <BiobankTree id={id} nodes={data} selected_nodes={selected_nodes} max_selections={max_selections}
                          n_updates={n_updates} setProps={setProps} setClopenState={setClopenState}/>
         );
     }
