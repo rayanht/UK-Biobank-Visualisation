@@ -1,23 +1,6 @@
-/*
- * Copyright 2015 Palantir Technologies, Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import * as React from "react";
 import {Classes, Icon, ITreeNode, Tree} from "@blueprintjs/core";
 import "./Tree.css"
-import classNames from "classnames";
 
 
 export interface IHierachyTreeNode extends ITreeNode {
@@ -35,7 +18,7 @@ export interface ITreeExampleState {
     setClopenState: any;
 }
 
-// use Component so it re-renders everytime: `nodes` are not a primitive type
+// use Component so it re-renders every time: `nodes` are not a primitive type
 // and therefore aren't included in shallow prop comparison
 export class TreeExample extends React.Component<ITreeExampleState> {
     public state: ITreeExampleState = {
@@ -152,6 +135,7 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             }
         } else {
             nodeData.childNodes = nodeData.childNodes.concat(nodeData.unselected_children);
+            nodeData.childNodes.sort(TreeExample.sortByLabel)
             nodeData.unselected_children = undefined;
         }
         this.setState(this.state);
@@ -159,9 +143,16 @@ export class TreeExample extends React.Component<ITreeExampleState> {
 
     private handleNodeExpand = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = true;
+        if (nodeData.childNodes != undefined) {
+            nodeData.childNodes.sort(TreeExample.sortByLabel)
+        }
         this.state.setClopenState(nodeData.id, true);
         this.setState(this.state);
     };
+
+    private static sortByLabel(a: IHierachyTreeNode, b: IHierachyTreeNode) {
+        return a.label > b.label ? 1 : a.label < b.label ? -1 : 0
+    }
 
     private forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void) {
         if (nodes == null) {
