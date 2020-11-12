@@ -113,6 +113,12 @@ def toggle_navbar_collapse(n, is_open):
         return not is_open
     return is_open
 
+@app.callback(
+    Output("graphs-card-body", "children"),
+    [Input("graphs-tabs", "active_tab")]
+)
+def tab_contents(tab_id):
+    return graphscard.contents_by_id[tab_id]
 
 collapseable_cards = ["settings", "tree"]
 collapseable_card_toggles = [
