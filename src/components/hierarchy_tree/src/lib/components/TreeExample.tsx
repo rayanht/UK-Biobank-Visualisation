@@ -17,10 +17,13 @@
 import * as React from "react";
 import {Classes, Icon, ITreeNode, Tree} from "@blueprintjs/core";
 import "./Tree.css"
+import classNames from "classnames";
+
 
 export interface IHierachyTreeNode extends ITreeNode {
     category_id?: number;
     field_id?: number;
+    unselected_children?: IHierachyTreeNode[];
 }
 
 export interface ITreeExampleState {
@@ -58,6 +61,9 @@ export class TreeExample extends React.Component<ITreeExampleState> {
         this.forEachNode(this.props.nodes, (n) => {
             if (n.isSelected) {
                 n.secondaryLabel = <Icon icon={"tick"}/>;
+            }
+            if (n.hasCaret && this.hasSelected(n)) {
+
             }
         })
     }
@@ -121,10 +127,35 @@ export class TreeExample extends React.Component<ITreeExampleState> {
     };
 
     private handleNodeCollapse = (nodeData: IHierachyTreeNode) => {
-        nodeData.isExpanded = false;
-        this.state.setClopenState(nodeData.id, false);
+        if (nodeData.unselected_children == undefined) {
+            if (this.hasSelected(nodeData)) {
+                nodeData.unselected_children = []
+                for (const child of nodeData.childNodes) {
+                    if (!this.hasSelected(child)) {
+                        nodeData.unselected_children.push(child);
+                    } else {
+                        const c = child as IHierachyTreeNode
+                        if (child.childNodes != null && c.unselected_children == undefined) {
+                            this.handleNodeCollapse(child)
+                        }
+                    }
+                }
+                for (const node of nodeData.unselected_children) {
+                    const index = nodeData.childNodes.indexOf(node);
+                    if (index > -1) {
+                        nodeData.childNodes.splice(index, 1);
+                    }
+                }
+            } else {
+                nodeData.isExpanded = false;
+                this.state.setClopenState(nodeData.id, false);
+            }
+        } else {
+            nodeData.childNodes = nodeData.childNodes.concat(nodeData.unselected_children);
+            nodeData.unselected_children = undefined;
+        }
         this.setState(this.state);
-    };
+    }
 
     private handleNodeExpand = (nodeData: IHierachyTreeNode) => {
         nodeData.isExpanded = true;
@@ -141,6 +172,20 @@ export class TreeExample extends React.Component<ITreeExampleState> {
             callback(node);
             this.forEachNode(node.childNodes, callback);
         }
+    }
+
+    private hasSelected(node: IHierachyTreeNode) {
+        if (node.isSelected) {
+            return true;
+        }
+        if (node.childNodes != null) {
+            for (const n of node.childNodes) {
+                if (this.hasSelected(n)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private searchNodes(nodes: ITreeNode[], id: string) {
