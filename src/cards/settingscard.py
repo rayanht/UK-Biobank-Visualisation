@@ -1,9 +1,28 @@
-import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-import src.cards.settingscard_callbacks
+# Settings to be used
+from src.setting.colour_setting import get_option_dropdown as get_colour_setting
+from src.setting.instance_setting import get_option_dropdown as get_instance_setting
+from src.setting.variable_setting import get_option_dropdown as get_variable_setting
+from src.setting.filter_setting import get_option_dropdown as get_filter_setting
+from src.setting.graph_type_setting import get_option_dropdown as get_graph_type_setting
+from src.setting.plot_graph_setting import get_button as get_plot_graph_setting
 
+# Function for selecting setting
+def get_setting(encoding, arg=None):
+    return _get_option_switcher[encoding](arg)
+
+_get_option_switcher = {
+    'colour': get_colour_setting,
+    'instance': get_instance_setting,
+    'variable': get_variable_setting,
+    'filter': get_filter_setting,
+    'graph_type': get_graph_type_setting,
+    'plot_graph': get_plot_graph_setting,
+}
+
+# Actual settings card layout
 layout = dbc.Card(
     [
         html.A(
@@ -18,111 +37,24 @@ layout = dbc.Card(
                         [
                             html.H5("X-axis"),
                             html.H6("Variable"),
-                            dcc.Dropdown(
-                                id="variable-dropdown-x",
-                                options=[],
-                                placeholder="Select a variable to plot",
-                                optionHeight=45,
-                            ),
-                            html.Div(
-                                id="x-instance-selection-div",
-                                children=[
-                                    html.H6("Instance"),
-                                    dcc.Dropdown(
-                                        id="x-instance-options",
-                                        options=[],
-                                        placeholder="Select an instance",
-                                        optionHeight=70,
-                                    ),
-                                ],
-                                style={"display": "none"},
-                                className="mt-2",
-                            ),
-                            html.Div(
-                                id="x-filter-slider-div",
-                                children=[
-                                    html.H6("Filter values", className="mt-2"),
-                                    dcc.RangeSlider(
-                                        id="x-filter-slider",
-                                        allowCross=False,
-                                        tooltip={
-                                            "trigger": "hover",
-                                            "placement": "bottom",
-                                        },
-                                    ),
-                                ],
-                                style={"display": "none"},
-                            ),
+                            get_setting('variable', 'x'),
+                            get_setting('instance', 'x'),
+                            get_setting('filter', 'x'),
+
                             html.H5("Y-axis", className="mt-3"),
                             html.H6("Variable"),
-                            dcc.Dropdown(
-                                id="variable-dropdown-y",
-                                options=[],
-                                placeholder="Select a variable to plot",
-                                optionHeight=45,
-                                disabled=True,
-                            ),
-                            html.Div(
-                                id="y-instance-selection-div",
-                                children=[
-                                    html.H6("Instance"),
-                                    dcc.Dropdown(
-                                        id="y-instance-options",
-                                        options=[],
-                                        placeholder="Select an instance",
-                                        optionHeight=70,
-                                    ),
-                                ],
-                                style={"display": "none"},
-                                className="mt-2",
-                            ),
-                            html.Div(
-                                id="y-filter-slider-div",
-                                children=[
-                                    html.H6("Filter values", className="mt-2"),
-                                    dcc.RangeSlider(
-                                        id="y-filter-slider",
-                                        allowCross=False,
-                                        tooltip={
-                                            "trigger": "hover",
-                                            "placement": "bottom",
-                                        },
-                                    ),
-                                ],
-                                style={"display": "none"},
-                            ),
+                            get_setting('variable', 'y'),
+                            get_setting('instance', 'y'),
+                            get_setting('filter', 'y'),
+
                             html.H5("Graph Type", className="mt-3"),
-                            dcc.Dropdown(
-                                id="settings-graph-type-dropdown",
-                                options=[],
-                                placeholder="Select a graph type",
-                                clearable=False,
-                                disabled=True,
-                            ),
-                            html.Div(    
-                                id="colour-selection-div",
-                                children=[
-                                    html.H5("Colour", className="mt-3"),
-                                    dcc.Dropdown(
-                                        id="settings-graph-colour-dropdown",
-                                        options=[],
-                                        placeholder="Optional: Group data by category",
-                                        clearable=True,
-                                        optionHeight=70,
-                                    ),
-                                ],
-                                style={"display": "none"},
-                            ),
+                            get_setting('graph_type'),
+                            get_setting('colour'),
                         ],
                         className="flex-grow-1",
                         style={"overflow": "auto"},
                     ),
-                    dbc.Button(
-                        "Plot graph",
-                        id="settings-card-submit",
-                        color="primary",
-                        className="mt-2",
-                    ),
+                    get_setting('plot_graph'),
                 ],
                 className="d-flex flex-column",
                 style={"height": "41rem"},
