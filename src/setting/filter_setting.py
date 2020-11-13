@@ -16,7 +16,7 @@ def get_option_dropdown(var: str):
             dcc.RangeSlider(
                 id={"var": var, "type": "filter-slider"},
                 allowCross=False,
-                tooltip={"trigger": "hover", "placement": "bottom"},
+                tooltip={"always_visible": True, "placement": "bottom"},
             ),
         ],
         style={"display": "none"},

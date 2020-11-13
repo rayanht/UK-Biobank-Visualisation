@@ -34,9 +34,7 @@ contents_by_id = {
                             n_clicks=0,
                             disabled=True,
                         ),
-                        dbc.Tooltip(
-                            "Download plot as CSV", target="download-btn"
-                        ),
+                        dbc.Tooltip("Download plot as CSV", target="download-btn"),
                     ],
                     className="ml-auto",
                 ),
@@ -47,25 +45,25 @@ contents_by_id = {
         Download(id="download"),
     ],
     "embedding": [
-        html.H3("Embedding plot"),
-        dcc.Graph(id="graph-embedding")
-    ]
+        html.Div(children=[dcc.Graph(id="analysis-graph")], id="analysis-card")
+    ],
 }
 
 tabs = [
-    dbc.Tabs([
-        dbc.Tab(tab_id="metadata", label="Metadata plot"),
-        dbc.Tab(tab_id="embedding", label="Embedding plot")
-    ], id="graphs-tabs", card=True)
+    dbc.Tabs(
+        [
+            dbc.Tab(tab_id="metadata", label="Metadata plot"),
+            dbc.Tab(tab_id="embedding", label="Embedding plot"),
+        ],
+        id="graphs-tabs",
+        card=True,
+    )
 ]
 
 layout = dbc.Card(
     [
         dbc.CardHeader(tabs),
-        dbc.CardBody(
-            contents_by_id["metadata"],
-            id="graphs-card-body"
-        )
+        dbc.CardBody(contents_by_id["metadata"], id="graphs-card-body"),
     ],
     style={"height": "34rem"},  # for dummy purposes, to remove later
 )
@@ -82,6 +80,7 @@ def generate_csv(n_clicks, plotted_data):
         return send_data_frame(
             data.to_csv, "ukbb_metadata_variable_subset.csv", index=False
         )
+
 
 @app.callback(
     Output(component_id="statistics", component_property="children"),
@@ -134,12 +133,10 @@ def update_statistics(
 
         # filter data
         _, df = get_filtered_data(data, x_value, y_value, x_filter, y_filter)
-    elif trigger == "graph":
+    elif trigger == "graph" and selected_data:
         points = selected_data["points"]
         points = [(p["x"], p["y"]) for p in points]
         points_x, points_y = zip(*points)
-        node_id_x = None
-        node_id_y = NodeIdentifier(y_value)
         if x_value is not None:
             node_id_x = NodeIdentifier(x_value)
             df = pd.DataFrame({"x": points_x})

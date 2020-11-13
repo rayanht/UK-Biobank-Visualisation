@@ -6,14 +6,16 @@ from src.dataset_gateway import field_id_meta_data
 from src.graph import ValueType
 from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
 
+
 def get_option_dropdown(arg=None):
     return dcc.Dropdown(
-                    id="settings-graph-type-dropdown",
-                    options=[],
-                    placeholder="Select a graph type",
-                    clearable=False,
-                    disabled=True,
-                )
+        id="settings-graph-type-dropdown",
+        options=[],
+        placeholder="Select a graph type",
+        clearable=False,
+        disabled=True,
+    )
+
 
 @app.callback(
     [
@@ -30,8 +32,8 @@ def get_option_dropdown(arg=None):
         ),
     ],
     [
-        Input(component_id=get_var_dropdown_id('x'), component_property="value"),
-        Input(component_id=get_var_dropdown_id('y'), component_property="value"),
+        Input(component_id=get_var_dropdown_id("x"), component_property="value"),
+        Input(component_id=get_var_dropdown_id("y"), component_property="value"),
     ],
 )
 def update_graph_type(variable_dropdown_x, variable_dropdown_y):
@@ -42,7 +44,7 @@ def update_graph_type(variable_dropdown_x, variable_dropdown_y):
         "scatter": {"label": "Scatter", "value": 2},
         "bar": {"label": "Bar", "value": 3},
         "pie": {"label": "Pie", "value": 4},
-        # "box": {"label": "Box", "value": 5},
+        "box": {"label": "Box", "value": 5},
     }
 
     if variable_dropdown_x is None:

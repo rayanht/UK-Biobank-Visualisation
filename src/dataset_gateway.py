@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json
+import time
 from io import StringIO
 import os
 import requests
@@ -66,7 +67,11 @@ class DatasetGateway(metaclass=Singleton):
 
     @classmethod
     def submit(cls, _query: Query) -> pd.DataFrame:
-        return cls().client.query(_query.build()).result().to_dataframe()
+        start = time.process_time()
+        ret = cls().client.query(_query.build()).result().to_dataframe()
+        end = time.process_time()
+        print(f"Took {end - start:.3f} seconds")
+        return ret
 
 
 @functools.lru_cache
