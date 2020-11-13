@@ -26,6 +26,8 @@ google-cloud-bigquery = "*"
 google-cloud-bigquery-storage = "*"
 requests = "*"
 pyarrow = "2.0.0"
+dash-daq = "*"
+umap-learn = "*"
 
 [requires]
 python_version = "3.8"

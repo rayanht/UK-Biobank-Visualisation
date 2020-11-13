@@ -1,15 +1,12 @@
+import inspect
+
 import pandas as pd
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from src.dash_app import dash, app
 
 from src.dataset_gateway import DatasetGateway, Query
-from src.graph import (
-    filter_data,
-    get_field_plot,
-    get_statistics,
-    prune_data,
-)
+from src.graph import filter_data, get_field_plot, get_statistics, prune_data
 from src.tree.node import NodeIdentifier
 
 # Functions to get ids of components
@@ -19,10 +16,7 @@ from src.setting.filter_setting import get_slider_id
 
 def get_button(var=None):
     return dbc.Button(
-        "Plot graph",
-        id="settings-card-submit",
-        color="primary",
-        className="mt-2",
+        "Plot graph", id="settings-card-submit", color="primary", className="mt-2"
     )
 
 
@@ -37,9 +31,7 @@ def get_button(var=None):
         Output(component_id="graph", component_property="figure"),
         Output(component_id="download-btn", component_property="disabled"),
     ],
-    [
-        Input(component_id="settings-card-submit", component_property="n_clicks"),
-    ],
+    [Input(component_id="settings-card-submit", component_property="n_clicks")],
     [
         State(component_id="graph-data", component_property="data"),
         State(component_id=get_inst_dropdown_id("x"), component_property="value"),
@@ -145,10 +137,15 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
                 print("Getting new data!")
     # if cache data is not outdated, use it
     else:
+        print(inspect.stack()[1].function)
         print(
             f"Using cached data for {cached_data['x-value']} {cached_data['y-value']} and {cached_data['colour']}, current x is {x_value} y is {y_value} colour is {colour}"
         )
         data = pd.read_json(cached_data["data"], orient="split")
+        if x_value:
+            node_id_x = NodeIdentifier(x_value)
+        if y_value:
+            node_id_y = NodeIdentifier(y_value)
 
     return data, new_cached_data, node_id_x, node_id_y
 
