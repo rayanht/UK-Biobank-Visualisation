@@ -15,4 +15,4 @@ RUN ls src/
 RUN pipenv install --system --deploy --ignore-pipfile
 RUN ./build_custom_components.sh
 
-CMD ["pipenv", "run", "gunicorn", "-b", "0.0.0.0:$PORT" , "--pythonpath", "src/", "app:server"]
+CMD ["pipenv", "run", "gunicorn", "-b", "0.0.0.0:$PORT" , "--threads", "8", "-w", "2", "--pythonpath", "src/", "app:server"]
