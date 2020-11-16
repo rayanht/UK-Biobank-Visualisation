@@ -3,7 +3,7 @@ from src.dash_app import app
 
 from dash.dependencies import Input, MATCH, Output
 from src.dataset_gateway import field_id_meta_data
-from src.graph import ValueType
+from src.graph import ValueType, get_field_type
 from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
 
 
@@ -55,12 +55,7 @@ def update_graph_type(variable_dropdown_x, variable_dropdown_y):
     if variable_dropdown_y is None:
         # Only one variable selected
         field_id = variable_dropdown_x
-
-        df = field_id_meta_data()
-        value_type_id = int(
-            df.loc[df["field_id"] == str(field_id)]["value_type"].values[0]
-        )
-        value_type = ValueType(value_type_id)
+        value_type = get_field_type(str(field_id))
 
         supported_graphs = value_type.supported_graphs
 
@@ -79,17 +74,8 @@ def update_graph_type(variable_dropdown_x, variable_dropdown_y):
         # Else if x-axis variable is categorical:
         #   If the y-axis variable is continuous or integer:
         #       You can use violin plot, box plot
-
-        df = field_id_meta_data()
-        x_value_type_id = int(
-            df.loc[df["field_id"] == str(variable_dropdown_x)]["value_type"].values[0]
-        )
-        x_value_type = ValueType(x_value_type_id)
-
-        y_value_type_id = int(
-            df.loc[df["field_id"] == str(variable_dropdown_y)]["value_type"].values[0]
-        )
-        y_value_type = ValueType(y_value_type_id)
+        x_value_type = get_field_type(str(variable_dropdown_x))
+        y_value_type = get_field_type(str(variable_dropdown_y))
 
         if (
             x_value_type == ValueType.INTEGER

@@ -4,6 +4,7 @@ from pandas.core.frame import DataFrame
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import numpy as np
+import functools
 import plotly.express as px
 from plotly.subplots import make_subplots
 from enum import Enum
@@ -244,15 +245,9 @@ def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
     return filtered_data
 
 
-def get_statistics(
-    data,
-    x_value,
-    node_id_x: NodeIdentifier,
-    y_value=None,
-    node_id_y: NodeIdentifier = None,
-):
+def get_statistics(data, node_id_x: NodeIdentifier, node_id_y: NodeIdentifier = None):
     """Update the summary statistics when the dropdown selection changes"""
-    if (x_value is None) | (data is None):
+    if (node_id_x is None) | (data is None):
         return "No data to display"
 
     data_x = data.iloc[:, 0]
@@ -302,6 +297,13 @@ def get_column_names(node_ids):
         for node_id in node_ids
         if (node_id != None)
     }
+
+
+@functools.lru_cache
+def get_field_type(field_id):
+    df = field_id_meta_data()
+    x_value_type_id = int(df.loc[df["field_id"] == field_id]["value_type"].values[0])
+    return ValueType(x_value_type_id)
 
 
 def to_categorical_data(node_id, filtered_data, colour_name=None):

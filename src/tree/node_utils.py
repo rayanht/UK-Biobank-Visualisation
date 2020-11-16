@@ -155,6 +155,7 @@ def get_field_names_to_inst():
     ][["FieldID", "NodeName", "InstanceID"]]
     return field_names_to_inst
 
+
 def get_option(node):
     label = node["label"]
     title = None
@@ -163,6 +164,7 @@ def get_option(node):
         label = re.sub(r"\([^)]*\)", "", label).strip()
     return {"label": label, "value": node["field_id"], "title": title}
 
+
 def get_sex_node_identifier():
     return NodeIdentifier(SEX_FIELD_ID)
 
@@ -170,10 +172,10 @@ def get_sex_node_identifier():
 def is_leaf(node):
     """Returns true if node is a leaf"""
     try:
-        return not node['hasCaret']
+        return not node["hasCaret"]
     except KeyError:
-        return True;
+        return True
+
 
 def is_sex_option(option):
-    return option['value'] == SEX_FIELD_ID
-    
+    return option["value"] == SEX_FIELD_ID
