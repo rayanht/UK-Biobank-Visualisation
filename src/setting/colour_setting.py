@@ -22,12 +22,21 @@ def get_option_dropdown(arg):
                 ],
                 style={"display": "none"},
             )
+# Callback for updating colour option visibility
+@app.callback(
+    Output(component_id="colour-selection-div", component_property="style"),
+    Input(component_id="settings-graph-type-dropdown", component_property="value"),
+)
+def update_colour_visible(graph_type):
+    if ((graph_type == 4) | (graph_type == None)):
+        # Currently do not support colour for pie charts
+        return {"display": "none"}
+    return {"display": "block"}
 
 # Callback for updating colour options
 @app.callback(
     [
         Output(component_id="colour-options", component_property="data"),
-        Output(component_id="colour-selection-div", component_property="style"),
         Output(component_id="settings-graph-colour-dropdown", component_property="options"),
         Output(component_id="settings-graph-colour-dropdown", component_property="value"),
     ],
@@ -41,7 +50,7 @@ def get_baseline_nodes(hierarchy, graph_type, cached_colour_options):
     """Updates colour options with baselines characteristic nodes after tree has been loaded"""
     if ((graph_type == 4) | (graph_type == None)):
         # Currently do not support colour for pie charts
-        return None, {"display": "none"}, [], None
+        return None, [], None
     
     if (cached_colour_options == None):
         baseline_children = hierarchy[0]['childNodes'][0]['childNodes']
@@ -52,4 +61,4 @@ def get_baseline_nodes(hierarchy, graph_type, cached_colour_options):
     if (graph_type == 1):
         # Violin plot can only use Sex as colour argument
         options = [option for option in options if is_sex_option(option)]
-    return cached_colour_options, {"display": "block"}, options, None
+    return cached_colour_options, options, None
