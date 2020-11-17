@@ -12,7 +12,7 @@ def get_option_dropdown(var: str):
         options=[],
         placeholder="Select a variable to plot",
         optionHeight=45,
-        disabled= (var != 'x'),
+        disabled= (var == 'y'),
     )
 
 

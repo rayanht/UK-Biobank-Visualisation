@@ -11,6 +11,7 @@ from src.tree.node import NodeIdentifier
 
 # Functions to get ids of components
 from src.setting.instance_setting import get_dropdown_id as get_inst_dropdown_id
+from src.setting.colour_setting import get_dropdown_id as get_colour_dropdown_id
 from src.setting.filter_setting import get_slider_id
 
 
@@ -43,7 +44,7 @@ def get_button(var=None):
         State(component_id="settings-graph-type-dropdown", component_property="value"),
         # colour
         State(
-            component_id="settings-graph-colour-dropdown", component_property="value"
+            component_id=get_colour_dropdown_id(), component_property="value"
         ),
         # filters
         State(component_id=get_slider_id("x"), component_property="value"),

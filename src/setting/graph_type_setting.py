@@ -1,8 +1,7 @@
 import dash_core_components as dcc
 from src.dash_app import app
 
-from dash.dependencies import Input, MATCH, Output
-from src.dataset_gateway import field_id_meta_data
+from dash.dependencies import Input, Output
 from src.graph import ValueType, get_field_type
 from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
 
