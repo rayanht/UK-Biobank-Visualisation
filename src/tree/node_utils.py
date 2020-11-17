@@ -169,12 +169,9 @@ def get_sex_node_identifier():
     return NodeIdentifier(SEX_FIELD_ID)
 
 
-def is_leaf(node):
-    """Returns true if node is a leaf"""
-    try:
-        return not node["hasCaret"]
-    except KeyError:
-        return True
+def get_field_id(node):
+    """Returns field id of node as string"""
+    return str(node["field_id"])
 
 
 def is_sex_option(option):
