@@ -12,6 +12,7 @@ def get_option_dropdown(var: str):
         options=[],
         placeholder="Select a variable to plot",
         optionHeight=45,
+        disabled= (var != 'x'),
     )
 
 
@@ -21,10 +22,9 @@ def get_dropdown_id(var=MATCH):
 
 @app.callback(
     [
-        Output(component_id=get_dropdown_id("x"), component_property="options"),
         Output(component_id="selections-capacity", component_property="children"),
-        Output(component_id=get_dropdown_id("y"), component_property="options"),
-        Output(component_id=get_dropdown_id("all"), component_property="options"),
+        Output(component_id=get_dropdown_id('x'), component_property="options"),
+        Output(component_id=get_dropdown_id('y'), component_property="options"),
     ],
     [Input(component_id="tree", component_property="n_updates")],
     [State(component_id="tree", component_property="selected_nodes")],
@@ -33,7 +33,6 @@ def update_dropdown(n, selected_nodes):
     """Update the dropdown when nodes from the tree are selected"""
     options = [get_option(node) for node in selected_nodes]
     return (
-        options,
         f"{len(options)}/{MAX_SELECTIONS} variables selected",
         options,
         options,
@@ -41,14 +40,10 @@ def update_dropdown(n, selected_nodes):
 
 
 @app.callback(
-    [
-        Output(component_id=get_dropdown_id("y"), component_property="disabled"),
-        Output(component_id=get_dropdown_id("y"), component_property="value"),
-    ],
-    [Input(component_id=get_dropdown_id("x"), component_property="value")],
-    [State(component_id=get_dropdown_id("y"), component_property="value")],
+    Output(component_id=get_dropdown_id("y"), component_property="disabled"),
+    Input(component_id=get_dropdown_id("x"), component_property="value"),
 )
-def update_y_axis_disabled(x_value, y_value):
+def update_y_axis_disabled(x_value):
     if not x_value:
-        return True, None
-    return False, y_value
+        return True
+    return False
