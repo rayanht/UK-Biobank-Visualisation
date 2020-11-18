@@ -76,13 +76,12 @@ class Graph:
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         encoding_dict = None
         if colour_id:
-            # Rename entries of colour column to name of labels
-            encoding_dict = rename_category_entries(filtered_data, colour_id)
+            encoding_dict = get_categorical_dict(colour_id)
         for col in filtered_data:
             for trace in self.get_violin_traces(col, filtered_data, colour_id, encoding_dict):
                 fig.add_trace(trace)
-        fig.update_layout(violinmode="overlay", violingap=0)
-        return self.format_graph(fig, node_id, (not colour_id))
+        fig.update_layout(violinmode="group")
+        return self.format_graph(fig, node_id, (colour_id is not None))
 
     def get_violin_traces(
         self, 
@@ -102,55 +101,36 @@ class Graph:
             )
             return [trace]
         colour_axes_name = self.get_graph_axes_title(colour_id)
-        # TODO: implement logic for categorical colour
+        traces = []
         if col != colour_axes_name:
-            trace1 = go.Violin(
-                y=filtered_data[col][filtered_data[colour_axes_name] == 0],
-                legendgroup="Female",
-                scalegroup=col,
-                name=col,
-                side="negative",
-                meanline_visible=True,
-                box_visible=True,
-                line_color="blue",
-                fillcolor="blue",
-                opacity=0.6,
-                showlegend=False,
-            )
-            trace2 = go.Violin(
-                y=filtered_data[col][filtered_data[colour_axes_name] == 1],
-                legendgroup="Male",
-                scalegroup=col,
-                name=col,
-                side="positive",
-                meanline_visible=True,
-                box_visible=True,
-                line_color="orange",
-                fillcolor="orange",
-                opacity=0.6,
-                showlegend=False,
-            )
-            return [trace1, trace2]
-        return self.get_empty_sex_traces()
+            for label in encoding_dict:
+                trace = go.Violin(
+                    y=filtered_data[col][
+                        filtered_data[colour_axes_name] == label
+                    ],
+                    legendgroup=label,
+                    scalegroup=col,
+                    name=col,
+                    meanline_visible=True,
+                    box_visible=True,
+                    opacity=0.6,
+                    showlegend=False,
+                )
+                traces.append(trace)
+            return traces
+        return self.get_empty_traces(encoding_dict)
 
-    def get_empty_sex_traces(self):
-        trace1 = go.Violin(
-            y=[None],
-            legendgroup="Female",
-            scalegroup="Female",
-            name="Female",
-            line_color="blue",
-            fillcolor="blue",
-        )
-        trace2 = go.Violin(
-            y=[None],
-            legendgroup="Male",
-            scalegroup="Male",
-            name="Male",
-            line_color="orange",
-            fillcolor="orange",
-        )
-        return [trace1, trace2]
+    def get_empty_traces(self, encoding_dict):
+        traces = []
+        for label in encoding_dict:
+            trace = go.Violin(
+                y=[None],
+                legendgroup=label,
+                scalegroup=label,
+                name=encoding_dict[label],
+            )
+            traces.append(trace)
+        return traces
 
     def scatter_plot(
         self,
