@@ -29,6 +29,9 @@ def has_array_items(meta_ids):
         return False
     return NodeIdentifier(meta_ids[0]).part_id != NodeIdentifier(meta_ids[1]).part_id
 
+def is_categorical_data(node_id: NodeIdentifier):
+    node_field_type = get_field_type(node_id.field_id)
+    return node_field_type == ValueType.CAT_MULT or node_field_type == ValueType.CAT_SINGLE
 
 class Graph:
     def __init__(self):
@@ -71,14 +74,22 @@ class Graph:
         colour_id: NodeIdentifier,
     ):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
+        encoding_dict = None
+        if colour_id:
+            # Rename entries of colour column to name of labels
+            encoding_dict = rename_category_entries(filtered_data, colour_id)
         for col in filtered_data:
-            for trace in self.get_violin_traces(col, filtered_data, colour_id):
+            for trace in self.get_violin_traces(col, filtered_data, colour_id, encoding_dict):
                 fig.add_trace(trace)
         fig.update_layout(violinmode="overlay", violingap=0)
-        return self.format_graph(fig, node_id, (colour_id != None))
+        return self.format_graph(fig, node_id, (not colour_id))
 
     def get_violin_traces(
-        self, col: str, filtered_data: pd.DataFrame, colour_id: NodeIdentifier
+        self, 
+        col: str, 
+        filtered_data: pd.DataFrame, 
+        colour_id: NodeIdentifier, 
+        encoding_dict: dict
     ):
         if colour_id == None:
             trace = go.Violin(
@@ -87,11 +98,11 @@ class Graph:
                 box_visible=True,
                 line_color="black",
                 meanline_visible=True,
-                fillcolor="lightseagreen",
                 opacity=0.6,
             )
             return [trace]
         colour_axes_name = self.get_graph_axes_title(colour_id)
+        # TODO: implement logic for categorical colour
         if col != colour_axes_name:
             trace1 = go.Violin(
                 y=filtered_data[col][filtered_data[colour_axes_name] == 0],
@@ -149,9 +160,9 @@ class Graph:
         colour_id: NodeIdentifier,
     ):
         if colour_id != None:
-            if get_sex_node_identifier().db_id() == colour_id.db_id():
-                # If sex is chosen as colour, rename entries to 'Male' or 'Female'
-                rename_colour_entries(filtered_data, colour_id)
+            if is_categorical_data(colour_id):
+                # If colour is categorical data, rename entries to name of labels
+                rename_category_entries(filtered_data, colour_id)
 
         colour_name = (
             None if (colour_id == None) else self.get_graph_axes_title(colour_id)
@@ -305,16 +316,19 @@ def get_field_type(field_id):
     x_value_type_id = int(df.loc[df["field_id"] == field_id]["value_type"].values[0])
     return ValueType(x_value_type_id)
 
-
-def to_categorical_data(node_id, filtered_data, colour_name=None):
-    # Convert categorical data into a bar plot
+def get_categorical_dict(node_id):
+    """Returns a dict relating encoding to name of each label in category"""
     field_id_meta = field_id_meta_data()
     encoding_id = int(
         field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
             "encoding_id"
         ].values[0]
     )
-    encoding_dict = data_encoding_meta_data(encoding_id)
+    return data_encoding_meta_data(encoding_id)
+
+def to_categorical_data(node_id, filtered_data, colour_name=None):
+    """Process categorical data and returns the frequency of each label"""
+    encoding_dict = get_categorical_dict(node_id)
 
     # Define columns of interest
     subset = (
@@ -347,20 +361,15 @@ def to_categorical_data(node_id, filtered_data, colour_name=None):
     return encoding_counts[columns_to_return]
 
 
-# Returns a dataframe with the specified column converted to its encoding label
-def rename_colour_entries(filtered_data, node_id):
-    field_id_meta = field_id_meta_data()
-    encoding_id = int(
-        field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
-            "encoding_id"
-        ].values[0]
-    )
-    encoding_dict = data_encoding_meta_data(encoding_id)
+def rename_category_entries(filtered_data, node_id):
+    """Modify entries of the specific column of input dataframe to label names"""
+    encoding_dict = get_categorical_dict(node_id)
+    print(encoding_dict)
     column_name = graph.get_graph_axes_title(node_id)
     filtered_data[column_name] = (
         filtered_data[column_name].astype(int).map(encoding_dict)
     )
-    return filtered_data
+    return encoding_dict
 
 
 # returns a dict of options for a dropdown list of instances

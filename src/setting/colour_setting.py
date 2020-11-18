@@ -15,6 +15,8 @@ def get_option_dropdown(arg):
                 children=[
                     html.H6("Colour", className="mt-2"),
                     get_dropdown("colour"),
+                    html.Div(id='all-options', children=[[]], style={'display': 'none'}),
+                    html.Div(id='violin-options', children=[[]], style={'display': 'none'}),
                 ],
                 style={"display": "none"},
             )
@@ -24,29 +26,56 @@ def get_dropdown_id():
 
 # Callback for updating colour option visibility
 @app.callback(
-    Output(component_id="colour-selection-div", component_property="style"),
+    [
+        Output(component_id="colour-selection-div", component_property="style"),
+        Output(component_id=get_dropdown_id(), component_property="options"),
+    ],
     Input(component_id="settings-graph-type-dropdown", component_property="value"),
+    [
+        State(component_id="all-options", component_property="children"),
+        State(component_id="violin-options", component_property="children"),
+    ],
 )
-def update_colour_visible(graph_type):
+def update_colour_visible(graph_type, all_options, violin_options):
     if ((graph_type == 4) | (graph_type == None)):
         # Currently do not support colour for pie charts
-        return {"display": "none"}
-    return {"display": "block"}
+        return {"display": "none"}, {}
+    if (graph_type == 1):
+        # Only categorical data can be used for violin plot colouring
+        return {"display": "block"}, violin_options
+    return {"display": "block"}, all_options
 
 @app.callback(
-    Output(component_id=get_dropdown_id(), component_property="options"),
+    [
+        Output(component_id="all-options", component_property="children"),
+        Output(component_id="violin-options", component_property="children"),
+    ],
     Input(component_id="tree", component_property="n_updates"),
     State(component_id="tree", component_property="selected_nodes"),
 )
 def update_dropdown(n, selected_nodes):
     """Update the dropdown when nodes from the tree are selected"""
-    options = [get_option(node) for node in selected_nodes if is_colour_option(node)]
-    return options
+    all_options, violin_options = [], []
+    for node in selected_nodes:
+        option = get_option(node)
+        is_all_colour, is_violin_colour = is_colour_option(node)
+        if is_all_colour:
+            all_options.append(option)
+        if is_violin_colour:
+            violin_options.append(option)
+    return all_options, violin_options
 
 def is_colour_option(node):
+    """Returns two boolean values: 
+        (first) if option can be used for general colouring, 
+        (second) if option can be used for colouring violin plots"""
     node_value_type = get_field_type(get_field_id(node))
-    return (
+    return ((
         node_value_type == ValueType.INTEGER
         or node_value_type == ValueType.CAT_SINGLE
         or node_value_type == ValueType.CAT_MULT
-    )
+    ),
+    (
+        node_value_type == ValueType.CAT_SINGLE
+        or node_value_type == ValueType.CAT_MULT
+    ))
