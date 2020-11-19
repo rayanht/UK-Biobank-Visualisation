@@ -17,11 +17,8 @@ class HierarchyLoader(metaclass=Singleton):
 
     def authenticate(self):
         """Authenticate user to firebase"""
-        if os.environ.get("ENV") == "PROD":
-            cred = credentials.Certificate(
-                json.loads(os.environ.get("GOOGLE_CREDENTIALS"))
-            )
-        else:
+        cred = None
+        if os.environ.get("ENV") == "DEV":
             cred = credentials.Certificate("google-credentials.json")
         firebase_admin.initialize_app(cred, {"storageBucket": STORAGE_BUCKET})
         self.is_authenticated = True

@@ -54,10 +54,9 @@ class Query:
 
 def authenticate():
     """Authenticate user to GCP"""
-    if os.environ.get("ENV") == "PROD":
-        with open("google-credentials.json", "w") as fp:
-            json.dump(json.loads(os.environ.get("GOOGLE_CREDENTIALS")), fp)
-    return bigquery.Client.from_service_account_json("google-credentials.json")
+    if os.environ.get("ENV") == "DEV":
+        return bigquery.Client.from_service_account_json("google-credentials.json")
+    return bigquery.Client()
 
 
 class DatasetGateway(metaclass=Singleton):
