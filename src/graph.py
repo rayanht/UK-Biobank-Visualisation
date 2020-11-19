@@ -29,9 +29,13 @@ def has_array_items(meta_ids):
         return False
     return NodeIdentifier(meta_ids[0]).part_id != NodeIdentifier(meta_ids[1]).part_id
 
+
 def is_categorical_data(node_id: NodeIdentifier):
     node_field_type = get_field_type(node_id.field_id)
-    return node_field_type == ValueType.CAT_MULT or node_field_type == ValueType.CAT_SINGLE
+    return (
+        node_field_type == ValueType.CAT_MULT or node_field_type == ValueType.CAT_SINGLE
+    )
+
 
 class Graph:
     def __init__(self):
@@ -50,6 +54,8 @@ class Graph:
         ].item()
 
     def get_graph_axes_title(self, node_id: NodeIdentifier):
+        if not node_id:
+            return None
         return f"{self.get_field_name(node_id.field_id)} ({node_id.db_id()})"
 
     def get_inst_name_dict(self, field_id):
@@ -69,67 +75,87 @@ class Graph:
 
     def violin_plot(
         self,
-        node_id: NodeIdentifier,
+        node_id_x: NodeIdentifier,
+        node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame,
         colour_id: NodeIdentifier,
     ):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
-        encoding_dict = None
+        colour_encoding_dict = None
+        x_encoding_dict = None
+        colour_axes_name = None
+        x_axes_name = None
+
+        y_columns = filtered_data.columns.values.tolist()
+
         if colour_id:
-            encoding_dict = get_categorical_dict(colour_id)
-        for col in filtered_data:
-            for trace in self.get_violin_traces(col, filtered_data, colour_id, encoding_dict):
+            colour_encoding_dict = get_categorical_dict(colour_id)
+            colour_axes_name = self.get_graph_axes_title(colour_id)
+            # for trace in self.get_legend_trace(colour_encoding_dict):
+            #     fig.add_trace(trace)
+            y_columns.remove(colour_axes_name)
+        if node_id_y:
+            x_encoding_dict = get_categorical_dict(node_id_x)
+            x_axes_name = self.get_graph_axes_title(node_id_x)
+            y_columns.remove(x_axes_name)
+
+        for col in y_columns:
+            for trace in self.get_violin_traces(
+                col,
+                filtered_data,
+                colour_axes_name,
+                x_axes_name,
+                x_encoding_dict,
+                colour_encoding_dict,
+            ):
                 fig.add_trace(trace)
-        fig.update_layout(violinmode="group")
-        return self.format_graph(fig, node_id, (colour_id is not None))
+        fig.update_traces(meanline_visible=True, box_visible=True, opacity=0.6)
+        if node_id_y:
+            fig.update_layout(violinmode="group")
+        return self.format_graph(fig, node_id_x, (colour_id is not None))
 
     def get_violin_traces(
-        self, 
-        col: str, 
-        filtered_data: pd.DataFrame, 
-        colour_id: NodeIdentifier, 
-        encoding_dict: dict
+        self,
+        col: str,
+        filtered_data: pd.DataFrame,
+        colour_axes_name: str,
+        x_axes_name: str,
+        x_encoding_dict: dict,
+        colour_encoding_dict: dict,
     ):
-        if colour_id == None:
-            trace = go.Violin(
-                y=filtered_data[col],
-                name=col,
-                box_visible=True,
-                line_color="black",
-                meanline_visible=True,
-                opacity=0.6,
-            )
+        if colour_axes_name == None and x_axes_name == None:
+            trace = go.Violin(y=filtered_data[col], name=col, line_color="black")
             return [trace]
-        colour_axes_name = self.get_graph_axes_title(colour_id)
         traces = []
-        if col != colour_axes_name:
-            for label in encoding_dict:
+        if x_axes_name:
+            if colour_axes_name:
+                for label in colour_encoding_dict:
+                    trace = go.Violin(
+                        x=filtered_data[x_axes_name][
+                            (filtered_data[colour_axes_name] == label)
+                        ].replace(x_encoding_dict),
+                        y=filtered_data[col][filtered_data[colour_axes_name] == label],
+                        name=colour_encoding_dict[label],
+                        legendgroup=colour_encoding_dict[label],
+                        scalegroup=colour_encoding_dict[label],
+                    )
+                    traces.append(trace)
+            else:
                 trace = go.Violin(
-                    y=filtered_data[col][
-                        filtered_data[colour_axes_name] == label
-                    ],
-                    legendgroup=label,
-                    scalegroup=col,
-                    name=col,
-                    meanline_visible=True,
-                    box_visible=True,
-                    opacity=0.6,
-                    showlegend=False,
+                    x=filtered_data[x_axes_name].replace(x_encoding_dict),
+                    y=filtered_data[col],
                 )
                 traces.append(trace)
-            return traces
-        return self.get_empty_traces(encoding_dict)
-
-    def get_empty_traces(self, encoding_dict):
-        traces = []
-        for label in encoding_dict:
-            trace = go.Violin(
-                y=[None],
-                legendgroup=label,
-                scalegroup=label,
-                name=encoding_dict[label],
-            )
-            traces.append(trace)
+        else:
+            for label in colour_encoding_dict:
+                trace = go.Violin(
+                    x=filtered_data[colour_axes_name][
+                        filtered_data[colour_axes_name] == label
+                    ].replace(colour_encoding_dict),
+                    y=filtered_data[col][filtered_data[colour_axes_name] == label],
+                    name=colour_encoding_dict[label],
+                )
+                traces.append(trace)
         return traces
 
     def scatter_plot(
@@ -157,23 +183,28 @@ class Graph:
 
     def bar_plot(
         self,
-        node_id: NodeIdentifier,
+        node_id_x: NodeIdentifier,
+        node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame,
         colour_id: NodeIdentifier,
     ):
         colour_name = (
             None if (colour_id == None) else self.get_graph_axes_title(colour_id)
         )
-        processed_df = to_categorical_data(node_id, filtered_data, colour_name)
+        processed_df = to_categorical_data(node_id_x, filtered_data, colour_name)
         fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
-        return self.format_graph(fig, node_id, (colour_id != None))
+        return self.format_graph(fig, node_id_x, (colour_id != None))
 
     def pie_plot(
-        self, node_id: NodeIdentifier, filtered_data: pd.DataFrame, colour_id=None
+        self,
+        node_id_x: NodeIdentifier,
+        node_id_y: NodeIdentifier,
+        filtered_data: pd.DataFrame,
+        colour_id=None,
     ):
-        processed_df = to_categorical_data(node_id, filtered_data)
+        processed_df = to_categorical_data(node_id_x, filtered_data)
         fig = px.pie(processed_df, names="categories", values="counts")
-        return self.format_graph(fig, node_id, True)
+        return self.format_graph(fig, node_id_x, True)
 
     def format_graph(self, fig, node_id, showlegend):
         fig.update_layout(
@@ -261,13 +292,13 @@ def get_field_plot(
     node_id_x = NodeIdentifier(str_id_x)
     colour_id = NodeIdentifier(str_id_colour) if (str_id_colour != None) else None
     # Drop row that contains column ids
-    filtered_data = drop_row_with_col_id(filtered_data, node_id_x)
+    # filtered_data = drop_row_with_col_id(filtered_data, node_id_x)
 
     if not str_id_y:
         renamed_data = filtered_data.rename(
             columns=get_column_names([node_id_x, colour_id])
         )
-        return switcher[graph_type](node_id_x, renamed_data, colour_id)
+        return switcher[graph_type](node_id_x, None, renamed_data, colour_id)
     node_id_y = NodeIdentifier(str_id_y)
     renamed_data = filtered_data.rename(
         columns=get_column_names([node_id_x, node_id_y, colour_id])
@@ -296,6 +327,7 @@ def get_field_type(field_id):
     x_value_type_id = int(df.loc[df["field_id"] == field_id]["value_type"].values[0])
     return ValueType(x_value_type_id)
 
+
 def get_categorical_dict(node_id):
     """Returns a dict relating encoding to name of each label in category"""
     field_id_meta = field_id_meta_data()
@@ -305,6 +337,7 @@ def get_categorical_dict(node_id):
         ].values[0]
     )
     return data_encoding_meta_data(encoding_id)
+
 
 def to_categorical_data(node_id, filtered_data, colour_name=None):
     """Process categorical data and returns the frequency of each label"""

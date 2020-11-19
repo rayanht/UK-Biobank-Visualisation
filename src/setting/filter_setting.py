@@ -70,7 +70,7 @@ def update_settings_options(cached_data, value, id):
 
 
 def get_range_slider_tuple(filtered_data, curr_value, stored_value):
-    if stored_value != curr_value:
+    if not curr_value or stored_value != curr_value:
         return (
             dash.no_update,
             dash.no_update,

@@ -43,7 +43,7 @@ def update_graph_type(variable_dropdown_x, variable_dropdown_y):
         "scatter": {"label": "Scatter", "value": 2},
         "bar": {"label": "Bar", "value": 3},
         "pie": {"label": "Pie", "value": 4},
-        "box": {"label": "Box", "value": 5},
+        # "box": {"label": "Box", "value": 5,},
     }
 
     if variable_dropdown_x is None:
@@ -87,7 +87,7 @@ def update_graph_type(variable_dropdown_x, variable_dropdown_y):
 
         elif x_value_type == ValueType.CAT_SINGLE or x_value_type == ValueType.CAT_MULT:
             if y_value_type == ValueType.INTEGER or y_value_type == ValueType.CONT:
-                graph_selection_list.append(options["box"])
+                # graph_selection_list.append(options["box"])
                 graph_selection_list.append(options["violin"])
 
     if len(graph_selection_list) == 0:
