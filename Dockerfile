@@ -17,4 +17,4 @@ RUN pipenv install --system --deploy --ignore-pipfile
 RUN ./build_custom_components.sh
 
 ENV ENV=PROD
-CMD ["gunicorn", "-b", "0.0.0.0:$PORT" , "--threads", "8", "-w", "2", "--pythonpath", "src/", "app:server"]
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 --pythonpath src/ app:server
