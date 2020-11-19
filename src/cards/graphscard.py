@@ -56,6 +56,7 @@ tabs = [
             dbc.Tab(tab_id="embedding", label="Embedding plot"),
         ],
         id="graphs-tabs",
+        active_tab="metadata",
         card=True,
     )
 ]
@@ -65,7 +66,7 @@ layout = dbc.Card(
         dbc.CardHeader(tabs),
         dbc.CardBody(contents_by_id["metadata"], id="graphs-card-body"),
     ],
-    style={"height": "34rem"},  # for dummy purposes, to remove later
+    style={"height": "36rem"},  # for dummy purposes, to remove later
 )
 
 

@@ -43,9 +43,7 @@ def get_button(var=None):
         State(component_id=get_inst_dropdown_id("y"), component_property="value"),
         State(component_id="settings-graph-type-dropdown", component_property="value"),
         # colour
-        State(
-            component_id=get_colour_dropdown_id(), component_property="value"
-        ),
+        State(component_id=get_colour_dropdown_id(), component_property="value"),
         # filters
         State(component_id=get_slider_id("x"), component_property="value"),
         State(component_id=get_slider_id("y"), component_property="value"),
@@ -148,6 +146,13 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
     node_id_y = None
     node_id_x = None
     # get new data if cached data is outdated
+
+    if x_value == "":
+        x_value = None
+
+    if y_value == "":
+        y_value = None
+
     if (
         not cached_data
         or cached_data["x-value"] != x_value
@@ -169,11 +174,16 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
                 )
                 new_cached_data = {
                     "x-value": x_value,
-                    "y-value": "",
+                    "y-value": None,
                     "colour": colour,
                     "data": data.to_json(date_format="iso", orient="split"),
                 }
-                print("Getting new data!")
+                if cached_data:
+                    print(
+                        f"{ cached_data['x-value'] } != {x_value}, { cached_data['y-value'] } != {y_value}, { cached_data['colour'] } != {colour}. Getting new data!"
+                    )
+                else:
+                    print(f"Cached data is none. Getting new data!")
             else:
                 node_id_y = NodeIdentifier(y_value)
                 columns_of_interest = (
@@ -190,7 +200,12 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
                     "colour": colour,
                     "data": data.to_json(date_format="iso", orient="split"),
                 }
-                print("Getting new data!")
+                if cached_data:
+                    print(
+                        f"{ cached_data['x-value'] } != {x_value}, { cached_data['y-value'] } != {y_value}, { cached_data['colour'] } != {colour}. Getting new data!"
+                    )
+                else:
+                    print(f"Cached data is none. Getting new data!")
     # if cache data is not outdated, use it
     else:
         print(inspect.stack()[1].function)

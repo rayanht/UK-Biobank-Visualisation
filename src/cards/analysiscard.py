@@ -177,6 +177,7 @@ tabs = [
             dbc.Tab(tab_id="clustering", label="Clustering"),
         ],
         id="analysis-tabs",
+        active_tab="dimensionality",
         card=True,
     )
 ]
