@@ -54,17 +54,10 @@ class Query:
         return Query(["*"])
 
 
-def authenticate():
-    """Authenticate user to GCP"""
-    if os.environ.get("ENV") == "PROD":
-        return bigquery.Client()
-    return bigquery.Client.from_service_account_json("google-credentials.json")
-
-
 class DatasetGateway(metaclass=Singleton):
     def __init__(self):
         self.client: bigquery.Client
-        self.client = authenticate()
+        self.client = bigquery.Client()
 
     @classmethod
     def submit(cls, _query: Query) -> pd.DataFrame:
