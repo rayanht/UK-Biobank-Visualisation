@@ -1,12 +1,14 @@
 from __future__ import annotations
+
 import functools
-import json
 import os
+from io import StringIO
+
 import firebase_admin
 import pandas as pd
-from io import StringIO
 from firebase_admin import credentials
 from firebase_admin import storage
+
 from src._constants import STORAGE_BUCKET, HIERARCHY_FILENAME
 from src.dataset_gateway import Singleton
 
@@ -17,8 +19,9 @@ class HierarchyLoader(metaclass=Singleton):
 
     def authenticate(self):
         """Authenticate user to firebase"""
-        cred = None
-        if os.environ.get("ENV") == "DEV":
+        if os.environ.get("ENV") == "PROD":
+            cred = None
+        else:
             cred = credentials.Certificate("google-credentials.json")
         firebase_admin.initialize_app(cred, {"storageBucket": STORAGE_BUCKET})
         self.is_authenticated = True

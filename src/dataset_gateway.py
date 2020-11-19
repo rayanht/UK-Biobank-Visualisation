@@ -1,14 +1,16 @@
 from __future__ import annotations
-import json
+
+import functools
+import os
 import time
 from io import StringIO
-import os
-import requests
-import defusedxml.ElementTree as ETree
-import functools
-import pandas as pd
-from google.cloud import bigquery
 from typing import List
+
+import defusedxml.ElementTree as ETree
+import pandas as pd
+import requests
+from google.cloud import bigquery
+
 from src._constants import TABLE_NAME
 from src.tree.node import NodeIdentifier
 
@@ -54,9 +56,9 @@ class Query:
 
 def authenticate():
     """Authenticate user to GCP"""
-    if os.environ.get("ENV") == "DEV":
-        return bigquery.Client.from_service_account_json("google-credentials.json")
-    return bigquery.Client()
+    if os.environ.get("ENV") == "PROD":
+        return bigquery.Client()
+    return bigquery.Client.from_service_account_json("google-credentials.json")
 
 
 class DatasetGateway(metaclass=Singleton):
