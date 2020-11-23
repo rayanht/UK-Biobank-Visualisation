@@ -11,7 +11,7 @@ from src.tree.node import Node, NodeIdentifier
 
 
 def build(
-    raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = ""
+    raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = "", clopen_state: dict = None
 ) -> Node:
     """
     Build tree by adding all intermediate nodes, and only leaf nodes that match the prefix
@@ -19,6 +19,7 @@ def build(
     :param raw: A raw hierarchy file loaded from its CSV representation
     :param counter: An integer Generator used to uniquely identify the nodes
     :param prefix: optional, used to filter out nodes during search operations
+    :param clopen_state: optional, used to expand nodes during search operations
     :return: Node object that encodes the hierarchy
     """
     r = raw.copy(True)
@@ -33,12 +34,15 @@ def build(
         instance_id = (
             str(int(row.InstanceID)) if not pd.isnull(row.InstanceID) else None
         )
-        node = Node(row.NodeName, next(counter), node_type, field_id, instance_id)
+        node_id = next(counter)
+        node = Node(row.NodeName, node_id, node_type, field_id, instance_id)
         if node_type == "leaf":
             if prefix == "" or prefix == "Search" or search_word(prefix, row.NodeName):
                 root.add_child(row.NodeID, node)
         elif node_type == "sub" or node_type == "root":
             root.add_child(row.NodeID, node)
+            if (prefix != "" or prefix != "Search") and clopen_state is not None:
+                clopen_state[str(node_id)] = True
     return root
 
 
@@ -131,7 +135,7 @@ def filter_hierarchy(clopen_state: dict, prefix: str = None) -> (List[dict], dic
     """
     counter = gen()
     hierarchy = HierarchyLoader.fetch_hierarchy()
-    tree = transcode(build(hierarchy, counter, prefix))
+    tree = transcode(build(hierarchy, counter, prefix, clopen_state))
     flatten(tree, clopen_state)
     prune(tree)
     return tree["childNodes"], clopen_state
