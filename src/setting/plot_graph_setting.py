@@ -42,6 +42,8 @@ def get_button(var=None):
         State(component_id=get_inst_dropdown_id("x"), component_property="value"),
         State(component_id=get_inst_dropdown_id("y"), component_property="value"),
         State(component_id="settings-graph-type-dropdown", component_property="value"),
+        # Trendline
+        State(component_id="trendline-dropdown", component_property="value"),
         # colour
         State(component_id=get_colour_dropdown_id(), component_property="value"),
         # filters
@@ -56,6 +58,7 @@ def get_data(
     x_value,
     y_value,
     graph_type,
+    trendline,
     colour,
     x_filter,
     y_filter,
@@ -110,7 +113,7 @@ def get_data(
             statistics_update = get_statistics(removed_eids, node_id_x, node_id_y)
             plotted_data_update = plotted_data_json
             graph_figure_update = get_field_plot(
-                removed_eids, x_value, y_value, colour, graph_type
+                removed_eids, x_value, y_value, colour, graph_type, trendline
             )
             download_btn_update = False
 
