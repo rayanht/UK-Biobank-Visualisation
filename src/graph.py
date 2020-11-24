@@ -79,6 +79,7 @@ class Graph:
         node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame,
         colour_id: NodeIdentifier,
+        trendline: int,
     ):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         colour_encoding_dict = None
@@ -164,6 +165,7 @@ class Graph:
         node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame,
         colour_id: NodeIdentifier,
+        trendline: int,
     ):
         if colour_id != None:
             if is_categorical_data(colour_id):
@@ -173,12 +175,36 @@ class Graph:
         colour_name = (
             None if (colour_id == None) else self.get_graph_axes_title(colour_id)
         )
-        fig = px.scatter(
-            data_frame=filtered_data,
-            x=self.get_graph_axes_title(node_id_x),
-            y=self.get_graph_axes_title(node_id_y),
-            color=colour_name,
-        )
+
+        # Linear trendline
+        if trendline == 1:
+            fig = px.scatter(
+                data_frame=filtered_data,
+                x=self.get_graph_axes_title(node_id_x),
+                y=self.get_graph_axes_title(node_id_y),
+                color=colour_name,
+                trendline='ols',
+                trendline_color_override='red'
+            )
+        # Non-linear trendline
+        elif trendline == 2:
+            fig = px.scatter(
+                data_frame=filtered_data,
+                x=self.get_graph_axes_title(node_id_x),
+                y=self.get_graph_axes_title(node_id_y),
+                color=colour_name,
+                trendline='lowess',
+                trendline_color_override='red'
+            )
+        # No trendline
+        else:
+            fig = px.scatter(
+                data_frame=filtered_data,
+                x=self.get_graph_axes_title(node_id_x),
+                y=self.get_graph_axes_title(node_id_y),
+                color=colour_name,
+            )
+
         return self.format_graph_two_var(fig, node_id_x, node_id_y, (colour_id != None))
 
     def bar_plot(
@@ -187,6 +213,7 @@ class Graph:
         node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame,
         colour_id: NodeIdentifier,
+        trendline: int,
     ):
         colour_name = (
             None if (colour_id == None) else self.get_graph_axes_title(colour_id)
@@ -201,6 +228,7 @@ class Graph:
         node_id_y: NodeIdentifier,
         filtered_data: pd.DataFrame,
         colour_id=None,
+        trendline=None,
     ):
         processed_df = to_categorical_data(node_id_x, filtered_data)
         fig = px.pie(processed_df, names="categories", values="counts")
@@ -286,7 +314,7 @@ def get_statistics(data, node_id_x: NodeIdentifier, node_id_y: NodeIdentifier = 
 
 
 def get_field_plot(
-    filtered_data: DataFrame, str_id_x, str_id_y, str_id_colour, graph_type
+    filtered_data: DataFrame, str_id_x, str_id_y, str_id_colour, graph_type, trendline
 ):
     """Returns a graph containing columns of the same field"""
     node_id_x = NodeIdentifier(str_id_x)
@@ -298,12 +326,12 @@ def get_field_plot(
         renamed_data = filtered_data.rename(
             columns=get_column_names([node_id_x, colour_id])
         )
-        return switcher[graph_type](node_id_x, None, renamed_data, colour_id)
+        return switcher[graph_type](node_id_x, None, renamed_data, colour_id, trendline)
     node_id_y = NodeIdentifier(str_id_y)
     renamed_data = filtered_data.rename(
         columns=get_column_names([node_id_x, node_id_y, colour_id])
     )
-    return switcher[graph_type](node_id_x, node_id_y, renamed_data, colour_id)
+    return switcher[graph_type](node_id_x, node_id_y, renamed_data, colour_id, trendline)
 
 
 def drop_row_with_col_id(data, node_id):

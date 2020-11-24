@@ -28,6 +28,7 @@ requests = "*"
 pyarrow = "2.0.0"
 dash-daq = "*"
 umap-learn = "*"
+statsmodels = "*"
 
 [requires]
 python_version = "3.8"
