@@ -59,18 +59,19 @@ class Graph:
         return f"{self.get_field_name(node_id.field_id)} ({node_id.db_id()})"
 
     def get_inst_name_dict(self, field_id):
-        inst_names = self.field_names_to_inst.loc[
-            self.field_names_to_inst["FieldID"] == int(field_id)
+        field_id_meta = field_id_meta_data()
+        inst_names = field_id_meta.loc[
+            field_id_meta["field_id"] == field_id
         ].copy()
-        if len(inst_names) > 1:
-            # There are multiple instances. Drop row with field name
-            inst_names = inst_names.loc[inst_names["InstanceID"].notnull()]
-            inst_names["MetaID"] = inst_names.apply(
-                lambda row: f"{field_id}-{int(row.InstanceID)}.0", axis=1
-            )
+        if inst_names["instance_id"].isnull().values.all():
+            inst_names["meta_id"] = field_id + "-0.0"
         else:
-            inst_names["MetaID"] = field_id + "-0.0"
-        inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
+            # There are multiple instances. Drop row with field name
+            inst_names = inst_names.loc[inst_names["instance_id"].notnull()]
+            inst_names["meta_id"] = inst_names.apply(
+                (lambda row: f"{field_id}-{int(row.instance_id)}.0"), axis=1
+            )
+        inst_name_dict = dict(zip(inst_names["meta_id"], inst_names["title"]))
         return inst_name_dict
 
     def violin_plot(
@@ -405,7 +406,6 @@ def to_categorical_data(node_id, filtered_data, colour_name=None):
 def rename_category_entries(filtered_data, node_id):
     """Modify entries of the specific column of input dataframe to label names"""
     encoding_dict = get_categorical_dict(node_id)
-    print(encoding_dict)
     column_name = graph.get_graph_axes_title(node_id)
     filtered_data[column_name] = (
         filtered_data[column_name].astype(int).map(encoding_dict)
