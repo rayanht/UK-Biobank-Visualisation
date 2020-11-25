@@ -5,7 +5,6 @@ from typing import Generator, List
 import jsonpickle
 import pandas as pd
 
-from src._constants import SEX_FIELD_ID
 from src.hierarchy import HierarchyLoader
 from src.tree.node import Node, NodeIdentifier
 
@@ -169,14 +168,8 @@ def get_option(node):
     return {"label": label, "value": node["field_id"], "title": title}
 
 
-def get_sex_node_identifier():
-    return NodeIdentifier(SEX_FIELD_ID)
-
-
 def get_field_id(node):
     """Returns field id of node as string"""
     return str(node["field_id"])
 
 
-def is_sex_option(option):
-    return option["value"] == SEX_FIELD_ID
