@@ -36,12 +36,14 @@ def violin_plot(
         fig.update_layout(violinmode="group")
     return format_graph(fig, node_id_x, node_id_y, (colour_id is not None))
 
+
 def _get_dict_and_title(node_id: NodeIdentifier, y_columns, not_cat = False):
     if (not node_id) or not_cat:
         return None, None
     colour_axes_name = get_graph_axes_title(node_id)
     y_columns.remove(colour_axes_name)
     return get_categorical_dict(node_id), colour_axes_name
+
 
 def _get_violin_traces(
     col: str,
