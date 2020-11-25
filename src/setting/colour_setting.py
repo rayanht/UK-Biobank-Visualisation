@@ -62,6 +62,7 @@ def is_colour_option(node):
     return (
         (
             node_value_type == ValueType.INTEGER
+            or node_value_type == ValueType.CONT
             or node_value_type == ValueType.CAT_SINGLE
             or node_value_type == ValueType.CAT_MULT
         ),
