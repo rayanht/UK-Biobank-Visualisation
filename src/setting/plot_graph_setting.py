@@ -11,7 +11,6 @@ from src.tree.node import NodeIdentifier
 
 # Functions to get ids of components
 from src.setting.instance_setting import get_dropdown_id as get_inst_dropdown_id
-from src.setting.colour_setting import get_dropdown_id as get_colour_dropdown_id
 from src.setting.filter_setting import get_slider_id
 
 
@@ -45,7 +44,7 @@ def get_button(var=None):
         # Trendline
         State(component_id="trendline-dropdown", component_property="value"),
         # colour
-        State(component_id=get_colour_dropdown_id(), component_property="value"),
+        State(component_id=get_inst_dropdown_id("colour"), component_property="value"),
         # filters
         State(component_id=get_slider_id("x"), component_property="value"),
         State(component_id=get_slider_id("y"), component_property="value"),
@@ -167,9 +166,9 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
             data = None
         else:
             node_id_x = NodeIdentifier(x_value)
-            colour_id = NodeIdentifier(colour) if (colour is not None) else None
+            colour_id = None if (not colour) else NodeIdentifier(colour)
             columns_of_interest = (
-                [node_id_x] if (colour is None) else [node_id_x, colour_id]
+                [node_id_x] if (not colour) else [node_id_x, colour_id]
             )
             if not y_value:
                 data = prune_data(
@@ -191,7 +190,7 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
                 node_id_y = NodeIdentifier(y_value)
                 columns_of_interest = (
                     [node_id_x, node_id_y]
-                    if (colour_id is None)
+                    if (not colour_id)
                     else [node_id_x, node_id_y, colour_id]
                 )
                 data = prune_data(

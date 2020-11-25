@@ -55,9 +55,13 @@ class Graph:
         pd.set_option("display.max_rows", None, "display.max_columns", None)
 
     def get_field_name(self, field_id):
-        return self.field_names_to_ids.loc[
-            self.field_names_to_ids["FieldID"] == field_id, "NodeName"
-        ].item()
+        row_with_name = self.field_names_to_ids.loc[
+            self.field_names_to_ids["FieldID"] == str(field_id), "NodeName"
+        ]
+        return row_with_name.item()
+        # return self.field_names_to_ids.loc[
+        #     self.field_names_to_ids["FieldID"] == int(field_id), "NodeName"
+        # ].item()
 
     def get_graph_axes_title(self, node_id: NodeIdentifier):
         if not node_id:
@@ -72,8 +76,6 @@ class Graph:
         inst_names = self.field_names_to_inst.loc[
             self.field_names_to_inst["FieldID"] == int(field_id)
         ].copy()
-        print("The instance name dict is: ", inst_names)
-        print("The field id information is: ", field_info)
 
         if has_multiple_instances(field_info, inst_names):
             # There are multiple instances. Drop row with field name
@@ -82,12 +84,10 @@ class Graph:
                 (lambda row: f"{field_id}-{int(row.InstanceID)}.0"), axis=1
             )
         else:
-            if inst_names["InstanceID"].isnull().values.any():
-                inst_names["MetaID"] \
-                    = field_id + "-" + field_info['instance_min'] + ".0"
-            else:
-                inst_names["MetaID"] \
-                    = field_id + "-" + inst_names['InstanceID'] + ".0"
+            instance = field_info['instance_min'].iloc[0] \
+                        if inst_names["InstanceID"].isna().values.any() \
+                            else inst_names['InstanceID'].iloc[0]
+            inst_names["MetaID"] = field_id +f"-{instance}.0"
         inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
         return inst_name_dict
 
@@ -185,7 +185,7 @@ class Graph:
         colour_id: NodeIdentifier,
         trendline: int,
     ):
-        if colour_id != None:
+        if colour_id:
             if is_categorical_data(colour_id):
                 # If colour is categorical data, rename entries to name of labels
                 rename_category_entries(filtered_data, colour_id)
@@ -336,9 +336,7 @@ def get_field_plot(
 ):
     """Returns a graph containing columns of the same field"""
     node_id_x = NodeIdentifier(str_id_x)
-    colour_id = NodeIdentifier(str_id_colour) if (str_id_colour != None) else None
-    # Drop row that contains column ids
-    # filtered_data = drop_row_with_col_id(filtered_data, node_id_x)
+    colour_id = NodeIdentifier(str_id_colour) if (str_id_colour) else None
 
     if not str_id_y:
         renamed_data = filtered_data.rename(
