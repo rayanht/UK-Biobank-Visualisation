@@ -2,7 +2,8 @@ import dash_core_components as dcc
 from src.dash_app import app
 
 from dash.dependencies import Input, Output
-from src.graph import ValueType, get_field_type
+from src.graph_data import get_field_type
+from src.value_type import ValueType
 from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
 
 

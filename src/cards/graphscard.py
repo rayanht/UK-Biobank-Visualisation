@@ -9,14 +9,6 @@ from dash.dependencies import Input, Output, State
 
 import pandas as pd
 
-# Functions to get ids of components
-from src.dataset_gateway import DatasetGateway, Query
-from src.graph import get_statistics, prune_data, filter_data
-from src.setting.instance_setting import get_dropdown_id as get_inst_dropdown_id
-from src.setting.filter_setting import get_slider_id
-from src.setting.plot_graph_setting import get_data_from_settings, get_filtered_data
-from src.tree.node import NodeIdentifier
-
 download_icon = html.I(id="submit-button", n_clicks=0, className="fa fa-download")
 
 contents_by_id = {

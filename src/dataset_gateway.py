@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import functools
-import os
 import time
 from io import StringIO
 from typing import List

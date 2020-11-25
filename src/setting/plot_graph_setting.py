@@ -6,7 +6,8 @@ from dash.dependencies import Input, Output, State
 from src.dash_app import dash, app
 
 from src.dataset_gateway import DatasetGateway, Query
-from src.graph import filter_data, get_field_plot, get_statistics, prune_data
+from src.graph_data import filter_data, get_statistics, prune_data
+from src.graph import get_field_plot
 from src.tree.node import NodeIdentifier
 
 # Functions to get ids of components
