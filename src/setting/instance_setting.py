@@ -3,7 +3,7 @@ import dash_html_components as html
 
 from dash.dependencies import Input, MATCH, Output
 from src.dash_app import app
-from src.graph import get_inst_names_options
+from src.graph_data import get_inst_names_options
 from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
 
 def _prune_instance_label(label):
