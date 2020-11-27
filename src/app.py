@@ -19,7 +19,7 @@ from src.cards import graphscard
 
 server = app.server
 
-app.title = "UK BioBank Explorer"
+app.title = "UK Biobank Explorer"
 
 colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
 
