@@ -28,30 +28,6 @@ MAX_SELECTIONS = 30
 navbar = dbc.Navbar(
     [
         dbc.NavbarBrand("UK BioBank Explorer", href="#"),
-        dbc.NavbarToggler(id="navbar-toggler"),
-        dbc.Collapse(
-            dbc.Nav(
-                [
-                    dbc.NavItem(dbc.NavLink("Graphs", href="#")),  # dummy graphs link
-                    dbc.DropdownMenu(  # dummy dropdown menu
-                        children=[
-                            dbc.DropdownMenuItem("Entry 1"),
-                            dbc.DropdownMenuItem("Entry 2"),
-                            dbc.DropdownMenuItem(divider=True),
-                            dbc.DropdownMenuItem("Entry 3"),
-                        ],
-                        nav=True,
-                        in_navbar=True,
-                        label="Menu",
-                        right=True,
-                    ),
-                ],
-                className="ml-auto",
-                navbar=True,
-            ),
-            id="navbar-collapse",
-            navbar=True,
-        ),
     ],
     className="px-5",
 )
