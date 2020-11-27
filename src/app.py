@@ -27,7 +27,7 @@ MAX_SELECTIONS = 30
 
 navbar = dbc.Navbar(
     [
-        dbc.NavbarBrand("UK BioBank Explorer", href="#"),
+        dbc.NavbarBrand("UK Biobank Explorer", href="#"),
     ],
     className="px-5",
 )
