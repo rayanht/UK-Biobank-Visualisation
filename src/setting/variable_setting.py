@@ -25,6 +25,7 @@ def get_dropdown_id(var=MATCH):
         Output(component_id="selections-capacity", component_property="children"),
         Output(component_id=get_dropdown_id('x'), component_property="options"),
         Output(component_id=get_dropdown_id('y'), component_property="options"),
+        Output(component_id=get_dropdown_id('all'), component_property="options"),
     ],
     [Input(component_id="tree", component_property="n_updates")],
     [State(component_id="tree", component_property="selected_nodes")],
@@ -34,6 +35,7 @@ def update_dropdown(n, selected_nodes):
     options = [get_option(node) for node in selected_nodes]
     return (
         f"{len(options)}/{MAX_SELECTIONS} variables selected",
+        options,
         options,
         options,
     )
