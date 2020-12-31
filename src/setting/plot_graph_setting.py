@@ -76,7 +76,6 @@ def get_data(
         trigger = None
     else:
         trigger = ctx.triggered[0]["prop_id"].split(".")[0]
-
     if trigger == "settings-card-submit":
 
         data, new_cached_data, node_id_x, node_id_y = get_data_from_settings(
@@ -127,12 +126,16 @@ def get_data(
 
         if x_value is not None:
             node_id_x = NodeIdentifier(x_value)
-            df = pd.DataFrame({"x": points_x})
+            df = pd.DataFrame({node_id_x.field_id: points_x})
         if y_value is not None:
             node_id_y = NodeIdentifier(y_value)
-            df = pd.DataFrame({"x": points_x, "y": points_y})
+            df = pd.DataFrame({node_id_x.field_id: points_x, node_id_y.field_id: points_y})
 
         statistics_update = get_statistics(df, node_id_x, node_id_y)
+        data = pd.read_json(cached_data["data"], orient="split")
+        plotted_data_json = data.loc[(data[data.columns[1]].isin(points_x))
+                                            & (data[data.columns[2]].isin(points_y))]
+        plotted_data_update = plotted_data_json.to_json(date_format="iso", orient="split")
 
     return (
         graph_data_update,
