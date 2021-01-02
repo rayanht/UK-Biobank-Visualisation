@@ -49,9 +49,13 @@ app.layout = html.Div(
         dcc.Store(id="graph-data"),
         dcc.Store(id="plotted-data"),
         dcc.Loading(
-            html.Div(id="plot-loading-target", style={"display": "none"}),
+            [
+                html.Div(id="loading-metadata-target", style={"display": "none"}),
+                html.Div(id="loading-umap-target", style={"display": "none"}),
+                html.Div(id="loading-tsne-target", style={"display": "none"})
+            ],
             fullscreen=True,
-            id="plot-loading-wrapper"
+            id="loading-wrapper"
         ),
         # row,
         dbc.Container(
