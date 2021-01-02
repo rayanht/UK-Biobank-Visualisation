@@ -12,7 +12,7 @@ Make sure you have Python 3.8 installed, either directly or through the Pyenv ve
 
 This project uses pre-commit, in order to install the hooks locally, run `$ pre-commit install`.
 
-In order to generate necessary Dash components, run `$ sh build_custom_components.sh` in the root directory.
+In order to generate necessary Dash components, ensure that you are in the Python virtual environment (i.e. `$ pipenv shell`). Then run `$ sh build_custom_components.sh` in the root directory.
 
 ## Local Development
 

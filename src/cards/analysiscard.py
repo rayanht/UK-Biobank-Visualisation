@@ -333,7 +333,10 @@ umap_state = []
 
 
 @app.callback(
-    [Output(component_id="analysis-card", component_property="children")],
+    [
+        Output(component_id="analysis-card", component_property="children"),
+        Output(component_id="loading-umap-target", component_property="children")
+    ],
     [Input(component_id="run-umap", component_property="n_clicks")],
     [
         State(component_id="umap-metric-dropdown", component_property="value"),
@@ -347,8 +350,9 @@ umap_state = []
 def umap(n, metric, dimensions, neighbours, selected, sample_size):
     ctx = dash.callback_context
     print(ctx.triggered)
+    dummy_loading_output = ""
     if ctx.triggered[0]["value"] is None or not selected:
-        return dash.no_update
+        return dash.no_update, dummy_loading_output
     else:
         estimator = UMAP(
             n_components=dimensions,
@@ -360,12 +364,15 @@ def umap(n, metric, dimensions, neighbours, selected, sample_size):
         return [
             dcc.Graph(
                 figure=compute_embedding(dimensions, sample_size, selected, estimator)
-            )
-        ]
+            ),
+        ], dummy_loading_output
 
 
 @app.callback(
-    [Output(component_id="analysis-graph", component_property="figure")],
+    [
+        Output(component_id="analysis-graph", component_property="figure"),
+        Output(component_id="loading-tsne-target", component_property="children")
+    ],
     [Input(component_id="run-tsne", component_property="n_clicks")],
     [
         State(component_id="tsne-metric-dropdown", component_property="value"),
@@ -381,10 +388,12 @@ def umap(n, metric, dimensions, neighbours, selected, sample_size):
 def tsne(
     n, metric, dimensions, perplexity, learning_rate, epochs, selected, sample_size
 ):
+    dummy_loading_output = ""
     ctx = dash.callback_context
+
     print(ctx.triggered)
     if ctx.triggered[0]["value"] is None or not selected:
-        return dash.no_update
+        return dash.no_update, dummy_loading_output
     else:
         estimator = TSNE(
             n_components=dimensions,
@@ -394,4 +403,4 @@ def tsne(
             learning_rate=learning_rate,
             n_iter=epochs,
         )
-        return [compute_embedding(dimensions, sample_size, selected, estimator)]
+        return [compute_embedding(dimensions, sample_size, selected, estimator)], dummy_loading_output
