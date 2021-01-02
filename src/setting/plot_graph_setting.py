@@ -32,6 +32,7 @@ def get_button(var=None):
         Output(component_id="plotted-data", component_property="data"),
         Output(component_id="graph", component_property="figure"),
         Output(component_id="download-btn", component_property="disabled"),
+        Output(component_id="plot-loading-target", component_property="children")
     ],
     [
         Input(component_id="graph", component_property="selectedData"),
@@ -137,12 +138,15 @@ def get_data(
                                             & (data[data.columns[2]].isin(points_y))]
         plotted_data_update = plotted_data_json.to_json(date_format="iso", orient="split")
 
+    loading_bar_dummy_val = ""
+
     return (
         graph_data_update,
         statistics_update,
         plotted_data_update,
         graph_figure_update,
         download_btn_update,
+        loading_bar_dummy_val
     )
 
 

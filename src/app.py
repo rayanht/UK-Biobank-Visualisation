@@ -48,6 +48,11 @@ app.layout = html.Div(
         navbar,
         dcc.Store(id="graph-data"),
         dcc.Store(id="plotted-data"),
+        dcc.Loading(
+            html.Div(id="plot-loading-target", style={"display": "none"}),
+            fullscreen=True,
+            id="plot-loading-wrapper"
+        ),
         # row,
         dbc.Container(
             [
