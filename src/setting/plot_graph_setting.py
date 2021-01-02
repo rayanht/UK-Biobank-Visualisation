@@ -32,7 +32,7 @@ def get_button(var=None):
         Output(component_id="plotted-data", component_property="data"),
         Output(component_id="graph", component_property="figure"),
         Output(component_id="download-btn", component_property="disabled"),
-        Output(component_id="plot-loading-target", component_property="children")
+        Output(component_id="loading-metadata-target", component_property="children")
     ],
     [
         Input(component_id="graph", component_property="selectedData"),
