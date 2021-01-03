@@ -56,7 +56,19 @@ tabs = [
 layout = dbc.Card(
     [
         dbc.CardHeader(tabs),
-        dbc.CardBody(contents_by_id["metadata"], id="graphs-card-body"),
+        dbc.CardBody(
+            dcc.Loading(
+                [
+                    html.Div(contents_by_id["metadata"], id="graphs-card-body"),
+
+                    html.Div(id="loading-metadata-target", style={"display": "none"}),
+                    html.Div(id="loading-umap-target", style={"display": "none"}),
+                    html.Div(id="loading-tsne-target", style={"display": "none"})
+                ],
+                fullscreen=False,
+                id="loading-wrapper"
+            )
+        )
     ],
     style={"height": "36rem"},  # for dummy purposes, to remove later
 )
