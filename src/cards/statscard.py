@@ -7,9 +7,11 @@ layout = dbc.Card(
         [
             html.H4("Summary statistics", className="summary-stats-title"),
             dbc.Table(id="statistics", size="sm")
-        ]
+        ],
+        style={"margin-top": "150px"}
     ),
     style={"height": "15rem", "width": "100%",
-            "overflowX": "scroll", 'overflowY': 'scroll'},
+           "flex-direction": "column",
+           "overflowX": "auto", 'overflowY': 'auto'},
     body=True,
 )

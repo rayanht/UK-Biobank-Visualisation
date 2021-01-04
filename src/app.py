@@ -65,7 +65,8 @@ app.layout = html.Div(
                                 dbc.Row(dbc.Col(graphsCard)),  # Container for graphs
                                 dbc.Row(
                                     dbc.Col(
-                                        statsCard  # Container for summary statistics
+                                        statsCard,  # Container for summary statistics
+                                        style={"height": "auto"}
                                     ),
                                     className="mt-3",
                                 ),
