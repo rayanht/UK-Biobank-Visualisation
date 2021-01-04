@@ -69,6 +69,7 @@ def get_data(
 
     graph_data_update = dash.no_update
     statistics_update = dash.no_update
+    loading_bar_update = dash.no_update
     plotted_data_update = dash.no_update
     graph_figure_update = dash.no_update
     download_btn_update = dash.no_update
@@ -138,15 +139,15 @@ def get_data(
                                             & (data[data.columns[2]].isin(points_y))]
         plotted_data_update = plotted_data_json.to_json(date_format="iso", orient="split")
 
-    loading_bar_dummy_val = ""
 
     return (
         graph_data_update,
         statistics_update,
         plotted_data_update,
         graph_figure_update,
-        download_btn_update,
-        loading_bar_dummy_val
+        # download_btn_update, <- disabled while we have the UK Biobank dataset as part of the data explorer
+        True,
+        loading_bar_update
     )
 
 
