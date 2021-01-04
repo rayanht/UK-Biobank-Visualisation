@@ -36,11 +36,11 @@ def build(
         node_id = next(counter)
         node = Node(row.NodeName, node_id, node_type, field_id, instance_id)
         if node_type == "leaf":
-            if prefix == "" or prefix == "Search" or search_word(prefix, row.NodeName):
+            if prefix == "" or search_word(prefix, row.NodeName):
                 root.add_child(row.NodeID, node)
         elif node_type == "sub" or node_type == "root":
             root.add_child(row.NodeID, node)
-            if (prefix != "" or prefix != "Search") and clopen_state is not None:
+            if (prefix != "") and clopen_state is not None:
                 clopen_state[str(node_id)] = True
     return root
 
