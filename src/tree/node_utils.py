@@ -40,7 +40,7 @@ def build(
                 root.add_child(row.NodeID, node)
         elif node_type == "sub" or node_type == "root":
             root.add_child(row.NodeID, node)
-            if (prefix != "" or prefix != "Search") and clopen_state is not None:
+            if (prefix != "" and prefix != "Search") and clopen_state is not None:
                 clopen_state[str(node_id)] = True
     return root
 
@@ -108,22 +108,25 @@ def flatten(encoded_tree: dict, clopen_state: dict) -> None:
             flatten(v, clopen_state)
 
 
-def prune(enriched_tree: dict) -> bool:
+def prune(enriched_tree: dict, clopen_state: dict) -> bool:
     """
     Remove all nodes that have no children from the tree
 
     :param enriched_tree: A tree as returned by the flatten function
+    :param clopen_state: A dictionary that keeps track of the open-closed state of a node in the UI
     :return: The return value is only used to facilitate the pruning, the operation is executed in-place
     """
     if enriched_tree["node_type"] == "leaf":
         return False
     elif enriched_tree["node_type"] == "sub" and len(enriched_tree["childNodes"]) == 0:
+        clopen_state[str(enriched_tree["id"])] = False
         return True
     else:
         for child in enriched_tree["childNodes"][:]:
-            if prune(child):
+            if prune(child, clopen_state):
                 enriched_tree["childNodes"].remove(child)
         if len(enriched_tree["childNodes"]) == 0:
+            clopen_state[str(enriched_tree["id"])] = False
             return True
 
 
@@ -136,7 +139,7 @@ def filter_hierarchy(clopen_state: dict, prefix: str = None) -> (List[dict], dic
     hierarchy = HierarchyLoader.fetch_hierarchy()
     tree = transcode(build(hierarchy, counter, prefix, clopen_state))
     flatten(tree, clopen_state)
-    prune(tree)
+    prune(tree, clopen_state)
     return tree["childNodes"], clopen_state
 
 
@@ -147,7 +150,7 @@ def get_hierarchy() -> (List[dict], dict):
     tree = transcode(build(hierarchy, counter))
     clopen_state = {}
     flatten(tree, clopen_state)
-    prune(tree)
+    prune(tree, clopen_state)
     return tree["childNodes"], clopen_state
 
 
