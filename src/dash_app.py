@@ -1,6 +1,10 @@
+import os
+import sys
+
 import dash
 import dash_bootstrap_components as dbc
 
+sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
 app = dash.Dash(
     external_stylesheets=[
         dbc.themes.BOOTSTRAP,

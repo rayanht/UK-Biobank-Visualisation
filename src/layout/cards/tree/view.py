@@ -2,7 +2,7 @@ import dash_bootstrap_components as dbc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-from src.hierarchy_tree.HierarchyTree import HierarchyTree
+from hierarchy_tree.HierarchyTree import HierarchyTree
 from src._constants import MAX_SELECTIONS
 from src.dash_app import app
 from src.tree.node_utils import get_hierarchy, filter_hierarchy
