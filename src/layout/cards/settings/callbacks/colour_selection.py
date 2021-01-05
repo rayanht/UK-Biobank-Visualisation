@@ -1,13 +1,14 @@
-import dash_core_components as dcc
 import dash_html_components as html
-
-from src.graph_data import get_field_type
-from src.value_type import ValueType
-from src.tree.node_utils import get_field_id, get_option
-from src.setting.variable_setting import get_option_dropdown as get_dropdown
-from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
 from dash.dependencies import Input, Output, State
+
 from src.dash_app import app
+from src.graph_data import get_field_type
+from src.tree.node_utils import get_field_id, get_option
+from src.value_type import ValueType
+from .variable_selection import (
+    get_dropdown_id as get_var_dropdown_id,
+    get_option_dropdown as get_dropdown,
+)
 
 
 def get_option_dropdown(arg):

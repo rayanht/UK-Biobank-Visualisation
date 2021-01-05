@@ -5,7 +5,7 @@ from src.dash_app import dash, app
 
 from dash.dependencies import Input, MATCH, Output, State
 from src.tree.node import NodeIdentifier
-from src.setting.instance_setting import get_dropdown_id as get_instance_dropdown_id
+from .instance_selection import get_dropdown_id as get_instance_dropdown_id
 
 
 def get_option_dropdown(var: str):

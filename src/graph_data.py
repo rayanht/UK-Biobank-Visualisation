@@ -16,9 +16,13 @@ def is_categorical_data(node_id: NodeIdentifier):
 
 
 def has_multiple_instances(field_info, inst_names):
-    return ((int(field_info["instance_min"].iloc[0]) - \
-                int(field_info["instance_max"].iloc[0])) != 0) \
-                    & (len(inst_names.index) > 1)
+    return (
+        (
+            int(field_info["instance_min"].iloc[0])
+            - int(field_info["instance_max"].iloc[0])
+        )
+        != 0
+    ) & (len(inst_names.index) > 1)
 
 
 @functools.lru_cache
@@ -40,38 +44,40 @@ def get_categorical_dict(node_id):
 
 
 def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
-        filtered_data = _filter_data_aux(dataframe, x_value, x_filter)
-        filtered_data = _filter_data_aux(filtered_data, y_value, y_filter)
-        return filtered_data
+    filtered_data = _filter_data_aux(dataframe, x_value, x_filter)
+    filtered_data = _filter_data_aux(filtered_data, y_value, y_filter)
+    return filtered_data
 
 
 def _filter_data_aux(filtered_data, value, filter):
-        """Applies a single filter to data"""
-        if value != "" and filter is not None:
-            node_id = NodeIdentifier(value)
-            filtered_data = filtered_data[
-                filtered_data[node_id.db_id()].between(filter[0], filter[1])
-            ]
-        return filtered_data
+    """Applies a single filter to data"""
+    if value != "" and filter is not None:
+        node_id = NodeIdentifier(value)
+        filtered_data = filtered_data[
+            filtered_data[node_id.db_id()].between(filter[0], filter[1])
+        ]
+    return filtered_data
 
 
 def prune_data(dataframe: DataFrame):
-        prune_data = dataframe.replace("", float("NaN"))
-        data_columns = prune_data.columns
-        for column in data_columns:
-            prune_data[column] = pd.to_numeric(prune_data[column], errors="coerce")
-        remove_non_numeric = prune_data.dropna(how="any")
-        return remove_non_numeric
+    prune_data = dataframe.replace("", float("NaN"))
+    data_columns = prune_data.columns
+    for column in data_columns:
+        prune_data[column] = pd.to_numeric(prune_data[column], errors="coerce")
+    remove_non_numeric = prune_data.dropna(how="any")
+    return remove_non_numeric
+
 
 # Global data used for all operations
 field_names_to_inst = get_field_names_to_inst()
 field_names_to_ids = field_names_to_inst.loc[
-                        field_names_to_inst["InstanceID"].isnull()
-                    ][["FieldID", "NodeName"]].dropna(how="any", axis=0)
+    field_names_to_inst["InstanceID"].isnull()
+][["FieldID", "NodeName"]].dropna(how="any", axis=0)
 field_names_to_ids["FieldID"] = field_names_to_ids["FieldID"].apply(
-                                    lambda field_id: str(int(field_id))
-                                )
+    lambda field_id: str(int(field_id))
+)
 pd.set_option("display.max_rows", None, "display.max_columns", None)
+
 
 def get_field_name(field_id):
     row_with_name = field_names_to_ids.loc[
@@ -79,16 +85,16 @@ def get_field_name(field_id):
     ]
     return row_with_name.item()
 
+
 def get_graph_axes_title(node_id: NodeIdentifier):
     if not node_id:
         return None
     return f"{get_field_name(node_id.field_id)} ({node_id.db_id()})"
 
+
 def get_inst_name_dict(field_id):
     field_id_meta = field_id_meta_data()
-    field_info = field_id_meta.loc[
-        field_id_meta["field_id"] == field_id
-    ]
+    field_info = field_id_meta.loc[field_id_meta["field_id"] == field_id]
     inst_names = field_names_to_inst.loc[
         field_names_to_inst["FieldID"] == int(field_id)
     ].copy()
@@ -100,12 +106,15 @@ def get_inst_name_dict(field_id):
             (lambda row: f"{field_id}-{int(row.InstanceID)}.0"), axis=1
         )
     else:
-        instance = field_info['instance_min'].iloc[0] \
-                    if inst_names["InstanceID"].isna().values.any() \
-                        else inst_names['InstanceID'].iloc[0]
-        inst_names["MetaID"] = field_id +f"-{instance}.0"
+        instance = (
+            field_info["instance_min"].iloc[0]
+            if inst_names["InstanceID"].isna().values.any()
+            else inst_names["InstanceID"].iloc[0]
+        )
+        inst_names["MetaID"] = field_id + f"-{instance}.0"
     inst_name_dict = dict(zip(inst_names["MetaID"], inst_names["NodeName"]))
     return inst_name_dict
+
 
 def to_categorical_data(node_id, filtered_data, colour_name=None):
     """Process categorical data and returns the frequency of each label"""
@@ -134,12 +143,11 @@ def to_categorical_data(node_id, filtered_data, colour_name=None):
     ).reset_index()
     encoding_counts.columns = columns_of_interest
     encoding_counts["categories"] = (
-        encoding_counts[get_graph_axes_title(node_id)]
-        .astype(int)
-        .map(encoding_dict)
+        encoding_counts[get_graph_axes_title(node_id)].astype(int).map(encoding_dict)
     )
 
     return encoding_counts[columns_to_return]
+
 
 def rename_category_entries(filtered_data, node_id):
     """Modify entries of the specific column of input dataframe to label names"""
@@ -150,10 +158,12 @@ def rename_category_entries(filtered_data, node_id):
     )
     return encoding_dict
 
+
 def get_inst_names_options(raw_id):
     "Returns a dict of options for a dropdown list of instances"
     field_id = NodeIdentifier(raw_id).field_id
     return get_inst_name_dict(field_id)
+
 
 def get_statistics(data, node_id_x: NodeIdentifier, node_id_y: NodeIdentifier = None):
     """Update the summary statistics when the dropdown selection changes"""
@@ -171,6 +181,7 @@ def get_statistics(data, node_id_x: NodeIdentifier, node_id_y: NodeIdentifier = 
     stats = stats.transpose()
     stats.insert(0, "Variables", var_names)
     return dbc.Table.from_dataframe(stats, striped=True, bordered=True, hover=True)
+
 
 def get_column_names(node_ids):
     return {

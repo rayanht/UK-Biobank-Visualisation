@@ -6,7 +6,6 @@ from io import StringIO
 
 import firebase_admin
 import pandas as pd
-from firebase_admin import credentials
 from firebase_admin import storage
 
 from src._constants import STORAGE_BUCKET, HIERARCHY_FILENAME

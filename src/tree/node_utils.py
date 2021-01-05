@@ -10,7 +10,10 @@ from src.tree.node import Node, NodeIdentifier
 
 
 def build(
-    raw: pd.DataFrame, counter: Generator[int, None, None], prefix: str = "", clopen_state: dict = None
+    raw: pd.DataFrame,
+    counter: Generator[int, None, None],
+    prefix: str = "",
+    clopen_state: dict = None,
 ) -> Node:
     """
     Build tree by adding all intermediate nodes, and only leaf nodes that match the prefix
@@ -171,5 +174,3 @@ def get_option(node):
 def get_field_id(node):
     """Returns field id of node as string"""
     return str(node["field_id"])
-
-

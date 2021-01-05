@@ -1,8 +1,7 @@
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-# Settings to be used
-from src.setting.setting import get_setting
+from src.layout.cards.settings.callbacks import get_setting
 
 # Actual settings card layout
 layout = dbc.Card(

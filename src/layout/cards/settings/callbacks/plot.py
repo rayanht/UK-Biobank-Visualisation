@@ -11,8 +11,8 @@ from src.graph import get_field_plot
 from src.tree.node import NodeIdentifier
 
 # Functions to get ids of components
-from src.setting.instance_setting import get_dropdown_id as get_inst_dropdown_id
-from src.setting.filter_setting import get_slider_id
+from .instance_selection import get_dropdown_id as get_inst_dropdown_id
+from .range_filter import get_slider_id
 
 
 def get_button(var=None):
@@ -32,7 +32,7 @@ def get_button(var=None):
         Output(component_id="plotted-data", component_property="data"),
         Output(component_id="graph", component_property="figure"),
         Output(component_id="download-btn", component_property="disabled"),
-        Output(component_id="loading-metadata-target", component_property="children")
+        Output(component_id="loading-metadata-target", component_property="children"),
     ],
     [
         Input(component_id="graph", component_property="selectedData"),
@@ -131,14 +131,19 @@ def get_data(
             df = pd.DataFrame({node_id_x.field_id: points_x})
         if y_value is not None:
             node_id_y = NodeIdentifier(y_value)
-            df = pd.DataFrame({node_id_x.field_id: points_x, node_id_y.field_id: points_y})
+            df = pd.DataFrame(
+                {node_id_x.field_id: points_x, node_id_y.field_id: points_y}
+            )
 
         statistics_update = get_statistics(df, node_id_x, node_id_y)
         data = pd.read_json(cached_data["data"], orient="split")
-        plotted_data_json = data.loc[(data[data.columns[1]].isin(points_x))
-                                            & (data[data.columns[2]].isin(points_y))]
-        plotted_data_update = plotted_data_json.to_json(date_format="iso", orient="split")
-
+        plotted_data_json = data.loc[
+            (data[data.columns[1]].isin(points_x))
+            & (data[data.columns[2]].isin(points_y))
+        ]
+        plotted_data_update = plotted_data_json.to_json(
+            date_format="iso", orient="split"
+        )
 
     return (
         graph_data_update,
@@ -147,7 +152,7 @@ def get_data(
         graph_figure_update,
         # download_btn_update, <- disabled while we have the UK Biobank dataset as part of the data explorer
         True,
-        loading_bar_update
+        loading_bar_update,
     )
 
 

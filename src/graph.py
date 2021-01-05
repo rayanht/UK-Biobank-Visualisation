@@ -4,9 +4,15 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 from src.tree.node import NodeIdentifier
-from src.graph_data import get_categorical_dict, is_categorical_data,\
-    rename_category_entries, to_categorical_data, get_column_names,\
-        get_graph_axes_title, get_field_name
+from src.graph_data import (
+    get_categorical_dict,
+    is_categorical_data,
+    rename_category_entries,
+    to_categorical_data,
+    get_column_names,
+    get_graph_axes_title,
+    get_field_name,
+)
 
 
 def violin_plot(
@@ -19,7 +25,9 @@ def violin_plot(
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     y_columns = filtered_data.columns.values.tolist()
     colour_encoding_dict, colour_axes_name = _get_dict_and_title(colour_id, y_columns)
-    x_encoding_dict, x_axes_name = _get_dict_and_title(node_id_x, y_columns, not node_id_y)
+    x_encoding_dict, x_axes_name = _get_dict_and_title(
+        node_id_x, y_columns, not node_id_y
+    )
 
     for col in y_columns:
         for trace in _get_violin_traces(
@@ -37,11 +45,12 @@ def violin_plot(
     return format_graph(fig, node_id_x, node_id_y, (colour_id is not None))
 
 
-def _get_dict_and_title(node_id: NodeIdentifier, y_columns, not_cat = False):
+def _get_dict_and_title(node_id: NodeIdentifier, y_columns, not_cat=False):
     if (not node_id) or not_cat:
         return None, None
     colour_axes_name = get_graph_axes_title(node_id)
-    y_columns.remove(colour_axes_name)
+    if colour_axes_name in y_columns:
+        y_columns.remove(colour_axes_name)
     return get_categorical_dict(node_id), colour_axes_name
 
 
@@ -59,29 +68,35 @@ def _get_violin_traces(
     elif x_axes_name:
         if colour_axes_name:
             for label in colour_encoding_dict:
-                traces.append(go.Violin(
-                    x=filtered_data[x_axes_name][
-                        (filtered_data[colour_axes_name] == label)
-                    ].replace(x_encoding_dict),
-                    y=filtered_data[col][filtered_data[colour_axes_name] == label],
-                    name=colour_encoding_dict[label],
-                    legendgroup=colour_encoding_dict[label],
-                    scalegroup=colour_encoding_dict[label],
-                ))
+                traces.append(
+                    go.Violin(
+                        x=filtered_data[x_axes_name][
+                            (filtered_data[colour_axes_name] == label)
+                        ].replace(x_encoding_dict),
+                        y=filtered_data[col][filtered_data[colour_axes_name] == label],
+                        name=colour_encoding_dict[label],
+                        legendgroup=colour_encoding_dict[label],
+                        scalegroup=colour_encoding_dict[label],
+                    )
+                )
         else:
-            traces.append(go.Violin(
-                x=filtered_data[x_axes_name].replace(x_encoding_dict),
-                y=filtered_data[col],
-            ))
+            traces.append(
+                go.Violin(
+                    x=filtered_data[x_axes_name].replace(x_encoding_dict),
+                    y=filtered_data[col],
+                )
+            )
     else:
         for label in colour_encoding_dict:
-            traces.append(go.Violin(
-                x=filtered_data[colour_axes_name][
-                    filtered_data[colour_axes_name] == label
-                ].replace(colour_encoding_dict),
-                y=filtered_data[col][filtered_data[colour_axes_name] == label],
-                name=colour_encoding_dict[label],
-            ))
+            traces.append(
+                go.Violin(
+                    x=filtered_data[colour_axes_name][
+                        filtered_data[colour_axes_name] == label
+                    ].replace(colour_encoding_dict),
+                    y=filtered_data[col][filtered_data[colour_axes_name] == label],
+                    name=colour_encoding_dict[label],
+                )
+            )
     return traces
 
 
@@ -96,16 +111,16 @@ def scatter_plot(
         if is_categorical_data(colour_id):
             # If colour is categorical data, rename entries to name of labels
             rename_category_entries(filtered_data, colour_id)
-    colour_name = (None if (not colour_id) else get_graph_axes_title(colour_id))
+    colour_name = None if (not colour_id) else get_graph_axes_title(colour_id)
 
     trendline_arg = None
     # Linear trendline
     if trendline == 1:
-        trendline_arg = 'ols'
+        trendline_arg = "ols"
     # Non-linear trendline
     elif trendline == 2:
-        trendline_arg = 'lowess'
-    trendline_colour = 'red' if trendline_arg else None
+        trendline_arg = "lowess"
+    trendline_colour = "red" if trendline_arg else None
 
     fig = px.scatter(
         data_frame=filtered_data,
@@ -113,10 +128,10 @@ def scatter_plot(
         y=get_graph_axes_title(node_id_y),
         color=colour_name,
         trendline=trendline_arg,
-        trendline_color_override=trendline_colour
+        trendline_color_override=trendline_colour,
     )
 
-    return format_graph(fig, node_id_x, node_id_y, (colour_id != None))
+    return format_graph(fig, node_id_x, node_id_y, (colour_id is not None))
 
 
 def bar_plot(
@@ -126,12 +141,10 @@ def bar_plot(
     colour_id: NodeIdentifier,
     trendline: int,
 ):
-    colour_name = (
-        None if (colour_id == None) else get_graph_axes_title(colour_id)
-    )
+    colour_name = None if (colour_id is None) else get_graph_axes_title(colour_id)
     processed_df = to_categorical_data(node_id_x, filtered_data, colour_name)
     fig = px.bar(processed_df, x="categories", y="counts", color=colour_name)
-    return format_graph(fig, node_id_x, None, (colour_id != None))
+    return format_graph(fig, node_id_x, None, (colour_id is not None))
 
 
 def pie_plot(
@@ -147,9 +160,11 @@ def pie_plot(
 
 
 def format_graph(fig, node_id_x, node_id_y, showlegend):
-    text = f"{get_field_name(node_id_y.field_id)} against {get_field_name(node_id_x.field_id)}"\
-            if (node_id_y) else \
-                get_field_name(node_id_x.field_id)
+    text = (
+        f"{get_field_name(node_id_y.field_id)} against {get_field_name(node_id_x.field_id)}"
+        if (node_id_y)
+        else get_field_name(node_id_x.field_id)
+    )
     fig.update_layout(
         title={
             "text": text,
@@ -163,12 +178,7 @@ def format_graph(fig, node_id_x, node_id_y, showlegend):
     return fig
 
 
-switcher = {
-    1: violin_plot,
-    2: scatter_plot,
-    3: bar_plot,
-    4: pie_plot,
-}
+switcher = {1: violin_plot, 2: scatter_plot, 3: bar_plot, 4: pie_plot}
 
 
 def get_field_plot(
@@ -187,4 +197,6 @@ def get_field_plot(
     renamed_data = filtered_data.rename(
         columns=get_column_names([node_id_x, node_id_y, colour_id])
     )
-    return switcher[graph_type](node_id_x, node_id_y, renamed_data, colour_id, trendline)
+    return switcher[graph_type](
+        node_id_x, node_id_y, renamed_data, colour_id, trendline
+    )

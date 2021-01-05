@@ -1,4 +1,3 @@
-import inspect
 import numpy as np
 import dash
 import dash_bootstrap_components as dbc
@@ -7,11 +6,12 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 from sklearn.manifold import TSNE
 from umap import UMAP
-import pandas as pd
 from src.dash_app import app
 from src.dataset_gateway import DatasetGateway, Query
-from src.setting.instance_setting import _get_updated_instances
-from src.setting.variable_setting import get_dropdown_id
+from src.layout.cards.settings.callbacks.instance_selection import (
+    _get_updated_instances,
+)
+from src.layout.cards.settings.callbacks.variable_selection import get_dropdown_id
 from src.tree.node import NodeIdentifier
 import plotly.express as px
 
@@ -327,15 +327,10 @@ def compute_embedding(dimensions, sample_size, selected, estimator):
     return fig
 
 
-tsne_state = []
-
-umap_state = []
-
-
 @app.callback(
     [
         Output(component_id="analysis-card", component_property="children"),
-        Output(component_id="loading-umap-target", component_property="children")
+        Output(component_id="loading-umap-target", component_property="children"),
     ],
     [Input(component_id="run-umap", component_property="n_clicks")],
     [
@@ -361,17 +356,22 @@ def umap(n, metric, dimensions, neighbours, selected, sample_size):
             metric=metric,
             n_neighbors=neighbours,
         )
-        return [
-            dcc.Graph(
-                figure=compute_embedding(dimensions, sample_size, selected, estimator)
-            ),
-        ], dummy_loading_output
+        return (
+            [
+                dcc.Graph(
+                    figure=compute_embedding(
+                        dimensions, sample_size, selected, estimator
+                    )
+                )
+            ],
+            dummy_loading_output,
+        )
 
 
 @app.callback(
     [
         Output(component_id="analysis-graph", component_property="figure"),
-        Output(component_id="loading-tsne-target", component_property="children")
+        Output(component_id="loading-tsne-target", component_property="children"),
     ],
     [Input(component_id="run-tsne", component_property="n_clicks")],
     [
@@ -403,4 +403,7 @@ def tsne(
             learning_rate=learning_rate,
             n_iter=epochs,
         )
-        return [compute_embedding(dimensions, sample_size, selected, estimator)], dummy_loading_output
+        return (
+            [compute_embedding(dimensions, sample_size, selected, estimator)],
+            dummy_loading_output,
+        )

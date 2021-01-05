@@ -12,7 +12,7 @@ def get_option_dropdown(var: str):
         options=[],
         placeholder="Select a variable to plot",
         optionHeight=45,
-        disabled= (var == 'y'),
+        disabled=(var == "y"),
     )
 
 
@@ -23,9 +23,9 @@ def get_dropdown_id(var=MATCH):
 @app.callback(
     [
         Output(component_id="selections-capacity", component_property="children"),
-        Output(component_id=get_dropdown_id('x'), component_property="options"),
-        Output(component_id=get_dropdown_id('y'), component_property="options"),
-        Output(component_id=get_dropdown_id('all'), component_property="options"),
+        Output(component_id=get_dropdown_id("x"), component_property="options"),
+        Output(component_id=get_dropdown_id("y"), component_property="options"),
+        Output(component_id=get_dropdown_id("all"), component_property="options"),
     ],
     [Input(component_id="tree", component_property="n_updates")],
     [State(component_id="tree", component_property="selected_nodes")],

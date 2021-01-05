@@ -1,17 +1,11 @@
-import os
-import re
-import sys
-import dash_html_components as html
 import dash_bootstrap_components as dbc
+import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
-
 from hierarchy_tree.HierarchyTree import HierarchyTree
-from src.tree.node_utils import get_hierarchy, filter_hierarchy, get_option
 from src._constants import MAX_SELECTIONS
-
 from src.dash_app import app
+from src.tree.node_utils import get_hierarchy, filter_hierarchy
 
 hierarchy, clopen_state = get_hierarchy()
 
@@ -25,7 +19,9 @@ layout = dbc.Card(
             dbc.CardBody(
                 [
                     # html.H4("Explore", className="mb-3 tree-card-title"),
-                    dbc.Input(className="mb-1", id="search-input",  placeholder="Search"),
+                    dbc.Input(
+                        className="mb-1", id="search-input", placeholder="Search"
+                    ),
                     html.Div(
                         [
                             HierarchyTree(
@@ -78,5 +74,3 @@ layout = dbc.Card(
 )
 def output_text(s, clopen):
     return filter_hierarchy(clopen, s)
-
-

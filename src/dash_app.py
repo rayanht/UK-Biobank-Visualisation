@@ -10,3 +10,4 @@ app = dash.Dash(
 
 app.config.suppress_callback_exceptions = True
 app.config.prevent_initial_callbacks = True
+app.title = "UK Biobank Explorer"

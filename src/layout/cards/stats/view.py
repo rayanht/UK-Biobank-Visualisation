@@ -6,12 +6,16 @@ layout = dbc.Card(
     dcc.Loading(
         [
             html.H4("Summary statistics", className="summary-stats-title"),
-            dbc.Table(id="statistics", size="sm")
+            dbc.Table(id="statistics", size="sm"),
         ],
-        style={"margin-top": "150px"}
+        style={"margin-top": "150px"},
     ),
-    style={"height": "15rem", "width": "100%",
-           "flex-direction": "column",
-           "overflowX": "auto", 'overflowY': 'auto'},
+    style={
+        "height": "15rem",
+        "width": "100%",
+        "flex-direction": "column",
+        "overflowX": "auto",
+        "overflowY": "auto",
+    },
     body=True,
 )

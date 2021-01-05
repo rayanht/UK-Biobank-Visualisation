@@ -1,13 +1,7 @@
-import dash_html_components as html
-import dash
-import dash_core_components as dcc
 import dash_bootstrap_components as dbc
+import dash_core_components as dcc
+import dash_html_components as html
 from dash_extensions import Download
-from dash_extensions.snippets import send_data_frame
-from src.dash_app import app
-from dash.dependencies import Input, Output, State
-
-import pandas as pd
 
 download_icon = html.I(id="submit-button", n_clicks=0, className="fa fa-download")
 
@@ -60,28 +54,14 @@ layout = dbc.Card(
             dcc.Loading(
                 [
                     html.Div(contents_by_id["metadata"], id="graphs-card-body"),
-
                     html.Div(id="loading-metadata-target", style={"display": "none"}),
                     html.Div(id="loading-umap-target", style={"display": "none"}),
-                    html.Div(id="loading-tsne-target", style={"display": "none"})
+                    html.Div(id="loading-tsne-target", style={"display": "none"}),
                 ],
                 fullscreen=False,
-                id="loading-wrapper"
+                id="loading-wrapper",
             )
-        )
+        ),
     ],
     style={"height": "36rem"},  # for dummy purposes, to remove later
 )
-
-
-@app.callback(
-    Output("download", "data"),
-    [Input("download-btn", "n_clicks")],
-    [State(component_id="plotted-data", component_property="data")],
-)
-def generate_csv(n_clicks, plotted_data):
-    if n_clicks:
-        data = pd.read_json(plotted_data, orient="split")
-        return send_data_frame(
-            data.to_csv, "ukbb_metadata_variable_subset.csv", index=False
-        )

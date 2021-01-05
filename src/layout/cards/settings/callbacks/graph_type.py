@@ -4,7 +4,7 @@ from src.dash_app import app
 from dash.dependencies import Input, Output
 from src.graph_data import get_field_type
 from src.value_type import ValueType
-from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
+from .variable_selection import get_dropdown_id as get_var_dropdown_id
 
 
 def get_option_dropdown(arg=None):

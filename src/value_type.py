@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ValueType(Enum):
     INTEGER = (11, "Integer", [1])
     CAT_SINGLE = (21, "Categorical (single)", [3, 4])

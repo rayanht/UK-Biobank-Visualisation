@@ -9,7 +9,7 @@ def get_trendline_dropdown(arg=None):
         options=[
             {"label": "Linear trendline", "value": 1},
             {"label": "Non-linear trendline", "value": 2},
-            {"label": "No trendline", "value": 3}
+            {"label": "No trendline", "value": 3},
         ],
         placeholder="Select a trendline",
         clearable=False,

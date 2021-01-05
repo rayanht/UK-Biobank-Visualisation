@@ -1,85 +1,27 @@
-# -*- coding: utf-8 -*-
-
-# Run this app with `gunicorn app:server` and
-# visit http://127.0.0.1:8000/ in your web browser.
-import os
-import sys
-import dash_html_components as html
 import dash_core_components as dcc
-import dash_bootstrap_components as dbc
+import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "hierarchy_tree"))
-
+import layout.pages.index
+import layout.pages.plotting_tool
 from src.dash_app import app, dash
-from src.cards import settingscard, analysiscard
-from src.cards import statscard
-from src.cards import treecard
-from src.cards import graphscard
 
 server = app.server
 
-app.title = "UK Biobank Explorer"
-
-colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
-
-MAX_SELECTIONS = 30
-
-navbar = dbc.Navbar(
-    [
-        dbc.NavbarBrand("UK Biobank Explorer", href="#"),
-    ],
-    className="px-5",
-)
-
-treeCard = treecard.layout
-
-plotSettingsCard = settingscard.layout
-
-analysisCard = analysiscard.layout
-
-graphsCard = graphscard.layout
-
-statsCard = statscard.layout
-
 app.layout = html.Div(
-    style={"backgroundColor": colors["background"], "height": "100vh"},
-    children=[
-        navbar,
-        dcc.Store(id="graph-data"),
-        dcc.Store(id="plotted-data"),
-        # row,
-        dbc.Container(
-            [
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            html.Div(
-                                [treeCard, plotSettingsCard, analysisCard],
-                                className="accordion",
-                            ),
-                            width=5,
-                        ),
-                        dbc.Col(
-                            children=[
-                                dbc.Row(dbc.Col(graphsCard)),  # Container for graphs
-                                dbc.Row(
-                                    dbc.Col(
-                                        statsCard,  # Container for summary statistics
-                                        style={"height": "auto"}
-                                    ),
-                                    className="mt-3",
-                                ),
-                            ]
-                        ),
-                    ]
-                )
-            ],
-            style={"padding": "2.5rem 3rem 2.5rem 3rem"},
-            fluid=True,
-        ),
-    ],
+    [dcc.Location(id="url", refresh=False, href="/plot"), html.Div(id="page-content")]
 )
+
+
+@app.callback(
+    dash.dependencies.Output("page-content", "children"),
+    [dash.dependencies.Input("url", "pathname")],
+)
+def display_page(pathname):
+    if pathname == "/plot":
+        return layout.pages.plotting_tool.layout
+    else:
+        return layout.pages.index.layout
 
 
 # we use a callback to toggle the collapse on small screens
@@ -92,13 +34,6 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
-
-
-@app.callback(
-    Output("graphs-card-body", "children"), [Input("graphs-tabs", "active_tab")]
-)
-def tab_contents(tab_id):
-    return graphscard.contents_by_id[tab_id]
 
 
 collapsible_cards = ["tree", "settings", "analysis"]
@@ -130,7 +65,3 @@ def toggle_accordion(n1, n2, n3, n4):
     if button_id == "analysis-collapse-toggle" and n3:
         return False, False, True
     return True, False, False
-
-
-if __name__ == "__main__":
-    app.run_server(debug=True)

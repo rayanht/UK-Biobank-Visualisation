@@ -4,7 +4,8 @@ import dash_html_components as html
 from dash.dependencies import Input, MATCH, Output
 from src.dash_app import app
 from src.graph_data import get_inst_names_options
-from src.setting.variable_setting import get_dropdown_id as get_var_dropdown_id
+from .variable_selection import get_dropdown_id as get_var_dropdown_id
+
 
 def _prune_instance_label(label):
     # deletes everything after the year, which ends in a close parenthesis
@@ -33,32 +34,28 @@ def _get_updated_instances(value):
 
 def get_option_dropdown(var: str):
     return html.Div(
-                id={
-                    'type': 'instance-selection-div',
-                    'var': var,
-                },
-                children=[
-                    html.H6("Instance"),
-                    dcc.Dropdown(
-                        id={
-                            'type': 'instance-options',
-                            'var': var,
-                        },
-                        options=[],
-                        placeholder="Select an instance",
-                        optionHeight=70,
-                    ),
-                ],
-                style={"display": "none"},
-                className="mt-2",
-            )
+        id={"type": "instance-selection-div", "var": var},
+        children=[
+            html.H6("Instance"),
+            dcc.Dropdown(
+                id={"type": "instance-options", "var": var},
+                options=[],
+                placeholder="Select an instance",
+                optionHeight=70,
+            ),
+        ],
+        style={"display": "none"},
+        className="mt-2",
+    )
 
 
 def get_dropdown_id(var=MATCH):
-    return {'var': var, 'type': 'instance-options'}
+    return {"var": var, "type": "instance-options"}
+
 
 def get_div_id(var=MATCH):
-    return {'var': var, 'type': 'instance-selection-div'}
+    return {"var": var, "type": "instance-selection-div"}
+
 
 @app.callback(
     [
