@@ -55,7 +55,7 @@ def update_graph_type(variable_dropdown_x, variable_dropdown_y):
     if variable_dropdown_y is None:
         # Only one variable selected
         field_id = variable_dropdown_x
-        value_type = get_field_type(str(field_id))
+        value_type = get_field_type(field_id)
 
         supported_graphs = value_type.supported_graphs
 

@@ -38,8 +38,9 @@ contents_by_id = {
 tabs = [
     dbc.Tabs(
         [
-            dbc.Tab(tab_id="metadata", label="Metadata plot"),
-            dbc.Tab(tab_id="embedding", label="Embedding plot"),
+            dbc.Tab(tab_id="metadata", label="Data plot"),
+            dbc.Tab(tab_id="embedding", label="Embedding"),
+            dbc.Tab(tab_id="clustering", label="Clustering"),
         ],
         id="graphs-tabs",
         active_tab="metadata",

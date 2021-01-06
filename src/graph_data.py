@@ -15,20 +15,14 @@ def is_categorical_data(node_id: NodeIdentifier):
     )
 
 
-def has_multiple_instances(field_info, inst_names):
-    return (
-        (
-            int(field_info["instance_min"].iloc[0])
-            - int(field_info["instance_max"].iloc[0])
-        )
-        != 0
-    ) & (len(inst_names.index) > 1)
+def has_multiple_instances(field_info):
+    return field_info["instanced"].values[0] == 1
 
 
 @functools.lru_cache
 def get_field_type(field_id):
     df = field_id_meta_data()
-    x_value_type_id = int(df.loc[df["field_id"] == field_id]["value_type"].values[0])
+    x_value_type_id = int(df[df["field_id"] == int(field_id)]["value_type"].values[0])
     return ValueType(x_value_type_id)
 
 
@@ -94,12 +88,12 @@ def get_graph_axes_title(node_id: NodeIdentifier):
 
 def get_inst_name_dict(field_id):
     field_id_meta = field_id_meta_data()
-    field_info = field_id_meta.loc[field_id_meta["field_id"] == field_id]
+    field_info = field_id_meta[field_id_meta["field_id"] == int(field_id)]
     inst_names = field_names_to_inst.loc[
         field_names_to_inst["FieldID"] == int(field_id)
     ].copy()
 
-    if has_multiple_instances(field_info, inst_names):
+    if has_multiple_instances(field_info):
         # There are multiple instances. Drop row with field name
         inst_names = inst_names.loc[inst_names["InstanceID"].notnull()]
         inst_names["MetaID"] = inst_names.apply(

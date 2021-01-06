@@ -65,3 +65,7 @@ def toggle_accordion(n1, n2, n3, n4):
     if button_id == "analysis-collapse-toggle" and n3:
         return False, False, True
     return True, False, False
+
+
+if __name__ == "__main__":
+    app.run_server(debug=True)

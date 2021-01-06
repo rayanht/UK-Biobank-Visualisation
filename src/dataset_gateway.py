@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import functools
+import os
 import time
 from io import StringIO
 from typing import List
@@ -69,34 +70,7 @@ class DatasetGateway(metaclass=Singleton):
 
 @functools.lru_cache
 def field_id_meta_data():
-    r = requests.get("https://biobank.ndph.ox.ac.uk/ukb/scdown.cgi?id=1&fmt=xml")
-
-    columns = [
-        "field_id",
-        "title",
-        "value_type",
-        "base_type",
-        "item_type",
-        "strata",
-        "instanced",
-        "arrayed",
-        "sexed",
-        "units",
-        "main_category",
-        "encoding_id",
-        "instance_id",
-        "instance_min",
-        "instance_max",
-        "array_min",
-        "array_max",
-        "notes",
-        "debut",
-        "version",
-        "num_participants",
-        "item_count",
-    ]
-
-    return parse_xml(r.text, columns)
+    return pd.read_csv(os.path.join(os.path.dirname(__file__), "fields1.csv"))
 
 
 @functools.lru_cache

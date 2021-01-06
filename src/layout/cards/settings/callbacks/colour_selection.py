@@ -30,14 +30,10 @@ def get_dropdown_id():
         Output(component_id=get_dropdown_id(), component_property="options"),
         Output(component_id=get_dropdown_id(), component_property="value"),
     ],
-    [
-        Input(component_id="settings-graph-type-dropdown", component_property="value"),
-        Input(component_id="tree-next-btn", component_property="n_clicks"),
-        Input(component_id="settings-collapse-toggle", component_property="n_clicks"),
-    ],
+    [Input(component_id="settings-graph-type-dropdown", component_property="value")],
     [State(component_id="tree", component_property="selected_nodes")],
 )
-def update_colour_visible(graph_type, n1, n2, selected_nodes):
+def update_colour_visible(graph_type, selected_nodes):
     all_options, violin_options = [], []
     for node in selected_nodes:
         option = get_option(node)
@@ -47,7 +43,7 @@ def update_colour_visible(graph_type, n1, n2, selected_nodes):
         if is_violin_colour:
             violin_options.append(option)
 
-    if (graph_type == 4) | (graph_type == None):
+    if (graph_type == 4) | (graph_type is None):
         # Currently do not support colour for pie charts
         return {"display": "none"}, {}, None
     if graph_type == 1:

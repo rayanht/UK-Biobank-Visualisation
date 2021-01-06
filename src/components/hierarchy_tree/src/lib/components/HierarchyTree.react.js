@@ -32,7 +32,7 @@ HierarchyTree.propTypes = {
     /**
      * An array of selected nodes
      */
-    selected_nodes: PropTypes.arrayOf(PropTypes.number),
+    selected_nodes: PropTypes.arrayOf(PropTypes.object),
 
     /**
      * The maximum number of nodes that should be selected at any time
