@@ -129,6 +129,7 @@ def scatter_plot(
         color=colour_name,
         trendline=trendline_arg,
         trendline_color_override=trendline_colour,
+        render_mode="webgl",
     )
 
     return format_graph(fig, node_id_x, node_id_y, (colour_id is not None))
