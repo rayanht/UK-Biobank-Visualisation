@@ -70,7 +70,9 @@ class DatasetGateway(metaclass=Singleton):
 
 @functools.lru_cache
 def field_id_meta_data():
-    return pd.read_csv(os.path.join(os.path.dirname(__file__), "fields1.csv"))
+    return pd.read_csv(
+        os.path.join(os.path.dirname(__file__), "ukbb-public-fields-metadata.csv")
+    )
 
 
 @functools.lru_cache
