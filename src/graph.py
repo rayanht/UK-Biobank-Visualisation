@@ -12,6 +12,7 @@ from src.graph_data import (
     get_column_names,
     get_graph_axes_title,
     get_field_name,
+    largest_triangle_three_buckets,
 )
 
 
@@ -122,6 +123,8 @@ def scatter_plot(
         trendline_arg = "lowess"
     trendline_colour = "red" if trendline_arg else None
 
+    filtered_data = filtered_data.sample(frac=1)
+    filtered_data = largest_triangle_three_buckets(filtered_data, 0.25)
     fig = px.scatter(
         data_frame=filtered_data,
         x=get_graph_axes_title(node_id_x),

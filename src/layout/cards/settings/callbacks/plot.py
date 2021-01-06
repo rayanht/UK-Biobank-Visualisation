@@ -1,4 +1,5 @@
 import inspect
+import time
 
 import pandas as pd
 import dash_bootstrap_components as dbc
@@ -6,7 +7,12 @@ from dash.dependencies import Input, Output, State
 from src.dash_app import dash, app
 
 from src.dataset_gateway import DatasetGateway, Query
-from src.graph_data import filter_data, get_statistics, prune_data
+from src.graph_data import (
+    filter_data,
+    get_statistics,
+    prune_data,
+    largest_triangle_three_buckets,
+)
 from src.graph import get_field_plot
 from src.tree.node import NodeIdentifier
 
@@ -233,7 +239,6 @@ def get_data_from_settings(cached_data, x_value, y_value, colour, x_filter, y_fi
             node_id_x = NodeIdentifier(x_value)
         if y_value:
             node_id_y = NodeIdentifier(y_value)
-
     return data, new_cached_data, node_id_x, node_id_y
 
 
