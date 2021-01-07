@@ -4,6 +4,8 @@
 
 A web interface to visualise and explore UK Biobank.
 
+![Screenshot of the plotting tool in action](https://storage.googleapis.com/biobank-visualisation.appspot.com/Screenshot%202021-01-07%20at%2017.27.12.png)
+
 ## Background
 UK Biobank is a large-scale population study collecting clinically relevant data from 500,000 participants, including health, demographics, lifestyle and genetics. The resulting database is used to detect early biomarkers of diseases such as cancer, strokes, diabetes, heart conditions, arthritis, osteoporosis, eye disorders, depression and forms of dementia in a middle aged (40-60 years old) population.
 
