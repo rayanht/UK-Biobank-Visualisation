@@ -1,30 +1,88 @@
 # UK Biobank Visualisation
-![Heroku](https://pyheroku-badge.herokuapp.com/?app=biobank-visualisation&style=flat)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9cc1d9d60e4d409faa259833e7f1af26)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rayanht/UK-Biobank-Visualisation&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation/branch/main/graph/badge.svg?token=L44KA5MU5N)](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frayanht%2FUK-Biobank-Visualisation.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frayanht%2FUK-Biobank-Visualisation?ref=badge_shield)
 
-A web interface to visualise and explore the UK Biobank
+A web interface to visualise and explore UK Biobank.
 
-## Installation (for developers)
-The project is managed using Pipenv. To install this, run `pip install --user pipenv`.
+## Background
+UK Biobank is a large-scale population study collecting clinically relevant data from 500,000 participants, including health, demographics, lifestyle and genetics. The resulting database is used to detect early biomarkers of diseases such as cancer, strokes, diabetes, heart conditions, arthritis, osteoporosis, eye disorders, depression and forms of dementia in a middle aged (40-60 years old) population.
 
-Make sure you have Python 3.8 installed, either directly or through the Pyenv version manager. To install the dependencies, run `pipenv install` from project root. You can execute normal Python commands through Pipenv, in the form of `pipenv run python app.py`.
+Unfortunately, the ability to leverage this dataset for biomedical research is hindered by the fact that it is not made available in a user-friendly format. This explorer is an early attempt at bridging the gap between raw data and biomedical insights.
 
-This project uses pre-commit, in order to install the hooks locally, run `$ pre-commit install`.
+This project was realised as part of the third-year software engineering project at [Imperial College London](https://www.imperial.ac.uk/), under the supervision of [Dr. Ben Glocker](https://www.imperial.ac.uk/people/b.glocker) ([@bglocker](https://github.com/bglocker)) and [Stefan Winzeck](https://biomedia.doc.ic.ac.uk/person/stefan-winzeck/).
 
-In order to generate necessary Dash components, ensure that you are in the Python virtual environment (i.e. `$ pipenv shell`). Then run `$ sh build_custom_components.sh` in the root directory.
+## Getting Started
 
-## Local Development
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-To run the app locally:
+### Prerequisites
 
-`$ gunicorn --pythonpath src/ app:server`
+#### Runtimes
+The project uses Python >= 3.8.x and Node >= v14.x.x.
 
-or
+[Installing Python](https://realpython.com/installing-python/)
+[Installing Node](https://www.freecodecamp.org/news/how-to-install-node-in-your-machines-macos-linux-windows/)
 
-`$ cd src/ && gunicorn app:server`
+```bash
+$ python --version  # 2.7.16 ❌ - beware of the default MacOS installation of Python
+$ python3 --version # 3.9.0  ✅
+$ node --version # 14.1.0    ✅
+```
 
+#### Depedency Management
+Depedencies are managed using `pipenv` and `yarn`.
+
+```bash
+$ pip/pip3 install --user pipenv
+$ pipenv --version # pipenv, version 2020.x.x ✅
+```
+
+[Installing yarn](https://classic.yarnpkg.com/en/docs/install/)
+
+```bash
+$ yarn --version # 1.22.4 ✅
+```
+
+#### Docker (Optional)
+
+### Installing
+
+Follow these instructions to setup a development environment. Skip to the `Deployment` section if you only want to deploy your own version of the explorer.
+
+## Running the tests
+
+### Unit tests
+
+### End to end tests
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Dash Plotly](https://plotly.com/dash/) - The web framework used
+
+## Contributing
+
+Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors
+
+* **Rayan Hatout** - [GitHub](https://github.com/rayanht) | [Twitter](https://twitter.com/rayanhtt) | [LinkedIn](https://www.linkedin.com/in/rayan-hatout/)
+* **Richard Xiong** -
+* **Thomas Coste** -
+* **Archibald Fraikin** -
+* **Lydia He** -
+* **Karol Ciszek** -
+
+See also the list of [contributors](https://github.com/rayanht/UK-Biobank-Visualisation) who participated in this project.
 
 ## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## License Scan
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frayanht%2FUK-Biobank-Visualisation.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Frayanht%2FUK-Biobank-Visualisation?ref=badge_large)
