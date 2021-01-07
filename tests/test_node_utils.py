@@ -37,12 +37,14 @@ class NodeUtilsTest(unittest.TestCase):
             columns=columns,
         )
 
-        tree = transcode(build(frame))
+        tree = transcode(build(frame, gen()))
+        print(tree)
         expected_tree = {
             "childNodes": {
                 "1": {
                     "childNodes": {},
                     "label": "Population characteristics",
+                    "id": 1,
                     "node_type": "root",
                     "field_id": "101",
                     "instance_id": "1",
@@ -50,6 +52,7 @@ class NodeUtilsTest(unittest.TestCase):
                 "2": {
                     "childNodes": {},
                     "label": "UK Biobank Assessment Centre",
+                    "id": 2,
                     "node_type": "root",
                     "field_id": "102",
                     "instance_id": "1",
@@ -57,27 +60,30 @@ class NodeUtilsTest(unittest.TestCase):
                 "3": {
                     "childNodes": {},
                     "label": "Biological samples",
+                    "id": 3,
                     "node_type": "root",
                     "field_id": "103",
                     "instance_id": "1",
                 },
             },
             "label": "root",
+            "id": 0,
             "node_type": "root",
-            "instance_id": None,
             "field_id": None,
+            "instance_id": None,
         }
 
         self.assertEqual(tree, expected_tree)
 
     def test_transcode(self):
-        tree = Node("root", "root")
+        tree = Node("root", 243, "root")
         expected_transcoded_tree = {
             "childNodes": {},
             "label": "root",
             "node_type": "root",
             "instance_id": None,
             "field_id": None,
+            "id": 243,
         }
         self.assertEqual(transcode(tree), expected_transcoded_tree)
 

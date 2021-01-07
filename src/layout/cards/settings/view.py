@@ -7,7 +7,7 @@ from src.layout.cards.settings.callbacks import get_setting
 layout = dbc.Card(
     [
         html.A(
-            dbc.CardHeader(html.H5("Plot Settings", className="ml-1")),
+            dbc.CardHeader(html.H5("Plot", className="ml-1")),
             id="settings-collapse-toggle",
         ),
         dbc.Collapse(

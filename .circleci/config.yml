@@ -3,7 +3,7 @@ version: 2.1
 executors:
   python:
     docker:
-      - image: circleci/python:3.8
+    - image: circleci/python:3.8-node
 
 jobs:
   build-and-test:
@@ -23,9 +23,16 @@ jobs:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
-
+      - run:
+          name: Build custom components
+          command: ./build_custom_components.sh
+      - run:
+          name: Run Tests & Report Coverage
+          command: |
+            pipenv run coverage run -m pytest --cov-report=xml
+            pipenv run codecov
 workflows:
   version: 2
-  build-and-test:
+  build-and-test-workflow:
     jobs:
       - build-and-test

@@ -124,7 +124,7 @@ def scatter_plot(
     trendline_colour = "red" if trendline_arg else None
 
     filtered_data = filtered_data.sample(frac=1)
-    filtered_data = largest_triangle_three_buckets(filtered_data, 0.25)
+    filtered_data = largest_triangle_three_buckets(filtered_data, 0.5)
     fig = px.scatter(
         data_frame=filtered_data,
         x=get_graph_axes_title(node_id_x),

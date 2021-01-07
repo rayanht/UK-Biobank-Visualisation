@@ -195,27 +195,36 @@ dimensionality_tabs = [
     )
 ]
 
-dimensionality_tab_content = {
-    "PCA": [html.Div([html.H5("PCA")])],
-    "t-SNE": [
-        dbc.Form(
-            [
-                tsne_metric_dropdown,
-                tsne_dimensionality_slider,
-                tsne_perplexity_slider,
-                tsne_learning_rate_slider,
-                tsne_epoch_slider,
-            ]
-        ),
-        dbc.Button("Run", color="primary", block=True, id="run-tsne"),
-    ],
-    "UMAP": [
-        dbc.Form(
-            [umap_metric_dropdown, umap_dimensionality_slider, umap_neighbours_slider]
-        ),
-        dbc.Button("Run", color="primary", block=True, id="run-umap"),
-    ],
-}
+dimensionality_tab_content = [
+    html.Div(
+        [
+            dbc.Form(
+                [
+                    umap_metric_dropdown,
+                    umap_dimensionality_slider,
+                    umap_neighbours_slider,
+                ]
+            ),
+            dbc.Button("Run", color="primary", block=True, id="run-umap"),
+        ]
+    ),
+    html.Div(
+        [
+            dbc.Form(
+                [
+                    tsne_metric_dropdown,
+                    tsne_dimensionality_slider,
+                    tsne_perplexity_slider,
+                    tsne_learning_rate_slider,
+                    tsne_epoch_slider,
+                ]
+            ),
+            dbc.Button("Run", color="primary", block=True, id="run-tsne"),
+        ],
+        style={"display": "None"},
+    ),
+    html.Div([html.H5("PCA")], style={"display": "None"}),
+]
 
 analysis_tab_content = {
     "dimensionality": [
@@ -260,7 +269,7 @@ analysis_tab_content = {
                     children=[
                         dbc.CardHeader(dimensionality_tabs),
                         dbc.CardBody(
-                            children=dimensionality_tab_content["UMAP"],
+                            children=dimensionality_tab_content,
                             id="dimensionality-card-body",
                         ),
                     ]
@@ -274,20 +283,26 @@ analysis_tab_content = {
 layout = dbc.Card(
     [
         html.A(
-            dbc.CardHeader(html.H5("Analysis Settings", className="ml-1")),
+            dbc.CardHeader(html.H5("Analyse", className="ml-1")),
             id="analysis-collapse-toggle",
         ),
         dbc.Collapse(
             dbc.CardBody(
-                dbc.Card(
-                    children=[
-                        dbc.CardHeader(tabs),
-                        dbc.CardBody(
-                            children=analysis_tab_content["dimensionality"],
-                            id="analysis-card-body",
-                        ),
-                    ]
-                )
+                [
+                    html.P(
+                        "Warning! Due to current limitations, you will need to manually switch to the 'Embedding' tab in order to run embedding algorithms. Likewise for clustering.",
+                        style={"color": "red"},
+                    ),
+                    dbc.Card(
+                        children=[
+                            dbc.CardHeader(tabs),
+                            dbc.CardBody(
+                                children=analysis_tab_content["dimensionality"],
+                                id="analysis-card-body",
+                            ),
+                        ]
+                    ),
+                ]
             ),
             id=f"collapse-analysis",
         ),
@@ -307,7 +322,12 @@ def tab_contents_analysis(tab_id):
     [Input("dimensionality-tabs", "active_tab")],
 )
 def tab_contents_dimensionality(tab_id):
-    return dimensionality_tab_content[tab_id]
+    tab_index = {"UMAP": 0, "t-SNE": 1, "PCA": 2}[tab_id]
+    new_content = dimensionality_tab_content.copy()
+    for i in range(3):
+        new_content[i].style = {"display": "None"}
+    del new_content[tab_index].style
+    return new_content
 
 
 def compute_embedding(dimensions, sample_size, selected, estimator):
@@ -321,60 +341,27 @@ def compute_embedding(dimensions, sample_size, selected, estimator):
     features = features.drop(features[features.eid == "eid"].index)
     projection = estimator.fit_transform(features.iloc[:, 1:].to_numpy())
     if dimensions == 3:
-        fig = px.scatter_3d(projection, x=0, y=1, z=2)
+        fig = px.scatter_3d(projection, x=0, y=1, z=2, size=1)
     else:
-        fig = px.scatter(projection, x=0, y=1)
+        fig = px.scatter(projection, x=0, y=1, render_mode="webgl")
     return fig
 
 
 @app.callback(
     [
-        Output(component_id="analysis-card", component_property="children"),
-        Output(component_id="loading-umap-target", component_property="children"),
+        Output(component_id="embedding-graph", component_property="figure"),
+        Output(
+            component_id="loading-dimensionality-target", component_property="children"
+        ),
     ],
-    [Input(component_id="run-umap", component_property="n_clicks")],
+    [
+        Input(component_id="run-umap", component_property="n_clicks"),
+        Input(component_id="run-tsne", component_property="n_clicks"),
+    ],
     [
         State(component_id="umap-metric-dropdown", component_property="value"),
         State(component_id="umap-dimension-slider", component_property="value"),
         State(component_id="umap-neighbours-slider", component_property="value"),
-        State(component_id=get_dropdown_id("all"), component_property="options"),
-        State(component_id="sample-size-slider", component_property="value"),
-    ],
-    prevent_initial_call=True,
-)
-def umap(n, metric, dimensions, neighbours, selected, sample_size):
-    ctx = dash.callback_context
-    print(ctx.triggered)
-    dummy_loading_output = ""
-    if ctx.triggered[0]["value"] is None or not selected:
-        return dash.no_update, dummy_loading_output
-    else:
-        estimator = UMAP(
-            n_components=dimensions,
-            init="random",
-            random_state=0,
-            metric=metric,
-            n_neighbors=neighbours,
-        )
-        return (
-            [
-                dcc.Graph(
-                    figure=compute_embedding(
-                        dimensions, sample_size, selected, estimator
-                    )
-                )
-            ],
-            dummy_loading_output,
-        )
-
-
-@app.callback(
-    [
-        Output(component_id="analysis-graph", component_property="figure"),
-        Output(component_id="loading-tsne-target", component_property="children"),
-    ],
-    [Input(component_id="run-tsne", component_property="n_clicks")],
-    [
         State(component_id="tsne-metric-dropdown", component_property="value"),
         State(component_id="tsne-dimension-slider", component_property="value"),
         State(component_id="tsne-perplexity-slider", component_property="value"),
@@ -385,25 +372,71 @@ def umap(n, metric, dimensions, neighbours, selected, sample_size):
     ],
     prevent_initial_call=True,
 )
-def tsne(
-    n, metric, dimensions, perplexity, learning_rate, epochs, selected, sample_size
+def umap(
+    n1,
+    n2,
+    umap_metric,
+    umap_dimensions,
+    umap_neighbours,
+    tsne_metric,
+    tsne_dimensions,
+    tsne_perplexity,
+    tsne_learning_rate,
+    tsne_epochs,
+    selected,
+    sample_size,
 ):
-    dummy_loading_output = ""
     ctx = dash.callback_context
-
     print(ctx.triggered)
+    dummy_loading_output = ""
     if ctx.triggered[0]["value"] is None or not selected:
         return dash.no_update, dummy_loading_output
+    if ctx.triggered[0]["prop_id"] == "run-umap.n_clicks":
+        estimator = UMAP(
+            n_components=umap_dimensions,
+            init="random",
+            random_state=0,
+            metric=umap_metric,
+            n_neighbors=umap_neighbours,
+        )
+        dimensions = umap_dimensions
     else:
         estimator = TSNE(
-            n_components=dimensions,
-            random_state=0,
-            metric=metric,
-            perplexity=perplexity,
-            learning_rate=learning_rate,
-            n_iter=epochs,
+            n_components=tsne_dimensions,
+            random_state=42,
+            metric=tsne_metric,
+            perplexity=tsne_perplexity,
+            learning_rate=tsne_learning_rate,
+            n_iter=tsne_epochs,
         )
-        return (
-            [compute_embedding(dimensions, sample_size, selected, estimator)],
-            dummy_loading_output,
-        )
+        dimensions = umap_dimensions
+    return (
+        compute_embedding(dimensions, sample_size, selected, estimator),
+        dummy_loading_output,
+    )
+
+
+#
+# @app.callback(
+#     [
+#         Output(component_id="analysis-graph", component_property="figure"),
+#         Output(component_id="loading-tsne-target", component_property="children"),
+#     ],
+#     [Input(component_id="run-tsne", component_property="n_clicks")],
+#     [
+#     prevent_initial_call=True,
+# )
+# def tsne(
+#     n, metric, dimensions, perplexity, learning_rate, epochs, selected, sample_size
+# ):
+#     dummy_loading_output = ""
+#     ctx = dash.callback_context
+#
+#     print(ctx.triggered)
+#     if ctx.triggered[0]["value"] is None or not selected:
+#         return dash.no_update, dummy_loading_output
+#     else:
+#         return (
+#             [compute_embedding(dimensions, sample_size, selected, estimator)],
+#             dummy_loading_output,
+#         )

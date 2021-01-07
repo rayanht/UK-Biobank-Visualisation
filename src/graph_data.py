@@ -11,7 +11,7 @@ from src.tree.node import NodeIdentifier
 from src.tree.node_utils import get_field_names_to_inst
 
 
-def largest_triangle_three_buckets(data: pd.DataFrame, ratio=0.2):
+def largest_triangle_three_buckets(data: pd.DataFrame, ratio=0.5):
     columns = data.columns
     data = list(data.itertuples(index=False, name=None))
     threshold = int(ratio * len(data))
@@ -98,7 +98,7 @@ def get_categorical_dict(node_id):
     """Returns a dict relating encoding to name of each label in category"""
     field_id_meta = field_id_meta_data()
     encoding_id = int(
-        field_id_meta.loc[field_id_meta["field_id"] == str(node_id.field_id)][
+        field_id_meta.loc[field_id_meta["field_id"] == int(node_id.field_id)][
             "encoding_id"
         ].values[0]
     )
