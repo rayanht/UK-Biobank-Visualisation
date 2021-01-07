@@ -9,6 +9,9 @@ pytest = "*"
 pytest-cov = "*"
 pyyaml = "*"
 pre-commit = "*"
+webdriver-manager = "*"
+retry = "*"
+timeout-decorator = "*"
 
 [packages]
 dash = "*"

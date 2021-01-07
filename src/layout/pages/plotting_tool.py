@@ -9,7 +9,6 @@ import src.layout.cards.stats
 import src.layout.cards.tree
 import src.layout.cards.graphs
 
-
 colors = {"background": "#fdfdfd", "text": "#7FDBFF", "navbar-bg": "#f7f7f7"}
 
 tree_card = src.layout.cards.tree.layout
@@ -52,7 +51,8 @@ layout = html.Div(
                                     ),
                                     className="mt-3",
                                 ),
-                            ]
+                            ],
+                            width=7,
                         ),
                     ]
                 )
