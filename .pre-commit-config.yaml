@@ -9,3 +9,12 @@ repos:
     rev: 19.3b0
     hooks:
     -   id: black
+- repo: local
+  hooks:
+  - id: update-requirements-txt
+    name: update-requirements-txt
+    description: 'Generate requirements.txt based on Pipenv.lock'
+    entry: pipenv
+    args: [run, pip, freeze]
+    language: system
+    pass_filenames: false
