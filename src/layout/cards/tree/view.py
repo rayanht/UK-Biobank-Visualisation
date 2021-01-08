@@ -13,7 +13,7 @@ tabs = [
     dbc.Tabs(
         [
             dbc.Tab(tab_id="tree", label="Data Fields"),
-            dbc.Tab(tab_id="saved", label="Saved Selections"),
+            # dbc.Tab(tab_id="saved", label="Saved Selections"),
         ],
         id="explore-tabs",
         active_tab="tree",
