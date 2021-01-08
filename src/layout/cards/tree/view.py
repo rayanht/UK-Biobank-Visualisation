@@ -50,13 +50,13 @@ explore_tab_content = {
         ),
         dbc.Row(
             [
-                dbc.Button(
-                    "Save selection",
-                    id="save-selection-btn",
-                    color="secondary",
-                    className="ml-3",
-                    block=False,
-                ),
+                # dbc.Button(
+                #     "Save selection",
+                #     id="save-selection-btn",
+                #     color="secondary",
+                #     className="ml-3",
+                #     block=False,
+                # ),
                 dbc.Col(
                     html.Div(
                         style={"textAlign": "right"},
