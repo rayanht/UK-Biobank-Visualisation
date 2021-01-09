@@ -22,5 +22,5 @@ steps:
         "--vpc-connector",
         "cache-connector",
         "--set-env-vars",
-        "REDISHOST=10.22.112.3,REDISPORT=6378"
+        "REDISHOST=10.22.112.3,REDISPORT=6379"
       ]
