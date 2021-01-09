@@ -123,6 +123,7 @@ def scatter_plot(
         trendline_arg = "lowess"
     trendline_colour = "red" if trendline_arg else None
 
+    print(filtered_data)
     filtered_data = filtered_data.sample(frac=1)
     filtered_data = largest_triangle_three_buckets(filtered_data, 0.5)
     fig = px.scatter(

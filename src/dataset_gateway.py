@@ -1,16 +1,19 @@
 from __future__ import annotations
 
 import functools
+import hashlib
+import json
 import os
 import time
 from io import StringIO
-from typing import List
+from pathlib import Path
+from typing import List, Union
 
 import defusedxml.ElementTree as ETree
 import pandas as pd
 import requests
 from google.cloud import bigquery
-
+from src.dash_app import cache
 from src._constants import TABLE_NAME
 from src.tree.node import NodeIdentifier
 
@@ -25,12 +28,24 @@ class Singleton(type):
 
 
 class Query:
-    def __init__(self, columns: List[str], limit: int = None):
+    def __init__(self, columns: List[str], limit: int = None, where: str = None):
+        self.deferred_min_max = False
         self.columns = columns
         self.limit = limit
+        self.where = where
+        self.query_columns = columns
 
-    def build(self):
-        base_query = f"SELECT {','.join([str(column) for column in self.columns])} FROM `{TABLE_NAME}`"
+    def hash(self):
+        hash_key = sorted(self.query_columns.copy())
+        if self.limit is not None:
+            hash_key.append(self.limit)
+        hash_key = tuple(hash_key)
+        return hashlib.sha224(json.dumps(hash_key).encode("utf-8")).hexdigest()
+
+    def build(self) -> str:
+        base_query = f"SELECT {','.join([str(column) for column in self.query_columns])} FROM `{TABLE_NAME}`"
+        if self.where:
+            base_query += f"WHERE {self.where}"
         if self.limit:
             base_query += f" LIMIT {self.limit}"
         return base_query
@@ -45,6 +60,21 @@ class Query:
             ["eid", *[node_identifier.db_id() for node_identifier in node_identifiers]]
         )
 
+    def get_min_max(self):
+        if os.environ.get("ENV") == "PROD":
+            columns = []
+            for id in self.columns[1:]:
+                columns.append(f"MIN(CAST({id} as NUMERIC))")
+                columns.append(f"MAX(CAST({id} as NUMERIC))")
+            self.where = []
+            for id in self.columns[1:]:
+                self.where.append(f'{id} != ""')
+            self.where = " AND ".join(self.where)
+            self.query_columns = columns
+            return self
+        self.deferred_min_max = True
+        return self
+
     def limit_output(self, limit: int):
         self.limit = limit
         return self
@@ -54,28 +84,71 @@ class Query:
         return Query(["*"])
 
 
+class LocalClient:
+    def __init__(self, columns: List[str], aggregate=False):
+        self.columns = columns
+        self.aggregate = aggregate
+        self.df = None
+
+    @classmethod
+    def query(cls, _query: Query):
+        return LocalClient(_query.query_columns, _query.deferred_min_max)
+
+    def result(self):
+        self.df = pd.read_csv(
+            Path(os.path.dirname(__file__)).parent.joinpath(
+                Path("dataset/ukbb-dataset.csv")
+            ),
+            usecols=self.columns,
+        )
+
+        if self.aggregate:
+            self.df = pd.DataFrame(
+                [[self.df[self.columns[1]].min(), self.df[self.columns[1]].max()]],
+                columns=["min", "max"],
+            )
+        return self
+
+    def to_dataframe(self) -> pd.DataFrame:
+        return self.df
+
+
 class DatasetGateway(metaclass=Singleton):
     def __init__(self):
-        self.client: bigquery.Client
-        self.client = bigquery.Client()
+        self.client: Union[bigquery.Client, LocalClient]
+        if os.environ.get("ENV") == "PROD":
+            self.client = bigquery.Client()
+        else:
+            self.client = LocalClient
 
     @classmethod
     def submit(cls, _query: Query) -> pd.DataFrame:
-        start = time.process_time()
-        ret = cls().client.query(_query.build()).result().to_dataframe()
-        end = time.process_time()
-        print(f"Took {end - start:.3f} seconds")
-        return ret
+        key = _query.hash()
+        result = cache.get(key)
+
+        if result is None:
+            query = _query
+            if os.environ.get("ENV") == "PROD":
+                query = _query.build()
+            result: pd.DataFrame
+            result = cls().client.query(query).result().to_dataframe()
+            if not _query.deferred_min_max:
+                result.columns = query.query_columns
+            result_json = result.to_json()
+            cache.set(key, result_json)
+        else:
+            # Skip the function entirely and use the cached value instead.
+            result_json = result.decode("utf-8")
+            result = pd.read_json(result_json)
+        return result
 
 
-@functools.lru_cache
 def field_id_meta_data():
     return pd.read_csv(
         os.path.join(os.path.dirname(__file__), "ukbb-public-fields-metadata.csv")
     )
 
 
-@functools.lru_cache
 def data_encoding_meta_data(encoding_id):
     """Gets the encoding from the biobank website, and returns it
     in the form of a dict

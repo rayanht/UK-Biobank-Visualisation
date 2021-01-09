@@ -114,6 +114,7 @@ def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
 def _filter_data_aux(filtered_data, value, filter):
     """Applies a single filter to data"""
     if value != "" and filter is not None:
+        print(filtered_data)
         node_id = NodeIdentifier(value)
         filtered_data = filtered_data[
             filtered_data[node_id.db_id()].between(filter[0], filter[1])

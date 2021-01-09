@@ -91,7 +91,7 @@ def tab_contents(tab_id):
 @app.callback(
     Output("download", "data"),
     [Input("download-btn", "n_clicks")],
-    [State(component_id="plotted-data", component_property="data")],
+    [State(component_id="graph", component_property="data")],
 )
 def generate_csv(n_clicks, plotted_data):
     if n_clicks:
