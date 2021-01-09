@@ -69,7 +69,6 @@ def get_data(
     x_filter,
     y_filter,
 ):
-    print(current_data)
     ctx = dash.callback_context
 
     graph_data_update = dash.no_update
