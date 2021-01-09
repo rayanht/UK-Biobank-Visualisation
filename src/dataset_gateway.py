@@ -129,12 +129,12 @@ class DatasetGateway(metaclass=Singleton):
 
         if result is None:
             query = _query
+            result_columns = query.df_columns
             if os.environ.get("ENV") == "PROD":
                 query = _query.build()
             result: pd.DataFrame
             result = cls().client.query(query).result().to_dataframe()
-            if not _query.deferred_min_max and os.environ.get("ENV") == "PROD":
-                result.columns = query.df_columns
+            result.columns = result_columns
             result_json = result.to_json()
             cache.set(key, result_json)
         else:
