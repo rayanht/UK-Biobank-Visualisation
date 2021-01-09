@@ -30,7 +30,7 @@ class Singleton(type):
 class Query:
     def __init__(self, columns: List[str], limit: int = None, where: str = None):
         self.deferred_min_max = False
-        self.columns = columns
+        self.df_columns = columns
         self.limit = limit
         self.where = where
         self.query_columns = columns
@@ -63,14 +63,15 @@ class Query:
     def get_min_max(self):
         if os.environ.get("ENV") == "PROD":
             columns = []
-            for id in self.columns[1:]:
+            for id in self.df_columns[1:]:
                 columns.append(f"MIN(CAST({id} as NUMERIC))")
                 columns.append(f"MAX(CAST({id} as NUMERIC))")
             self.where = []
-            for id in self.columns[1:]:
+            for id in self.df_columns[1:]:
                 self.where.append(f'{id} != ""')
             self.where = " AND ".join(self.where)
             self.query_columns = columns
+            self.df_columns = ["min", "max"]
             return self
         self.deferred_min_max = True
         return self
@@ -132,8 +133,8 @@ class DatasetGateway(metaclass=Singleton):
                 query = _query.build()
             result: pd.DataFrame
             result = cls().client.query(query).result().to_dataframe()
-            if not _query.deferred_min_max and type(query) == Query:
-                result.columns = query.query_columns
+            if not _query.deferred_min_max and os.environ.get("ENV") == "PROD":
+                result.columns = query.df_columns
             result_json = result.to_json()
             cache.set(key, result_json)
         else:
