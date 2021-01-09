@@ -17,4 +17,4 @@ RUN ./build_custom_components.sh
 COPY dataset dataset
 
 ENV ENV=PROD
-CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 4 --timeout 0 --pythonpath src/ app:server
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 4 --preload --pythonpath src/ app:server
