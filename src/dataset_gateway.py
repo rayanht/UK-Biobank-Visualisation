@@ -132,7 +132,7 @@ class DatasetGateway(metaclass=Singleton):
                 query = _query.build()
             result: pd.DataFrame
             result = cls().client.query(query).result().to_dataframe()
-            if not _query.deferred_min_max:
+            if not _query.deferred_min_max and type(query) == Query:
                 result.columns = query.query_columns
             result_json = result.to_json()
             cache.set(key, result_json)
