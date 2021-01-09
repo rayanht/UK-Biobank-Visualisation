@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from pandas.core.frame import DataFrame
 import plotly.graph_objects as go
@@ -123,9 +125,9 @@ def scatter_plot(
         trendline_arg = "lowess"
     trendline_colour = "red" if trendline_arg else None
 
-    print(filtered_data)
     filtered_data = filtered_data.sample(frac=1)
-    filtered_data = largest_triangle_three_buckets(filtered_data, 0.5)
+    if os.environ.get("ENV") == "PROD":
+        filtered_data = largest_triangle_three_buckets(filtered_data, 0.5)
     fig = px.scatter(
         data_frame=filtered_data,
         x=get_graph_axes_title(node_id_x),
