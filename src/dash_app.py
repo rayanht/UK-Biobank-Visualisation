@@ -31,8 +31,9 @@ app.title = "UK Biobank Explorer"
 
 
 def shutdown_redis():
-    print("Shutting down redis")
-    cache.shutdown(save=True)
+    if os.environ.get("ENV") != "PROD":
+        print("Shutting down redis")
+        cache.shutdown(save=True)
 
 
 atexit.register(shutdown_redis)
