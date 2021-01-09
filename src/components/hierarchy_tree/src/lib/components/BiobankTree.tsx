@@ -27,7 +27,7 @@ export class BiobankTree extends React.Component<IHierarchyTreeState> {
         n_updates: this.props.n_updates,
         max_selections: this.props.max_selections,
         setProps: this.props.setProps,
-        setClopenState: this.props.setClopenState
+        setClopenState: this.props.setClopenState,
     };
 
     componentDidUpdate(prevProps) {
@@ -40,6 +40,9 @@ export class BiobankTree extends React.Component<IHierarchyTreeState> {
                 }
                 return node;
             });
+            for (const n of this.props.nodes) {
+                this.keepSelected(n);
+            }
             this.setState(prevState => ({...prevState, nodes: this.props.nodes, selected_nodes: newSelected}));
         }
 
@@ -114,30 +117,8 @@ export class BiobankTree extends React.Component<IHierarchyTreeState> {
         if (nodeData.unselected_children == undefined) {
 
             if (this.hasSelected(nodeData)) {
-                nodeData.unselected_children = []
-                for (const child of nodeData.childNodes) {
+                this.changeSelectedNodeState(nodeData, this.handleNodeCollapse);
 
-                    // If the node contains a selected node at any depth, those nodes and all their parent nodes
-                    // should remain and not be collapsed. We do want to collapse all child nodes recursively though.
-                    if (this.hasSelected(child)) {
-                        const c = child as IHierachyTreeNode
-                        if (child.childNodes != null && c.unselected_children == undefined) {
-                            this.handleNodeCollapse(child)
-                        }
-
-                    // All other nodes should be moved to the 'unselected_nodes field of their parent
-                    } else {
-                        nodeData.unselected_children.push(child);
-                    }
-                }
-
-                // Remove all 'unselected nodes'
-                for (const node of nodeData.unselected_children) {
-                    const index = nodeData.childNodes.indexOf(node);
-                    if (index > -1) {
-                        nodeData.childNodes.splice(index, 1);
-                    }
-                }
             // If this node doesn't contain any selected children, just collapse it normally
             } else {
                 nodeData.isExpanded = false;
@@ -211,5 +192,39 @@ export class BiobankTree extends React.Component<IHierarchyTreeState> {
                 return n;
             }
         }
+    }
+
+    private keepSelected = (nodeData: IHierachyTreeNode) => {
+        if (this.hasSelected(nodeData) && !nodeData.isExpanded) {
+            nodeData.isExpanded = true;
+            this.changeSelectedNodeState(nodeData, this.keepSelected);
+        }
+    }
+
+    private changeSelectedNodeState = (nodeData: IHierachyTreeNode, selectedFunction: (arg0: ITreeNode) => void) => {
+        nodeData.unselected_children = []
+        for (const child of nodeData.childNodes) {
+
+            // If the node contains a selected node at any depth, handle those recursively with the given function.
+            if (this.hasSelected(child)) {
+                const c = child as IHierachyTreeNode
+                if (child.childNodes != null && c.unselected_children == undefined) {
+                    selectedFunction(child)
+                }
+
+            // All other nodes should be moved to the 'unselected_nodes' field of their parent
+            } else {
+                nodeData.unselected_children.push(child);
+            }
+        }
+
+        // Remove all 'unselected nodes'
+        for (const node of nodeData.unselected_children) {
+            const index = nodeData.childNodes.indexOf(node);
+            if (index > -1) {
+                nodeData.childNodes.splice(index, 1);
+            }
+        }
+        nodeData.childNodes.sort(BiobankTree.sortByLabel)
     }
 }

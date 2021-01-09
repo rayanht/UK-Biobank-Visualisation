@@ -85,7 +85,7 @@ def gen():
         i += 1
 
 
-def flatten(encoded_tree: dict, clopen_state: dict) -> None:
+def flatten(encoded_tree: dict, clopen_state: dict, boole=False) -> None:
     """
     Transform and enriches an encoded tree into the format expected by the frontend library.
 
@@ -96,6 +96,7 @@ def flatten(encoded_tree: dict, clopen_state: dict) -> None:
     if clopen_state.get(str(encoded_tree["id"])):
         if encoded_tree["node_type"] == "leaf":
             encoded_tree["isSelected"] = True
+            boole = True
         encoded_tree["isExpanded"] = clopen_state[str(encoded_tree["id"])]
     else:
         clopen_state[str(encoded_tree["id"])] = False
