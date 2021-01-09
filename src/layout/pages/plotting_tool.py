@@ -25,9 +25,6 @@ layout = html.Div(
     style={"backgroundColor": colors["background"], "height": "100vh"},
     children=[
         navbar,
-        dcc.Store(id="graph-data"),
-        dcc.Store(id="plotted-data"),
-        # row,
         dbc.Container(
             [
                 dbc.Row(
@@ -51,6 +48,7 @@ layout = html.Div(
                                     ),
                                     className="mt-3",
                                 ),
+                                html.Div(id="signal", style={"display": "none"}),
                             ],
                             width=7,
                         ),

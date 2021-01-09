@@ -3,6 +3,7 @@ from __future__ import annotations
 import functools
 import os
 from io import StringIO
+from pathlib import Path
 
 import firebase_admin
 import pandas as pd
@@ -28,9 +29,13 @@ class HierarchyLoader(metaclass=Singleton):
     @functools.lru_cache()
     def fetch_file(self, filename: str, row_limit: int = None):
         """Retrieve a csv data file and read it, if it hasn't been cached"""
-        if os.path.isfile(filename):
+        if os.path.isfile(
+            Path(os.path.dirname(__file__)).parent.joinpath(
+                Path("dataset/ukbb-hierarchy.csv")
+            )
+        ):
             print("Using cached " + filename)
-            return pd.read_csv(filename, nrows=row_limit)
+            return pd.read_csv("dataset/ukbb-hierarchy.csv", nrows=row_limit)
         print("Not using cached " + filename)
         if not self.is_authenticated:
             self.authenticate()

@@ -32,6 +32,7 @@ pyarrow = "2.0.0"
 dash-daq = "*"
 umap-learn = "*"
 statsmodels = "*"
+redis = "*"
 
 [requires]
 python_version = "3.8"

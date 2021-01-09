@@ -1,6 +1,10 @@
+import time
+
 import pandas as pd
 import dash_core_components as dcc
 import dash_html_components as html
+
+from dataset_gateway import Query, DatasetGateway
 from src.dash_app import dash, app
 
 from dash.dependencies import Input, MATCH, Output, State
@@ -40,48 +44,15 @@ def get_div_id(var=MATCH):
         Output(component_id=get_slider_id(), component_property="marks"),
         Output(component_id=get_div_id(), component_property="style"),
     ],
-    [
-        Input(component_id="graph-data", component_property="data"),
-        Input(component_id=get_instance_dropdown_id(), component_property="value"),
-    ],
-    [State(component_id=get_instance_dropdown_id(), component_property="id")],
+    [Input(component_id=get_instance_dropdown_id(), component_property="value")],
 )
-def update_settings_options(cached_data, value, id):
-    var = id["var"]
-    filter_tuple = (
-        dash.no_update,
-        dash.no_update,
-        None,
-        dash.no_update,
-        dash.no_update,
-    )
-
-    if not cached_data:
-        return filter_tuple
-
-    # update settings
-    if cached_data[f"{var}-value"] != "":
-        filtered_data = pd.read_json(cached_data["data"], orient="split")
-        filter_tuple = get_range_slider_tuple(
-            filtered_data, value, cached_data[f"{var}-value"]
-        )
-
-    return filter_tuple
-
-
-def get_range_slider_tuple(filtered_data, curr_value, stored_value):
-    if not curr_value or stored_value != curr_value:
-        return (
-            dash.no_update,
-            dash.no_update,
-            None,
-            dash.no_update,
-            {"display": "none"},
-        )
-    node_id = NodeIdentifier(stored_value)
-    df = filtered_data[node_id.db_id()]
-    df_min = int(df.min())
-    df_max = int(df.max())
+def update_settings_options(value):
+    if not value:
+        return (dash.no_update, dash.no_update, None, dash.no_update, dash.no_update)
+    node_id = NodeIdentifier(value)
+    min_max = DatasetGateway.submit(Query.from_identifier(node_id).get_min_max())
+    df_min = int(min_max["min"].values[0])
+    df_max = int(min_max["max"].values[0] + 1)
     return (
         df_min,
         df_max,

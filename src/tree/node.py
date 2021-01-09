@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 from typing import List
 
@@ -18,6 +19,8 @@ class NodeIdentifier:
             self.part_id = split_id[2]
 
     def db_id(self):
+        if os.environ.get("ENV") == "LOCALPROD" or os.environ.get("ENV") == "LOCAL":
+            return self.meta_id()
         return f"_{self.field_id}_{self.instance_id}_{self.part_id}"
 
     def meta_id(self):
