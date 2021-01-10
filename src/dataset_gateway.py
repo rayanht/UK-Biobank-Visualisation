@@ -61,7 +61,6 @@ class Query:
         )
 
     def get_min_max(self):
-        self.df_columns = ["min", "max"]
         if os.environ.get("ENV") == "PROD":
             columns = []
             for id in self.df_columns[1:]:
@@ -72,6 +71,7 @@ class Query:
                 self.where.append(f'{id} != ""')
             self.where = " AND ".join(self.where)
             self.query_columns = columns
+            self.df_columns = ["min", "max"]
             return self
         self.deferred_min_max = True
         return self
