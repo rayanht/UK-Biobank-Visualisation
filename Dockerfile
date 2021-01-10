@@ -9,11 +9,13 @@ RUN mkdir usr/app/src/
 COPY requirements.txt usr/app/
 RUN pip install -r /usr/app/requirements.txt
 
-COPY src/ usr/app/src/
+COPY custom_components/ usr/app/custom_custom_components/
 COPY build_custom_components.sh usr/app/
-
 WORKDIR usr/app/
 RUN ./build_custom_components.sh
+
+COPY src/ usr/app/src/
+
 COPY dataset dataset
 
 ENV ENV=PROD

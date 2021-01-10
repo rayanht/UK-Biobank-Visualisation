@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd src/components/ || exit;
+cd custom_components/ || exit;
 
 for d in */; do
     cd "$d" || exit
