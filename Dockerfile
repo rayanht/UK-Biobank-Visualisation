@@ -11,8 +11,7 @@ RUN pip install -r /usr/app/requirements.txt
 
 COPY custom_components/ usr/app/custom_components/
 COPY build_custom_components.sh usr/app/
-WORKDIR usr/app/
-RUN ./build_custom_components.sh
+RUN usr/app/build_custom_components.sh
 
 COPY src/ usr/app/src/
 
