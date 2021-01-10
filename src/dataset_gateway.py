@@ -71,9 +71,9 @@ class Query:
                 self.where.append(f'{id} != ""')
             self.where = " AND ".join(self.where)
             self.query_columns = columns
-            self.df_columns = ["min", "max"]
-            return self
-        self.deferred_min_max = True
+        else:
+            self.deferred_min_max = True
+        self.df_columns = ["min", "max"]
         return self
 
     def limit_output(self, limit: int):
