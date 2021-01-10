@@ -1,4 +1,5 @@
 import inspect
+import json
 import time
 
 import pandas as pd
@@ -117,7 +118,7 @@ def get_data(
             )
 
         statistics_update = get_statistics(df, node_id_x, node_id_y)
-        data = pd.read_json(current_data["data"], orient="split")
+        data = pd.read_json(current_data, orient="split")
         plotted_data_json = data.loc[
             (data[data.columns[1]].isin(points_x))
             & (data[data.columns[2]].isin(points_y))
