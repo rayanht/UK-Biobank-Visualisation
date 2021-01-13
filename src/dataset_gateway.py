@@ -43,6 +43,7 @@ class Query:
         return hashlib.sha224(json.dumps(hash_key).encode("utf-8")).hexdigest()
 
     def build(self) -> str:
+        """Compile the Query object into a canonical SQL querystring."""
         base_query = f"SELECT {','.join([str(column) for column in self.query_columns])} FROM `{TABLE_NAME}`"
         if self.where:
             base_query += f"WHERE {self.where}"
@@ -52,15 +53,21 @@ class Query:
 
     @classmethod
     def from_identifier(cls, node_identifier: NodeIdentifier) -> Query:
+        """Create a Query from a single data field identifier."""
         return Query(["eid", node_identifier.db_id()])
 
     @classmethod
     def from_identifiers(cls, node_identifiers: List[NodeIdentifier]) -> Query:
+        """Create a Query from multiple data field identifiers."""
         return Query(
             ["eid", *[node_identifier.db_id() for node_identifier in node_identifiers]]
         )
 
     def get_min_max(self):
+        """
+        Transform the Query into an aggregation query for extremum values of the
+        selected data fields.
+        """
         if os.environ.get("ENV") == "PROD":
             columns = []
             for id in self.df_columns[1:]:
@@ -77,6 +84,7 @@ class Query:
         return self
 
     def limit_output(self, limit: int):
+        """Limit the number of rows returned once this query gets executed."""
         self.limit = limit
         return self
 
@@ -125,8 +133,10 @@ class DatasetGateway(metaclass=Singleton):
     @classmethod
     def submit(cls, _query: Query) -> pd.DataFrame:
         key = _query.hash()
+        # Lookup if the query has been previously cached
         result = cache.get(key)
 
+        # If not cached, we execute the query and ingress from the database
         if result is None:
             query = _query
             result_columns = query.df_columns
@@ -137,21 +147,25 @@ class DatasetGateway(metaclass=Singleton):
             result.columns = result_columns
             result_json = result.to_json()
             cache.set(key, result_json)
+        # Otherwise we simply get the result from the cache.
         else:
-            # Skip the function entirely and use the cached value instead.
             result_json = result.decode("utf-8")
             result = pd.read_json(result_json)
         return result
 
 
 def field_id_meta_data():
+    """
+    :return: public metadata of the UK Biobank, loaded from memory.
+    """
     return pd.read_csv(
         os.path.join(os.path.dirname(__file__), "ukbb-public-fields-metadata.csv")
     )
 
 
 def data_encoding_meta_data(encoding_id):
-    """Gets the encoding from the biobank website, and returns it
+    """
+    Gets the encoding from the biobank website, and returns it
     in the form of a dict
     """
     r = requests.get(
@@ -161,14 +175,16 @@ def data_encoding_meta_data(encoding_id):
     ENCODING_DATA = StringIO(r.text)
 
     df = pd.read_csv(ENCODING_DATA, sep="\t", header=0)
-    # contains dataframe that may have extra information (including node structure if the
-    # encoding is a tree), but this is not needed right now, so we will convert it to a dict
+    # contains dataframe that may have extra information (including node
+    # structure if the encoding is a tree), but this is not needed right now,
+    # so we will convert it to a dict
 
     return df.set_index("coding")["meaning"].to_dict()
 
 
 def parse_xml(xml_text, df_cols):
-    """Parse the input XML file and store the result in a pandas
+    """
+    Parse the input XML file and store the result in a pandas
     DataFrame with the given columns.
 
     The first element of df_cols is supposed to be the identifier

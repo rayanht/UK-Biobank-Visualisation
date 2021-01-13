@@ -31,7 +31,12 @@ def get_dropdown_id(var=MATCH):
     [State(component_id="tree", component_property="selected_nodes")],
 )
 def update_dropdown(n, selected_nodes):
-    """Update the dropdown when nodes from the tree are selected"""
+    """
+    Callback to update the variable selection dropdown when nodes from the
+    tree are selected
+    :param n: number of times the tree was updated
+    :param selected_nodes: currently selected data fields
+    """
     options = [get_option(node) for node in selected_nodes]
     return (
         f"{len(options)}/{MAX_SELECTIONS} variables selected",

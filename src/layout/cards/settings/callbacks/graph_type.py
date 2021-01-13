@@ -37,7 +37,15 @@ def get_option_dropdown(arg=None):
     ],
 )
 def update_graph_type(variable_dropdown_x, variable_dropdown_y):
-    """Update the dropdown when nodes from the tree are selected"""
+    """
+    Callback to determine what plot types can be used for the current selection.
+    Updates the "graph type" dropdown when nodes from the tree are selected.
+
+    :param variable_dropdown_x: the data field that is currently selected in the
+                                "X Axis" dropdown
+    :param variable_dropdown_y: the data field that is currently selected in the
+                                "Y Axis" dropdown
+    """
 
     options = {
         "violin": {"label": "Violin", "value": 1},

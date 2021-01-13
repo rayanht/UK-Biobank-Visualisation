@@ -8,7 +8,7 @@ from .variable_selection import get_dropdown_id as get_var_dropdown_id
 
 
 def _prune_instance_label(label):
-    # deletes everything after the year, which ends in a close parenthesis
+    """Deletes everything after the year, which ends in a closed parenthesis."""
     sep = ")"
     return label.split(sep, 1)[0] + sep
 
@@ -29,7 +29,8 @@ def _get_updated_instances(value):
 
     div_visible = {"display": "block"} if len(options) != 1 else {"display": "none"}
 
-    return div_visible, options, options[0]["value"]  # select first instance by default
+    # Select the first instance by default
+    return div_visible, options, options[0]["value"]
 
 
 def get_option_dropdown(var: str):

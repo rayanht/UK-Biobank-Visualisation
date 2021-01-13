@@ -1,11 +1,9 @@
 import dash_bootstrap_components as dbc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
 
 from hierarchy_tree.HierarchyTree import HierarchyTree
+from src.tree.node_utils import get_hierarchy
 from src._constants import MAX_SELECTIONS
-from src.dash_app import app
-from src.tree.node_utils import get_hierarchy, filter_hierarchy
 
 hierarchy, clopen_state = get_hierarchy()
 
@@ -101,30 +99,3 @@ layout = dbc.Card(
         ),
     ]
 )
-
-
-@app.callback(
-    Output("explore-card-body", "children"), [Input("explore-tabs", "active_tab")]
-)
-def tab_contents_analysis(tab_id):
-    return explore_tab_content[tab_id]
-
-
-@app.callback(
-    [Output("tree", "data"), Output("tree", "clopen_state")],
-    [Input("search-input", "value")],
-    [State("tree", "clopenState")],
-)
-def output_text(s, clopen):
-    return filter_hierarchy(clopen, s)
-
-
-@app.callback(
-    Output("save-selection-modal", "is_open"),
-    [Input("save-selection-btn", "n_clicks"), Input("close", "n_clicks")],
-    [State("save-selection-modal", "is_open")],
-)
-def toggle_modal(n1, n2, is_open):
-    if n1 or n2:
-        return not is_open
-    return is_open

@@ -12,6 +12,14 @@ from src.tree.node_utils import get_field_names_to_inst
 
 
 def largest_triangle_three_buckets(data: pd.DataFrame, ratio=0.5):
+    """
+    Sample scatter plot data while preserving shape using the largest
+    triangle three buckets method. Used to improve performance of scatter plots.
+
+    :param data: scatter plot data
+    :param ratio: proportion of points to discard
+    :return: Sub-sampled DataFrame
+    """
     columns = data.columns
     data = list(data.itertuples(index=False, name=None))
     threshold = int(ratio * len(data))
@@ -77,6 +85,7 @@ def largest_triangle_three_buckets(data: pd.DataFrame, ratio=0.5):
 
 
 def is_categorical_data(node_id: NodeIdentifier):
+    """Determine if a data field is categorical."""
     node_field_type = get_field_type(node_id.field_id)
     return (
         node_field_type == ValueType.CAT_MULT or node_field_type == ValueType.CAT_SINGLE
@@ -84,11 +93,13 @@ def is_categorical_data(node_id: NodeIdentifier):
 
 
 def has_multiple_instances(field_info):
+    """Determine if a data field has multiple instances"""
     return field_info["instanced"].values[0] == 1
 
 
 @functools.lru_cache
 def get_field_type(field_id):
+    """Determine the data type of a field from its identifier"""
     df = field_id_meta_data()
     x_value_type_id = int(df[df["field_id"] == int(field_id)]["value_type"].values[0])
     return ValueType(x_value_type_id)
@@ -105,28 +116,12 @@ def get_categorical_dict(node_id):
     return data_encoding_meta_data(encoding_id)
 
 
-def filter_data(dataframe: DataFrame, x_value, y_value, x_filter, y_filter):
-    filtered_data = _filter_data_aux(dataframe, x_value, x_filter)
-    filtered_data = _filter_data_aux(filtered_data, y_value, y_filter)
-    return filtered_data
-
-
-def _filter_data_aux(filtered_data, value, filter):
-    """Applies a single filter to data"""
-    if value != "" and filter is not None:
-        node_id = NodeIdentifier(value)
-        filtered_data = filtered_data[
-            filtered_data[node_id.db_id()].between(filter[0], filter[1])
-        ]
-    return filtered_data
-
-
 def prune_data(dataframe: DataFrame):
-    prune_data = dataframe.replace("", float("NaN"))
-    data_columns = prune_data.columns
+    pruned = dataframe.replace("", float("NaN"))
+    data_columns = pruned.columns
     for column in data_columns:
-        prune_data[column] = pd.to_numeric(prune_data[column], errors="coerce")
-    remove_non_numeric = prune_data.dropna(how="any")
+        pruned[column] = pd.to_numeric(pruned[column], errors="coerce")
+    remove_non_numeric = pruned.dropna(how="any")
     return remove_non_numeric
 
 
@@ -142,6 +137,7 @@ pd.set_option("display.max_rows", None, "display.max_columns", None)
 
 
 def get_field_name(field_id):
+    """Extract a human-readable name from a data field identifier."""
     row_with_name = field_names_to_ids.loc[
         field_names_to_ids["FieldID"] == str(field_id), "NodeName"
     ]
@@ -149,12 +145,14 @@ def get_field_name(field_id):
 
 
 def get_graph_axes_title(node_id: NodeIdentifier):
+    """Generate title for a graph axis from a data field identifier"""
     if not node_id:
         return None
     return f"{get_field_name(node_id.field_id)} ({node_id.db_id()})"
 
 
 def get_inst_name_dict(field_id):
+    """Extract the different instance names of a given data field."""
     field_id_meta = field_id_meta_data()
     field_info = field_id_meta[field_id_meta["field_id"] == int(field_id)]
     inst_names = field_names_to_inst.loc[
@@ -185,17 +183,17 @@ def to_categorical_data(node_id, filtered_data, colour_name=None):
     # Define columns of interest
     subset = (
         [get_graph_axes_title(node_id)]
-        if (colour_name == None)
+        if colour_name is None
         else [get_graph_axes_title(node_id), colour_name]
     )
     columns_of_interest = (
         [get_graph_axes_title(node_id), "counts"]
-        if (colour_name == None)
+        if colour_name is None
         else [get_graph_axes_title(node_id), colour_name, "counts"]
     )
     columns_to_return = (
         ["categories", "counts"]
-        if (colour_name == None)
+        if colour_name is None
         else [colour_name, "categories", "counts"]
     )
 
@@ -212,7 +210,9 @@ def to_categorical_data(node_id, filtered_data, colour_name=None):
 
 
 def rename_category_entries(filtered_data, node_id):
-    """Modify entries of the specific column of input dataframe to label names"""
+    """
+    Modify entries of the specific column of input dataframe to label names.
+    """
     encoding_dict = get_categorical_dict(node_id)
     column_name = get_graph_axes_title(node_id)
     filtered_data[column_name] = (
@@ -222,7 +222,7 @@ def rename_category_entries(filtered_data, node_id):
 
 
 def get_inst_names_options(raw_id):
-    "Returns a dict of options for a dropdown list of instances"
+    """Returns a dict of options for a dropdown list of instances."""
     field_id = NodeIdentifier(raw_id).field_id
     return get_inst_name_dict(field_id)
 
@@ -246,8 +246,9 @@ def get_statistics(data, node_id_x: NodeIdentifier, node_id_y: NodeIdentifier = 
 
 
 def get_column_names(node_ids):
+    """Generate column names for all selected data fields."""
     return {
         node_id.db_id(): get_graph_axes_title(node_id)
         for node_id in node_ids
-        if (node_id != None)
+        if node_id is not None
     }

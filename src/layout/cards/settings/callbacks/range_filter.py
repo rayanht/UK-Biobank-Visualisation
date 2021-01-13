@@ -35,7 +35,6 @@ def get_div_id(var=MATCH):
     return {"var": var, "type": "filter-slider-div"}
 
 
-# update options (possibly merge with apply_graph_settings to prevent sending cached_data twice?)
 @app.callback(
     [
         Output(component_id=get_slider_id(), component_property="min"),
@@ -47,9 +46,19 @@ def get_div_id(var=MATCH):
     [Input(component_id=get_instance_dropdown_id(), component_property="value")],
 )
 def update_settings_options(value):
+    """
+    Callback to update the visibility of the range filters.
+
+    :param value: the data field that is currently selected in either axis
+    :return: a HTML div of the range slider
+    """
     if not value:
         return (dash.no_update, dash.no_update, None, dash.no_update, dash.no_update)
+
+    # Normalise the identifier
     node_id = NodeIdentifier(value)
+
+    # Query the database for min and max
     min_max = DatasetGateway.submit(Query.from_identifier(node_id).get_min_max())
     df_min = int(min_max["min"].values[0])
     df_max = int(min_max["max"].values[0] + 1)

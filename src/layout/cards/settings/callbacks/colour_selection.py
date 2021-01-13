@@ -23,7 +23,6 @@ def get_dropdown_id():
     return get_var_dropdown_id("colour")
 
 
-# Callback for updating colour option visibility
 @app.callback(
     [
         Output(component_id="colour-selection-div", component_property="style"),
@@ -34,6 +33,15 @@ def get_dropdown_id():
     [State(component_id="tree", component_property="selected_nodes")],
 )
 def update_colour_visible(graph_type, selected_nodes):
+    """
+    Callback to update the visibility of the colour dropdown
+
+    :param graph_type: the type of graph that is currently being prepared.
+                       (Violin, Pie, Scatter etc.)
+    :param selected_nodes: the data fields that are currently selected in the
+                           tree
+    :return: a HTML div of the colour dropdown, potentially hidden.
+    """
     all_options, violin_options = [], []
     for node in selected_nodes:
         option = get_option(node)
@@ -53,9 +61,13 @@ def update_colour_visible(graph_type, selected_nodes):
 
 
 def is_colour_option(node):
-    """Returns two boolean values:
-        (first) if option can be used for general colouring,
-        (second) if option can be used for colouring violin plots"""
+    """
+    Determine whether or node a data field can be used to colour a plot.
+
+    :param node: the selected data field.
+    :return: Tuple(iff option can be used for general colouring,
+                  iff option can be used for colouring violin plots)
+    """
     node_value_type = get_field_type(get_field_id(node))
     return (
         (
