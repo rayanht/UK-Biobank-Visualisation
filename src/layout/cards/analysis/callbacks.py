@@ -2,7 +2,11 @@ from dash.dependencies import Input, Output, State
 from sklearn.manifold import TSNE
 from umap import UMAP
 
-from analysis.view import analysis_tab_content, dimensionality_tab_content
+from analysis.view import (
+    analysis_tab_content,
+    dimensionality_tab_content,
+    clustering_tab_content,
+)
 from src.dash_app import app
 from src.dataset_gateway import DatasetGateway, Query
 from src.layout.cards.settings.callbacks.instance_selection import (
@@ -13,41 +17,6 @@ from src.tree.node import NodeIdentifier
 import plotly.express as px
 import numpy as np
 import dash
-
-
-@app.callback(
-    Output("analysis-card-body", "children"), [Input("analysis-tabs", "active_tab")]
-)
-def tab_contents_analysis(tab_id: str):
-    """
-    Callback to switch tabs based on user interaction in the analysis accordion
-
-    :param tab_id: One of 'dimensionality' or 'clustering'
-    :return: The HTML layout to display
-    """
-    return analysis_tab_content[tab_id]
-
-
-@app.callback(
-    Output("dimensionality-card-body", "children"),
-    [Input("dimensionality-tabs", "active_tab")],
-)
-def tab_contents_dimensionality(tab_id):
-    """
-    Callback to switch tabs based on user interaction in the dimensionality
-    reduction tab of the analysis accordion. Here we make all divs hidden and
-    then unhide the one we're interested in. This is done to persist the
-    selection of hyper-parameters when switching back and forth between tabs.
-
-    :param tab_id: One of 'UMAP', 't-SNE' or 'PCA'
-    :return: The HTML layout to display
-    """
-    tab_index = {"UMAP": 0, "t-SNE": 1, "PCA": 2}[tab_id]
-    new_content = dimensionality_tab_content.copy()
-    for i in range(3):
-        new_content[i].style = {"display": "None"}
-    del new_content[tab_index].style
-    return new_content
 
 
 def compute_embedding(dimensions, sample_size, data_fields, estimator):

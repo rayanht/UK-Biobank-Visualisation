@@ -1,7 +1,9 @@
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output
 
+from src.dash_app import app
 
 tsne_epoch_slider = dbc.FormGroup(
     [
@@ -99,6 +101,61 @@ tsne_metric_dropdown = dbc.FormGroup(
         ),
     ]
 )
+k_means_k_slider = dbc.FormGroup(
+    [
+        dbc.Label("Number of clusters"),
+        dcc.Slider(
+            id="k-means-k-slider",
+            min=2,
+            max=50,
+            step=1,
+            value=8,
+            tooltip={"always_visible": True, "placement": "bottom"},
+        ),
+        dbc.FormText(
+            "The number of clusters to form as well as the number of centroids to generate.",
+            color="secondary",
+        ),
+    ]
+)
+
+k_means_n_init_slider = dbc.FormGroup(
+    [
+        dbc.Label("Number of runs"),
+        dcc.Slider(
+            id="k-means-n-init-slider",
+            min=1,
+            max=20,
+            step=1,
+            value=10,
+            tooltip={"always_visible": True, "placement": "bottom"},
+        ),
+        dbc.FormText(
+            "Number of time the k-means algorithm will be run with different "
+            "centroid seeds. The final results will be the best output of "
+            "n consecutive runs in terms of inertia.",
+            color="secondary",
+        ),
+    ]
+)
+
+k_means_max_epoch_slider = dbc.FormGroup(
+    [
+        dbc.Label("Maximum number of epochs"),
+        dcc.Slider(
+            id="k-means-max-epoch-slider",
+            min=1,
+            max=20,
+            step=1,
+            value=10,
+            tooltip={"always_visible": True, "placement": "bottom"},
+        ),
+        dbc.FormText(
+            "Maximum number of iterations of the k-means algorithm for a single run.",
+            color="secondary",
+        ),
+    ]
+)
 
 umap_dimensionality_slider = dbc.FormGroup(
     [
@@ -171,6 +228,18 @@ tabs = [
     )
 ]
 
+clustering_tabs = [
+    dbc.Tabs(
+        [
+            dbc.Tab(tab_id="k-means", label="k-means"),
+            dbc.Tab(tab_id="GMM-EM", label="GMM-EM"),
+        ],
+        id="clustering-tabs",
+        card=True,
+        active_tab="k-means",
+    )
+]
+
 dimensionality_tabs = [
     dbc.Tabs(
         [
@@ -182,6 +251,33 @@ dimensionality_tabs = [
         card=True,
         active_tab="UMAP",
     )
+]
+
+clustering_tab_content = [
+    html.Div(
+        [
+            dbc.Form(
+                [k_means_k_slider, k_means_n_init_slider, k_means_max_epoch_slider]
+            ),
+            dbc.Button("Run", color="primary", block=True, id="run-k-means"),
+        ]
+    ),
+    html.Div(
+        [
+            dbc.Form(
+                [
+                    tsne_metric_dropdown,
+                    tsne_dimensionality_slider,
+                    tsne_perplexity_slider,
+                    tsne_learning_rate_slider,
+                    tsne_epoch_slider,
+                ]
+            ),
+            dbc.Button("Run", color="primary", block=True, id="run-tsne"),
+        ],
+        style={"display": "None"},
+    ),
+    html.Div([html.H5("PCA")], style={"display": "None"}),
 ]
 
 dimensionality_tab_content = [
@@ -266,7 +362,56 @@ analysis_tab_content = {
             ]
         )
     ],
-    "clustering": [html.Div([html.H5("Clustering")])],
+    "clustering": [
+        html.Div(
+            [
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Data fields"),
+                        dcc.Dropdown(
+                            id={"var": "all", "type": "variable-dropdown"},
+                            options=[],
+                            multi=True,
+                        ),
+                    ]
+                ),
+                dbc.FormGroup(
+                    [
+                        dbc.Label("Sample size"),
+                        dcc.Slider(
+                            id="sample-size-slider",
+                            min=3.7,
+                            max=5.7,
+                            step=None,
+                            marks={
+                                3.7: "5k",
+                                4: "10k",
+                                4.4: "25k",
+                                4.7: "50k",
+                                5: "100k",
+                                5.4: "250k",
+                                5.7: "500k",
+                            },
+                            value=3.7,
+                        ),
+                        dbc.FormText(
+                            "Controls what fraction of the dataset is used in order to generate the embeddings. Try "
+                            "reducing this number if the plots are too dense or increasing it if they are too sparse."
+                        ),
+                    ]
+                ),
+                dbc.Card(
+                    children=[
+                        dbc.CardHeader(clustering_tabs),
+                        dbc.CardBody(
+                            children=clustering_tab_content,
+                            id="dimensionality-card-body",
+                        ),
+                    ]
+                ),
+            ]
+        )
+    ],
 }
 
 layout = dbc.Card(
@@ -297,3 +442,56 @@ layout = dbc.Card(
         ),
     ]
 )
+
+
+@app.callback(
+    Output("analysis-card-body", "children"), [Input("analysis-tabs", "active_tab")]
+)
+def tab_contents_analysis(tab_id: str):
+    """
+    Callback to switch tabs based on user interaction in the analysis accordion
+
+    :param tab_id: One of 'dimensionality' or 'clustering'
+    :return: The HTML layout to display
+    """
+    return analysis_tab_content[tab_id]
+
+
+@app.callback(
+    Output("dimensionality-card-body", "children"),
+    [Input("dimensionality-tabs", "active_tab")],
+)
+def tab_contents_dimensionality(tab_id):
+    """
+    Callback to switch tabs based on user interaction in the dimensionality
+    reduction tab of the analysis accordion. Here we make all divs hidden and
+    then unhide the one we're interested in. This is done to persist the
+    selection of hyper-parameters when switching back and forth between tabs.
+
+    :param tab_id: One of 'UMAP', 't-SNE' or 'PCA'
+    :return: The HTML layout to display
+    """
+    tab_index = {"UMAP": 0, "t-SNE": 1, "PCA": 2}[tab_id]
+    new_content = dimensionality_tab_content.copy()
+    for i in range(3):
+        new_content[i].style = {"display": "None"}
+    del new_content[tab_index].style
+    return new_content
+
+
+def tab_contents_clustering(tab_id):
+    """
+    Callback to switch tabs based on user interaction in the clustering tab
+    of the analysis accordion. Here we make all divs hidden and then unhide
+    the one we're interested in. This is done to persist the selection of
+    hyper-parameters when switching back and forth between tabs.
+
+    :param tab_id: One of 'k-means' or 'GMM-EM'
+    :return: The HTML layout to display
+    """
+    tab_index = {"k-means": 0, "GMM-EM": 1}[tab_id]
+    new_content = clustering_tab_content.copy()
+    for i in range(3):
+        new_content[i].style = {"display": "None"}
+    del new_content[tab_index].style
+    return new_content
