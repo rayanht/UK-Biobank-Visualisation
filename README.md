@@ -21,7 +21,7 @@ This project was realised as part of the third-year software engineering project
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See `Deployment` for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -52,17 +52,9 @@ $ pipenv --version # pipenv, version 2020.x.x ✅
 $ yarn --version # 1.22.4 ✅
 ```
 
-## Installing
-
-Follow these instructions to setup a development environment. Skip to the `Deployment` section if you only want to deploy your own version of the explorer.
-
-```bash
-tbc
-```
 ## Deployment
 
-The easiest way to deploy the explorer is using `docker-compose`. Put your dataset in `dataset/ukbb-dataset.csv` and simply run:
-
+The easiest way to deploy a production-like version of the explorer is using `docker-compose`. Put your dataset in `dataset/ukbb-dataset.csv` and simply run:
 
 ```bash
 $ docker-compose up
