@@ -1,0 +1,1451 @@
+,Index,LVL1,LVL2,LVL3,LVL4,LVL5,LVL6,NodeID,NodeType,CategoryID,FieldID,InstanceID,RelatedFieldID,NodeName
+0,0,1,0,0,0,0,0,1.0.0.0.0.0.0.0,root,1.0,,,,Population characteristics
+1,1,2,0,0,0,0,0,2.0.0.0.0.0.0.0,root,100000.0,,,,UK Biobank Assessment Centre
+2,2,3,0,0,0,0,0,3.0.0.0.0.0.0.0,root,100078.0,,,,Biological samples
+3,3,4,0,0,0,0,0,4.0.0.0.0.0.0.0,root,100314.0,,,,Genomics
+4,4,5,0,0,0,0,0,5.0.0.0.0.0.0.0,root,100089.0,,,,Online follow-up
+5,5,6,0,0,0,0,0,6.0.0.0.0.0.0.0,root,100088.0,,,,Additional exposures
+6,6,7,0,0,0,0,0,7.0.0.0.0.0.0.0,root,100091.0,,,,Health-related outcomes
+7,7,1,1,0,0,0,0,1.1.0.0.0.0.0.0,sub,100094.0,,,,Baseline characteristics
+8,8,1,2,0,0,0,0,1.2.0.0.0.0.0.0,sub,2.0,,,,Ongoing characteristics
+9,9,2,1,0,0,0,0,2.1.0.0.0.0.0.0,sub,100021.0,,,,Recruitment
+10,10,2,2,0,0,0,0,2.2.0.0.0.0.0.0,sub,100025.0,,,,Touchscreen
+11,11,2,3,0,0,0,0,2.3.0.0.0.0.0.0,sub,100071.0,,,,Verbal interview
+12,12,2,4,0,0,0,0,2.4.0.0.0.0.0.0,sub,100006.0,,,,Physical measures
+13,13,2,5,0,0,0,0,2.5.0.0.0.0.0.0,sub,100026.0,,,,Cognitive function
+14,14,2,6,0,0,0,0,2.6.0.0.0.0.0.0,sub,100003.0,,,,Imaging
+15,15,2,7,0,0,0,0,2.7.0.0.0.0.0.0,sub,100001.0,,,,Biological sampling
+16,16,2,8,0,0,0,0,2.8.0.0.0.0.0.0,sub,100004.0,,,,Procedural metrics
+17,17,3,1,0,0,0,0,3.1.0.0.0.0.0.0,sub,100079.0,,,,Assay results
+18,18,3,2,0,0,0,0,3.2.0.0.0.0.0.0,sub,100084.0,,,,Sample inventory
+19,19,7,1,0,0,0,0,7.1.0.0.0.0.0.0,sub,3000.0,,,,Primary care
+20,20,7,2,0,0,0,0,7.2.0.0.0.0.0.0,sub,2000.0,,,,Hospital inpatient
+21,21,7,3,0,0,0,0,7.3.0.0.0.0.0.0,sub,100093.0,,,,Death register
+22,22,7,4,0,0,0,0,7.4.0.0.0.0.0.0,sub,100092.0,,,,Cancer register
+23,23,5,1,0,0,0,0,5.1.0.0.0.0.0.0,sub,100090.0,,,,Diet by 24-hour recall
+24,24,5,2,0,0,0,0,5.2.0.0.0.0.0.0,sub,116.0,,,,Cognitive function online
+25,25,5,3,0,0,0,0,5.3.0.0.0.0.0.0,sub,123.0,,,,Work environment
+26,26,5,4,0,0,0,0,5.4.0.0.0.0.0.0,sub,136.0,,,,Mental health
+27,27,7,5,0,0,0,0,7.5.0.0.0.0.0.0,sub,42.0,,,,Algorithmically-defined outcomes
+28,28,7,6,0,0,0,0,7.6.0.0.0.0.0.0,sub,1712.0,,,,First occurrences
+29,29,5,5,0,0,0,0,5.5.0.0.0.0.0.0,sub,153.0,,,,Digestive health
+30,30,5,6,0,0,0,0,5.6.0.0.0.0.0.0,sub,154.0,,,,Experience of pain
+31,31,6,1,0,0,0,0,6.1.0.0.0.0.0.0,sub,113.0,,,,Local environment
+32,32,6,2,0,0,0,0,6.2.0.0.0.0.0.0,sub,1008.0,,,,Physical activity measurement
+33,33,6,3,0,0,0,0,6.3.0.0.0.0.0.0,sub,347.0,,,,Cardiac monitoring
+34,34,4,1,0,0,0,0,4.1.0.0.0.0.0.0,sub,263.0,,,,Genotypes
+35,35,4,2,0,0,0,0,4.2.0.0.0.0.0.0,sub,170.0,,,,Exome sequences
+36,36,4,3,0,0,0,0,4.3.0.0.0.0.0.0,sub,180.0,,,,Whole genome sequences
+37,37,2,5,1,0,0,0,2.5.1.0.0.0.0.0,sub,100032.0,,,,Reaction time
+38,38,2,5,2,0,0,0,2.5.2.0.0.0.0.0,sub,100029.0,,,,Numeric memory
+39,39,2,5,3,0,0,0,2.5.3.0.0.0.0.0,sub,100027.0,,,,Fluid intelligence / reasoning
+40,40,2,5,4,0,0,0,2.5.4.0.0.0.0.0,sub,505.0,,,,Trail making
+41,41,2,5,5,0,0,0,2.5.5.0.0.0.0.0,sub,501.0,,,,Matrix pattern completion
+42,42,2,5,6,0,0,0,2.5.6.0.0.0.0.0,sub,503.0,,,,Tower rearranging
+43,43,2,5,7,0,0,0,2.5.7.0.0.0.0.0,sub,504.0,,,,Picture vocabulary
+44,44,2,5,8,0,0,0,2.5.8.0.0.0.0.0,sub,502.0,,,,Symbol digit substitution
+45,45,2,5,9,0,0,0,2.5.9.0.0.0.0.0,sub,506.0,,,,Paired associate learning
+46,46,2,5,10,0,0,0,2.5.10.0.0.0.0.0,sub,100031.0,,,,Prospective memory
+47,47,2,5,11,0,0,0,2.5.11.0.0.0.0.0,sub,100030.0,,,,Pairs matching
+48,48,2,7,1,0,0,0,2.7.1.0.0.0.0.0,sub,100002.0,,,,Blood sample collection
+49,49,2,7,2,0,0,0,2.7.2.0.0.0.0.0,sub,100096.0,,,,Saliva sample collection
+50,50,2,7,3,0,0,0,2.7.3.0.0.0.0.0,sub,100095.0,,,,Urine sample collection
+51,51,2,6,1,0,0,0,2.6.1.0.0.0.0.0,sub,105.0,,,,Abdominal MRI
+52,52,2,6,2,0,0,0,2.6.2.0.0.0.0.0,sub,100.0,,,,Brain MRI
+53,53,2,6,3,0,0,0,2.6.3.0.0.0.0.0,sub,102.0,,,,Heart MRI
+54,54,2,5,12,0,0,0,2.5.12.0.0.0.0.0,sub,100028.0,,,,Lights pattern memory
+55,55,2,5,13,0,0,0,2.5.13.0.0.0.0.0,sub,100077.0,,,,Word production
+56,56,2,6,4,0,0,0,2.6.4.0.0.0.0.0,sub,103.0,,,,DXA assessment
+57,57,1,1,1,0,0,0,1.1.1.0.0.0.0.0,sub,76.0,,,,Indices of Multiple Deprivation
+58,58,1,1,2,0,0,0,1.1.2.0.0.0.0.0,leaf,,21022.0,,,Age at recruitment
+59,60,1,1,4,0,0,0,1.1.4.0.0.0.0.0,leaf,,52.0,,,Month of birth
+60,61,1,1,5,0,0,0,1.1.5.0.0.0.0.0,leaf,,34.0,,,Year of birth
+61,62,1,1,6,0,0,0,1.1.6.0.0.0.0.0,leaf,,31.0,,,Sex
+62,63,1,1,7,0,0,0,1.1.7.0.0.0.0.0,leaf,,189.0,,,Townsend deprivation index at recruitment
+63,68,2,2,1,0,0,0,2.2.1.0.0.0.0.0,sub,100062.0,,,,Sociodemographics
+64,69,2,2,2,0,0,0,2.2.2.0.0.0.0.0,sub,100050.0,,,,Lifestyle and environment
+65,70,2,2,3,0,0,0,2.2.3.0.0.0.0.0,sub,100033.0,,,,Early life factors
+66,71,2,2,4,0,0,0,2.2.4.0.0.0.0.0,sub,100034.0,,,,Family history
+67,72,2,2,5,0,0,0,2.2.5.0.0.0.0.0,sub,100059.0,,,,Psychosocial factors
+68,73,2,2,6,0,0,0,2.2.6.0.0.0.0.0,sub,100036.0,,,,Health and medical history
+69,74,2,2,7,0,0,0,2.2.7.0.0.0.0.0,sub,100068.0,,,,Sex-specific factors
+70,75,2,3,1,0,0,0,2.3.1.0.0.0.0.0,sub,100072.0,,,,Early life factors
+71,76,2,3,2,0,0,0,2.3.2.0.0.0.0.0,sub,100073.0,,,,Employment
+72,77,2,3,3,0,0,0,2.3.3.0.0.0.0.0,sub,100074.0,,,,Medical conditions
+73,78,2,3,4,0,0,0,2.3.4.0.0.0.0.0,sub,100075.0,,,,Medications
+74,79,2,3,5,0,0,0,2.3.5.0.0.0.0.0,sub,100076.0,,,,Operations
+75,80,2,1,1,0,0,0,2.1.1.0.0.0.0.0,sub,100024.0,,,,Reception
+76,81,2,1,2,0,0,0,2.1.2.0.0.0.0.0,sub,100023.0,,,,Consent
+77,82,2,1,3,0,0,0,2.1.3.0.0.0.0.0,sub,100022.0,,,,Conclusion
+78,83,2,8,1,0,0,0,2.8.1.0.0.0.0.0,sub,129.0,,,,Process completion times
+79,84,2,8,2,0,0,0,2.8.2.0.0.0.0.0,sub,152.0,,,,Process durations
+80,85,2,8,3,0,0,0,2.8.3.0.0.0.0.0,sub,127.0,,,,Process authorisation
+81,92,7,3,2,0,0,0,7.3.2.0.0.0.0.0,leaf,,40000.0,,,Date of death
+82,93,7,3,3,0,0,0,7.3.3.0.0.0.0.0,leaf,,40007.0,,,Age at death
+83,94,7,3,4,0,0,0,7.3.4.0.0.0.0.0,leaf,,40001.0,,,Underlying (primary) cause of death: ICD10
+84,97,7,3,7,0,0,0,7.3.7.0.0.0.0.0,leaf,,40002.0,,,Contributory (secondary) causes of death: ICD10
+85,98,7,3,8,0,0,0,7.3.8.0.0.0.0.0,leaf,,40010.0,,,Description of cause of death
+86,100,2,4,1,0,0,0,2.4.1.0.0.0.0.0,sub,100011.0,,,,Blood pressure
+87,101,2,4,2,0,0,0,2.4.2.0.0.0.0.0,sub,101.0,,,,Carotid ultrasound
+88,102,2,4,3,0,0,0,2.4.3.0.0.0.0.0,sub,100007.0,,,,Arterial stiffness
+89,103,2,4,4,0,0,0,2.4.4.0.0.0.0.0,sub,100049.0,,,,Hearing test
+90,104,2,4,5,0,0,0,2.4.5.0.0.0.0.0,sub,100013.0,,,,Eye measures
+91,105,2,4,6,0,0,0,2.4.6.0.0.0.0.0,sub,100019.0,,,,Hand grip strength
+92,106,2,4,7,0,0,0,2.4.7.0.0.0.0.0,sub,100008.0,,,,Anthropometry
+93,107,2,4,8,0,0,0,2.4.8.0.0.0.0.0,sub,100018.0,,,,Bone-densitometry of heel
+94,108,2,4,9,0,0,0,2.4.9.0.0.0.0.0,sub,100020.0,,,,Spirometry
+95,110,7,4,2,0,0,0,7.4.2.0.0.0.0.0,leaf,,40009.0,,,Reported occurrences of cancer
+96,111,2,4,10,0,0,0,2.4.10.0.0.0.0.0,sub,104.0,,,,"ECG at rest, 12-lead"
+97,112,2,4,11,0,0,0,2.4.11.0.0.0.0.0,sub,100012.0,,,,ECG during exercise
+98,113,7,4,3,0,0,0,7.4.3.0.0.0.0.0,leaf,,40005.0,,,Date of cancer diagnosis
+99,114,7,4,4,0,0,0,7.4.4.0.0.0.0.0,leaf,,40008.0,,,Age at cancer diagnosis
+100,115,7,4,5,0,0,0,7.4.5.0.0.0.0.0,leaf,,40006.0,,,Type of cancer: ICD10
+101,117,4,3,1,0,0,0,4.3.1.0.0.0.0.0,sub,181.0,,,,BGI WGS pilot
+102,118,4,3,2,0,0,0,4.3.2.0.0.0.0.0,sub,182.0,,,,Broad WGS pilot
+103,119,7,4,7,0,0,0,7.4.7.0.0.0.0.0,leaf,,40013.0,,,Type of cancer: ICD9
+104,120,7,4,8,0,0,0,7.4.8.0.0.0.0.0,leaf,,40011.0,,,Histology of cancer tumour
+105,122,7,4,10,0,0,0,7.4.10.0.0.0.0.0,leaf,,40012.0,,,Behaviour of cancer tumour
+106,124,7,1,1,0,0,0,7.1.1.0.0.0.0.0,sub,3001.0,,,,Record-level access
+107,135,4,1,1,0,0,0,4.1.1.0.0.0.0.0,sub,100315.0,,,,Genotype Results
+108,136,4,1,2,0,0,0,4.1.2.0.0.0.0.0,sub,100319.0,,,,Imputation
+109,137,4,1,3,0,0,0,4.1.3.0.0.0.0.0,sub,100035.0,,,,HLA
+110,138,4,1,4,0,0,0,4.1.4.0.0.0.0.0,sub,100313.0,,,,Genotyping process and sample QC
+111,139,4,1,5,0,0,0,4.1.5.0.0.0.0.0,sub,199001.0,,,,Interim genotype release
+112,140,3,2,1,0,0,0,3.2.1.0.0.0.0.0,sub,100085.0,,,,Blood sample inventory
+113,141,3,2,2,0,0,0,3.2.2.0.0.0.0.0,sub,100086.0,,,,Saliva sample inventory
+114,142,3,2,3,0,0,0,3.2.3.0.0.0.0.0,sub,100087.0,,,,Urine sample inventory
+115,143,3,1,1,0,0,0,3.1.1.0.0.0.0.0,sub,100080.0,,,,Blood assays
+116,144,3,1,2,0,0,0,3.1.2.0.0.0.0.0,sub,100082.0,,,,Saliva assays
+117,145,3,1,3,0,0,0,3.1.3.0.0.0.0.0,sub,100083.0,,,,Urine assays
+118,146,7,2,1,0,0,0,7.2.1.0.0.0.0.0,sub,2006.0,,,,Record-level access
+119,147,7,2,2,0,0,0,7.2.2.0.0.0.0.0,sub,2002.0,,,,Summary Diagnoses
+120,148,7,2,3,0,0,0,7.2.3.0.0.0.0.0,sub,2005.0,,,,Summary Operations
+121,149,7,2,4,0,0,0,7.2.4.0.0.0.0.0,sub,2003.0,,,,Summary Maternity
+122,150,7,2,5,0,0,0,7.2.5.0.0.0.0.0,sub,2004.0,,,,Summary Psychiatric
+123,151,7,2,6,0,0,0,7.2.6.0.0.0.0.0,sub,2001.0,,,,Summary Administration
+124,152,2,6,4,1,0,0,2.6.4.1.0.0.0.0,sub,125.0,,,,"Bone size, mineral and density by DXA"
+125,153,2,6,4,2,0,0,2.6.4.2.0.0.0.0,sub,124.0,,,,Body composition by DXA
+126,203,3,1,3,1,0,0,3.1.3.1.0.0.0.0,sub,148.0,,,,Urine processing
+127,217,3,1,1,1,0,0,3.1.1.1.0.0.0.0,sub,100081.0,,,,Blood count
+128,218,3,1,1,2,0,0,3.1.1.2.0.0.0.0,sub,17518.0,,,,Blood biochemistry
+129,219,3,1,1,3,0,0,3.1.1.3.0.0.0.0,sub,51428.0,,,,Infectious Diseases
+130,291,3,1,1,3,1,0,3.1.1.3.1.0.0.0,sub,1307.0,,,,Infectious Disease Antigens
+131,440,3,1,1,2,1,0,3.1.1.2.1.0.0.0,sub,18518.0,,,,Blood biochemistry processing
+132,446,3,1,1,1,1,0,3.1.1.1.1.0.0.0,sub,9081.0,,,,Blood count processing
+133,2381,7,2,2,5,0,0,7.2.2.5.0.0.0.0,leaf,,41202.0,,,Diagnoses - main ICD10
+134,2383,7,2,2,7,0,0,7.2.2.7.0.0.0.0,leaf,,41203.0,,,Diagnoses - main ICD9
+135,2403,7,2,2,9,0,0,7.2.2.9.0.0.0.0,leaf,,41204.0,,,Diagnoses - secondary ICD10
+136,2404,7,2,2,10,0,0,7.2.2.10.0.0.0.0,leaf,,41205.0,,,Diagnoses - secondary ICD9
+137,2535,4,1,5,1,0,0,4.1.5.1.0.0.0.0,sub,100316.0,,,,Genotype confidences
+138,2536,4,1,5,2,0,0,4.1.5.2.0.0.0.0,sub,100317.0,,,,Genotyping intensities
+139,3008,2,4,9,1,0,0,2.4.9.1.0.0.0.0,leaf,,20031.0,,,Acceptability of each blow result (text)
+140,3009,2,4,9,2,0,0,2.4.9.2.0.0.0.0,leaf,,20042.0,,,Reason for skipping spirometry
+141,3010,2,4,9,3,0,0,2.4.9.3.0.0.0.0,leaf,,20032.0,,,Acceptability of each blow result (text) (pilot)
+142,3015,2,4,9,4,0,0,2.4.9.4.0.0.0.0,leaf,,20152.0,,,Reproduciblity of spirometry measurement using ERS/ATS criteria
+143,3016,2,4,9,5,0,0,2.4.9.5.0.0.0.0,leaf,,3088.0,,,Contra-indications for spirometry
+144,3017,2,4,9,6,0,0,2.4.9.6.0.0.0.0,leaf,,3089.0,,,Caffeine drink within last hour
+145,3018,2,4,9,7,0,0,2.4.9.7.0.0.0.0,leaf,,3090.0,,,Used an inhaler for chest within last hour
+146,3023,2,4,9,8,0,0,2.4.9.8.0.0.0.0,leaf,,3159.0,,,Smoked cigarette or pipe within last hour
+147,3024,2,4,9,9,0,0,2.4.9.9.0.0.0.0,leaf,,23.0,,,Spirometry method
+148,3025,2,4,9,10,0,0,2.4.9.10.0.0.0.0,leaf,,3137.0,,,Number of measurements made
+149,3032,2,4,9,13,0,0,2.4.9.13.0.0.0.0,leaf,,3065.0,,,Ordering of blows
+150,3033,2,4,9,14,0,0,2.4.9.14.0.0.0.0,leaf,,3059.0,,,Result ranking
+151,3034,2,4,9,15,0,0,2.4.9.15.0.0.0.0,leaf,,10691.0,,,Result ranking (pilot)
+152,3039,2,4,9,16,0,0,2.4.9.16.0.0.0.0,leaf,,3066.0,,,Data points for blow
+153,3040,2,4,9,17,0,0,2.4.9.17.0.0.0.0,leaf,,10711.0,,,Spirometry method (pilot)
+154,3041,2,4,9,18,0,0,2.4.9.18.0.0.0.0,leaf,,10697.0,,,Data points for blow (pilot)
+155,3045,2,4,7,1,0,0,2.4.7.1.0.0.0.0,sub,100010.0,,,,Body size measures
+156,3046,2,4,7,2,0,0,2.4.7.2.0.0.0.0,sub,100009.0,,,,Impedance measures
+157,3047,2,4,5,1,0,0,2.4.5.1.0.0.0.0,sub,100099.0,,,,Eye surgery/complications
+158,3048,2,4,5,2,0,0,2.4.5.2.0.0.0.0,sub,100017.0,,,,Visual acuity
+159,3049,2,4,5,3,0,0,2.4.5.3.0.0.0.0,sub,100014.0,,,,Autorefraction
+160,3056,2,4,9,21,0,0,2.4.9.21.0.0.0.0,leaf,,3062.0,,,Forced vital capacity (FVC)
+161,3057,2,4,9,22,0,0,2.4.9.22.0.0.0.0,leaf,,10694.0,,,Forced vital capacity (FVC) (pilot)
+162,3060,2,4,5,4,0,0,2.4.5.4.0.0.0.0,sub,100015.0,,,,Intraocular pressure
+163,3061,2,4,5,5,0,0,2.4.5.5.0.0.0.0,sub,100016.0,,,,Retinal optical coherence tomography
+164,3066,2,4,9,23,0,0,2.4.9.23.0.0.0.0,leaf,,20151.0,,,"Forced vital capacity (FVC), Best measure"
+165,3068,2,4,9,25,0,0,2.4.9.25.0.0.0.0,leaf,,3063.0,,,Forced expiratory volume in 1-second (FEV1)
+166,3069,2,4,9,26,0,0,2.4.9.26.0.0.0.0,leaf,,10695.0,,,Forced expiratory volume in 1-second (FEV1) (pilot)
+167,3079,2,4,9,27,0,0,2.4.9.27.0.0.0.0,leaf,,20150.0,,,"Forced expiratory volume in 1-second (FEV1), Best measure"
+168,3080,2,4,9,28,0,0,2.4.9.28.0.0.0.0,leaf,,20153.0,,,"Forced expiratory volume in 1-second (FEV1), predicted"
+169,3081,2,4,9,29,0,0,2.4.9.29.0.0.0.0,leaf,,20154.0,,,"Forced expiratory volume in 1-second (FEV1), predicted percentage"
+170,3096,2,4,9,32,0,0,2.4.9.32.0.0.0.0,leaf,,3064.0,,,Peak expiratory flow (PEF)
+171,3097,2,4,9,33,0,0,2.4.9.33.0.0.0.0,leaf,,10696.0,,,Peak expiratory flow (PEF) (pilot)
+172,3164,2,4,9,7,0,0,2.4.9.7.0.0.0.0,inst,,3090.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+173,3165,2,4,9,7,0,0,2.4.9.7.0.0.0.0,inst,,3090.0,1.0,,First repeat assessment visit (2012-13)
+174,3166,2,4,9,7,0,0,2.4.9.7.0.0.0.0,inst,,3090.0,2.0,,Imaging visit (2014+)
+175,3380,2,4,9,32,0,0,2.4.9.32.0.0.0.0,inst,,3064.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+176,3381,2,4,9,32,0,0,2.4.9.32.0.0.0.0,inst,,3064.0,1.0,,First repeat assessment visit (2012-13)
+177,3382,2,4,9,32,0,0,2.4.9.32.0.0.0.0,inst,,3064.0,2.0,,Imaging visit (2014+)
+178,3490,2,4,9,25,0,0,2.4.9.25.0.0.0.0,inst,,3063.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+179,3491,2,4,9,25,0,0,2.4.9.25.0.0.0.0,inst,,3063.0,1.0,,First repeat assessment visit (2012-13)
+180,3492,2,4,9,25,0,0,2.4.9.25.0.0.0.0,inst,,3063.0,2.0,,Imaging visit (2014+)
+181,3563,2,4,9,21,0,0,2.4.9.21.0.0.0.0,inst,,3062.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+182,3564,2,4,9,21,0,0,2.4.9.21.0.0.0.0,inst,,3062.0,1.0,,First repeat assessment visit (2012-13)
+183,3565,2,4,9,21,0,0,2.4.9.21.0.0.0.0,inst,,3062.0,2.0,,Imaging visit (2014+)
+184,3704,2,4,7,1,1,0,2.4.7.1.1.0.0.0,leaf,,20046.0,,,Reason for skipping hip measurement
+185,3705,2,4,7,1,2,0,2.4.7.1.2.0.0.0,leaf,,20048.0,,,Reason for skipping sitting height
+186,3706,2,4,7,1,3,0,2.4.7.1.3.0.0.0,leaf,,20047.0,,,Reason for skipping standing height
+187,3707,2,4,7,2,1,0,2.4.7.2.1.0.0.0,leaf,,23098.0,,,Weight
+188,3708,2,4,7,2,2,0,2.4.7.2.2.0.0.0,leaf,,23104.0,,,Body mass index (BMI)
+189,3709,2,4,7,2,3,0,2.4.7.2.3.0.0.0,leaf,,23113.0,,,Leg fat-free mass (right)
+190,3715,2,4,7,1,4,0,2.4.7.1.4.0.0.0,leaf,,20045.0,,,Reason for skipping waist
+191,3716,2,4,7,1,5,0,2.4.7.1.5.0.0.0,leaf,,20041.0,,,Reason for skipping weight
+192,3717,2,4,7,1,6,0,2.4.7.1.6.0.0.0,leaf,,12144.0,,,Height
+193,3718,2,4,7,1,7,0,2.4.7.1.7.0.0.0,leaf,,12143.0,,,Weight (pre-imaging)
+194,3719,2,4,7,2,4,0,2.4.7.2.4.0.0.0,leaf,,23118.0,,,Leg predicted mass (left)
+195,3720,2,4,7,2,5,0,2.4.7.2.5.0.0.0,leaf,,23114.0,,,Leg predicted mass (right)
+196,3721,2,4,7,2,6,0,2.4.7.2.6.0.0.0,leaf,,23123.0,,,Arm fat percentage (left)
+197,3722,2,4,7,2,7,0,2.4.7.2.7.0.0.0,leaf,,23119.0,,,Arm fat percentage (right)
+198,3729,2,4,7,1,8,0,2.4.7.1.8.0.0.0,leaf,,48.0,,,Waist circumference
+199,3730,2,4,7,1,9,0,2.4.7.1.9.0.0.0,leaf,,21002.0,,,Weight
+200,3731,2,4,7,1,10,0,2.4.7.1.10.0.0.0,leaf,,21001.0,,,Body mass index (BMI)
+201,3732,2,4,7,1,11,0,2.4.7.1.11.0.0.0,leaf,,49.0,,,Hip circumference
+202,3733,2,4,7,2,8,0,2.4.7.2.8.0.0.0,leaf,,23124.0,,,Arm fat mass (left)
+203,3734,2,4,7,2,9,0,2.4.7.2.9.0.0.0,leaf,,23120.0,,,Arm fat mass (right)
+204,3735,2,4,7,2,10,0,2.4.7.2.10.0.0.0,leaf,,23121.0,,,Arm fat-free mass (right)
+205,3736,2,4,7,2,11,0,2.4.7.2.11.0.0.0,leaf,,23125.0,,,Arm fat-free mass (left)
+206,3741,2,4,7,1,13,0,2.4.7.1.13.0.0.0,leaf,,50.0,,,Standing height
+207,3744,2,4,7,2,12,0,2.4.7.2.12.0.0.0,leaf,,23126.0,,,Arm predicted mass (left)
+208,3745,2,4,7,2,13,0,2.4.7.2.13.0.0.0,leaf,,23122.0,,,Arm predicted mass (right)
+209,3746,2,4,7,2,14,0,2.4.7.2.14.0.0.0,leaf,,23127.0,,,Trunk fat percentage
+210,3747,2,4,7,2,15,0,2.4.7.2.15.0.0.0,leaf,,23128.0,,,Trunk fat mass
+211,3748,2,4,7,1,16,0,2.4.7.1.16.0.0.0,leaf,,20015.0,,,Sitting height
+212,3751,2,4,7,1,19,0,2.4.7.1.19.0.0.0,leaf,,3160.0,,,"Weight, manual entry"
+213,3752,2,4,7,2,16,0,2.4.7.2.16.0.0.0,leaf,,23129.0,,,Trunk fat-free mass
+214,3753,2,4,7,2,17,0,2.4.7.2.17.0.0.0,leaf,,23130.0,,,Trunk predicted mass
+215,3754,2,4,7,2,18,0,2.4.7.2.18.0.0.0,leaf,,23105.0,,,Basal metabolic rate
+216,3755,2,4,7,2,19,0,2.4.7.2.19.0.0.0,leaf,,23099.0,,,Body fat percentage
+217,3756,2,4,7,1,20,0,2.4.7.1.20.0.0.0,leaf,,21.0,,,Weight method
+218,3761,2,4,7,2,20,0,2.4.7.2.20.0.0.0,leaf,,23100.0,,,Whole body fat mass
+219,3762,2,4,7,2,21,0,2.4.7.2.21.0.0.0,leaf,,23101.0,,,Whole body fat-free mass
+220,3763,2,4,7,2,22,0,2.4.7.2.22.0.0.0,leaf,,23102.0,,,Whole body water mass
+221,3764,2,4,7,2,23,0,2.4.7.2.23.0.0.0,leaf,,23115.0,,,Leg fat percentage (left)
+222,3765,2,4,7,2,24,0,2.4.7.2.24.0.0.0,leaf,,23111.0,,,Leg fat percentage (right)
+223,3766,2,4,7,2,25,0,2.4.7.2.25.0.0.0,leaf,,23116.0,,,Leg fat mass (left)
+224,3767,2,4,7,2,26,0,2.4.7.2.26.0.0.0,leaf,,23112.0,,,Leg fat mass (right)
+225,3768,2,4,7,2,27,0,2.4.7.2.27.0.0.0,leaf,,23117.0,,,Leg fat-free mass (left)
+226,3770,2,4,7,2,29,0,2.4.7.2.29.0.0.0,leaf,,23106.0,,,Impedance of whole body
+227,3771,2,4,7,2,30,0,2.4.7.2.30.0.0.0,leaf,,23110.0,,,Impedance of arm (left)
+228,3772,2,4,7,2,31,0,2.4.7.2.31.0.0.0,leaf,,23109.0,,,Impedance of arm (right)
+229,3773,2,4,7,2,32,0,2.4.7.2.32.0.0.0,leaf,,23108.0,,,Impedance of leg (left)
+230,3774,2,4,7,2,33,0,2.4.7.2.33.0.0.0,leaf,,23107.0,,,Impedance of leg (right)
+231,3828,2,4,7,2,15,0,2.4.7.2.15.0.0.0,inst,,23128.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+232,3829,2,4,7,2,15,0,2.4.7.2.15.0.0.0,inst,,23128.0,1.0,,First repeat assessment visit (2012-13)
+233,3830,2,4,7,2,7,0,2.4.7.2.7.0.0.0,inst,,23119.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+234,3831,2,4,7,2,7,0,2.4.7.2.7.0.0.0,inst,,23119.0,1.0,,First repeat assessment visit (2012-13)
+235,3857,2,4,7,2,33,0,2.4.7.2.33.0.0.0,inst,,23107.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+236,3858,2,4,7,2,33,0,2.4.7.2.33.0.0.0,inst,,23107.0,1.0,,First repeat assessment visit (2012-13)
+237,3863,2,4,7,2,32,0,2.4.7.2.32.0.0.0,inst,,23108.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+238,3864,2,4,7,2,32,0,2.4.7.2.32.0.0.0,inst,,23108.0,1.0,,First repeat assessment visit (2012-13)
+239,3871,2,4,7,2,31,0,2.4.7.2.31.0.0.0,inst,,23109.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+240,3872,2,4,7,2,31,0,2.4.7.2.31.0.0.0,inst,,23109.0,1.0,,First repeat assessment visit (2012-13)
+241,3889,2,4,7,2,30,0,2.4.7.2.30.0.0.0,inst,,23110.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+242,3890,2,4,7,2,30,0,2.4.7.2.30.0.0.0,inst,,23110.0,1.0,,First repeat assessment visit (2012-13)
+243,3901,2,4,7,2,27,0,2.4.7.2.27.0.0.0,inst,,23117.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+244,3902,2,4,7,2,27,0,2.4.7.2.27.0.0.0,inst,,23117.0,1.0,,First repeat assessment visit (2012-13)
+245,3904,2,4,7,2,26,0,2.4.7.2.26.0.0.0,inst,,23112.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+246,3905,2,4,7,2,26,0,2.4.7.2.26.0.0.0,inst,,23112.0,1.0,,First repeat assessment visit (2012-13)
+247,3907,2,4,7,2,29,0,2.4.7.2.29.0.0.0,inst,,23106.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+248,3908,2,4,7,2,29,0,2.4.7.2.29.0.0.0,inst,,23106.0,1.0,,First repeat assessment visit (2012-13)
+249,3912,2,4,7,2,25,0,2.4.7.2.25.0.0.0,inst,,23116.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+250,3913,2,4,7,2,25,0,2.4.7.2.25.0.0.0,inst,,23116.0,1.0,,First repeat assessment visit (2012-13)
+251,3915,2,4,7,2,24,0,2.4.7.2.24.0.0.0,inst,,23111.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+252,3916,2,4,7,2,24,0,2.4.7.2.24.0.0.0,inst,,23111.0,1.0,,First repeat assessment visit (2012-13)
+253,3918,2,4,7,2,23,0,2.4.7.2.23.0.0.0,inst,,23115.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+254,3919,2,4,7,2,23,0,2.4.7.2.23.0.0.0,inst,,23115.0,1.0,,First repeat assessment visit (2012-13)
+255,3921,2,4,7,2,20,0,2.4.7.2.20.0.0.0,inst,,23100.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+256,3922,2,4,7,2,20,0,2.4.7.2.20.0.0.0,inst,,23100.0,1.0,,First repeat assessment visit (2012-13)
+257,3923,2,4,7,2,21,0,2.4.7.2.21.0.0.0,inst,,23101.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+258,3924,2,4,7,2,21,0,2.4.7.2.21.0.0.0,inst,,23101.0,1.0,,First repeat assessment visit (2012-13)
+259,3925,2,4,7,2,22,0,2.4.7.2.22.0.0.0,inst,,23102.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+260,3926,2,4,7,2,22,0,2.4.7.2.22.0.0.0,inst,,23102.0,1.0,,First repeat assessment visit (2012-13)
+261,3931,2,4,7,1,20,0,2.4.7.1.20.0.0.0,inst,,21.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+262,3932,2,4,7,1,20,0,2.4.7.1.20.0.0.0,inst,,21.0,1.0,,First repeat assessment visit (2012-13)
+263,3933,2,4,7,1,20,0,2.4.7.1.20.0.0.0,inst,,21.0,2.0,,Imaging visit (2014+)
+264,3936,2,4,7,2,18,0,2.4.7.2.18.0.0.0,inst,,23105.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+265,3937,2,4,7,2,18,0,2.4.7.2.18.0.0.0,inst,,23105.0,1.0,,First repeat assessment visit (2012-13)
+266,3938,2,4,7,2,19,0,2.4.7.2.19.0.0.0,inst,,23099.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+267,3939,2,4,7,2,19,0,2.4.7.2.19.0.0.0,inst,,23099.0,1.0,,First repeat assessment visit (2012-13)
+268,3940,2,4,7,2,17,0,2.4.7.2.17.0.0.0,inst,,23130.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+269,3941,2,4,7,2,17,0,2.4.7.2.17.0.0.0,inst,,23130.0,1.0,,First repeat assessment visit (2012-13)
+270,3942,2,4,7,2,16,0,2.4.7.2.16.0.0.0,inst,,23129.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+271,3943,2,4,7,2,16,0,2.4.7.2.16.0.0.0,inst,,23129.0,1.0,,First repeat assessment visit (2012-13)
+272,3949,2,4,7,1,19,0,2.4.7.1.19.0.0.0,inst,,3160.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+273,3950,2,4,7,1,19,0,2.4.7.1.19.0.0.0,inst,,3160.0,1.0,,First repeat assessment visit (2012-13)
+274,3951,2,4,7,1,19,0,2.4.7.1.19.0.0.0,inst,,3160.0,2.0,,Imaging visit (2014+)
+275,3961,2,4,7,1,16,0,2.4.7.1.16.0.0.0,inst,,20015.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+276,3962,2,4,7,1,16,0,2.4.7.1.16.0.0.0,inst,,20015.0,1.0,,First repeat assessment visit (2012-13)
+277,3963,2,4,7,1,16,0,2.4.7.1.16.0.0.0,inst,,20015.0,2.0,,Imaging visit (2014+)
+278,3967,2,4,7,2,14,0,2.4.7.2.14.0.0.0,inst,,23127.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+279,3968,2,4,7,2,14,0,2.4.7.2.14.0.0.0,inst,,23127.0,1.0,,First repeat assessment visit (2012-13)
+280,3969,2,4,7,2,13,0,2.4.7.2.13.0.0.0,inst,,23122.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+281,3970,2,4,7,2,13,0,2.4.7.2.13.0.0.0,inst,,23122.0,1.0,,First repeat assessment visit (2012-13)
+282,3972,2,4,7,2,12,0,2.4.7.2.12.0.0.0,inst,,23126.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+283,3973,2,4,7,2,12,0,2.4.7.2.12.0.0.0,inst,,23126.0,1.0,,First repeat assessment visit (2012-13)
+284,3985,2,4,7,1,13,0,2.4.7.1.13.0.0.0,inst,,50.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+285,3986,2,4,7,1,13,0,2.4.7.1.13.0.0.0,inst,,50.0,1.0,,First repeat assessment visit (2012-13)
+286,3987,2,4,7,1,13,0,2.4.7.1.13.0.0.0,inst,,50.0,2.0,,Imaging visit (2014+)
+287,3999,2,4,7,2,11,0,2.4.7.2.11.0.0.0,inst,,23125.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+288,4000,2,4,7,2,11,0,2.4.7.2.11.0.0.0,inst,,23125.0,1.0,,First repeat assessment visit (2012-13)
+289,4006,2,4,7,2,10,0,2.4.7.2.10.0.0.0,inst,,23121.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+290,4007,2,4,7,2,10,0,2.4.7.2.10.0.0.0,inst,,23121.0,1.0,,First repeat assessment visit (2012-13)
+291,4009,2,4,7,2,9,0,2.4.7.2.9.0.0.0,inst,,23120.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+292,4010,2,4,7,2,9,0,2.4.7.2.9.0.0.0,inst,,23120.0,1.0,,First repeat assessment visit (2012-13)
+293,4012,2,4,7,2,8,0,2.4.7.2.8.0.0.0,inst,,23124.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+294,4013,2,4,7,2,8,0,2.4.7.2.8.0.0.0,inst,,23124.0,1.0,,First repeat assessment visit (2012-13)
+295,4018,2,4,7,1,11,0,2.4.7.1.11.0.0.0,inst,,49.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+296,4019,2,4,7,1,11,0,2.4.7.1.11.0.0.0,inst,,49.0,1.0,,First repeat assessment visit (2012-13)
+297,4020,2,4,7,1,11,0,2.4.7.1.11.0.0.0,inst,,49.0,2.0,,Imaging visit (2014+)
+298,4023,2,4,7,1,10,0,2.4.7.1.10.0.0.0,inst,,21001.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+299,4024,2,4,7,1,10,0,2.4.7.1.10.0.0.0,inst,,21001.0,1.0,,First repeat assessment visit (2012-13)
+300,4025,2,4,7,1,10,0,2.4.7.1.10.0.0.0,inst,,21001.0,2.0,,Imaging visit (2014+)
+301,4029,2,4,7,1,9,0,2.4.7.1.9.0.0.0,inst,,21002.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+302,4030,2,4,7,1,9,0,2.4.7.1.9.0.0.0,inst,,21002.0,1.0,,First repeat assessment visit (2012-13)
+303,4031,2,4,7,1,9,0,2.4.7.1.9.0.0.0,inst,,21002.0,2.0,,Imaging visit (2014+)
+304,4037,2,4,7,1,8,0,2.4.7.1.8.0.0.0,inst,,48.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+305,4038,2,4,7,1,8,0,2.4.7.1.8.0.0.0,inst,,48.0,1.0,,First repeat assessment visit (2012-13)
+306,4039,2,4,7,1,8,0,2.4.7.1.8.0.0.0,inst,,48.0,2.0,,Imaging visit (2014+)
+307,4054,2,4,7,2,6,0,2.4.7.2.6.0.0.0,inst,,23123.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+308,4055,2,4,7,2,6,0,2.4.7.2.6.0.0.0,inst,,23123.0,1.0,,First repeat assessment visit (2012-13)
+309,4057,2,4,7,2,5,0,2.4.7.2.5.0.0.0,inst,,23114.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+310,4058,2,4,7,2,5,0,2.4.7.2.5.0.0.0,inst,,23114.0,1.0,,First repeat assessment visit (2012-13)
+311,4060,2,4,7,2,4,0,2.4.7.2.4.0.0.0,inst,,23118.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+312,4061,2,4,7,2,4,0,2.4.7.2.4.0.0.0,inst,,23118.0,1.0,,First repeat assessment visit (2012-13)
+313,4063,2,4,7,1,7,0,2.4.7.1.7.0.0.0,inst,,12143.0,2.0,,Imaging visit (2014+)
+314,4066,2,4,7,1,6,0,2.4.7.1.6.0.0.0,inst,,12144.0,2.0,,Imaging visit (2014+)
+315,4084,2,4,7,2,1,0,2.4.7.2.1.0.0.0,inst,,23098.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+316,4085,2,4,7,2,1,0,2.4.7.2.1.0.0.0,inst,,23098.0,1.0,,First repeat assessment visit (2012-13)
+317,4087,2,4,7,2,2,0,2.4.7.2.2.0.0.0,inst,,23104.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+318,4088,2,4,7,2,2,0,2.4.7.2.2.0.0.0,inst,,23104.0,1.0,,First repeat assessment visit (2012-13)
+319,4089,2,4,7,2,3,0,2.4.7.2.3.0.0.0,inst,,23113.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+320,4090,2,4,7,2,3,0,2.4.7.2.3.0.0.0,inst,,23113.0,1.0,,First repeat assessment visit (2012-13)
+321,4441,2,4,9,16,0,0,2.4.9.16.0.0.0.0,inst,,3066.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+322,4442,2,4,9,16,0,0,2.4.9.16.0.0.0.0,inst,,3066.0,1.0,,First repeat assessment visit (2012-13)
+323,4482,2,4,9,14,0,0,2.4.9.14.0.0.0.0,inst,,3059.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+324,4483,2,4,9,14,0,0,2.4.9.14.0.0.0.0,inst,,3059.0,1.0,,First repeat assessment visit (2012-13)
+325,4484,2,4,9,14,0,0,2.4.9.14.0.0.0.0,inst,,3059.0,2.0,,Imaging visit (2014+)
+326,4488,2,4,9,13,0,0,2.4.9.13.0.0.0.0,inst,,3065.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+327,4489,2,4,9,13,0,0,2.4.9.13.0.0.0.0,inst,,3065.0,1.0,,First repeat assessment visit (2012-13)
+328,4490,2,4,9,13,0,0,2.4.9.13.0.0.0.0,inst,,3065.0,2.0,,Imaging visit (2014+)
+329,4517,2,4,9,10,0,0,2.4.9.10.0.0.0.0,inst,,3137.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+330,4518,2,4,9,10,0,0,2.4.9.10.0.0.0.0,inst,,3137.0,1.0,,First repeat assessment visit (2012-13)
+331,4519,2,4,9,10,0,0,2.4.9.10.0.0.0.0,inst,,3137.0,2.0,,Imaging visit (2014+)
+332,4528,2,4,9,8,0,0,2.4.9.8.0.0.0.0,inst,,3159.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+333,4529,2,4,9,8,0,0,2.4.9.8.0.0.0.0,inst,,3159.0,1.0,,First repeat assessment visit (2012-13)
+334,4530,2,4,9,8,0,0,2.4.9.8.0.0.0.0,inst,,3159.0,2.0,,Imaging visit (2014+)
+335,4532,2,4,9,9,0,0,2.4.9.9.0.0.0.0,inst,,23.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+336,4533,2,4,9,9,0,0,2.4.9.9.0.0.0.0,inst,,23.0,1.0,,First repeat assessment visit (2012-13)
+337,4534,2,4,9,9,0,0,2.4.9.9.0.0.0.0,inst,,23.0,2.0,,Imaging visit (2014+)
+338,4549,2,4,9,6,0,0,2.4.9.6.0.0.0.0,inst,,3089.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+339,4550,2,4,9,6,0,0,2.4.9.6.0.0.0.0,inst,,3089.0,1.0,,First repeat assessment visit (2012-13)
+340,4551,2,4,9,6,0,0,2.4.9.6.0.0.0.0,inst,,3089.0,2.0,,Imaging visit (2014+)
+341,4553,2,4,9,5,0,0,2.4.9.5.0.0.0.0,inst,,3088.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+342,4554,2,4,9,5,0,0,2.4.9.5.0.0.0.0,inst,,3088.0,1.0,,First repeat assessment visit (2012-13)
+343,4555,2,4,9,5,0,0,2.4.9.5.0.0.0.0,inst,,3088.0,2.0,,Imaging visit (2014+)
+344,4573,2,4,9,1,0,0,2.4.9.1.0.0.0.0,inst,,20031.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+345,4574,2,4,9,1,0,0,2.4.9.1.0.0.0.0,inst,,20031.0,1.0,,First repeat assessment visit (2012-13)
+346,4575,2,4,9,1,0,0,2.4.9.1.0.0.0.0,inst,,20031.0,2.0,,Imaging visit (2014+)
+347,4677,2,4,1,3,0,0,2.4.1.3.0.0.0.0,leaf,,4079.0,,,"Diastolic blood pressure, automated reading"
+348,4678,2,4,1,4,0,0,2.4.1.4.0.0.0.0,leaf,,94.0,,,"Diastolic blood pressure, manual reading"
+349,4680,2,4,1,6,0,0,2.4.1.6.0.0.0.0,leaf,,95.0,,,Pulse rate (during blood-pressure measurement)
+350,4681,2,4,1,7,0,0,2.4.1.7.0.0.0.0,leaf,,102.0,,,"Pulse rate, automated reading"
+351,4682,2,4,1,8,0,0,2.4.1.8.0.0.0.0,leaf,,4080.0,,,"Systolic blood pressure, automated reading"
+352,4683,2,4,1,9,0,0,2.4.1.9.0.0.0.0,leaf,,93.0,,,"Systolic blood pressure, manual reading"
+353,4781,2,4,1,7,0,0,2.4.1.7.0.0.0.0,inst,,102.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+354,4782,2,4,1,7,0,0,2.4.1.7.0.0.0.0,inst,,102.0,1.0,,First repeat assessment visit (2012-13)
+355,4783,2,4,1,7,0,0,2.4.1.7.0.0.0.0,inst,,102.0,2.0,,Imaging visit (2014+)
+356,4788,2,4,1,8,0,0,2.4.1.8.0.0.0.0,inst,,4080.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+357,4789,2,4,1,8,0,0,2.4.1.8.0.0.0.0,inst,,4080.0,1.0,,First repeat assessment visit (2012-13)
+358,4790,2,4,1,8,0,0,2.4.1.8.0.0.0.0,inst,,4080.0,2.0,,Imaging visit (2014+)
+359,4795,2,4,1,9,0,0,2.4.1.9.0.0.0.0,inst,,93.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+360,4796,2,4,1,9,0,0,2.4.1.9.0.0.0.0,inst,,93.0,1.0,,First repeat assessment visit (2012-13)
+361,4797,2,4,1,9,0,0,2.4.1.9.0.0.0.0,inst,,93.0,2.0,,Imaging visit (2014+)
+362,4802,2,4,1,6,0,0,2.4.1.6.0.0.0.0,inst,,95.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+363,4803,2,4,1,6,0,0,2.4.1.6.0.0.0.0,inst,,95.0,1.0,,First repeat assessment visit (2012-13)
+364,4804,2,4,1,6,0,0,2.4.1.6.0.0.0.0,inst,,95.0,2.0,,Imaging visit (2014+)
+365,4817,2,4,1,4,0,0,2.4.1.4.0.0.0.0,inst,,94.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+366,4818,2,4,1,4,0,0,2.4.1.4.0.0.0.0,inst,,94.0,1.0,,First repeat assessment visit (2012-13)
+367,4819,2,4,1,4,0,0,2.4.1.4.0.0.0.0,inst,,94.0,2.0,,Imaging visit (2014+)
+368,4824,2,4,1,3,0,0,2.4.1.3.0.0.0.0,inst,,4079.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+369,4825,2,4,1,3,0,0,2.4.1.3.0.0.0.0,inst,,4079.0,1.0,,First repeat assessment visit (2012-13)
+370,4826,2,4,1,3,0,0,2.4.1.3.0.0.0.0,inst,,4079.0,2.0,,Imaging visit (2014+)
+371,4839,2,1,1,1,0,0,2.1.1.1.0.0.0.0,leaf,,54.0,,,UK Biobank assessment centre
+372,4840,2,1,1,2,0,0,2.1.1.2.0.0.0.0,leaf,,53.0,,,Date of attending assessment centre
+373,4846,2,1,1,4,0,0,2.1.1.4.0.0.0.0,leaf,,21003.0,,,Age when attended assessment centre
+374,4929,2,1,1,4,0,0,2.1.1.4.0.0.0.0,inst,,21003.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+375,4930,2,1,1,4,0,0,2.1.1.4.0.0.0.0,inst,,21003.0,1.0,,First repeat assessment visit (2012-13)
+376,4931,2,1,1,4,0,0,2.1.1.4.0.0.0.0,inst,,21003.0,2.0,,Imaging visit (2014+)
+377,4941,2,1,1,2,0,0,2.1.1.2.0.0.0.0,inst,,53.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+378,4942,2,1,1,2,0,0,2.1.1.2.0.0.0.0,inst,,53.0,1.0,,First repeat assessment visit (2012-13)
+379,4943,2,1,1,2,0,0,2.1.1.2.0.0.0.0,inst,,53.0,2.0,,Imaging visit (2014+)
+380,4949,2,1,1,1,0,0,2.1.1.1.0.0.0.0,inst,,54.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+381,4950,2,1,1,1,0,0,2.1.1.1.0.0.0.0,inst,,54.0,1.0,,First repeat assessment visit (2012-13)
+382,4951,2,1,1,1,0,0,2.1.1.1.0.0.0.0,inst,,54.0,2.0,,Imaging visit (2014+)
+383,5145,2,3,3,9,0,0,2.3.3.9.0.0.0.0,leaf,,20002.0,,,"Non-cancer illness code, self-reported"
+384,5163,2,2,7,1,0,0,2.2.7.1.0.0.0.0,sub,100070.0,,,,Male-specific factors
+385,5164,2,2,7,2,0,0,2.2.7.2.0.0.0.0,sub,100069.0,,,,Female-specific factors
+386,5165,2,2,6,1,0,0,2.2.6.1.0.0.0.0,sub,100041.0,,,,Eyesight
+387,5166,2,2,6,2,0,0,2.2.6.2.0.0.0.0,sub,100046.0,,,,Mouth
+388,5167,2,2,6,3,0,0,2.2.6.3.0.0.0.0,sub,100042.0,,,,General health
+389,5168,2,2,6,4,0,0,2.2.6.4.0.0.0.0,sub,100037.0,,,,Breathing
+390,5174,2,2,6,5,0,0,2.2.6.5.0.0.0.0,sub,100038.0,,,,Claudication and peripheral artery disease
+391,5175,2,2,6,6,0,0,2.2.6.6.0.0.0.0,sub,100048.0,,,,Pain
+392,5176,2,2,6,7,0,0,2.2.6.7.0.0.0.0,sub,100039.0,,,,Chest pain
+393,5177,2,2,6,8,0,0,2.2.6.8.0.0.0.0,sub,100040.0,,,,Cancer screening
+394,5178,2,2,6,9,0,0,2.2.6.9.0.0.0.0,sub,100047.0,,,,Operations
+395,5186,2,2,6,10,0,0,2.2.6.10.0.0.0.0,sub,100044.0,,,,Medical conditions
+396,5187,2,2,6,11,0,0,2.2.6.11.0.0.0.0,sub,100045.0,,,,Medication
+397,5188,2,2,6,12,0,0,2.2.6.12.0.0.0.0,sub,100043.0,,,,Hearing
+398,5193,2,2,5,1,0,0,2.2.5.1.0.0.0.0,sub,100061.0,,,,Social support
+399,5194,2,2,5,2,0,0,2.2.5.2.0.0.0.0,sub,100060.0,,,,Mental health
+400,5207,2,2,2,1,0,0,2.2.2.1.0.0.0.0,sub,100054.0,,,,Physical activity
+401,5208,2,2,2,2,0,0,2.2.2.2.0.0.0.0,sub,100053.0,,,,Electronic device use
+402,5209,2,2,2,3,0,0,2.2.2.3.0.0.0.0,sub,100057.0,,,,Sleep
+403,5210,2,2,2,4,0,0,2.2.2.4.0.0.0.0,sub,100058.0,,,,Smoking
+404,5211,2,2,2,5,0,0,2.2.2.5.0.0.0.0,sub,100052.0,,,,Diet
+405,5212,2,2,2,6,0,0,2.2.2.6.0.0.0.0,sub,100051.0,,,,Alcohol
+406,5213,2,2,2,7,0,0,2.2.2.7.0.0.0.0,sub,100055.0,,,,Sun exposure
+407,5214,2,2,2,8,0,0,2.2.2.8.0.0.0.0,sub,100056.0,,,,Sexual factors
+408,5215,2,2,1,1,0,0,2.2.1.1.0.0.0.0,sub,100066.0,,,,Household
+409,5216,2,2,1,2,0,0,2.2.1.2.0.0.0.0,sub,100064.0,,,,Employment
+410,5217,2,2,1,3,0,0,2.2.1.3.0.0.0.0,sub,100063.0,,,,Education
+411,5218,2,2,1,4,0,0,2.2.1.4.0.0.0.0,sub,100065.0,,,,Ethnicity
+412,5219,2,2,1,5,0,0,2.2.1.5.0.0.0.0,sub,100067.0,,,,Other sociodemographic factors
+413,5288,2,2,1,4,1,0,2.2.1.4.1.0.0.0,leaf,,3659.0,,,Year immigrated to UK (United Kingdom)
+414,5289,2,2,1,4,2,0,2.2.1.4.2.0.0.0,leaf,,21000.0,,,Ethnic background
+415,5298,2,2,1,2,1,0,2.2.1.2.1.0.0.0,leaf,,20119.0,,,Current employment status - corrected
+416,5299,2,2,1,2,2,0,2.2.1.2.2.0.0.0,leaf,,796.0,,,Distance between home and job workplace
+417,5300,2,2,1,2,3,0,2.2.1.2.3.0.0.0,leaf,,6142.0,,,Current employment status
+418,5301,2,2,1,2,4,0,2.2.1.2.4.0.0.0,leaf,,757.0,,,Time employed in main current job
+419,5302,2,2,1,2,5,0,2.2.1.2.5.0.0.0,leaf,,767.0,,,Length of working week for main job
+420,5303,2,2,1,2,6,0,2.2.1.2.6.0.0.0,leaf,,777.0,,,Frequency of travelling from home to job workplace
+421,5304,2,2,1,2,7,0,2.2.1.2.7.0.0.0,leaf,,6143.0,,,Transport type for commuting to job workplace
+422,5305,2,2,1,2,8,0,2.2.1.2.8.0.0.0,leaf,,806.0,,,Job involves mainly walking or standing
+423,5306,2,2,1,2,9,0,2.2.1.2.9.0.0.0,leaf,,816.0,,,Job involves heavy manual or physical work
+424,5307,2,2,1,2,10,0,2.2.1.2.10.0.0.0,leaf,,826.0,,,Job involves shift work
+425,5308,2,2,1,2,11,0,2.2.1.2.11.0.0.0,leaf,,3426.0,,,Job involves night shift work
+426,5320,2,2,1,3,1,0,2.2.1.3.1.0.0.0,leaf,,6138.0,,,Qualifications
+427,5321,2,2,1,3,2,0,2.2.1.3.2.0.0.0,leaf,,10722.0,,,Qualifications (pilot)
+428,5322,2,2,1,3,3,0,2.2.1.3.3.0.0.0,leaf,,845.0,,,Age completed full time education
+429,5323,2,2,1,5,1,0,2.2.1.5.1.0.0.0,leaf,,6146.0,,,Attendance/disability/mobility allowance
+430,5324,2,2,1,5,2,0,2.2.1.5.2.0.0.0,leaf,,4674.0,,,Private healthcare
+431,5339,2,2,2,6,1,0,2.2.2.6.1.0.0.0,leaf,,20117.0,,,Alcohol drinker status
+432,5340,2,2,2,6,2,0,2.2.2.6.2.0.0.0,leaf,,1558.0,,,Alcohol intake frequency.
+433,5341,2,2,2,6,3,0,2.2.2.6.3.0.0.0,leaf,,3731.0,,,Former alcohol drinker
+434,5370,2,2,2,4,1,0,2.2.2.4.1.0.0.0,leaf,,20160.0,,,Ever smoked
+435,5378,2,2,2,4,5,0,2.2.2.4.5.0.0.0,leaf,,20116.0,,,Smoking status
+436,5379,2,2,2,4,6,0,2.2.2.4.6.0.0.0,leaf,,1239.0,,,Current tobacco smoking
+437,5380,2,2,2,4,7,0,2.2.2.4.7.0.0.0,leaf,,1249.0,,,Past tobacco smoking
+438,5457,2,2,1,4,1,0,2.2.1.4.1.0.0.0,inst,,3659.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+439,5458,2,2,1,4,1,0,2.2.1.4.1.0.0.0,inst,,3659.0,1.0,,First repeat assessment visit (2012-13)
+440,5459,2,2,1,4,1,0,2.2.1.4.1.0.0.0,inst,,3659.0,2.0,,Imaging visit (2014+)
+441,5462,2,2,1,2,3,0,2.2.1.2.3.0.0.0,inst,,6142.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+442,5463,2,2,1,2,3,0,2.2.1.2.3.0.0.0,inst,,6142.0,1.0,,First repeat assessment visit (2012-13)
+443,5464,2,2,1,2,3,0,2.2.1.2.3.0.0.0,inst,,6142.0,2.0,,Imaging visit (2014+)
+444,5482,2,2,1,2,2,0,2.2.1.2.2.0.0.0,inst,,796.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+445,5483,2,2,1,2,2,0,2.2.1.2.2.0.0.0,inst,,796.0,1.0,,First repeat assessment visit (2012-13)
+446,5484,2,2,1,2,2,0,2.2.1.2.2.0.0.0,inst,,796.0,2.0,,Imaging visit (2014+)
+447,5758,2,2,2,4,7,0,2.2.2.4.7.0.0.0,inst,,1249.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+448,5759,2,2,2,4,7,0,2.2.2.4.7.0.0.0,inst,,1249.0,1.0,,First repeat assessment visit (2012-13)
+449,5760,2,2,2,4,7,0,2.2.2.4.7.0.0.0,inst,,1249.0,2.0,,Imaging visit (2014+)
+450,5782,2,2,2,4,6,0,2.2.2.4.6.0.0.0,inst,,1239.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+451,5783,2,2,2,4,6,0,2.2.2.4.6.0.0.0,inst,,1239.0,1.0,,First repeat assessment visit (2012-13)
+452,5784,2,2,2,4,6,0,2.2.2.4.6.0.0.0,inst,,1239.0,2.0,,Imaging visit (2014+)
+453,5802,2,2,2,4,5,0,2.2.2.4.5.0.0.0,inst,,20116.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+454,5803,2,2,2,4,5,0,2.2.2.4.5.0.0.0,inst,,20116.0,1.0,,First repeat assessment visit (2012-13)
+455,5804,2,2,2,4,5,0,2.2.2.4.5.0.0.0,inst,,20116.0,2.0,,Imaging visit (2014+)
+456,5834,2,2,2,4,1,0,2.2.2.4.1.0.0.0,inst,,20160.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+457,5835,2,2,2,4,1,0,2.2.2.4.1.0.0.0,inst,,20160.0,1.0,,First repeat assessment visit (2012-13)
+458,5836,2,2,2,4,1,0,2.2.2.4.1.0.0.0,inst,,20160.0,2.0,,Imaging visit (2014+)
+459,5969,2,2,2,6,3,0,2.2.2.6.3.0.0.0,inst,,3731.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+460,5970,2,2,2,6,3,0,2.2.2.6.3.0.0.0,inst,,3731.0,1.0,,First repeat assessment visit (2012-13)
+461,5971,2,2,2,6,3,0,2.2.2.6.3.0.0.0,inst,,3731.0,2.0,,Imaging visit (2014+)
+462,5976,2,2,2,6,2,0,2.2.2.6.2.0.0.0,inst,,1558.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+463,5977,2,2,2,6,2,0,2.2.2.6.2.0.0.0,inst,,1558.0,1.0,,First repeat assessment visit (2012-13)
+464,5978,2,2,2,6,2,0,2.2.2.6.2.0.0.0,inst,,1558.0,2.0,,Imaging visit (2014+)
+465,5998,2,2,2,6,1,0,2.2.2.6.1.0.0.0,inst,,20117.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+466,5999,2,2,2,6,1,0,2.2.2.6.1.0.0.0,inst,,20117.0,1.0,,First repeat assessment visit (2012-13)
+467,6000,2,2,2,6,1,0,2.2.2.6.1.0.0.0,inst,,20117.0,2.0,,Imaging visit (2014+)
+468,6043,2,2,1,5,2,0,2.2.1.5.2.0.0.0,inst,,4674.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+469,6044,2,2,1,5,2,0,2.2.1.5.2.0.0.0,inst,,4674.0,1.0,,First repeat assessment visit (2012-13)
+470,6045,2,2,1,5,2,0,2.2.1.5.2.0.0.0,inst,,4674.0,2.0,,Imaging visit (2014+)
+471,6047,2,2,1,5,1,0,2.2.1.5.1.0.0.0,inst,,6146.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+472,6048,2,2,1,5,1,0,2.2.1.5.1.0.0.0,inst,,6146.0,1.0,,First repeat assessment visit (2012-13)
+473,6049,2,2,1,5,1,0,2.2.1.5.1.0.0.0,inst,,6146.0,2.0,,Imaging visit (2014+)
+474,6051,2,2,1,3,3,0,2.2.1.3.3.0.0.0,inst,,845.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+475,6052,2,2,1,3,3,0,2.2.1.3.3.0.0.0,inst,,845.0,1.0,,First repeat assessment visit (2012-13)
+476,6053,2,2,1,3,3,0,2.2.1.3.3.0.0.0,inst,,845.0,2.0,,Imaging visit (2014+)
+477,6056,2,2,1,3,1,0,2.2.1.3.1.0.0.0,inst,,6138.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+478,6057,2,2,1,3,1,0,2.2.1.3.1.0.0.0,inst,,6138.0,1.0,,First repeat assessment visit (2012-13)
+479,6058,2,2,1,3,1,0,2.2.1.3.1.0.0.0,inst,,6138.0,2.0,,Imaging visit (2014+)
+480,6107,2,2,1,2,11,0,2.2.1.2.11.0.0.0,inst,,3426.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+481,6108,2,2,1,2,11,0,2.2.1.2.11.0.0.0,inst,,3426.0,1.0,,First repeat assessment visit (2012-13)
+482,6109,2,2,1,2,11,0,2.2.1.2.11.0.0.0,inst,,3426.0,2.0,,Imaging visit (2014+)
+483,6113,2,2,1,2,10,0,2.2.1.2.10.0.0.0,inst,,826.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+484,6114,2,2,1,2,10,0,2.2.1.2.10.0.0.0,inst,,826.0,1.0,,First repeat assessment visit (2012-13)
+485,6115,2,2,1,2,10,0,2.2.1.2.10.0.0.0,inst,,826.0,2.0,,Imaging visit (2014+)
+486,6119,2,2,1,2,9,0,2.2.1.2.9.0.0.0,inst,,816.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+487,6120,2,2,1,2,9,0,2.2.1.2.9.0.0.0,inst,,816.0,1.0,,First repeat assessment visit (2012-13)
+488,6121,2,2,1,2,9,0,2.2.1.2.9.0.0.0,inst,,816.0,2.0,,Imaging visit (2014+)
+489,6124,2,2,1,2,8,0,2.2.1.2.8.0.0.0,inst,,806.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+490,6125,2,2,1,2,8,0,2.2.1.2.8.0.0.0,inst,,806.0,1.0,,First repeat assessment visit (2012-13)
+491,6126,2,2,1,2,8,0,2.2.1.2.8.0.0.0,inst,,806.0,2.0,,Imaging visit (2014+)
+492,6129,2,2,1,2,7,0,2.2.1.2.7.0.0.0,inst,,6143.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+493,6130,2,2,1,2,7,0,2.2.1.2.7.0.0.0,inst,,6143.0,1.0,,First repeat assessment visit (2012-13)
+494,6131,2,2,1,2,7,0,2.2.1.2.7.0.0.0,inst,,6143.0,2.0,,Imaging visit (2014+)
+495,6135,2,2,1,2,6,0,2.2.1.2.6.0.0.0,inst,,777.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+496,6136,2,2,1,2,6,0,2.2.1.2.6.0.0.0,inst,,777.0,1.0,,First repeat assessment visit (2012-13)
+497,6137,2,2,1,2,6,0,2.2.1.2.6.0.0.0,inst,,777.0,2.0,,Imaging visit (2014+)
+498,6142,2,2,1,2,5,0,2.2.1.2.5.0.0.0,inst,,767.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+499,6143,2,2,1,2,5,0,2.2.1.2.5.0.0.0,inst,,767.0,1.0,,First repeat assessment visit (2012-13)
+500,6144,2,2,1,2,5,0,2.2.1.2.5.0.0.0,inst,,767.0,2.0,,Imaging visit (2014+)
+501,6147,2,2,1,2,4,0,2.2.1.2.4.0.0.0,inst,,757.0,0.0,,Initial assessment visit (2006-2010) at which participants were recruited and consent given
+502,6148,2,2,1,2,4,0,2.2.1.2.4.0.0.0,inst,,757.0,1.0,,First repeat assessment visit (2012-13)
+503,6149,2,2,1,2,4,0,2.2.1.2.4.0.0.0,inst,,757.0,2.0,,Imaging visit (2014+)
+504,6307,2,2,2,1,1,0,2.2.2.1.1.0.0.0,sub,54.0,,,,MET Scores
+505,7638,2,6,3,1,0,0,2.6.3.1.0.0.0.0,sub,133.0,,,,Left ventricular size and function
+506,7639,2,6,3,2,0,0,2.6.3.2.0.0.0.0,sub,128.0,,,,Pulse wave analysis
+507,7640,2,6,3,3,0,0,2.6.3.3.0.0.0.0,leaf,,20210.0,,,Aortic distensibilty images - DICOM
+508,7641,2,6,3,4,0,0,2.6.3.4.0.0.0.0,leaf,,20213.0,,,Blood flow images - DICOM
+509,7642,2,6,3,5,0,0,2.6.3.5.0.0.0.0,leaf,,20211.0,,,Cine tagging images - DICOM
+510,7643,2,6,3,6,0,0,2.6.3.6.0.0.0.0,leaf,,20214.0,,,Experimental shMOLLI sequence images - DICOM
+511,7644,2,6,3,7,0,0,2.6.3.7.0.0.0.0,leaf,,20212.0,,,Left ventricular outflow tract images - DICOM
+512,7645,2,6,3,8,0,0,2.6.3.8.0.0.0.0,leaf,,20208.0,,,Long axis heart images - DICOM
+513,7646,2,6,3,9,0,0,2.6.3.9.0.0.0.0,leaf,,20207.0,,,Scout images for heart MRI - DICOM
+514,7647,2,6,3,10,0,0,2.6.3.10.0.0.0.0,leaf,,20209.0,,,Short axis heart images - DICOM
+515,7648,2,6,3,11,0,0,2.6.3.11.0.0.0.0,leaf,,12624.0,,,Identifier for blood pressure device
+516,7649,2,6,2,1,0,0,2.6.2.1.0.0.0.0,sub,110.0,,,,T1 structural brain MRI
+517,7650,2,6,2,2,0,0,2.6.2.2.0.0.0.0,sub,112.0,,,,T2-weighted brain MRI
+518,7651,2,6,2,3,0,0,2.6.2.3.0.0.0.0,sub,107.0,,,,Diffusion brain MRI
+519,7652,2,6,2,4,0,0,2.6.2.4.0.0.0.0,sub,111.0,,,,Resting functional brain MRI
+520,7653,2,6,2,5,0,0,2.6.2.5.0.0.0.0,sub,106.0,,,,Task functional brain MRI
+521,7654,2,6,2,6,0,0,2.6.2.6.0.0.0.0,sub,109.0,,,,Susceptibility weighted brain MRI
+522,7655,2,6,2,7,0,0,2.6.2.7.0.0.0.0,sub,108.0,,,,Scout images and configuration for brain MRI
+523,7656,2,6,2,8,0,0,2.6.2.8.0.0.0.0,leaf,,25780.0,,,Acquisition protocol phase.
+524,7657,2,6,2,9,0,0,2.6.2.9.0.0.0.0,leaf,,12139.0,,,Believed safe to perform brain MRI scan
+525,7658,2,6,2,10,0,0,2.6.2.10.0.0.0.0,leaf,,12187.0,,,Brain MRI measuring method
+526,7659,2,6,2,11,0,0,2.6.2.11.0.0.0.0,leaf,,12188.0,,,Brain MRI measurement completed
+527,7660,2,6,1,1,0,0,2.6.1.1.0.0.0.0,sub,126.0,,,,Liver MRI
+528,7661,2,6,1,2,0,0,2.6.1.2.0.0.0.0,sub,131.0,,,,Pancreas MRI
+529,7662,2,6,1,3,0,0,2.6.1.3.0.0.0.0,sub,149.0,,,,Abdominal composition
+530,7663,2,6,1,4,0,0,2.6.1.4.0.0.0.0,leaf,,12224.0,,,Abdominal MRI measurement completed
+531,7664,2,6,1,5,0,0,2.6.1.5.0.0.0.0,leaf,,12223.0,,,Abdominal MRI measuring method
+532,7665,2,6,1,6,0,0,2.6.1.6.0.0.0.0,leaf,,12140.0,,,Believed safe to perform abdominal MRI scan
+533,7666,2,6,1,7,0,0,2.6.1.7.0.0.0.0,leaf,,20201.0,,,Dixon technique for internal fat - DICOM
+534,7732,2,6,2,3,1,0,2.6.2.3.1.0.0.0,sub,134.0,,,,dMRI skeleton
+535,7733,2,6,2,3,2,0,2.6.2.3.2.0.0.0,sub,135.0,,,,dMRI weighted means
+536,7734,2,6,2,3,3,0,2.6.2.3.3.0.0.0,leaf,,20250.0,,,Multiband diffusion brain images - NIFTI
+537,7735,2,6,2,3,4,0,2.6.2.3.4.0.0.0,leaf,,20218.0,,,Multiband diffusion brain images - DICOM
+538,7736,2,6,2,3,5,0,2.6.2.3.5.0.0.0,leaf,,25737.0,,,Discrepancy between dMRI brain image and T1 brain image
+539,7737,2,6,2,3,6,0,2.6.2.3.6.0.0.0,leaf,,25746.0,,,Number of dMRI outlier slices detected and corrected
+540,7753,2,6,2,11,0,0,2.6.2.11.0.0.0.0,inst,,12188.0,2.0,,Imaging visit (2014+)
+541,7827,2,6,2,3,2,1,2.6.2.3.2.1.0.0,leaf,,25488.0,,,Weighted-mean FA in tract acoustic radiation (left)
+542,7828,2,6,2,3,2,2,2.6.2.3.2.2.0.0,leaf,,25489.0,,,Weighted-mean FA in tract acoustic radiation (right)
+543,7829,2,6,2,3,2,3,2.6.2.3.2.3.0.0,leaf,,25490.0,,,Weighted-mean FA in tract anterior thalamic radiation (left)
+544,7830,2,6,2,3,2,4,2.6.2.3.2.4.0.0,leaf,,25491.0,,,Weighted-mean FA in tract anterior thalamic radiation (right)
+545,7831,2,6,2,3,2,5,2.6.2.3.2.5.0.0,leaf,,25492.0,,,Weighted-mean FA in tract cingulate gyrus part of cingulum (left)
+546,7832,2,6,2,3,2,6,2.6.2.3.2.6.0.0,leaf,,25493.0,,,Weighted-mean FA in tract cingulate gyrus part of cingulum (right)
+547,7833,2,6,2,3,2,7,2.6.2.3.2.7.0.0,leaf,,25496.0,,,Weighted-mean FA in tract corticospinal tract (left)
+548,7834,2,6,2,3,2,8,2.6.2.3.2.8.0.0,leaf,,25497.0,,,Weighted-mean FA in tract corticospinal tract (right)
+549,7835,2,6,2,3,2,9,2.6.2.3.2.9.0.0,leaf,,25498.0,,,Weighted-mean FA in tract forceps major
+550,7836,2,6,2,3,2,10,2.6.2.3.2.10.0.0,leaf,,25499.0,,,Weighted-mean FA in tract forceps minor
+551,7837,2,6,2,3,2,11,2.6.2.3.2.11.0.0,leaf,,25500.0,,,Weighted-mean FA in tract inferior fronto-occipital fasciculus (left)
+552,7838,2,6,2,3,2,12,2.6.2.3.2.12.0.0,leaf,,25501.0,,,Weighted-mean FA in tract inferior fronto-occipital fasciculus (right)
+553,7839,2,6,2,3,2,13,2.6.2.3.2.13.0.0,leaf,,25502.0,,,Weighted-mean FA in tract inferior longitudinal fasciculus (left)
+554,7840,2,6,2,3,2,14,2.6.2.3.2.14.0.0,leaf,,25503.0,,,Weighted-mean FA in tract inferior longitudinal fasciculus (right)
+555,7841,2,6,2,3,2,15,2.6.2.3.2.15.0.0,leaf,,25505.0,,,Weighted-mean FA in tract medial lemniscus (left)
+556,7842,2,6,2,3,2,16,2.6.2.3.2.16.0.0,leaf,,25506.0,,,Weighted-mean FA in tract medial lemniscus (right)
+557,7843,2,6,2,3,2,17,2.6.2.3.2.17.0.0,leaf,,25504.0,,,Weighted-mean FA in tract middle cerebellar peduncle
+558,7844,2,6,2,3,2,18,2.6.2.3.2.18.0.0,leaf,,25494.0,,,Weighted-mean FA in tract parahippocampal part of cingulum (left)
+559,7845,2,6,2,3,2,19,2.6.2.3.2.19.0.0,leaf,,25495.0,,,Weighted-mean FA in tract parahippocampal part of cingulum (right)
+560,7846,2,6,2,3,2,20,2.6.2.3.2.20.0.0,leaf,,25507.0,,,Weighted-mean FA in tract posterior thalamic radiation (left)
+561,7847,2,6,2,3,2,21,2.6.2.3.2.21.0.0,leaf,,25508.0,,,Weighted-mean FA in tract posterior thalamic radiation (right)
+562,7848,2,6,2,3,2,22,2.6.2.3.2.22.0.0,leaf,,25509.0,,,Weighted-mean FA in tract superior longitudinal fasciculus (left)
+563,7849,2,6,2,3,2,23,2.6.2.3.2.23.0.0,leaf,,25510.0,,,Weighted-mean FA in tract superior longitudinal fasciculus (right)
+564,7850,2,6,2,3,2,24,2.6.2.3.2.24.0.0,leaf,,25511.0,,,Weighted-mean FA in tract superior thalamic radiation (left)
+565,7851,2,6,2,3,2,25,2.6.2.3.2.25.0.0,leaf,,25512.0,,,Weighted-mean FA in tract superior thalamic radiation (right)
+566,7852,2,6,2,3,2,26,2.6.2.3.2.26.0.0,leaf,,25513.0,,,Weighted-mean FA in tract uncinate fasciculus (left)
+567,7853,2,6,2,3,2,27,2.6.2.3.2.27.0.0,leaf,,25514.0,,,Weighted-mean FA in tract uncinate fasciculus (right)
+568,7854,2,6,2,3,2,28,2.6.2.3.2.28.0.0,leaf,,25650.0,,,Weighted-mean ICVF in tract acoustic radiation (left)
+569,7855,2,6,2,3,2,29,2.6.2.3.2.29.0.0,leaf,,25651.0,,,Weighted-mean ICVF in tract acoustic radiation (right)
+570,7856,2,6,2,3,2,30,2.6.2.3.2.30.0.0,leaf,,25652.0,,,Weighted-mean ICVF in tract anterior thalamic radiation (left)
+571,7857,2,6,2,3,2,31,2.6.2.3.2.31.0.0,leaf,,25653.0,,,Weighted-mean ICVF in tract anterior thalamic radiation (right)
+572,7858,2,6,2,3,2,32,2.6.2.3.2.32.0.0,leaf,,25654.0,,,Weighted-mean ICVF in tract cingulate gyrus part of cingulum (left)
+573,7859,2,6,2,3,2,33,2.6.2.3.2.33.0.0,leaf,,25655.0,,,Weighted-mean ICVF in tract cingulate gyrus part of cingulum (right)
+574,7860,2,6,2,3,2,34,2.6.2.3.2.34.0.0,leaf,,25658.0,,,Weighted-mean ICVF in tract corticospinal tract (left)
+575,7861,2,6,2,3,2,35,2.6.2.3.2.35.0.0,leaf,,25659.0,,,Weighted-mean ICVF in tract corticospinal tract (right)
+576,7862,2,6,2,3,2,36,2.6.2.3.2.36.0.0,leaf,,25660.0,,,Weighted-mean ICVF in tract forceps major
+577,7863,2,6,2,3,2,37,2.6.2.3.2.37.0.0,leaf,,25661.0,,,Weighted-mean ICVF in tract forceps minor
+578,7864,2,6,2,3,2,38,2.6.2.3.2.38.0.0,leaf,,25662.0,,,Weighted-mean ICVF in tract inferior fronto-occipital fasciculus (left)
+579,7865,2,6,2,3,2,39,2.6.2.3.2.39.0.0,leaf,,25663.0,,,Weighted-mean ICVF in tract inferior fronto-occipital fasciculus (right)
+580,7866,2,6,2,3,2,40,2.6.2.3.2.40.0.0,leaf,,25664.0,,,Weighted-mean ICVF in tract inferior longitudinal fasciculus (left)
+581,7867,2,6,2,3,2,41,2.6.2.3.2.41.0.0,leaf,,25665.0,,,Weighted-mean ICVF in tract inferior longitudinal fasciculus (right)
+582,7868,2,6,2,3,2,42,2.6.2.3.2.42.0.0,leaf,,25667.0,,,Weighted-mean ICVF in tract medial lemniscus (left)
+583,7869,2,6,2,3,2,43,2.6.2.3.2.43.0.0,leaf,,25668.0,,,Weighted-mean ICVF in tract medial lemniscus (right)
+584,7870,2,6,2,3,2,44,2.6.2.3.2.44.0.0,leaf,,25666.0,,,Weighted-mean ICVF in tract middle cerebellar peduncle
+585,7871,2,6,2,3,2,45,2.6.2.3.2.45.0.0,leaf,,25656.0,,,Weighted-mean ICVF in tract parahippocampal part of cingulum (left)
+586,7872,2,6,2,3,2,46,2.6.2.3.2.46.0.0,leaf,,25657.0,,,Weighted-mean ICVF in tract parahippocampal part of cingulum (right)
+587,7873,2,6,2,3,2,47,2.6.2.3.2.47.0.0,leaf,,25669.0,,,Weighted-mean ICVF in tract posterior thalamic radiation (left)
+588,7874,2,6,2,3,2,48,2.6.2.3.2.48.0.0,leaf,,25670.0,,,Weighted-mean ICVF in tract posterior thalamic radiation (right)
+589,7875,2,6,2,3,2,49,2.6.2.3.2.49.0.0,leaf,,25671.0,,,Weighted-mean ICVF in tract superior longitudinal fasciculus (left)
+590,7876,2,6,2,3,2,50,2.6.2.3.2.50.0.0,leaf,,25672.0,,,Weighted-mean ICVF in tract superior longitudinal fasciculus (right)
+591,7877,2,6,2,3,2,51,2.6.2.3.2.51.0.0,leaf,,25673.0,,,Weighted-mean ICVF in tract superior thalamic radiation (left)
+592,7878,2,6,2,3,2,52,2.6.2.3.2.52.0.0,leaf,,25674.0,,,Weighted-mean ICVF in tract superior thalamic radiation (right)
+593,7879,2,6,2,3,2,53,2.6.2.3.2.53.0.0,leaf,,25675.0,,,Weighted-mean ICVF in tract uncinate fasciculus (left)
+594,7880,2,6,2,3,2,54,2.6.2.3.2.54.0.0,leaf,,25676.0,,,Weighted-mean ICVF in tract uncinate fasciculus (right)
+595,7881,2,6,2,3,2,55,2.6.2.3.2.55.0.0,leaf,,25704.0,,,Weighted-mean ISOVF in tract acoustic radiation (left)
+596,7882,2,6,2,3,2,56,2.6.2.3.2.56.0.0,leaf,,25705.0,,,Weighted-mean ISOVF in tract acoustic radiation (right)
+597,7883,2,6,2,3,2,57,2.6.2.3.2.57.0.0,leaf,,25706.0,,,Weighted-mean ISOVF in tract anterior thalamic radiation (left)
+598,7884,2,6,2,3,2,58,2.6.2.3.2.58.0.0,leaf,,25707.0,,,Weighted-mean ISOVF in tract anterior thalamic radiation (right)
+599,7885,2,6,2,3,2,59,2.6.2.3.2.59.0.0,leaf,,25708.0,,,Weighted-mean ISOVF in tract cingulate gyrus part of cingulum (left)
+600,7886,2,6,2,3,2,60,2.6.2.3.2.60.0.0,leaf,,25709.0,,,Weighted-mean ISOVF in tract cingulate gyrus part of cingulum (right)
+601,7887,2,6,2,3,2,61,2.6.2.3.2.61.0.0,leaf,,25712.0,,,Weighted-mean ISOVF in tract corticospinal tract (left)
+602,7888,2,6,2,3,2,62,2.6.2.3.2.62.0.0,leaf,,25713.0,,,Weighted-mean ISOVF in tract corticospinal tract (right)
+603,7889,2,6,2,3,2,63,2.6.2.3.2.63.0.0,leaf,,25714.0,,,Weighted-mean ISOVF in tract forceps major
+604,7890,2,6,2,3,2,64,2.6.2.3.2.64.0.0,leaf,,25715.0,,,Weighted-mean ISOVF in tract forceps minor
+605,7891,2,6,2,3,2,65,2.6.2.3.2.65.0.0,leaf,,25716.0,,,Weighted-mean ISOVF in tract inferior fronto-occipital fasciculus (left)
+606,7892,2,6,2,3,2,66,2.6.2.3.2.66.0.0,leaf,,25717.0,,,Weighted-mean ISOVF in tract inferior fronto-occipital fasciculus (right)
+607,7896,2,6,2,3,2,67,2.6.2.3.2.67.0.0,leaf,,25718.0,,,Weighted-mean ISOVF in tract inferior longitudinal fasciculus (left)
+608,7897,2,6,2,3,2,68,2.6.2.3.2.68.0.0,leaf,,25719.0,,,Weighted-mean ISOVF in tract inferior longitudinal fasciculus (right)
+609,7898,2,6,2,3,2,69,2.6.2.3.2.69.0.0,leaf,,25721.0,,,Weighted-mean ISOVF in tract medial lemniscus (left)
+610,7899,2,6,2,3,2,70,2.6.2.3.2.70.0.0,leaf,,25722.0,,,Weighted-mean ISOVF in tract medial lemniscus (right)
+611,7900,2,6,2,3,2,71,2.6.2.3.2.71.0.0,leaf,,25720.0,,,Weighted-mean ISOVF in tract middle cerebellar peduncle
+612,7901,2,6,2,3,2,72,2.6.2.3.2.72.0.0,leaf,,25710.0,,,Weighted-mean ISOVF in tract parahippocampal part of cingulum (left)
+613,7902,2,6,2,3,2,73,2.6.2.3.2.73.0.0,leaf,,25711.0,,,Weighted-mean ISOVF in tract parahippocampal part of cingulum (right)
+614,7903,2,6,2,3,2,74,2.6.2.3.2.74.0.0,leaf,,25723.0,,,Weighted-mean ISOVF in tract posterior thalamic radiation (left)
+615,7904,2,6,2,3,2,75,2.6.2.3.2.75.0.0,leaf,,25724.0,,,Weighted-mean ISOVF in tract posterior thalamic radiation (right)
+616,7905,2,6,2,3,2,76,2.6.2.3.2.76.0.0,leaf,,25725.0,,,Weighted-mean ISOVF in tract superior longitudinal fasciculus (left)
+617,7906,2,6,2,3,2,77,2.6.2.3.2.77.0.0,leaf,,25726.0,,,Weighted-mean ISOVF in tract superior longitudinal fasciculus (right)
+618,7907,2,6,2,3,2,78,2.6.2.3.2.78.0.0,leaf,,25727.0,,,Weighted-mean ISOVF in tract superior thalamic radiation (left)
+619,7908,2,6,2,3,1,1,2.6.2.3.1.1.0.0,leaf,,25079.0,,,Mean FA in anterior corona radiata on FA skeleton (left)
+620,7909,2,6,2,3,2,79,2.6.2.3.2.79.0.0,leaf,,25728.0,,,Weighted-mean ISOVF in tract superior thalamic radiation (right)
+621,7910,2,6,2,3,2,80,2.6.2.3.2.80.0.0,leaf,,25729.0,,,Weighted-mean ISOVF in tract uncinate fasciculus (left)
+622,7911,2,6,2,3,2,81,2.6.2.3.2.81.0.0,leaf,,25730.0,,,Weighted-mean ISOVF in tract uncinate fasciculus (right)
+623,7912,2,6,2,3,2,82,2.6.2.3.2.82.0.0,leaf,,25569.0,,,Weighted-mean L1 in tract acoustic radiation (left)
+624,7913,2,6,2,3,2,83,2.6.2.3.2.83.0.0,leaf,,25570.0,,,Weighted-mean L1 in tract acoustic radiation (right)
+625,7914,2,6,2,3,2,84,2.6.2.3.2.84.0.0,leaf,,25571.0,,,Weighted-mean L1 in tract anterior thalamic radiation (left)
+626,7915,2,6,2,3,2,85,2.6.2.3.2.85.0.0,leaf,,25572.0,,,Weighted-mean L1 in tract anterior thalamic radiation (right)
+627,7916,2,6,2,3,1,2,2.6.2.3.1.2.0.0,leaf,,25078.0,,,Mean FA in anterior corona radiata on FA skeleton (right)
+628,7917,2,6,2,3,1,3,2.6.2.3.1.3.0.0,leaf,,25073.0,,,Mean FA in anterior limb of internal capsule on FA skeleton (left)
+629,7918,2,6,2,3,1,4,2.6.2.3.1.4.0.0,leaf,,25072.0,,,Mean FA in anterior limb of internal capsule on FA skeleton (right)
+630,7919,2,6,2,3,1,5,2.6.2.3.1.5.0.0,leaf,,25059.0,,,Mean FA in body of corpus callosum on FA skeleton
+631,7920,2,6,2,3,1,6,2.6.2.3.1.6.0.0,leaf,,25071.0,,,Mean FA in cerebral peduncle on FA skeleton (left)
+632,7921,2,6,2,3,1,7,2.6.2.3.1.7.0.0,leaf,,25070.0,,,Mean FA in cerebral peduncle on FA skeleton (right)
+633,7925,2,6,2,3,2,86,2.6.2.3.2.86.0.0,leaf,,25573.0,,,Weighted-mean L1 in tract cingulate gyrus part of cingulum (left)
+634,7926,2,6,2,3,2,87,2.6.2.3.2.87.0.0,leaf,,25574.0,,,Weighted-mean L1 in tract cingulate gyrus part of cingulum (right)
+635,7927,2,6,2,3,2,88,2.6.2.3.2.88.0.0,leaf,,25577.0,,,Weighted-mean L1 in tract corticospinal tract (left)
+636,7928,2,6,2,3,2,89,2.6.2.3.2.89.0.0,leaf,,25578.0,,,Weighted-mean L1 in tract corticospinal tract (right)
+637,7929,2,6,2,3,1,8,2.6.2.3.1.8.0.0,leaf,,25091.0,,,Mean FA in cingulum cingulate gyrus on FA skeleton (left)
+638,7930,2,6,2,3,1,9,2.6.2.3.1.9.0.0,leaf,,25090.0,,,Mean FA in cingulum cingulate gyrus on FA skeleton (right)
+639,7931,2,6,2,3,1,10,2.6.2.3.1.10.0.0,leaf,,25093.0,,,Mean FA in cingulum hippocampus on FA skeleton (left)
+640,7932,2,6,2,3,1,11,2.6.2.3.1.11.0.0,leaf,,25092.0,,,Mean FA in cingulum hippocampus on FA skeleton (right)
+641,7933,2,6,2,3,2,90,2.6.2.3.2.90.0.0,leaf,,25579.0,,,Weighted-mean L1 in tract forceps major
+642,7934,2,6,2,3,2,91,2.6.2.3.2.91.0.0,leaf,,25580.0,,,Weighted-mean L1 in tract forceps minor
+643,7935,2,6,2,3,2,92,2.6.2.3.2.92.0.0,leaf,,25581.0,,,Weighted-mean L1 in tract inferior fronto-occipital fasciculus (left)
+644,7936,2,6,2,3,2,93,2.6.2.3.2.93.0.0,leaf,,25582.0,,,Weighted-mean L1 in tract inferior fronto-occipital fasciculus (right)
+645,7937,2,6,2,3,1,12,2.6.2.3.1.12.0.0,leaf,,25063.0,,,Mean FA in corticospinal tract on FA skeleton (left)
+646,7938,2,6,2,3,1,13,2.6.2.3.1.13.0.0,leaf,,25062.0,,,Mean FA in corticospinal tract on FA skeleton (right)
+647,7939,2,6,2,3,1,14,2.6.2.3.1.14.0.0,leaf,,25089.0,,,Mean FA in external capsule on FA skeleton (left)
+648,7940,2,6,2,3,1,15,2.6.2.3.1.15.0.0,leaf,,25088.0,,,Mean FA in external capsule on FA skeleton (right)
+649,7941,2,6,2,3,2,94,2.6.2.3.2.94.0.0,leaf,,25583.0,,,Weighted-mean L1 in tract inferior longitudinal fasciculus (left)
+650,7942,2,6,2,3,2,95,2.6.2.3.2.95.0.0,leaf,,25584.0,,,Weighted-mean L1 in tract inferior longitudinal fasciculus (right)
+651,7943,2,6,2,3,2,96,2.6.2.3.2.96.0.0,leaf,,25586.0,,,Weighted-mean L1 in tract medial lemniscus (left)
+652,7944,2,6,2,3,2,97,2.6.2.3.2.97.0.0,leaf,,25587.0,,,Weighted-mean L1 in tract medial lemniscus (right)
+653,7949,2,6,2,3,1,16,2.6.2.3.1.16.0.0,leaf,,25095.0,,,Mean FA in fornix cres+stria terminalis on FA skeleton (left)
+654,7950,2,6,2,3,1,17,2.6.2.3.1.17.0.0,leaf,,25094.0,,,Mean FA in fornix cres+stria terminalis on FA skeleton (right)
+655,7951,2,6,2,3,1,18,2.6.2.3.1.18.0.0,leaf,,25061.0,,,Mean FA in fornix on FA skeleton
+656,7952,2,6,2,3,1,19,2.6.2.3.1.19.0.0,leaf,,25058.0,,,Mean FA in genu of corpus callosum on FA skeleton
+657,7953,2,6,2,3,2,98,2.6.2.3.2.98.0.0,leaf,,25585.0,,,Weighted-mean L1 in tract middle cerebellar peduncle
+658,7954,2,6,2,3,2,99,2.6.2.3.2.99.0.0,leaf,,25575.0,,,Weighted-mean L1 in tract parahippocampal part of cingulum (left)
+659,7955,2,6,2,3,2,100,2.6.2.3.2.100.0.0,leaf,,25576.0,,,Weighted-mean L1 in tract parahippocampal part of cingulum (right)
+660,7956,2,6,2,3,2,101,2.6.2.3.2.101.0.0,leaf,,25588.0,,,Weighted-mean L1 in tract posterior thalamic radiation (left)
+661,7957,2,6,2,3,1,20,2.6.2.3.1.20.0.0,leaf,,25067.0,,,Mean FA in inferior cerebellar peduncle on FA skeleton (left)
+662,7958,2,6,2,3,1,21,2.6.2.3.1.21.0.0,leaf,,25066.0,,,Mean FA in inferior cerebellar peduncle on FA skeleton (right)
+663,7959,2,6,2,3,1,22,2.6.2.3.1.22.0.0,leaf,,25065.0,,,Mean FA in medial lemniscus on FA skeleton (left)
+664,7960,2,6,2,3,1,23,2.6.2.3.1.23.0.0,leaf,,25064.0,,,Mean FA in medial lemniscus on FA skeleton (right)
+665,7961,2,6,2,3,2,102,2.6.2.3.2.102.0.0,leaf,,25589.0,,,Weighted-mean L1 in tract posterior thalamic radiation (right)
+666,7962,2,6,2,3,2,103,2.6.2.3.2.103.0.0,leaf,,25590.0,,,Weighted-mean L1 in tract superior longitudinal fasciculus (left)
+667,7963,2,6,2,3,2,104,2.6.2.3.2.104.0.0,leaf,,25591.0,,,Weighted-mean L1 in tract superior longitudinal fasciculus (right)
+668,7964,2,6,2,3,2,105,2.6.2.3.2.105.0.0,leaf,,25592.0,,,Weighted-mean L1 in tract superior thalamic radiation (left)
+669,7965,2,6,2,3,1,24,2.6.2.3.1.24.0.0,leaf,,25056.0,,,Mean FA in middle cerebellar peduncle on FA skeleton
+670,7966,2,6,2,3,1,25,2.6.2.3.1.25.0.0,leaf,,25057.0,,,Mean FA in pontine crossing tract on FA skeleton
+671,7967,2,6,2,3,1,26,2.6.2.3.1.26.0.0,leaf,,25083.0,,,Mean FA in posterior corona radiata on FA skeleton (left)
+672,7968,2,6,2,3,1,27,2.6.2.3.1.27.0.0,leaf,,25082.0,,,Mean FA in posterior corona radiata on FA skeleton (right)
+673,7969,2,6,2,3,2,106,2.6.2.3.2.106.0.0,leaf,,25593.0,,,Weighted-mean L1 in tract superior thalamic radiation (right)
+674,7970,2,6,2,3,2,107,2.6.2.3.2.107.0.0,leaf,,25594.0,,,Weighted-mean L1 in tract uncinate fasciculus (left)
+675,7971,2,6,2,3,2,108,2.6.2.3.2.108.0.0,leaf,,25595.0,,,Weighted-mean L1 in tract uncinate fasciculus (right)
+676,7972,2,6,2,3,2,109,2.6.2.3.2.109.0.0,leaf,,25596.0,,,Weighted-mean L2 in tract acoustic radiation (left)
+677,7973,2,6,2,3,1,28,2.6.2.3.1.28.0.0,leaf,,25075.0,,,Mean FA in posterior limb of internal capsule on FA skeleton (left)
+678,7974,2,6,2,3,1,29,2.6.2.3.1.29.0.0,leaf,,25074.0,,,Mean FA in posterior limb of internal capsule on FA skeleton (right)
+679,7975,2,6,2,3,1,30,2.6.2.3.1.30.0.0,leaf,,25085.0,,,Mean FA in posterior thalamic radiation on FA skeleton (left)
+680,7976,2,6,2,3,1,31,2.6.2.3.1.31.0.0,leaf,,25084.0,,,Mean FA in posterior thalamic radiation on FA skeleton (right)
+681,7980,2,6,2,3,2,110,2.6.2.3.2.110.0.0,leaf,,25597.0,,,Weighted-mean L2 in tract acoustic radiation (right)
+682,7981,2,6,2,3,2,111,2.6.2.3.2.111.0.0,leaf,,25598.0,,,Weighted-mean L2 in tract anterior thalamic radiation (left)
+683,7982,2,6,2,3,2,112,2.6.2.3.2.112.0.0,leaf,,25599.0,,,Weighted-mean L2 in tract anterior thalamic radiation (right)
+684,7983,2,6,2,3,2,113,2.6.2.3.2.113.0.0,leaf,,25600.0,,,Weighted-mean L2 in tract cingulate gyrus part of cingulum (left)
+685,7984,2,6,2,3,1,32,2.6.2.3.1.32.0.0,leaf,,25077.0,,,Mean FA in retrolenticular part of internal capsule on FA skeleton (left)
+686,7985,2,6,2,3,1,33,2.6.2.3.1.33.0.0,leaf,,25076.0,,,Mean FA in retrolenticular part of internal capsule on FA skeleton (right)
+687,7986,2,6,2,3,1,34,2.6.2.3.1.34.0.0,leaf,,25087.0,,,Mean FA in sagittal stratum on FA skeleton (left)
+688,7987,2,6,2,3,1,35,2.6.2.3.1.35.0.0,leaf,,25086.0,,,Mean FA in sagittal stratum on FA skeleton (right)
+689,7991,2,6,2,3,2,114,2.6.2.3.2.114.0.0,leaf,,25601.0,,,Weighted-mean L2 in tract cingulate gyrus part of cingulum (right)
+690,7992,2,6,2,3,2,115,2.6.2.3.2.115.0.0,leaf,,25604.0,,,Weighted-mean L2 in tract corticospinal tract (left)
+691,7993,2,6,2,3,2,116,2.6.2.3.2.116.0.0,leaf,,25605.0,,,Weighted-mean L2 in tract corticospinal tract (right)
+692,7994,2,6,2,3,2,117,2.6.2.3.2.117.0.0,leaf,,25606.0,,,Weighted-mean L2 in tract forceps major
+693,7995,2,6,2,3,1,36,2.6.2.3.1.36.0.0,leaf,,25060.0,,,Mean FA in splenium of corpus callosum on FA skeleton
+694,7996,2,6,2,3,1,37,2.6.2.3.1.37.0.0,leaf,,25069.0,,,Mean FA in superior cerebellar peduncle on FA skeleton (left)
+695,7997,2,6,2,3,1,38,2.6.2.3.1.38.0.0,leaf,,25068.0,,,Mean FA in superior cerebellar peduncle on FA skeleton (right)
+696,7998,2,6,2,3,1,39,2.6.2.3.1.39.0.0,leaf,,25081.0,,,Mean FA in superior corona radiata on FA skeleton (left)
+697,7999,2,6,2,3,2,118,2.6.2.3.2.118.0.0,leaf,,25607.0,,,Weighted-mean L2 in tract forceps minor
+698,8000,2,6,2,3,2,119,2.6.2.3.2.119.0.0,leaf,,25608.0,,,Weighted-mean L2 in tract inferior fronto-occipital fasciculus (left)
+699,8001,2,6,2,3,2,120,2.6.2.3.2.120.0.0,leaf,,25609.0,,,Weighted-mean L2 in tract inferior fronto-occipital fasciculus (right)
+700,8002,2,6,2,3,2,121,2.6.2.3.2.121.0.0,leaf,,25610.0,,,Weighted-mean L2 in tract inferior longitudinal fasciculus (left)
+701,8003,2,6,2,3,1,40,2.6.2.3.1.40.0.0,leaf,,25080.0,,,Mean FA in superior corona radiata on FA skeleton (right)
+702,8004,2,6,2,3,1,41,2.6.2.3.1.41.0.0,leaf,,25099.0,,,Mean FA in superior fronto-occipital fasciculus on FA skeleton (left)
+703,8005,2,6,2,3,1,42,2.6.2.3.1.42.0.0,leaf,,25098.0,,,Mean FA in superior fronto-occipital fasciculus on FA skeleton (right)
+704,8006,2,6,2,3,1,43,2.6.2.3.1.43.0.0,leaf,,25097.0,,,Mean FA in superior longitudinal fasciculus on FA skeleton (left)
+705,8007,2,6,2,3,2,122,2.6.2.3.2.122.0.0,leaf,,25611.0,,,Weighted-mean L2 in tract inferior longitudinal fasciculus (right)
+706,8008,2,6,2,3,2,123,2.6.2.3.2.123.0.0,leaf,,25613.0,,,Weighted-mean L2 in tract medial lemniscus (left)
+707,8009,2,6,2,3,2,124,2.6.2.3.2.124.0.0,leaf,,25614.0,,,Weighted-mean L2 in tract medial lemniscus (right)
+708,8010,2,6,2,3,2,125,2.6.2.3.2.125.0.0,leaf,,25612.0,,,Weighted-mean L2 in tract middle cerebellar peduncle
+709,8011,2,6,2,3,1,44,2.6.2.3.1.44.0.0,leaf,,25096.0,,,Mean FA in superior longitudinal fasciculus on FA skeleton (right)
+710,8012,2,6,2,3,1,45,2.6.2.3.1.45.0.0,leaf,,25103.0,,,Mean FA in tapetum on FA skeleton (left)
+711,8013,2,6,2,3,1,46,2.6.2.3.1.46.0.0,leaf,,25102.0,,,Mean FA in tapetum on FA skeleton (right)
+712,8014,2,6,2,3,1,47,2.6.2.3.1.47.0.0,leaf,,25101.0,,,Mean FA in uncinate fasciculus on FA skeleton (left)
+713,8015,2,6,2,3,2,126,2.6.2.3.2.126.0.0,leaf,,25602.0,,,Weighted-mean L2 in tract parahippocampal part of cingulum (left)
+714,8016,2,6,2,3,2,127,2.6.2.3.2.127.0.0,leaf,,25603.0,,,Weighted-mean L2 in tract parahippocampal part of cingulum (right)
+715,8017,2,6,2,3,2,128,2.6.2.3.2.128.0.0,leaf,,25615.0,,,Weighted-mean L2 in tract posterior thalamic radiation (left)
+716,8018,2,6,2,3,2,129,2.6.2.3.2.129.0.0,leaf,,25616.0,,,Weighted-mean L2 in tract posterior thalamic radiation (right)
+717,8019,2,6,2,3,1,48,2.6.2.3.1.48.0.0,leaf,,25100.0,,,Mean FA in uncinate fasciculus on FA skeleton (right)
+718,8020,2,6,2,3,1,49,2.6.2.3.1.49.0.0,leaf,,25367.0,,,Mean ICVF in anterior corona radiata on FA skeleton (left)
+719,8021,2,6,2,3,1,50,2.6.2.3.1.50.0.0,leaf,,25366.0,,,Mean ICVF in anterior corona radiata on FA skeleton (right)
+720,8022,2,6,2,3,1,51,2.6.2.3.1.51.0.0,leaf,,25361.0,,,Mean ICVF in anterior limb of internal capsule on FA skeleton (left)
+721,8023,2,6,2,3,2,130,2.6.2.3.2.130.0.0,leaf,,25617.0,,,Weighted-mean L2 in tract superior longitudinal fasciculus (left)
+722,8024,2,6,2,3,2,131,2.6.2.3.2.131.0.0,leaf,,25618.0,,,Weighted-mean L2 in tract superior longitudinal fasciculus (right)
+723,8025,2,6,2,3,2,132,2.6.2.3.2.132.0.0,leaf,,25619.0,,,Weighted-mean L2 in tract superior thalamic radiation (left)
+724,8026,2,6,2,3,2,133,2.6.2.3.2.133.0.0,leaf,,25620.0,,,Weighted-mean L2 in tract superior thalamic radiation (right)
+725,8027,2,6,2,3,1,52,2.6.2.3.1.52.0.0,leaf,,25360.0,,,Mean ICVF in anterior limb of internal capsule on FA skeleton (right)
+726,8028,2,6,2,3,1,53,2.6.2.3.1.53.0.0,leaf,,25347.0,,,Mean ICVF in body of corpus callosum on FA skeleton
+727,8029,2,6,2,3,1,54,2.6.2.3.1.54.0.0,leaf,,25359.0,,,Mean ICVF in cerebral peduncle on FA skeleton (left)
+728,8030,2,6,2,3,1,55,2.6.2.3.1.55.0.0,leaf,,25358.0,,,Mean ICVF in cerebral peduncle on FA skeleton (right)
+729,8031,2,6,2,3,2,134,2.6.2.3.2.134.0.0,leaf,,25621.0,,,Weighted-mean L2 in tract uncinate fasciculus (left)
+730,8032,2,6,2,3,2,135,2.6.2.3.2.135.0.0,leaf,,25622.0,,,Weighted-mean L2 in tract uncinate fasciculus (right)
+731,8033,2,6,2,3,2,136,2.6.2.3.2.136.0.0,leaf,,25623.0,,,Weighted-mean L3 in tract acoustic radiation (left)
+732,8034,2,6,2,3,2,137,2.6.2.3.2.137.0.0,leaf,,25624.0,,,Weighted-mean L3 in tract acoustic radiation (right)
+733,8035,2,6,2,3,1,56,2.6.2.3.1.56.0.0,leaf,,25379.0,,,Mean ICVF in cingulum cingulate gyrus on FA skeleton (left)
+734,8036,2,6,2,3,1,57,2.6.2.3.1.57.0.0,leaf,,25378.0,,,Mean ICVF in cingulum cingulate gyrus on FA skeleton (right)
+735,8037,2,6,2,3,1,58,2.6.2.3.1.58.0.0,leaf,,25381.0,,,Mean ICVF in cingulum hippocampus on FA skeleton (left)
+736,8038,2,6,2,3,1,59,2.6.2.3.1.59.0.0,leaf,,25380.0,,,Mean ICVF in cingulum hippocampus on FA skeleton (right)
+737,8039,2,6,2,3,2,138,2.6.2.3.2.138.0.0,leaf,,25625.0,,,Weighted-mean L3 in tract anterior thalamic radiation (left)
+738,8040,2,6,2,3,2,139,2.6.2.3.2.139.0.0,leaf,,25626.0,,,Weighted-mean L3 in tract anterior thalamic radiation (right)
+739,8041,2,6,2,3,2,140,2.6.2.3.2.140.0.0,leaf,,25627.0,,,Weighted-mean L3 in tract cingulate gyrus part of cingulum (left)
+740,8042,2,6,2,3,2,141,2.6.2.3.2.141.0.0,leaf,,25628.0,,,Weighted-mean L3 in tract cingulate gyrus part of cingulum (right)
+741,8043,2,6,2,3,1,60,2.6.2.3.1.60.0.0,leaf,,25351.0,,,Mean ICVF in corticospinal tract on FA skeleton (left)
+742,8044,2,6,2,3,1,61,2.6.2.3.1.61.0.0,leaf,,25350.0,,,Mean ICVF in corticospinal tract on FA skeleton (right)
+743,8045,2,6,2,3,1,62,2.6.2.3.1.62.0.0,leaf,,25377.0,,,Mean ICVF in external capsule on FA skeleton (left)
+744,8046,2,6,2,3,1,63,2.6.2.3.1.63.0.0,leaf,,25376.0,,,Mean ICVF in external capsule on FA skeleton (right)
+745,8047,2,6,2,3,2,142,2.6.2.3.2.142.0.0,leaf,,25631.0,,,Weighted-mean L3 in tract corticospinal tract (left)
+746,8048,2,6,2,3,2,143,2.6.2.3.2.143.0.0,leaf,,25632.0,,,Weighted-mean L3 in tract corticospinal tract (right)
+747,8049,2,6,2,3,2,144,2.6.2.3.2.144.0.0,leaf,,25633.0,,,Weighted-mean L3 in tract forceps major
+748,8050,2,6,2,3,2,145,2.6.2.3.2.145.0.0,leaf,,25634.0,,,Weighted-mean L3 in tract forceps minor
+749,8051,2,6,2,3,1,64,2.6.2.3.1.64.0.0,leaf,,25383.0,,,Mean ICVF in fornix cres+stria terminalis on FA skeleton (left)
+750,8052,2,6,2,3,1,65,2.6.2.3.1.65.0.0,leaf,,25382.0,,,Mean ICVF in fornix cres+stria terminalis on FA skeleton (right)
+751,8053,2,6,2,3,1,66,2.6.2.3.1.66.0.0,leaf,,25349.0,,,Mean ICVF in fornix on FA skeleton
+752,8054,2,6,2,3,1,67,2.6.2.3.1.67.0.0,leaf,,25346.0,,,Mean ICVF in genu of corpus callosum on FA skeleton
+753,8055,2,6,2,3,2,146,2.6.2.3.2.146.0.0,leaf,,25635.0,,,Weighted-mean L3 in tract inferior fronto-occipital fasciculus (left)
+754,8056,2,6,2,3,2,147,2.6.2.3.2.147.0.0,leaf,,25636.0,,,Weighted-mean L3 in tract inferior fronto-occipital fasciculus (right)
+755,8057,2,6,2,3,2,148,2.6.2.3.2.148.0.0,leaf,,25637.0,,,Weighted-mean L3 in tract inferior longitudinal fasciculus (left)
+756,8058,2,6,2,3,2,149,2.6.2.3.2.149.0.0,leaf,,25638.0,,,Weighted-mean L3 in tract inferior longitudinal fasciculus (right)
+757,8059,2,6,2,3,1,68,2.6.2.3.1.68.0.0,leaf,,25355.0,,,Mean ICVF in inferior cerebellar peduncle on FA skeleton (left)
+758,8060,2,6,2,3,1,69,2.6.2.3.1.69.0.0,leaf,,25354.0,,,Mean ICVF in inferior cerebellar peduncle on FA skeleton (right)
+759,8061,2,6,2,3,1,70,2.6.2.3.1.70.0.0,leaf,,25353.0,,,Mean ICVF in medial lemniscus on FA skeleton (left)
+760,8062,2,6,2,3,1,71,2.6.2.3.1.71.0.0,leaf,,25352.0,,,Mean ICVF in medial lemniscus on FA skeleton (right)
+761,8063,2,6,2,3,2,150,2.6.2.3.2.150.0.0,leaf,,25640.0,,,Weighted-mean L3 in tract medial lemniscus (left)
+762,8064,2,6,2,3,2,151,2.6.2.3.2.151.0.0,leaf,,25641.0,,,Weighted-mean L3 in tract medial lemniscus (right)
+763,8065,2,6,2,3,2,152,2.6.2.3.2.152.0.0,leaf,,25639.0,,,Weighted-mean L3 in tract middle cerebellar peduncle
+764,8066,2,6,2,3,2,153,2.6.2.3.2.153.0.0,leaf,,25629.0,,,Weighted-mean L3 in tract parahippocampal part of cingulum (left)
+765,8067,2,6,2,3,1,72,2.6.2.3.1.72.0.0,leaf,,25344.0,,,Mean ICVF in middle cerebellar peduncle on FA skeleton
+766,8068,2,6,2,3,1,73,2.6.2.3.1.73.0.0,leaf,,25345.0,,,Mean ICVF in pontine crossing tract on FA skeleton
+767,8069,2,6,2,3,1,74,2.6.2.3.1.74.0.0,leaf,,25371.0,,,Mean ICVF in posterior corona radiata on FA skeleton (left)
+768,8070,2,6,2,3,1,75,2.6.2.3.1.75.0.0,leaf,,25370.0,,,Mean ICVF in posterior corona radiata on FA skeleton (right)
+769,8073,2,6,2,3,2,154,2.6.2.3.2.154.0.0,leaf,,25630.0,,,Weighted-mean L3 in tract parahippocampal part of cingulum (right)
+770,8074,2,6,2,3,2,155,2.6.2.3.2.155.0.0,leaf,,25642.0,,,Weighted-mean L3 in tract posterior thalamic radiation (left)
+771,8075,2,6,2,3,2,156,2.6.2.3.2.156.0.0,leaf,,25643.0,,,Weighted-mean L3 in tract posterior thalamic radiation (right)
+772,8076,2,6,2,3,2,157,2.6.2.3.2.157.0.0,leaf,,25644.0,,,Weighted-mean L3 in tract superior longitudinal fasciculus (left)
+773,8077,2,6,2,3,1,76,2.6.2.3.1.76.0.0,leaf,,25363.0,,,Mean ICVF in posterior limb of internal capsule on FA skeleton (left)
+774,8078,2,6,2,3,1,77,2.6.2.3.1.77.0.0,leaf,,25362.0,,,Mean ICVF in posterior limb of internal capsule on FA skeleton (right)
+775,8079,2,6,2,3,1,78,2.6.2.3.1.78.0.0,leaf,,25373.0,,,Mean ICVF in posterior thalamic radiation on FA skeleton (left)
+776,8080,2,6,2,3,1,79,2.6.2.3.1.79.0.0,leaf,,25372.0,,,Mean ICVF in posterior thalamic radiation on FA skeleton (right)
+777,8081,2,6,2,3,2,158,2.6.2.3.2.158.0.0,leaf,,25645.0,,,Weighted-mean L3 in tract superior longitudinal fasciculus (right)
+778,8082,2,6,2,3,2,159,2.6.2.3.2.159.0.0,leaf,,25646.0,,,Weighted-mean L3 in tract superior thalamic radiation (left)
+779,8083,2,6,2,3,2,160,2.6.2.3.2.160.0.0,leaf,,25647.0,,,Weighted-mean L3 in tract superior thalamic radiation (right)
+780,8084,2,6,2,3,2,161,2.6.2.3.2.161.0.0,leaf,,25648.0,,,Weighted-mean L3 in tract uncinate fasciculus (left)
+781,8085,2,6,2,3,1,80,2.6.2.3.1.80.0.0,leaf,,25365.0,,,Mean ICVF in retrolenticular part of internal capsule on FA skeleton (left)
+782,8086,2,6,2,3,1,81,2.6.2.3.1.81.0.0,leaf,,25364.0,,,Mean ICVF in retrolenticular part of internal capsule on FA skeleton (right)
+783,8087,2,6,2,3,1,82,2.6.2.3.1.82.0.0,leaf,,25375.0,,,Mean ICVF in sagittal stratum on FA skeleton (left)
+784,8088,2,6,2,3,1,83,2.6.2.3.1.83.0.0,leaf,,25374.0,,,Mean ICVF in sagittal stratum on FA skeleton (right)
+785,8091,2,6,2,3,2,162,2.6.2.3.2.162.0.0,leaf,,25649.0,,,Weighted-mean L3 in tract uncinate fasciculus (right)
+786,8092,2,6,2,3,2,163,2.6.2.3.2.163.0.0,leaf,,25515.0,,,Weighted-mean MD in tract acoustic radiation (left)
+787,8093,2,6,2,3,2,164,2.6.2.3.2.164.0.0,leaf,,25516.0,,,Weighted-mean MD in tract acoustic radiation (right)
+788,8094,2,6,2,3,2,165,2.6.2.3.2.165.0.0,leaf,,25517.0,,,Weighted-mean MD in tract anterior thalamic radiation (left)
+789,8095,2,6,2,3,1,84,2.6.2.3.1.84.0.0,leaf,,25348.0,,,Mean ICVF in splenium of corpus callosum on FA skeleton
+790,8096,2,6,2,3,1,85,2.6.2.3.1.85.0.0,leaf,,25357.0,,,Mean ICVF in superior cerebellar peduncle on FA skeleton (left)
+791,8097,2,6,2,3,1,86,2.6.2.3.1.86.0.0,leaf,,25356.0,,,Mean ICVF in superior cerebellar peduncle on FA skeleton (right)
+792,8098,2,6,2,3,1,87,2.6.2.3.1.87.0.0,leaf,,25369.0,,,Mean ICVF in superior corona radiata on FA skeleton (left)
+793,8105,2,6,2,3,2,166,2.6.2.3.2.166.0.0,leaf,,25518.0,,,Weighted-mean MD in tract anterior thalamic radiation (right)
+794,8106,2,6,2,3,2,167,2.6.2.3.2.167.0.0,leaf,,25519.0,,,Weighted-mean MD in tract cingulate gyrus part of cingulum (left)
+795,8107,2,6,2,3,2,168,2.6.2.3.2.168.0.0,leaf,,25520.0,,,Weighted-mean MD in tract cingulate gyrus part of cingulum (right)
+796,8108,2,6,2,3,2,169,2.6.2.3.2.169.0.0,leaf,,25523.0,,,Weighted-mean MD in tract corticospinal tract (left)
+797,8109,2,6,2,3,1,88,2.6.2.3.1.88.0.0,leaf,,25368.0,,,Mean ICVF in superior corona radiata on FA skeleton (right)
+798,8110,2,6,2,3,1,89,2.6.2.3.1.89.0.0,leaf,,25387.0,,,Mean ICVF in superior fronto-occipital fasciculus on FA skeleton (left)
+799,8111,2,6,2,3,1,90,2.6.2.3.1.90.0.0,leaf,,25386.0,,,Mean ICVF in superior fronto-occipital fasciculus on FA skeleton (right)
+800,8112,2,6,2,3,1,91,2.6.2.3.1.91.0.0,leaf,,25385.0,,,Mean ICVF in superior longitudinal fasciculus on FA skeleton (left)
+801,8113,2,6,2,3,2,170,2.6.2.3.2.170.0.0,leaf,,25524.0,,,Weighted-mean MD in tract corticospinal tract (right)
+802,8114,2,6,2,3,2,171,2.6.2.3.2.171.0.0,leaf,,25525.0,,,Weighted-mean MD in tract forceps major
+803,8115,2,6,2,3,2,172,2.6.2.3.2.172.0.0,leaf,,25526.0,,,Weighted-mean MD in tract forceps minor
+804,8116,2,6,2,3,2,173,2.6.2.3.2.173.0.0,leaf,,25527.0,,,Weighted-mean MD in tract inferior fronto-occipital fasciculus (left)
+805,8117,2,6,2,3,1,92,2.6.2.3.1.92.0.0,leaf,,25384.0,,,Mean ICVF in superior longitudinal fasciculus on FA skeleton (right)
+806,8118,2,6,2,3,1,93,2.6.2.3.1.93.0.0,leaf,,25391.0,,,Mean ICVF in tapetum on FA skeleton (left)
+807,8119,2,6,2,3,1,94,2.6.2.3.1.94.0.0,leaf,,25390.0,,,Mean ICVF in tapetum on FA skeleton (right)
+808,8120,2,6,2,3,1,95,2.6.2.3.1.95.0.0,leaf,,25389.0,,,Mean ICVF in uncinate fasciculus on FA skeleton (left)
+809,8121,2,6,2,3,2,174,2.6.2.3.2.174.0.0,leaf,,25528.0,,,Weighted-mean MD in tract inferior fronto-occipital fasciculus (right)
+810,8122,2,6,2,3,2,175,2.6.2.3.2.175.0.0,leaf,,25529.0,,,Weighted-mean MD in tract inferior longitudinal fasciculus (left)
+811,8123,2,6,2,3,2,176,2.6.2.3.2.176.0.0,leaf,,25530.0,,,Weighted-mean MD in tract inferior longitudinal fasciculus (right)
+812,8124,2,6,2,3,2,177,2.6.2.3.2.177.0.0,leaf,,25532.0,,,Weighted-mean MD in tract medial lemniscus (left)
+813,8125,2,6,2,3,1,96,2.6.2.3.1.96.0.0,leaf,,25388.0,,,Mean ICVF in uncinate fasciculus on FA skeleton (right)
+814,8126,2,6,2,3,1,97,2.6.2.3.1.97.0.0,leaf,,25463.0,,,Mean ISOVF in anterior corona radiata on FA skeleton (left)
+815,8127,2,6,2,3,1,98,2.6.2.3.1.98.0.0,leaf,,25462.0,,,Mean ISOVF in anterior corona radiata on FA skeleton (right)
+816,8128,2,6,2,3,1,99,2.6.2.3.1.99.0.0,leaf,,25457.0,,,Mean ISOVF in anterior limb of internal capsule on FA skeleton (left)
+817,8129,2,6,2,3,2,178,2.6.2.3.2.178.0.0,leaf,,25533.0,,,Weighted-mean MD in tract medial lemniscus (right)
+818,8130,2,6,2,3,2,179,2.6.2.3.2.179.0.0,leaf,,25531.0,,,Weighted-mean MD in tract middle cerebellar peduncle
+819,8131,2,6,2,3,2,180,2.6.2.3.2.180.0.0,leaf,,25521.0,,,Weighted-mean MD in tract parahippocampal part of cingulum (left)
+820,8132,2,6,2,3,2,181,2.6.2.3.2.181.0.0,leaf,,25522.0,,,Weighted-mean MD in tract parahippocampal part of cingulum (right)
+821,8133,2,6,2,3,1,100,2.6.2.3.1.100.0.0,leaf,,25456.0,,,Mean ISOVF in anterior limb of internal capsule on FA skeleton (right)
+822,8134,2,6,2,3,1,101,2.6.2.3.1.101.0.0,leaf,,25443.0,,,Mean ISOVF in body of corpus callosum on FA skeleton
+823,8135,2,6,2,3,1,102,2.6.2.3.1.102.0.0,leaf,,25455.0,,,Mean ISOVF in cerebral peduncle on FA skeleton (left)
+824,8136,2,6,2,3,1,103,2.6.2.3.1.103.0.0,leaf,,25454.0,,,Mean ISOVF in cerebral peduncle on FA skeleton (right)
+825,8137,2,6,2,3,2,182,2.6.2.3.2.182.0.0,leaf,,25534.0,,,Weighted-mean MD in tract posterior thalamic radiation (left)
+826,8138,2,6,2,3,2,183,2.6.2.3.2.183.0.0,leaf,,25535.0,,,Weighted-mean MD in tract posterior thalamic radiation (right)
+827,8139,2,6,2,3,2,184,2.6.2.3.2.184.0.0,leaf,,25536.0,,,Weighted-mean MD in tract superior longitudinal fasciculus (left)
+828,8140,2,6,2,3,2,185,2.6.2.3.2.185.0.0,leaf,,25537.0,,,Weighted-mean MD in tract superior longitudinal fasciculus (right)
+829,8144,2,6,2,3,1,104,2.6.2.3.1.104.0.0,leaf,,25475.0,,,Mean ISOVF in cingulum cingulate gyrus on FA skeleton (left)
+830,8145,2,6,2,3,1,105,2.6.2.3.1.105.0.0,leaf,,25474.0,,,Mean ISOVF in cingulum cingulate gyrus on FA skeleton (right)
+831,8146,2,6,2,3,1,106,2.6.2.3.1.106.0.0,leaf,,25477.0,,,Mean ISOVF in cingulum hippocampus on FA skeleton (left)
+832,8147,2,6,2,3,1,107,2.6.2.3.1.107.0.0,leaf,,25476.0,,,Mean ISOVF in cingulum hippocampus on FA skeleton (right)
+833,8148,2,6,2,3,2,186,2.6.2.3.2.186.0.0,leaf,,25538.0,,,Weighted-mean MD in tract superior thalamic radiation (left)
+834,8149,2,6,2,3,2,187,2.6.2.3.2.187.0.0,leaf,,25539.0,,,Weighted-mean MD in tract superior thalamic radiation (right)
+835,8150,2,6,2,3,2,188,2.6.2.3.2.188.0.0,leaf,,25540.0,,,Weighted-mean MD in tract uncinate fasciculus (left)
+836,8151,2,6,2,3,2,189,2.6.2.3.2.189.0.0,leaf,,25541.0,,,Weighted-mean MD in tract uncinate fasciculus (right)
+837,8152,2,6,2,3,1,108,2.6.2.3.1.108.0.0,leaf,,25447.0,,,Mean ISOVF in corticospinal tract on FA skeleton (left)
+838,8153,2,6,2,3,1,109,2.6.2.3.1.109.0.0,leaf,,25446.0,,,Mean ISOVF in corticospinal tract on FA skeleton (right)
+839,8154,2,6,2,3,1,110,2.6.2.3.1.110.0.0,leaf,,25473.0,,,Mean ISOVF in external capsule on FA skeleton (left)
+840,8155,2,6,2,3,1,111,2.6.2.3.1.111.0.0,leaf,,25472.0,,,Mean ISOVF in external capsule on FA skeleton (right)
+841,8156,2,6,2,3,2,190,2.6.2.3.2.190.0.0,leaf,,25542.0,,,Weighted-mean MO in tract acoustic radiation (left)
+842,8157,2,6,2,3,2,191,2.6.2.3.2.191.0.0,leaf,,25543.0,,,Weighted-mean MO in tract acoustic radiation (right)
+843,8158,2,6,2,3,2,192,2.6.2.3.2.192.0.0,leaf,,25544.0,,,Weighted-mean MO in tract anterior thalamic radiation (left)
+844,8159,2,6,2,3,2,193,2.6.2.3.2.193.0.0,leaf,,25545.0,,,Weighted-mean MO in tract anterior thalamic radiation (right)
+845,8163,2,6,2,3,1,112,2.6.2.3.1.112.0.0,leaf,,25479.0,,,Mean ISOVF in fornix cres+stria terminalis on FA skeleton (left)
+846,8164,2,6,2,3,1,113,2.6.2.3.1.113.0.0,leaf,,25478.0,,,Mean ISOVF in fornix cres+stria terminalis on FA skeleton (right)
+847,8165,2,6,2,3,1,114,2.6.2.3.1.114.0.0,leaf,,25445.0,,,Mean ISOVF in fornix on FA skeleton
+848,8166,2,6,2,3,1,115,2.6.2.3.1.115.0.0,leaf,,25442.0,,,Mean ISOVF in genu of corpus callosum on FA skeleton
+849,8167,2,6,2,3,2,194,2.6.2.3.2.194.0.0,leaf,,25546.0,,,Weighted-mean MO in tract cingulate gyrus part of cingulum (left)
+850,8168,2,6,2,3,2,195,2.6.2.3.2.195.0.0,leaf,,25547.0,,,Weighted-mean MO in tract cingulate gyrus part of cingulum (right)
+851,8169,2,6,2,3,2,196,2.6.2.3.2.196.0.0,leaf,,25550.0,,,Weighted-mean MO in tract corticospinal tract (left)
+852,8170,2,6,2,3,2,197,2.6.2.3.2.197.0.0,leaf,,25551.0,,,Weighted-mean MO in tract corticospinal tract (right)
+853,8171,2,6,2,3,1,116,2.6.2.3.1.116.0.0,leaf,,25451.0,,,Mean ISOVF in inferior cerebellar peduncle on FA skeleton (left)
+854,8172,2,6,2,3,1,117,2.6.2.3.1.117.0.0,leaf,,25450.0,,,Mean ISOVF in inferior cerebellar peduncle on FA skeleton (right)
+855,8173,2,6,2,3,1,118,2.6.2.3.1.118.0.0,leaf,,25449.0,,,Mean ISOVF in medial lemniscus on FA skeleton (left)
+856,8174,2,6,2,3,1,119,2.6.2.3.1.119.0.0,leaf,,25448.0,,,Mean ISOVF in medial lemniscus on FA skeleton (right)
+857,8178,2,6,2,3,2,198,2.6.2.3.2.198.0.0,leaf,,25552.0,,,Weighted-mean MO in tract forceps major
+858,8179,2,6,2,3,2,199,2.6.2.3.2.199.0.0,leaf,,25553.0,,,Weighted-mean MO in tract forceps minor
+859,8180,2,6,2,3,2,200,2.6.2.3.2.200.0.0,leaf,,25554.0,,,Weighted-mean MO in tract inferior fronto-occipital fasciculus (left)
+860,8181,2,6,2,3,2,201,2.6.2.3.2.201.0.0,leaf,,25555.0,,,Weighted-mean MO in tract inferior fronto-occipital fasciculus (right)
+861,8182,2,6,2,3,1,120,2.6.2.3.1.120.0.0,leaf,,25440.0,,,Mean ISOVF in middle cerebellar peduncle on FA skeleton
+862,8183,2,6,2,3,1,121,2.6.2.3.1.121.0.0,leaf,,25441.0,,,Mean ISOVF in pontine crossing tract on FA skeleton
+863,8184,2,6,2,3,1,122,2.6.2.3.1.122.0.0,leaf,,25467.0,,,Mean ISOVF in posterior corona radiata on FA skeleton (left)
+864,8185,2,6,2,3,1,123,2.6.2.3.1.123.0.0,leaf,,25466.0,,,Mean ISOVF in posterior corona radiata on FA skeleton (right)
+865,8186,2,6,2,3,2,202,2.6.2.3.2.202.0.0,leaf,,25556.0,,,Weighted-mean MO in tract inferior longitudinal fasciculus (left)
+866,8187,2,6,2,3,2,203,2.6.2.3.2.203.0.0,leaf,,25557.0,,,Weighted-mean MO in tract inferior longitudinal fasciculus (right)
+867,8188,2,6,2,3,2,204,2.6.2.3.2.204.0.0,leaf,,25559.0,,,Weighted-mean MO in tract medial lemniscus (left)
+868,8189,2,6,2,3,2,205,2.6.2.3.2.205.0.0,leaf,,25560.0,,,Weighted-mean MO in tract medial lemniscus (right)
+869,8190,2,6,2,3,1,124,2.6.2.3.1.124.0.0,leaf,,25459.0,,,Mean ISOVF in posterior limb of internal capsule on FA skeleton (left)
+870,8191,2,6,2,3,1,125,2.6.2.3.1.125.0.0,leaf,,25458.0,,,Mean ISOVF in posterior limb of internal capsule on FA skeleton (right)
+871,8192,2,6,2,3,1,126,2.6.2.3.1.126.0.0,leaf,,25469.0,,,Mean ISOVF in posterior thalamic radiation on FA skeleton (left)
+872,8193,2,6,2,3,1,127,2.6.2.3.1.127.0.0,leaf,,25468.0,,,Mean ISOVF in posterior thalamic radiation on FA skeleton (right)
+873,8194,2,6,2,3,2,206,2.6.2.3.2.206.0.0,leaf,,25558.0,,,Weighted-mean MO in tract middle cerebellar peduncle
+874,8195,2,6,2,3,2,207,2.6.2.3.2.207.0.0,leaf,,25548.0,,,Weighted-mean MO in tract parahippocampal part of cingulum (left)
+875,8196,2,6,2,3,2,208,2.6.2.3.2.208.0.0,leaf,,25549.0,,,Weighted-mean MO in tract parahippocampal part of cingulum (right)
+876,8197,2,6,2,3,2,209,2.6.2.3.2.209.0.0,leaf,,25561.0,,,Weighted-mean MO in tract posterior thalamic radiation (left)
+877,8198,2,6,2,3,1,128,2.6.2.3.1.128.0.0,leaf,,25461.0,,,Mean ISOVF in retrolenticular part of internal capsule on FA skeleton (left)
+878,8199,2,6,2,3,1,129,2.6.2.3.1.129.0.0,leaf,,25460.0,,,Mean ISOVF in retrolenticular part of internal capsule on FA skeleton (right)
+879,8200,2,6,2,3,1,130,2.6.2.3.1.130.0.0,leaf,,25471.0,,,Mean ISOVF in sagittal stratum on FA skeleton (left)
+880,8201,2,6,2,3,1,131,2.6.2.3.1.131.0.0,leaf,,25470.0,,,Mean ISOVF in sagittal stratum on FA skeleton (right)
+881,8202,2,6,2,3,2,210,2.6.2.3.2.210.0.0,leaf,,25562.0,,,Weighted-mean MO in tract posterior thalamic radiation (right)
+882,8203,2,6,2,3,2,211,2.6.2.3.2.211.0.0,leaf,,25563.0,,,Weighted-mean MO in tract superior longitudinal fasciculus (left)
+883,8204,2,6,2,3,2,212,2.6.2.3.2.212.0.0,leaf,,25564.0,,,Weighted-mean MO in tract superior longitudinal fasciculus (right)
+884,8205,2,6,2,3,2,213,2.6.2.3.2.213.0.0,leaf,,25565.0,,,Weighted-mean MO in tract superior thalamic radiation (left)
+885,8209,2,6,2,3,1,132,2.6.2.3.1.132.0.0,leaf,,25444.0,,,Mean ISOVF in splenium of corpus callosum on FA skeleton
+886,8210,2,6,2,3,1,133,2.6.2.3.1.133.0.0,leaf,,25453.0,,,Mean ISOVF in superior cerebellar peduncle on FA skeleton (left)
+887,8211,2,6,2,3,1,134,2.6.2.3.1.134.0.0,leaf,,25452.0,,,Mean ISOVF in superior cerebellar peduncle on FA skeleton (right)
+888,8212,2,6,2,3,1,135,2.6.2.3.1.135.0.0,leaf,,25465.0,,,Mean ISOVF in superior corona radiata on FA skeleton (left)
+889,8213,2,6,2,3,2,214,2.6.2.3.2.214.0.0,leaf,,25566.0,,,Weighted-mean MO in tract superior thalamic radiation (right)
+890,8214,2,6,2,3,2,215,2.6.2.3.2.215.0.0,leaf,,25567.0,,,Weighted-mean MO in tract uncinate fasciculus (left)
+891,8215,2,6,2,3,2,216,2.6.2.3.2.216.0.0,leaf,,25568.0,,,Weighted-mean MO in tract uncinate fasciculus (right)
+892,8216,2,6,2,3,2,217,2.6.2.3.2.217.0.0,leaf,,25677.0,,,Weighted-mean OD in tract acoustic radiation (left)
+893,8217,2,6,2,3,1,136,2.6.2.3.1.136.0.0,leaf,,25464.0,,,Mean ISOVF in superior corona radiata on FA skeleton (right)
+894,8218,2,6,2,3,1,137,2.6.2.3.1.137.0.0,leaf,,25483.0,,,Mean ISOVF in superior fronto-occipital fasciculus on FA skeleton (left)
+895,8219,2,6,2,3,1,138,2.6.2.3.1.138.0.0,leaf,,25482.0,,,Mean ISOVF in superior fronto-occipital fasciculus on FA skeleton (right)
+896,8220,2,6,2,3,1,139,2.6.2.3.1.139.0.0,leaf,,25481.0,,,Mean ISOVF in superior longitudinal fasciculus on FA skeleton (left)
+897,8221,2,6,2,3,2,218,2.6.2.3.2.218.0.0,leaf,,25678.0,,,Weighted-mean OD in tract acoustic radiation (right)
+898,8222,2,6,2,3,2,219,2.6.2.3.2.219.0.0,leaf,,25679.0,,,Weighted-mean OD in tract anterior thalamic radiation (left)
+899,8223,2,6,2,3,2,220,2.6.2.3.2.220.0.0,leaf,,25680.0,,,Weighted-mean OD in tract anterior thalamic radiation (right)
+900,8224,2,6,2,3,2,221,2.6.2.3.2.221.0.0,leaf,,25681.0,,,Weighted-mean OD in tract cingulate gyrus part of cingulum (left)
+901,8225,2,6,2,3,1,140,2.6.2.3.1.140.0.0,leaf,,25480.0,,,Mean ISOVF in superior longitudinal fasciculus on FA skeleton (right)
+902,8226,2,6,2,3,1,141,2.6.2.3.1.141.0.0,leaf,,25487.0,,,Mean ISOVF in tapetum on FA skeleton (left)
+903,8227,2,6,2,3,1,142,2.6.2.3.1.142.0.0,leaf,,25486.0,,,Mean ISOVF in tapetum on FA skeleton (right)
+904,8228,2,6,2,3,1,143,2.6.2.3.1.143.0.0,leaf,,25485.0,,,Mean ISOVF in uncinate fasciculus on FA skeleton (left)
+905,8229,2,6,2,3,2,222,2.6.2.3.2.222.0.0,leaf,,25682.0,,,Weighted-mean OD in tract cingulate gyrus part of cingulum (right)
+906,8230,2,6,2,3,2,223,2.6.2.3.2.223.0.0,leaf,,25685.0,,,Weighted-mean OD in tract corticospinal tract (left)
+907,8231,2,6,2,3,2,224,2.6.2.3.2.224.0.0,leaf,,25686.0,,,Weighted-mean OD in tract corticospinal tract (right)
+908,8232,2,6,2,3,2,225,2.6.2.3.2.225.0.0,leaf,,25687.0,,,Weighted-mean OD in tract forceps major
+909,8233,2,6,2,3,1,144,2.6.2.3.1.144.0.0,leaf,,25484.0,,,Mean ISOVF in uncinate fasciculus on FA skeleton (right)
+910,8234,2,6,2,3,1,145,2.6.2.3.1.145.0.0,leaf,,25223.0,,,Mean L1 in anterior corona radiata on FA skeleton (left)
+911,8235,2,6,2,3,1,146,2.6.2.3.1.146.0.0,leaf,,25222.0,,,Mean L1 in anterior corona radiata on FA skeleton (right)
+912,8236,2,6,2,3,1,147,2.6.2.3.1.147.0.0,leaf,,25217.0,,,Mean L1 in anterior limb of internal capsule on FA skeleton (left)
+913,8237,2,6,2,3,2,226,2.6.2.3.2.226.0.0,leaf,,25688.0,,,Weighted-mean OD in tract forceps minor
+914,8238,2,6,2,3,2,227,2.6.2.3.2.227.0.0,leaf,,25689.0,,,Weighted-mean OD in tract inferior fronto-occipital fasciculus (left)
+915,8239,2,6,2,3,2,228,2.6.2.3.2.228.0.0,leaf,,25690.0,,,Weighted-mean OD in tract inferior fronto-occipital fasciculus (right)
+916,8240,2,6,2,3,2,229,2.6.2.3.2.229.0.0,leaf,,25691.0,,,Weighted-mean OD in tract inferior longitudinal fasciculus (left)
+917,8241,2,6,2,3,1,148,2.6.2.3.1.148.0.0,leaf,,25216.0,,,Mean L1 in anterior limb of internal capsule on FA skeleton (right)
+918,8242,2,6,2,3,1,149,2.6.2.3.1.149.0.0,leaf,,25203.0,,,Mean L1 in body of corpus callosum on FA skeleton
+919,8243,2,6,2,3,1,150,2.6.2.3.1.150.0.0,leaf,,25215.0,,,Mean L1 in cerebral peduncle on FA skeleton (left)
+920,8244,2,6,2,3,1,151,2.6.2.3.1.151.0.0,leaf,,25214.0,,,Mean L1 in cerebral peduncle on FA skeleton (right)
+921,8245,2,6,2,3,2,230,2.6.2.3.2.230.0.0,leaf,,25692.0,,,Weighted-mean OD in tract inferior longitudinal fasciculus (right)
+922,8246,2,6,2,3,2,231,2.6.2.3.2.231.0.0,leaf,,25694.0,,,Weighted-mean OD in tract medial lemniscus (left)
+923,8247,2,6,2,3,2,232,2.6.2.3.2.232.0.0,leaf,,25695.0,,,Weighted-mean OD in tract medial lemniscus (right)
+924,8248,2,6,2,3,2,233,2.6.2.3.2.233.0.0,leaf,,25693.0,,,Weighted-mean OD in tract middle cerebellar peduncle
+925,8249,2,6,2,3,1,152,2.6.2.3.1.152.0.0,leaf,,25235.0,,,Mean L1 in cingulum cingulate gyrus on FA skeleton (left)
+926,8250,2,6,2,3,1,153,2.6.2.3.1.153.0.0,leaf,,25234.0,,,Mean L1 in cingulum cingulate gyrus on FA skeleton (right)
+927,8251,2,6,2,3,1,154,2.6.2.3.1.154.0.0,leaf,,25237.0,,,Mean L1 in cingulum hippocampus on FA skeleton (left)
+928,8252,2,6,2,3,1,155,2.6.2.3.1.155.0.0,leaf,,25236.0,,,Mean L1 in cingulum hippocampus on FA skeleton (right)
+929,8256,2,6,2,3,2,234,2.6.2.3.2.234.0.0,leaf,,25683.0,,,Weighted-mean OD in tract parahippocampal part of cingulum (left)
+930,8257,2,6,2,3,2,235,2.6.2.3.2.235.0.0,leaf,,25684.0,,,Weighted-mean OD in tract parahippocampal part of cingulum (right)
+931,8258,2,6,2,3,2,236,2.6.2.3.2.236.0.0,leaf,,25696.0,,,Weighted-mean OD in tract posterior thalamic radiation (left)
+932,8259,2,6,2,3,2,237,2.6.2.3.2.237.0.0,leaf,,25697.0,,,Weighted-mean OD in tract posterior thalamic radiation (right)
+933,8260,2,6,2,3,1,156,2.6.2.3.1.156.0.0,leaf,,25207.0,,,Mean L1 in corticospinal tract on FA skeleton (left)
+934,8261,2,6,2,3,1,157,2.6.2.3.1.157.0.0,leaf,,25206.0,,,Mean L1 in corticospinal tract on FA skeleton (right)
+935,8262,2,6,2,3,1,158,2.6.2.3.1.158.0.0,leaf,,25233.0,,,Mean L1 in external capsule on FA skeleton (left)
+936,8263,2,6,2,3,1,159,2.6.2.3.1.159.0.0,leaf,,25232.0,,,Mean L1 in external capsule on FA skeleton (right)
+937,8264,2,6,2,3,2,238,2.6.2.3.2.238.0.0,leaf,,25698.0,,,Weighted-mean OD in tract superior longitudinal fasciculus (left)
+938,8265,2,6,2,3,2,239,2.6.2.3.2.239.0.0,leaf,,25699.0,,,Weighted-mean OD in tract superior longitudinal fasciculus (right)
+939,8266,2,6,2,3,2,240,2.6.2.3.2.240.0.0,leaf,,25700.0,,,Weighted-mean OD in tract superior thalamic radiation (left)
+940,8267,2,6,2,3,2,241,2.6.2.3.2.241.0.0,leaf,,25701.0,,,Weighted-mean OD in tract superior thalamic radiation (right)
+941,8271,2,6,2,3,1,160,2.6.2.3.1.160.0.0,leaf,,25239.0,,,Mean L1 in fornix cres+stria terminalis on FA skeleton (left)
+942,8272,2,6,2,3,1,161,2.6.2.3.1.161.0.0,leaf,,25238.0,,,Mean L1 in fornix cres+stria terminalis on FA skeleton (right)
+943,8273,2,6,2,3,1,162,2.6.2.3.1.162.0.0,leaf,,25205.0,,,Mean L1 in fornix on FA skeleton
+944,8274,2,6,2,3,1,163,2.6.2.3.1.163.0.0,leaf,,25202.0,,,Mean L1 in genu of corpus callosum on FA skeleton
+945,8275,2,6,2,3,2,242,2.6.2.3.2.242.0.0,leaf,,25702.0,,,Weighted-mean OD in tract uncinate fasciculus (left)
+946,8276,2,6,2,3,2,243,2.6.2.3.2.243.0.0,leaf,,25703.0,,,Weighted-mean OD in tract uncinate fasciculus (right)
+947,8277,2,6,2,3,1,164,2.6.2.3.1.164.0.0,leaf,,25211.0,,,Mean L1 in inferior cerebellar peduncle on FA skeleton (left)
+948,8278,2,6,2,3,1,165,2.6.2.3.1.165.0.0,leaf,,25210.0,,,Mean L1 in inferior cerebellar peduncle on FA skeleton (right)
+949,8279,2,6,2,3,1,166,2.6.2.3.1.166.0.0,leaf,,25209.0,,,Mean L1 in medial lemniscus on FA skeleton (left)
+950,8280,2,6,2,3,1,167,2.6.2.3.1.167.0.0,leaf,,25208.0,,,Mean L1 in medial lemniscus on FA skeleton (right)
+951,8281,2,6,2,3,1,168,2.6.2.3.1.168.0.0,leaf,,25200.0,,,Mean L1 in middle cerebellar peduncle on FA skeleton
+952,8282,2,6,2,3,1,169,2.6.2.3.1.169.0.0,leaf,,25201.0,,,Mean L1 in pontine crossing tract on FA skeleton
+953,8283,2,6,2,3,1,170,2.6.2.3.1.170.0.0,leaf,,25227.0,,,Mean L1 in posterior corona radiata on FA skeleton (left)
+954,8284,2,6,2,3,1,171,2.6.2.3.1.171.0.0,leaf,,25226.0,,,Mean L1 in posterior corona radiata on FA skeleton (right)
+955,8285,2,6,2,3,1,172,2.6.2.3.1.172.0.0,leaf,,25219.0,,,Mean L1 in posterior limb of internal capsule on FA skeleton (left)
+956,8286,2,6,2,3,1,173,2.6.2.3.1.173.0.0,leaf,,25218.0,,,Mean L1 in posterior limb of internal capsule on FA skeleton (right)
+957,8287,2,6,2,3,1,174,2.6.2.3.1.174.0.0,leaf,,25229.0,,,Mean L1 in posterior thalamic radiation on FA skeleton (left)
+958,8288,2,6,2,3,1,175,2.6.2.3.1.175.0.0,leaf,,25228.0,,,Mean L1 in posterior thalamic radiation on FA skeleton (right)
+959,8289,2,6,2,3,1,176,2.6.2.3.1.176.0.0,leaf,,25221.0,,,Mean L1 in retrolenticular part of internal capsule on FA skeleton (left)
+960,8290,2,6,2,3,1,177,2.6.2.3.1.177.0.0,leaf,,25220.0,,,Mean L1 in retrolenticular part of internal capsule on FA skeleton (right)
+961,8291,2,6,2,3,1,178,2.6.2.3.1.178.0.0,leaf,,25231.0,,,Mean L1 in sagittal stratum on FA skeleton (left)
+962,8292,2,6,2,3,1,179,2.6.2.3.1.179.0.0,leaf,,25230.0,,,Mean L1 in sagittal stratum on FA skeleton (right)
+963,8293,2,6,2,3,1,180,2.6.2.3.1.180.0.0,leaf,,25204.0,,,Mean L1 in splenium of corpus callosum on FA skeleton
+964,8294,2,6,2,3,1,181,2.6.2.3.1.181.0.0,leaf,,25213.0,,,Mean L1 in superior cerebellar peduncle on FA skeleton (left)
+965,8295,2,6,2,3,1,182,2.6.2.3.1.182.0.0,leaf,,25212.0,,,Mean L1 in superior cerebellar peduncle on FA skeleton (right)
+966,8296,2,6,2,3,1,183,2.6.2.3.1.183.0.0,leaf,,25225.0,,,Mean L1 in superior corona radiata on FA skeleton (left)
+967,8297,2,6,2,3,1,184,2.6.2.3.1.184.0.0,leaf,,25224.0,,,Mean L1 in superior corona radiata on FA skeleton (right)
+968,8298,2,6,2,3,1,185,2.6.2.3.1.185.0.0,leaf,,25243.0,,,Mean L1 in superior fronto-occipital fasciculus on FA skeleton (left)
+969,8299,2,6,2,3,1,186,2.6.2.3.1.186.0.0,leaf,,25242.0,,,Mean L1 in superior fronto-occipital fasciculus on FA skeleton (right)
+970,8300,2,6,2,3,1,187,2.6.2.3.1.187.0.0,leaf,,25241.0,,,Mean L1 in superior longitudinal fasciculus on FA skeleton (left)
+971,8301,2,6,2,3,1,188,2.6.2.3.1.188.0.0,leaf,,25240.0,,,Mean L1 in superior longitudinal fasciculus on FA skeleton (right)
+972,8302,2,6,2,3,1,189,2.6.2.3.1.189.0.0,leaf,,25247.0,,,Mean L1 in tapetum on FA skeleton (left)
+973,8303,2,6,2,3,1,190,2.6.2.3.1.190.0.0,leaf,,25246.0,,,Mean L1 in tapetum on FA skeleton (right)
+974,8304,2,6,2,3,1,191,2.6.2.3.1.191.0.0,leaf,,25245.0,,,Mean L1 in uncinate fasciculus on FA skeleton (left)
+975,8305,2,6,2,3,1,192,2.6.2.3.1.192.0.0,leaf,,25244.0,,,Mean L1 in uncinate fasciculus on FA skeleton (right)
+976,8306,2,6,2,3,1,193,2.6.2.3.1.193.0.0,leaf,,25271.0,,,Mean L2 in anterior corona radiata on FA skeleton (left)
+977,8307,2,6,2,3,1,194,2.6.2.3.1.194.0.0,leaf,,25270.0,,,Mean L2 in anterior corona radiata on FA skeleton (right)
+978,8308,2,6,2,3,1,195,2.6.2.3.1.195.0.0,leaf,,25265.0,,,Mean L2 in anterior limb of internal capsule on FA skeleton (left)
+979,8309,2,6,2,3,1,196,2.6.2.3.1.196.0.0,leaf,,25264.0,,,Mean L2 in anterior limb of internal capsule on FA skeleton (right)
+980,8310,2,6,2,3,1,197,2.6.2.3.1.197.0.0,leaf,,25251.0,,,Mean L2 in body of corpus callosum on FA skeleton
+981,8311,2,6,2,3,1,198,2.6.2.3.1.198.0.0,leaf,,25263.0,,,Mean L2 in cerebral peduncle on FA skeleton (left)
+982,8312,2,6,2,3,1,199,2.6.2.3.1.199.0.0,leaf,,25262.0,,,Mean L2 in cerebral peduncle on FA skeleton (right)
+983,8313,2,6,2,3,1,200,2.6.2.3.1.200.0.0,leaf,,25283.0,,,Mean L2 in cingulum cingulate gyrus on FA skeleton (left)
+984,8314,2,6,2,3,1,201,2.6.2.3.1.201.0.0,leaf,,25282.0,,,Mean L2 in cingulum cingulate gyrus on FA skeleton (right)
+985,8315,2,6,2,3,1,202,2.6.2.3.1.202.0.0,leaf,,25285.0,,,Mean L2 in cingulum hippocampus on FA skeleton (left)
+986,8316,2,6,2,3,1,203,2.6.2.3.1.203.0.0,leaf,,25284.0,,,Mean L2 in cingulum hippocampus on FA skeleton (right)
+987,8317,2,6,2,3,1,204,2.6.2.3.1.204.0.0,leaf,,25255.0,,,Mean L2 in corticospinal tract on FA skeleton (left)
+988,8318,2,6,2,3,1,205,2.6.2.3.1.205.0.0,leaf,,25254.0,,,Mean L2 in corticospinal tract on FA skeleton (right)
+989,8319,2,6,2,3,1,206,2.6.2.3.1.206.0.0,leaf,,25281.0,,,Mean L2 in external capsule on FA skeleton (left)
+990,8320,2,6,2,3,1,207,2.6.2.3.1.207.0.0,leaf,,25280.0,,,Mean L2 in external capsule on FA skeleton (right)
+991,8321,2,6,2,3,1,208,2.6.2.3.1.208.0.0,leaf,,25287.0,,,Mean L2 in fornix cres+stria terminalis on FA skeleton (left)
+992,8322,2,6,2,3,1,209,2.6.2.3.1.209.0.0,leaf,,25286.0,,,Mean L2 in fornix cres+stria terminalis on FA skeleton (right)
+993,8323,2,6,2,3,1,210,2.6.2.3.1.210.0.0,leaf,,25253.0,,,Mean L2 in fornix on FA skeleton
+994,8324,2,6,2,3,1,211,2.6.2.3.1.211.0.0,leaf,,25250.0,,,Mean L2 in genu of corpus callosum on FA skeleton
+995,8325,2,6,2,3,1,212,2.6.2.3.1.212.0.0,leaf,,25259.0,,,Mean L2 in inferior cerebellar peduncle on FA skeleton (left)
+996,8326,2,6,2,3,1,213,2.6.2.3.1.213.0.0,leaf,,25258.0,,,Mean L2 in inferior cerebellar peduncle on FA skeleton (right)
+997,8327,2,6,2,3,1,214,2.6.2.3.1.214.0.0,leaf,,25257.0,,,Mean L2 in medial lemniscus on FA skeleton (left)
+998,8328,2,6,2,3,1,215,2.6.2.3.1.215.0.0,leaf,,25256.0,,,Mean L2 in medial lemniscus on FA skeleton (right)
+999,8329,2,6,2,3,1,216,2.6.2.3.1.216.0.0,leaf,,25248.0,,,Mean L2 in middle cerebellar peduncle on FA skeleton
+1000,8330,2,6,2,3,1,217,2.6.2.3.1.217.0.0,leaf,,25249.0,,,Mean L2 in pontine crossing tract on FA skeleton
+1001,8331,2,6,2,3,1,218,2.6.2.3.1.218.0.0,leaf,,25275.0,,,Mean L2 in posterior corona radiata on FA skeleton (left)
+1002,8332,2,6,2,3,1,219,2.6.2.3.1.219.0.0,leaf,,25274.0,,,Mean L2 in posterior corona radiata on FA skeleton (right)
+1003,8333,2,6,2,3,1,220,2.6.2.3.1.220.0.0,leaf,,25267.0,,,Mean L2 in posterior limb of internal capsule on FA skeleton (left)
+1004,8334,2,6,2,3,1,221,2.6.2.3.1.221.0.0,leaf,,25266.0,,,Mean L2 in posterior limb of internal capsule on FA skeleton (right)
+1005,8335,2,6,2,3,1,222,2.6.2.3.1.222.0.0,leaf,,25277.0,,,Mean L2 in posterior thalamic radiation on FA skeleton (left)
+1006,8336,2,6,2,3,1,223,2.6.2.3.1.223.0.0,leaf,,25276.0,,,Mean L2 in posterior thalamic radiation on FA skeleton (right)
+1007,8337,2,6,2,3,1,224,2.6.2.3.1.224.0.0,leaf,,25269.0,,,Mean L2 in retrolenticular part of internal capsule on FA skeleton (left)
+1008,8338,2,6,2,3,1,225,2.6.2.3.1.225.0.0,leaf,,25268.0,,,Mean L2 in retrolenticular part of internal capsule on FA skeleton (right)
+1009,8339,2,6,2,3,1,226,2.6.2.3.1.226.0.0,leaf,,25279.0,,,Mean L2 in sagittal stratum on FA skeleton (left)
+1010,8340,2,6,2,3,1,227,2.6.2.3.1.227.0.0,leaf,,25278.0,,,Mean L2 in sagittal stratum on FA skeleton (right)
+1011,8341,2,6,2,3,1,228,2.6.2.3.1.228.0.0,leaf,,25252.0,,,Mean L2 in splenium of corpus callosum on FA skeleton
+1012,8342,2,6,2,3,1,229,2.6.2.3.1.229.0.0,leaf,,25261.0,,,Mean L2 in superior cerebellar peduncle on FA skeleton (left)
+1013,8343,2,6,2,3,1,230,2.6.2.3.1.230.0.0,leaf,,25260.0,,,Mean L2 in superior cerebellar peduncle on FA skeleton (right)
+1014,8344,2,6,2,3,1,231,2.6.2.3.1.231.0.0,leaf,,25273.0,,,Mean L2 in superior corona radiata on FA skeleton (left)
+1015,8345,2,6,2,3,1,232,2.6.2.3.1.232.0.0,leaf,,25272.0,,,Mean L2 in superior corona radiata on FA skeleton (right)
+1016,8346,2,6,2,3,1,233,2.6.2.3.1.233.0.0,leaf,,25291.0,,,Mean L2 in superior fronto-occipital fasciculus on FA skeleton (left)
+1017,8347,2,6,2,3,1,234,2.6.2.3.1.234.0.0,leaf,,25290.0,,,Mean L2 in superior fronto-occipital fasciculus on FA skeleton (right)
+1018,8348,2,6,2,3,1,235,2.6.2.3.1.235.0.0,leaf,,25289.0,,,Mean L2 in superior longitudinal fasciculus on FA skeleton (left)
+1019,8349,2,6,2,3,1,236,2.6.2.3.1.236.0.0,leaf,,25288.0,,,Mean L2 in superior longitudinal fasciculus on FA skeleton (right)
+1020,8350,2,6,2,3,1,237,2.6.2.3.1.237.0.0,leaf,,25295.0,,,Mean L2 in tapetum on FA skeleton (left)
+1021,8351,2,6,2,3,1,238,2.6.2.3.1.238.0.0,leaf,,25294.0,,,Mean L2 in tapetum on FA skeleton (right)
+1022,8352,2,6,2,3,1,239,2.6.2.3.1.239.0.0,leaf,,25293.0,,,Mean L2 in uncinate fasciculus on FA skeleton (left)
+1023,8353,2,6,2,3,1,240,2.6.2.3.1.240.0.0,leaf,,25292.0,,,Mean L2 in uncinate fasciculus on FA skeleton (right)
+1024,8354,2,6,2,3,1,241,2.6.2.3.1.241.0.0,leaf,,25319.0,,,Mean L3 in anterior corona radiata on FA skeleton (left)
+1025,8355,2,6,2,3,1,242,2.6.2.3.1.242.0.0,leaf,,25318.0,,,Mean L3 in anterior corona radiata on FA skeleton (right)
+1026,8356,2,6,2,3,1,243,2.6.2.3.1.243.0.0,leaf,,25313.0,,,Mean L3 in anterior limb of internal capsule on FA skeleton (left)
+1027,8357,2,6,2,3,1,244,2.6.2.3.1.244.0.0,leaf,,25312.0,,,Mean L3 in anterior limb of internal capsule on FA skeleton (right)
+1028,8358,2,6,2,3,1,245,2.6.2.3.1.245.0.0,leaf,,25299.0,,,Mean L3 in body of corpus callosum on FA skeleton
+1029,8359,2,6,2,3,1,246,2.6.2.3.1.246.0.0,leaf,,25311.0,,,Mean L3 in cerebral peduncle on FA skeleton (left)
+1030,8360,2,6,2,3,1,247,2.6.2.3.1.247.0.0,leaf,,25310.0,,,Mean L3 in cerebral peduncle on FA skeleton (right)
+1031,8361,2,6,2,3,1,248,2.6.2.3.1.248.0.0,leaf,,25331.0,,,Mean L3 in cingulum cingulate gyrus on FA skeleton (left)
+1032,8362,2,6,2,3,1,249,2.6.2.3.1.249.0.0,leaf,,25330.0,,,Mean L3 in cingulum cingulate gyrus on FA skeleton (right)
+1033,8363,2,6,2,3,1,250,2.6.2.3.1.250.0.0,leaf,,25333.0,,,Mean L3 in cingulum hippocampus on FA skeleton (left)
+1034,8364,2,6,2,3,1,251,2.6.2.3.1.251.0.0,leaf,,25332.0,,,Mean L3 in cingulum hippocampus on FA skeleton (right)
+1035,8365,2,6,2,3,1,252,2.6.2.3.1.252.0.0,leaf,,25303.0,,,Mean L3 in corticospinal tract on FA skeleton (left)
+1036,8366,2,6,2,3,1,253,2.6.2.3.1.253.0.0,leaf,,25302.0,,,Mean L3 in corticospinal tract on FA skeleton (right)
+1037,8367,2,6,2,3,1,254,2.6.2.3.1.254.0.0,leaf,,25329.0,,,Mean L3 in external capsule on FA skeleton (left)
+1038,8368,2,6,2,3,1,255,2.6.2.3.1.255.0.0,leaf,,25328.0,,,Mean L3 in external capsule on FA skeleton (right)
+1039,8369,2,6,2,3,1,256,2.6.2.3.1.256.0.0,leaf,,25335.0,,,Mean L3 in fornix cres+stria terminalis on FA skeleton (left)
+1040,8370,2,6,2,3,1,257,2.6.2.3.1.257.0.0,leaf,,25334.0,,,Mean L3 in fornix cres+stria terminalis on FA skeleton (right)
+1041,8371,2,6,2,3,1,258,2.6.2.3.1.258.0.0,leaf,,25301.0,,,Mean L3 in fornix on FA skeleton
+1042,8372,2,6,2,3,1,259,2.6.2.3.1.259.0.0,leaf,,25298.0,,,Mean L3 in genu of corpus callosum on FA skeleton
+1043,8373,2,6,2,3,1,260,2.6.2.3.1.260.0.0,leaf,,25307.0,,,Mean L3 in inferior cerebellar peduncle on FA skeleton (left)
+1044,8374,2,6,2,3,1,261,2.6.2.3.1.261.0.0,leaf,,25306.0,,,Mean L3 in inferior cerebellar peduncle on FA skeleton (right)
+1045,8375,2,6,2,3,1,262,2.6.2.3.1.262.0.0,leaf,,25305.0,,,Mean L3 in medial lemniscus on FA skeleton (left)
+1046,8376,2,6,2,3,1,263,2.6.2.3.1.263.0.0,leaf,,25304.0,,,Mean L3 in medial lemniscus on FA skeleton (right)
+1047,8377,2,6,2,3,1,264,2.6.2.3.1.264.0.0,leaf,,25296.0,,,Mean L3 in middle cerebellar peduncle on FA skeleton
+1048,8378,2,6,2,3,1,265,2.6.2.3.1.265.0.0,leaf,,25297.0,,,Mean L3 in pontine crossing tract on FA skeleton
+1049,8379,2,6,2,3,1,266,2.6.2.3.1.266.0.0,leaf,,25323.0,,,Mean L3 in posterior corona radiata on FA skeleton (left)
+1050,8380,2,6,2,3,1,267,2.6.2.3.1.267.0.0,leaf,,25322.0,,,Mean L3 in posterior corona radiata on FA skeleton (right)
+1051,8381,2,6,2,3,1,268,2.6.2.3.1.268.0.0,leaf,,25315.0,,,Mean L3 in posterior limb of internal capsule on FA skeleton (left)
+1052,8382,2,6,2,3,1,269,2.6.2.3.1.269.0.0,leaf,,25314.0,,,Mean L3 in posterior limb of internal capsule on FA skeleton (right)
+1053,8383,2,6,2,3,1,270,2.6.2.3.1.270.0.0,leaf,,25325.0,,,Mean L3 in posterior thalamic radiation on FA skeleton (left)
+1054,8384,2,6,2,3,1,271,2.6.2.3.1.271.0.0,leaf,,25324.0,,,Mean L3 in posterior thalamic radiation on FA skeleton (right)
+1055,8385,2,6,2,3,1,272,2.6.2.3.1.272.0.0,leaf,,25317.0,,,Mean L3 in retrolenticular part of internal capsule on FA skeleton (left)
+1056,8386,2,6,2,3,1,273,2.6.2.3.1.273.0.0,leaf,,25316.0,,,Mean L3 in retrolenticular part of internal capsule on FA skeleton (right)
+1057,8387,2,6,2,3,1,274,2.6.2.3.1.274.0.0,leaf,,25327.0,,,Mean L3 in sagittal stratum on FA skeleton (left)
+1058,8388,2,6,2,3,1,275,2.6.2.3.1.275.0.0,leaf,,25326.0,,,Mean L3 in sagittal stratum on FA skeleton (right)
+1059,8389,2,6,2,3,1,276,2.6.2.3.1.276.0.0,leaf,,25300.0,,,Mean L3 in splenium of corpus callosum on FA skeleton
+1060,8390,2,6,2,3,1,277,2.6.2.3.1.277.0.0,leaf,,25309.0,,,Mean L3 in superior cerebellar peduncle on FA skeleton (left)
+1061,8391,2,6,2,3,1,278,2.6.2.3.1.278.0.0,leaf,,25308.0,,,Mean L3 in superior cerebellar peduncle on FA skeleton (right)
+1062,8392,2,6,2,3,1,279,2.6.2.3.1.279.0.0,leaf,,25321.0,,,Mean L3 in superior corona radiata on FA skeleton (left)
+1063,8393,2,6,2,3,1,280,2.6.2.3.1.280.0.0,leaf,,25320.0,,,Mean L3 in superior corona radiata on FA skeleton (right)
+1064,8394,2,6,2,3,1,281,2.6.2.3.1.281.0.0,leaf,,25339.0,,,Mean L3 in superior fronto-occipital fasciculus on FA skeleton (left)
+1065,8395,2,6,2,3,1,282,2.6.2.3.1.282.0.0,leaf,,25338.0,,,Mean L3 in superior fronto-occipital fasciculus on FA skeleton (right)
+1066,8396,2,6,2,3,1,283,2.6.2.3.1.283.0.0,leaf,,25337.0,,,Mean L3 in superior longitudinal fasciculus on FA skeleton (left)
+1067,8397,2,6,2,3,1,284,2.6.2.3.1.284.0.0,leaf,,25336.0,,,Mean L3 in superior longitudinal fasciculus on FA skeleton (right)
+1068,8398,2,6,2,3,1,285,2.6.2.3.1.285.0.0,leaf,,25343.0,,,Mean L3 in tapetum on FA skeleton (left)
+1069,8399,2,6,2,3,1,286,2.6.2.3.1.286.0.0,leaf,,25342.0,,,Mean L3 in tapetum on FA skeleton (right)
+1070,8400,2,6,2,3,1,287,2.6.2.3.1.287.0.0,leaf,,25341.0,,,Mean L3 in uncinate fasciculus on FA skeleton (left)
+1071,8401,2,6,2,3,1,288,2.6.2.3.1.288.0.0,leaf,,25340.0,,,Mean L3 in uncinate fasciculus on FA skeleton (right)
+1072,8402,2,6,2,3,1,289,2.6.2.3.1.289.0.0,leaf,,25127.0,,,Mean MD in anterior corona radiata on FA skeleton (left)
+1073,8403,2,6,2,3,1,290,2.6.2.3.1.290.0.0,leaf,,25126.0,,,Mean MD in anterior corona radiata on FA skeleton (right)
+1074,8404,2,6,2,3,1,291,2.6.2.3.1.291.0.0,leaf,,25121.0,,,Mean MD in anterior limb of internal capsule on FA skeleton (left)
+1075,8405,2,6,2,3,1,292,2.6.2.3.1.292.0.0,leaf,,25120.0,,,Mean MD in anterior limb of internal capsule on FA skeleton (right)
+1076,8406,2,6,2,3,1,293,2.6.2.3.1.293.0.0,leaf,,25107.0,,,Mean MD in body of corpus callosum on FA skeleton
+1077,8407,2,6,2,3,1,294,2.6.2.3.1.294.0.0,leaf,,25119.0,,,Mean MD in cerebral peduncle on FA skeleton (left)
+1078,8408,2,6,2,3,1,295,2.6.2.3.1.295.0.0,leaf,,25118.0,,,Mean MD in cerebral peduncle on FA skeleton (right)
+1079,8409,2,6,2,3,1,296,2.6.2.3.1.296.0.0,leaf,,25139.0,,,Mean MD in cingulum cingulate gyrus on FA skeleton (left)
+1080,8410,2,6,2,3,1,297,2.6.2.3.1.297.0.0,leaf,,25138.0,,,Mean MD in cingulum cingulate gyrus on FA skeleton (right)
+1081,8411,2,6,2,3,1,298,2.6.2.3.1.298.0.0,leaf,,25141.0,,,Mean MD in cingulum hippocampus on FA skeleton (left)
+1082,8412,2,6,2,3,1,299,2.6.2.3.1.299.0.0,leaf,,25140.0,,,Mean MD in cingulum hippocampus on FA skeleton (right)
+1083,8413,2,6,2,3,1,300,2.6.2.3.1.300.0.0,leaf,,25111.0,,,Mean MD in corticospinal tract on FA skeleton (left)
+1084,8414,2,6,2,3,1,301,2.6.2.3.1.301.0.0,leaf,,25110.0,,,Mean MD in corticospinal tract on FA skeleton (right)
+1085,8415,2,6,2,3,1,302,2.6.2.3.1.302.0.0,leaf,,25137.0,,,Mean MD in external capsule on FA skeleton (left)
+1086,8416,2,6,2,3,1,303,2.6.2.3.1.303.0.0,leaf,,25136.0,,,Mean MD in external capsule on FA skeleton (right)
+1087,8417,2,6,2,3,1,304,2.6.2.3.1.304.0.0,leaf,,25143.0,,,Mean MD in fornix cres+stria terminalis on FA skeleton (left)
+1088,8418,2,6,2,3,1,305,2.6.2.3.1.305.0.0,leaf,,25142.0,,,Mean MD in fornix cres+stria terminalis on FA skeleton (right)
+1089,8419,2,6,2,3,1,306,2.6.2.3.1.306.0.0,leaf,,25109.0,,,Mean MD in fornix on FA skeleton
+1090,8420,2,6,2,3,1,307,2.6.2.3.1.307.0.0,leaf,,25106.0,,,Mean MD in genu of corpus callosum on FA skeleton
+1091,8421,2,6,2,3,1,308,2.6.2.3.1.308.0.0,leaf,,25115.0,,,Mean MD in inferior cerebellar peduncle on FA skeleton (left)
+1092,8422,2,6,2,3,1,309,2.6.2.3.1.309.0.0,leaf,,25114.0,,,Mean MD in inferior cerebellar peduncle on FA skeleton (right)
+1093,8423,2,6,2,3,1,310,2.6.2.3.1.310.0.0,leaf,,25113.0,,,Mean MD in medial lemniscus on FA skeleton (left)
+1094,8424,2,6,2,3,1,311,2.6.2.3.1.311.0.0,leaf,,25112.0,,,Mean MD in medial lemniscus on FA skeleton (right)
+1095,8425,2,6,2,3,1,312,2.6.2.3.1.312.0.0,leaf,,25104.0,,,Mean MD in middle cerebellar peduncle on FA skeleton
+1096,8426,2,6,2,3,1,313,2.6.2.3.1.313.0.0,leaf,,25105.0,,,Mean MD in pontine crossing tract on FA skeleton
+1097,8427,2,6,2,3,1,314,2.6.2.3.1.314.0.0,leaf,,25131.0,,,Mean MD in posterior corona radiata on FA skeleton (left)
+1098,8428,2,6,2,3,1,315,2.6.2.3.1.315.0.0,leaf,,25130.0,,,Mean MD in posterior corona radiata on FA skeleton (right)
+1099,8429,2,6,2,3,1,316,2.6.2.3.1.316.0.0,leaf,,25123.0,,,Mean MD in posterior limb of internal capsule on FA skeleton (left)
+1100,8430,2,6,2,3,1,317,2.6.2.3.1.317.0.0,leaf,,25122.0,,,Mean MD in posterior limb of internal capsule on FA skeleton (right)
+1101,8431,2,6,2,3,1,318,2.6.2.3.1.318.0.0,leaf,,25133.0,,,Mean MD in posterior thalamic radiation on FA skeleton (left)
+1102,8432,2,6,2,3,1,319,2.6.2.3.1.319.0.0,leaf,,25132.0,,,Mean MD in posterior thalamic radiation on FA skeleton (right)
+1103,8433,2,6,2,3,1,320,2.6.2.3.1.320.0.0,leaf,,25125.0,,,Mean MD in retrolenticular part of internal capsule on FA skeleton (left)
+1104,8434,2,6,2,3,1,321,2.6.2.3.1.321.0.0,leaf,,25124.0,,,Mean MD in retrolenticular part of internal capsule on FA skeleton (right)
+1105,8435,2,6,2,3,1,322,2.6.2.3.1.322.0.0,leaf,,25135.0,,,Mean MD in sagittal stratum on FA skeleton (left)
+1106,8436,2,6,2,3,1,323,2.6.2.3.1.323.0.0,leaf,,25134.0,,,Mean MD in sagittal stratum on FA skeleton (right)
+1107,8437,2,6,2,3,1,324,2.6.2.3.1.324.0.0,leaf,,25108.0,,,Mean MD in splenium of corpus callosum on FA skeleton
+1108,8438,2,6,2,3,1,325,2.6.2.3.1.325.0.0,leaf,,25117.0,,,Mean MD in superior cerebellar peduncle on FA skeleton (left)
+1109,8439,2,6,2,3,1,326,2.6.2.3.1.326.0.0,leaf,,25116.0,,,Mean MD in superior cerebellar peduncle on FA skeleton (right)
+1110,8440,2,6,2,3,1,327,2.6.2.3.1.327.0.0,leaf,,25129.0,,,Mean MD in superior corona radiata on FA skeleton (left)
+1111,8441,2,6,2,3,1,328,2.6.2.3.1.328.0.0,leaf,,25128.0,,,Mean MD in superior corona radiata on FA skeleton (right)
+1112,8442,2,6,2,3,1,329,2.6.2.3.1.329.0.0,leaf,,25147.0,,,Mean MD in superior fronto-occipital fasciculus on FA skeleton (left)
+1113,8443,2,6,2,3,1,330,2.6.2.3.1.330.0.0,leaf,,25146.0,,,Mean MD in superior fronto-occipital fasciculus on FA skeleton (right)
+1114,8444,2,6,2,3,1,331,2.6.2.3.1.331.0.0,leaf,,25145.0,,,Mean MD in superior longitudinal fasciculus on FA skeleton (left)
+1115,8445,2,6,2,3,1,332,2.6.2.3.1.332.0.0,leaf,,25144.0,,,Mean MD in superior longitudinal fasciculus on FA skeleton (right)
+1116,8446,2,6,2,3,1,333,2.6.2.3.1.333.0.0,leaf,,25151.0,,,Mean MD in tapetum on FA skeleton (left)
+1117,8447,2,6,2,3,1,334,2.6.2.3.1.334.0.0,leaf,,25150.0,,,Mean MD in tapetum on FA skeleton (right)
+1118,8448,2,6,2,3,1,335,2.6.2.3.1.335.0.0,leaf,,25149.0,,,Mean MD in uncinate fasciculus on FA skeleton (left)
+1119,8449,2,6,2,3,1,336,2.6.2.3.1.336.0.0,leaf,,25148.0,,,Mean MD in uncinate fasciculus on FA skeleton (right)
+1120,8450,2,6,2,3,1,337,2.6.2.3.1.337.0.0,leaf,,25175.0,,,Mean MO in anterior corona radiata on FA skeleton (left)
+1121,8451,2,6,2,3,1,338,2.6.2.3.1.338.0.0,leaf,,25174.0,,,Mean MO in anterior corona radiata on FA skeleton (right)
+1122,8452,2,6,2,3,1,339,2.6.2.3.1.339.0.0,leaf,,25169.0,,,Mean MO in anterior limb of internal capsule on FA skeleton (left)
+1123,8453,2,6,2,3,1,340,2.6.2.3.1.340.0.0,leaf,,25168.0,,,Mean MO in anterior limb of internal capsule on FA skeleton (right)
+1124,8454,2,6,2,3,1,341,2.6.2.3.1.341.0.0,leaf,,25155.0,,,Mean MO in body of corpus callosum on FA skeleton
+1125,8455,2,6,2,3,1,342,2.6.2.3.1.342.0.0,leaf,,25167.0,,,Mean MO in cerebral peduncle on FA skeleton (left)
+1126,8456,2,6,2,3,1,343,2.6.2.3.1.343.0.0,leaf,,25166.0,,,Mean MO in cerebral peduncle on FA skeleton (right)
+1127,8457,2,6,2,3,1,344,2.6.2.3.1.344.0.0,leaf,,25187.0,,,Mean MO in cingulum cingulate gyrus on FA skeleton (left)
+1128,8458,2,6,2,3,1,345,2.6.2.3.1.345.0.0,leaf,,25186.0,,,Mean MO in cingulum cingulate gyrus on FA skeleton (right)
+1129,8459,2,6,2,3,1,346,2.6.2.3.1.346.0.0,leaf,,25189.0,,,Mean MO in cingulum hippocampus on FA skeleton (left)
+1130,8460,2,6,2,3,1,347,2.6.2.3.1.347.0.0,leaf,,25188.0,,,Mean MO in cingulum hippocampus on FA skeleton (right)
+1131,8461,2,6,2,3,1,348,2.6.2.3.1.348.0.0,leaf,,25159.0,,,Mean MO in corticospinal tract on FA skeleton (left)
+1132,8462,2,6,2,3,1,349,2.6.2.3.1.349.0.0,leaf,,25158.0,,,Mean MO in corticospinal tract on FA skeleton (right)
+1133,8463,2,6,2,3,1,350,2.6.2.3.1.350.0.0,leaf,,25185.0,,,Mean MO in external capsule on FA skeleton (left)
+1134,8464,2,6,2,3,1,351,2.6.2.3.1.351.0.0,leaf,,25184.0,,,Mean MO in external capsule on FA skeleton (right)
+1135,8465,2,6,2,3,1,352,2.6.2.3.1.352.0.0,leaf,,25191.0,,,Mean MO in fornix cres+stria terminalis on FA skeleton (left)
+1136,8466,2,6,2,3,1,353,2.6.2.3.1.353.0.0,leaf,,25190.0,,,Mean MO in fornix cres+stria terminalis on FA skeleton (right)
+1137,8467,2,6,2,3,1,354,2.6.2.3.1.354.0.0,leaf,,25157.0,,,Mean MO in fornix on FA skeleton
+1138,8468,2,6,2,3,1,355,2.6.2.3.1.355.0.0,leaf,,25154.0,,,Mean MO in genu of corpus callosum on FA skeleton
+1139,8469,2,6,2,3,1,356,2.6.2.3.1.356.0.0,leaf,,25163.0,,,Mean MO in inferior cerebellar peduncle on FA skeleton (left)
+1140,8470,2,6,2,3,1,357,2.6.2.3.1.357.0.0,leaf,,25162.0,,,Mean MO in inferior cerebellar peduncle on FA skeleton (right)
+1141,8471,2,6,2,3,1,358,2.6.2.3.1.358.0.0,leaf,,25161.0,,,Mean MO in medial lemniscus on FA skeleton (left)
+1142,8472,2,6,2,3,1,359,2.6.2.3.1.359.0.0,leaf,,25160.0,,,Mean MO in medial lemniscus on FA skeleton (right)
+1143,8473,2,6,2,3,1,360,2.6.2.3.1.360.0.0,leaf,,25152.0,,,Mean MO in middle cerebellar peduncle on FA skeleton
+1144,8474,2,6,2,3,1,361,2.6.2.3.1.361.0.0,leaf,,25153.0,,,Mean MO in pontine crossing tract on FA skeleton
+1145,8475,2,6,2,3,1,362,2.6.2.3.1.362.0.0,leaf,,25179.0,,,Mean MO in posterior corona radiata on FA skeleton (left)
+1146,8476,2,6,2,3,1,363,2.6.2.3.1.363.0.0,leaf,,25178.0,,,Mean MO in posterior corona radiata on FA skeleton (right)
+1147,8477,2,6,2,3,1,364,2.6.2.3.1.364.0.0,leaf,,25171.0,,,Mean MO in posterior limb of internal capsule on FA skeleton (left)
+1148,8478,2,6,2,3,1,365,2.6.2.3.1.365.0.0,leaf,,25170.0,,,Mean MO in posterior limb of internal capsule on FA skeleton (right)
+1149,8479,2,6,2,3,1,366,2.6.2.3.1.366.0.0,leaf,,25181.0,,,Mean MO in posterior thalamic radiation on FA skeleton (left)
+1150,8480,2,6,2,3,1,367,2.6.2.3.1.367.0.0,leaf,,25180.0,,,Mean MO in posterior thalamic radiation on FA skeleton (right)
+1151,8481,2,6,2,3,1,368,2.6.2.3.1.368.0.0,leaf,,25173.0,,,Mean MO in retrolenticular part of internal capsule on FA skeleton (left)
+1152,8482,2,6,2,3,1,369,2.6.2.3.1.369.0.0,leaf,,25172.0,,,Mean MO in retrolenticular part of internal capsule on FA skeleton (right)
+1153,8483,2,6,2,3,1,370,2.6.2.3.1.370.0.0,leaf,,25183.0,,,Mean MO in sagittal stratum on FA skeleton (left)
+1154,8484,2,6,2,3,1,371,2.6.2.3.1.371.0.0,leaf,,25182.0,,,Mean MO in sagittal stratum on FA skeleton (right)
+1155,8485,2,6,2,3,1,372,2.6.2.3.1.372.0.0,leaf,,25156.0,,,Mean MO in splenium of corpus callosum on FA skeleton
+1156,8486,2,6,2,3,1,373,2.6.2.3.1.373.0.0,leaf,,25165.0,,,Mean MO in superior cerebellar peduncle on FA skeleton (left)
+1157,8487,2,6,2,3,1,374,2.6.2.3.1.374.0.0,leaf,,25164.0,,,Mean MO in superior cerebellar peduncle on FA skeleton (right)
+1158,8488,2,6,2,3,1,375,2.6.2.3.1.375.0.0,leaf,,25177.0,,,Mean MO in superior corona radiata on FA skeleton (left)
+1159,8489,2,6,2,3,1,376,2.6.2.3.1.376.0.0,leaf,,25176.0,,,Mean MO in superior corona radiata on FA skeleton (right)
+1160,8490,2,6,2,3,1,377,2.6.2.3.1.377.0.0,leaf,,25195.0,,,Mean MO in superior fronto-occipital fasciculus on FA skeleton (left)
+1161,8491,2,6,2,3,1,378,2.6.2.3.1.378.0.0,leaf,,25194.0,,,Mean MO in superior fronto-occipital fasciculus on FA skeleton (right)
+1162,8492,2,6,2,3,1,379,2.6.2.3.1.379.0.0,leaf,,25193.0,,,Mean MO in superior longitudinal fasciculus on FA skeleton (left)
+1163,8493,2,6,2,3,1,380,2.6.2.3.1.380.0.0,leaf,,25192.0,,,Mean MO in superior longitudinal fasciculus on FA skeleton (right)
+1164,8494,2,6,2,3,1,381,2.6.2.3.1.381.0.0,leaf,,25199.0,,,Mean MO in tapetum on FA skeleton (left)
+1165,8495,2,6,2,3,1,382,2.6.2.3.1.382.0.0,leaf,,25198.0,,,Mean MO in tapetum on FA skeleton (right)
+1166,8496,2,6,2,3,1,383,2.6.2.3.1.383.0.0,leaf,,25197.0,,,Mean MO in uncinate fasciculus on FA skeleton (left)
+1167,8497,2,6,2,3,1,384,2.6.2.3.1.384.0.0,leaf,,25196.0,,,Mean MO in uncinate fasciculus on FA skeleton (right)
+1168,8498,2,6,2,3,1,385,2.6.2.3.1.385.0.0,leaf,,25415.0,,,Mean OD in anterior corona radiata on FA skeleton (left)
+1169,8499,2,6,2,3,1,386,2.6.2.3.1.386.0.0,leaf,,25414.0,,,Mean OD in anterior corona radiata on FA skeleton (right)
+1170,8500,2,6,2,3,1,387,2.6.2.3.1.387.0.0,leaf,,25409.0,,,Mean OD in anterior limb of internal capsule on FA skeleton (left)
+1171,8501,2,6,2,3,1,388,2.6.2.3.1.388.0.0,leaf,,25408.0,,,Mean OD in anterior limb of internal capsule on FA skeleton (right)
+1172,8502,2,6,2,3,1,389,2.6.2.3.1.389.0.0,leaf,,25395.0,,,Mean OD in body of corpus callosum on FA skeleton
+1173,8503,2,6,2,3,1,390,2.6.2.3.1.390.0.0,leaf,,25407.0,,,Mean OD in cerebral peduncle on FA skeleton (left)
+1174,8504,2,6,2,3,1,391,2.6.2.3.1.391.0.0,leaf,,25406.0,,,Mean OD in cerebral peduncle on FA skeleton (right)
+1175,8505,2,6,2,3,1,392,2.6.2.3.1.392.0.0,leaf,,25427.0,,,Mean OD in cingulum cingulate gyrus on FA skeleton (left)
+1176,8506,2,6,2,3,1,393,2.6.2.3.1.393.0.0,leaf,,25426.0,,,Mean OD in cingulum cingulate gyrus on FA skeleton (right)
+1177,8507,2,6,2,3,1,394,2.6.2.3.1.394.0.0,leaf,,25429.0,,,Mean OD in cingulum hippocampus on FA skeleton (left)
+1178,8508,2,6,2,3,1,395,2.6.2.3.1.395.0.0,leaf,,25428.0,,,Mean OD in cingulum hippocampus on FA skeleton (right)
+1179,8509,2,6,2,3,1,396,2.6.2.3.1.396.0.0,leaf,,25399.0,,,Mean OD in corticospinal tract on FA skeleton (left)
+1180,8510,2,6,2,3,1,397,2.6.2.3.1.397.0.0,leaf,,25398.0,,,Mean OD in corticospinal tract on FA skeleton (right)
+1181,8511,2,6,2,3,1,398,2.6.2.3.1.398.0.0,leaf,,25425.0,,,Mean OD in external capsule on FA skeleton (left)
+1182,8512,2,6,2,3,1,399,2.6.2.3.1.399.0.0,leaf,,25424.0,,,Mean OD in external capsule on FA skeleton (right)
+1183,8513,2,6,2,3,1,400,2.6.2.3.1.400.0.0,leaf,,25431.0,,,Mean OD in fornix cres+stria terminalis on FA skeleton (left)
+1184,8514,2,6,2,3,1,401,2.6.2.3.1.401.0.0,leaf,,25430.0,,,Mean OD in fornix cres+stria terminalis on FA skeleton (right)
+1185,8515,2,6,2,3,1,402,2.6.2.3.1.402.0.0,leaf,,25397.0,,,Mean OD in fornix on FA skeleton
+1186,8516,2,6,2,3,1,403,2.6.2.3.1.403.0.0,leaf,,25394.0,,,Mean OD in genu of corpus callosum on FA skeleton
+1187,8517,2,6,2,3,1,404,2.6.2.3.1.404.0.0,leaf,,25403.0,,,Mean OD in inferior cerebellar peduncle on FA skeleton (left)
+1188,8518,2,6,2,3,1,405,2.6.2.3.1.405.0.0,leaf,,25402.0,,,Mean OD in inferior cerebellar peduncle on FA skeleton (right)
+1189,8519,2,6,2,3,1,406,2.6.2.3.1.406.0.0,leaf,,25401.0,,,Mean OD in medial lemniscus on FA skeleton (left)
+1190,8520,2,6,2,3,1,407,2.6.2.3.1.407.0.0,leaf,,25400.0,,,Mean OD in medial lemniscus on FA skeleton (right)
+1191,8521,2,6,2,3,1,408,2.6.2.3.1.408.0.0,leaf,,25392.0,,,Mean OD in middle cerebellar peduncle on FA skeleton
+1192,8522,2,6,2,3,1,409,2.6.2.3.1.409.0.0,leaf,,25393.0,,,Mean OD in pontine crossing tract on FA skeleton
+1193,8523,2,6,2,3,1,410,2.6.2.3.1.410.0.0,leaf,,25419.0,,,Mean OD in posterior corona radiata on FA skeleton (left)
+1194,8524,2,6,2,3,1,411,2.6.2.3.1.411.0.0,leaf,,25418.0,,,Mean OD in posterior corona radiata on FA skeleton (right)
+1195,8525,2,6,2,3,1,412,2.6.2.3.1.412.0.0,leaf,,25411.0,,,Mean OD in posterior limb of internal capsule on FA skeleton (left)
+1196,8526,2,6,2,3,1,413,2.6.2.3.1.413.0.0,leaf,,25410.0,,,Mean OD in posterior limb of internal capsule on FA skeleton (right)
+1197,8527,2,6,2,3,1,414,2.6.2.3.1.414.0.0,leaf,,25421.0,,,Mean OD in posterior thalamic radiation on FA skeleton (left)
+1198,8528,2,6,2,3,1,415,2.6.2.3.1.415.0.0,leaf,,25420.0,,,Mean OD in posterior thalamic radiation on FA skeleton (right)
+1199,8529,2,6,2,3,1,416,2.6.2.3.1.416.0.0,leaf,,25413.0,,,Mean OD in retrolenticular part of internal capsule on FA skeleton (left)
+1200,8530,2,6,2,3,1,417,2.6.2.3.1.417.0.0,leaf,,25412.0,,,Mean OD in retrolenticular part of internal capsule on FA skeleton (right)
+1201,8531,2,6,2,3,1,418,2.6.2.3.1.418.0.0,leaf,,25423.0,,,Mean OD in sagittal stratum on FA skeleton (left)
+1202,8532,2,6,2,3,1,419,2.6.2.3.1.419.0.0,leaf,,25422.0,,,Mean OD in sagittal stratum on FA skeleton (right)
+1203,8533,2,6,2,3,1,420,2.6.2.3.1.420.0.0,leaf,,25396.0,,,Mean OD in splenium of corpus callosum on FA skeleton
+1204,8534,2,6,2,3,1,421,2.6.2.3.1.421.0.0,leaf,,25405.0,,,Mean OD in superior cerebellar peduncle on FA skeleton (left)
+1205,8535,2,6,2,3,1,422,2.6.2.3.1.422.0.0,leaf,,25404.0,,,Mean OD in superior cerebellar peduncle on FA skeleton (right)
+1206,8536,2,6,2,3,1,423,2.6.2.3.1.423.0.0,leaf,,25417.0,,,Mean OD in superior corona radiata on FA skeleton (left)
+1207,8537,2,6,2,3,1,424,2.6.2.3.1.424.0.0,leaf,,25416.0,,,Mean OD in superior corona radiata on FA skeleton (right)
+1208,8538,2,6,2,3,1,425,2.6.2.3.1.425.0.0,leaf,,25435.0,,,Mean OD in superior fronto-occipital fasciculus on FA skeleton (left)
+1209,8539,2,6,2,3,1,426,2.6.2.3.1.426.0.0,leaf,,25434.0,,,Mean OD in superior fronto-occipital fasciculus on FA skeleton (right)
+1210,8540,2,6,2,3,1,427,2.6.2.3.1.427.0.0,leaf,,25433.0,,,Mean OD in superior longitudinal fasciculus on FA skeleton (left)
+1211,8541,2,6,2,3,1,428,2.6.2.3.1.428.0.0,leaf,,25432.0,,,Mean OD in superior longitudinal fasciculus on FA skeleton (right)
+1212,8542,2,6,2,3,1,429,2.6.2.3.1.429.0.0,leaf,,25439.0,,,Mean OD in tapetum on FA skeleton (left)
+1213,8543,2,6,2,3,1,430,2.6.2.3.1.430.0.0,leaf,,25438.0,,,Mean OD in tapetum on FA skeleton (right)
+1214,8544,2,6,2,3,1,431,2.6.2.3.1.431.0.0,leaf,,25437.0,,,Mean OD in uncinate fasciculus on FA skeleton (left)
+1215,8545,2,6,2,3,1,432,2.6.2.3.1.432.0.0,leaf,,25436.0,,,Mean OD in uncinate fasciculus on FA skeleton (right)
+1216,8658,2,6,1,6,0,0,2.6.1.6.0.0.0.0,inst,,12140.0,2.0,,Imaging visit (2014+)
+1217,8661,2,6,1,5,0,0,2.6.1.5.0.0.0.0,inst,,12223.0,2.0,,Imaging visit (2014+)
+1218,8663,2,6,1,4,0,0,2.6.1.4.0.0.0.0,inst,,12224.0,2.0,,Imaging visit (2014+)
+1219,8678,2,6,1,2,3,0,2.6.1.2.3.0.0.0,leaf,,20202.0,,,Pancreatic fat - DICOM
+1220,8679,2,6,1,2,4,0,2.6.1.2.4.0.0.0,leaf,,20206.0,,,Measurements of pancreas volume - DICOM
+1221,8683,2,6,2,10,0,0,2.6.2.10.0.0.0.0,inst,,12187.0,2.0,,Imaging visit (2014+)
+1222,8685,2,6,2,7,1,0,2.6.2.7.1.0.0.0,leaf,,20215.0,,,Scout images for brain scans - DICOM
+1223,8686,2,6,2,7,2,0,2.6.2.7.2.0.0.0,leaf,,20224.0,,,Phoenix - DICOM
+1224,8687,2,6,2,2,1,0,2.6.2.2.1.0.0.0,leaf,,20253.0,,,T2 FLAIR structural brain images - NIFTI
+1225,8690,2,6,2,2,4,0,2.6.2.2.4.0.0.0,leaf,,25736.0,,,Discrepancy between T2 FLAIR brain image and T1 brain image
+1226,8692,2,6,1,1,1,0,2.6.1.1.1.0.0.0,leaf,,20204.0,,,Liver Imaging - T1 ShMoLLI - DICOM
+1227,8694,2,6,1,1,3,0,2.6.1.1.3.0.0.0,leaf,,20203.0,,,Liver images - gradient echo - DICOM
+1228,8698,2,6,2,6,1,0,2.6.2.6.1.0.0.0,leaf,,20251.0,,,Susceptibility weighted brain images - NIFTI
+1229,8699,2,6,2,6,2,0,2.6.2.6.2.0.0.0,leaf,,20219.0,,,Susceptibility weighted brain images - DICOM
+1230,8700,2,6,2,6,3,0,2.6.2.6.3.0.0.0,leaf,,25738.0,,,Discrepancy between SWI brain image and T1 brain image
+1231,8701,2,6,2,6,4,0,2.6.2.6.4.0.0.0,leaf,,25038.0,,,Median T2star in accumbens (left)
+1232,8702,2,6,2,6,5,0,2.6.2.6.5.0.0.0,leaf,,25039.0,,,Median T2star in accumbens (right)
+1233,8703,2,6,2,6,6,0,2.6.2.6.6.0.0.0,leaf,,25036.0,,,Median T2star in amygdala (left)
+1234,8704,2,6,2,6,7,0,2.6.2.6.7.0.0.0,leaf,,25037.0,,,Median T2star in amygdala (right)
+1235,8705,2,6,2,1,1,0,2.6.2.1.1.0.0.0,sub,1101.0,,,,Regional grey matter volumes (FAST)
+1236,8706,2,6,2,1,2,0,2.6.2.1.2.0.0.0,sub,1102.0,,,,Subcortical volumes (FIRST)
+1237,8707,2,6,2,1,3,0,2.6.2.1.3.0.0.0,sub,190.0,,,,Freesurfer ASEG
+1238,8708,2,6,2,5,1,0,2.6.2.5.1.0.0.0,leaf,,20249.0,,,Functional brain images - task - NIFTI
+1239,8709,2,6,2,5,2,0,2.6.2.5.2.0.0.0,leaf,,20217.0,,,Functional brain images - task - DICOM
+1240,8710,2,6,2,5,3,0,2.6.2.5.3.0.0.0,leaf,,25740.0,,,Discrepancy between tfMRI brain image and T1 brain image
+1241,8711,2,6,2,6,8,0,2.6.2.6.8.0.0.0,leaf,,25028.0,,,Median T2star in caudate (left)
+1242,8712,2,6,2,6,9,0,2.6.2.6.9.0.0.0,leaf,,25029.0,,,Median T2star in caudate (right)
+1243,8713,2,6,2,6,10,0,2.6.2.6.10.0.0.0,leaf,,25034.0,,,Median T2star in hippocampus (left)
+1244,8714,2,6,2,6,11,0,2.6.2.6.11.0.0.0,leaf,,25035.0,,,Median T2star in hippocampus (right)
+1245,8715,2,6,2,6,12,0,2.6.2.6.12.0.0.0,leaf,,25032.0,,,Median T2star in pallidum (left)
+1246,8716,2,6,2,1,4,0,2.6.2.1.4.0.0.0,sub,195.0,,,,Freesurfer BA exvivo
+1247,8717,2,6,2,1,5,0,2.6.2.1.5.0.0.0,sub,197.0,,,,Freesurfer a2009s
+1248,8718,2,6,2,1,6,0,2.6.2.1.6.0.0.0,sub,196.0,,,,Freesurfer DKT
+1249,8719,2,6,2,1,7,0,2.6.2.1.7.0.0.0,sub,194.0,,,,Freesurfer desikan gw
+1250,8720,2,6,2,5,4,0,2.6.2.5.4.0.0.0,leaf,,25748.0,,,Eprime txt file
+1251,8721,2,6,2,5,5,0,2.6.2.5.5.0.0.0,leaf,,25747.0,,,Eprime advisor file
+1252,8722,2,6,2,5,6,0,2.6.2.5.6.0.0.0,leaf,,25749.0,,,Eprime ed2 file
+1253,8723,2,6,2,5,7,0,2.6.2.5.7.0.0.0,leaf,,12651.0,,,Duration of eprime test
+1254,8724,2,6,2,6,13,0,2.6.2.6.13.0.0.0,leaf,,25033.0,,,Median T2star in pallidum (right)
+1255,8725,2,6,2,6,14,0,2.6.2.6.14.0.0.0,leaf,,25030.0,,,Median T2star in putamen (left)
+1256,8726,2,6,2,6,15,0,2.6.2.6.15.0.0.0,leaf,,25031.0,,,Median T2star in putamen (right)
+1257,8727,2,6,2,6,16,0,2.6.2.6.16.0.0.0,leaf,,25026.0,,,Median T2star in thalamus (left)
+1258,8728,2,6,2,1,8,0,2.6.2.1.8.0.0.0,sub,193.0,,,,Freesurfer desikan pial
+1259,8729,2,6,2,1,9,0,2.6.2.1.9.0.0.0,sub,192.0,,,,Freesurfer desikan white
+1260,8730,2,6,2,1,10,0,2.6.2.1.10.0.0.0,sub,191.0,,,,Freesurfer subsegmentation
+1261,8732,2,6,2,5,8,0,2.6.2.5.8.0.0.0,leaf,,12706.0,,,Eprime error flag
+1262,8733,2,6,2,5,9,0,2.6.2.5.9.0.0.0,leaf,,25767.0,,,90th percentile of BOLD effect (in group-defined amygdala activation mask) for faces-shapes contrast
+1263,8734,2,6,2,5,10,0,2.6.2.5.10.0.0.0,leaf,,25763.0,,,90th percentile of BOLD effect (in group-defined mask) for faces activation
+1264,8735,2,6,2,5,11,0,2.6.2.5.11.0.0.0,leaf,,25761.0,,,90th percentile of BOLD effect (in group-defined mask) for shapes activation
+1265,8736,2,6,2,6,17,0,2.6.2.6.17.0.0.0,leaf,,25027.0,,,Median T2star in thalamus (right)
+1266,8737,2,6,2,1,12,0,2.6.2.1.12.0.0.0,leaf,,20252.0,,,T1 structural brain images - NIFTI
+1267,8740,2,6,2,1,15,0,2.6.2.1.15.0.0.0,leaf,,25733.0,,,Amount of warping applied to non-linearly align T1 brain image to standard-space
+1268,8741,2,6,2,5,12,0,2.6.2.5.12.0.0.0,leaf,,25765.0,,,90th percentile of BOLD effect (in group-defined mask) for faces-shapes contrast
+1269,8742,2,6,2,5,13,0,2.6.2.5.13.0.0.0,leaf,,25768.0,,,90th percentile of z-statistic (in group-defined amygdala activation mask) for faces-shapes contrast
+1270,8743,2,6,2,5,14,0,2.6.2.5.14.0.0.0,leaf,,25764.0,,,90th percentile of z-statistic (in group-defined mask) for faces activation
+1271,8744,2,6,2,5,15,0,2.6.2.5.15.0.0.0,leaf,,25762.0,,,90th percentile of z-statistic (in group-defined mask) for shapes activation
+1272,8745,2,6,2,1,16,0,2.6.2.1.16.0.0.0,leaf,,25731.0,,,Discrepancy between T1 brain image and standard-space brain template (linearly-aligned)
+1273,8746,2,6,2,1,17,0,2.6.2.1.17.0.0.0,leaf,,25732.0,,,Discrepancy between T1 brain image and standard-space brain template (nonlinearly-aligned)
+1274,8747,2,6,2,1,18,0,2.6.2.1.18.0.0.0,leaf,,25735.0,,,Inverted contrast-to-noise ratio in T1
+1275,8748,2,6,2,1,19,0,2.6.2.1.19.0.0.0,leaf,,25734.0,,,Inverted signal-to-noise ratio in T1
+1276,8751,2,6,2,5,16,0,2.6.2.5.16.0.0.0,leaf,,25766.0,,,90th percentile of z-statistic (in group-defined mask) for faces-shapes contrast
+1277,8752,2,6,2,5,17,0,2.6.2.5.17.0.0.0,leaf,,25745.0,,,Inverted temporal signal-to-noise ratio in pre-processed tfMRI
+1278,8753,2,6,2,5,18,0,2.6.2.5.18.0.0.0,leaf,,25742.0,,,"Mean tfMRI head motion, averaged across space and time points"
+1279,8754,2,6,2,5,19,0,2.6.2.5.19.0.0.0,leaf,,25052.0,,,Median BOLD effect (in group-defined amygdala activation mask) for faces-shapes contrast
+1280,8755,2,6,2,1,20,0,2.6.2.1.20.0.0.0,leaf,,25000.0,,,Volumetric scaling from T1 head image to standard space
+1281,8756,2,6,2,1,21,0,2.6.2.1.21.0.0.0,leaf,,25010.0,,,"Volume of brain, grey+white matter"
+1282,8757,2,6,2,1,22,0,2.6.2.1.22.0.0.0,leaf,,25009.0,,,"Volume of brain, grey+white matter (normalised for head size)"
+1283,8758,2,6,2,1,23,0,2.6.2.1.23.0.0.0,leaf,,25008.0,,,Volume of white matter
+1284,8759,2,6,2,5,20,0,2.6.2.5.20.0.0.0,leaf,,25044.0,,,Median BOLD effect (in group-defined mask) for faces activation
+1285,8760,2,6,2,5,21,0,2.6.2.5.21.0.0.0,leaf,,25040.0,,,Median BOLD effect (in group-defined mask) for shapes activation
+1286,8761,2,6,2,5,22,0,2.6.2.5.22.0.0.0,leaf,,25048.0,,,Median BOLD effect (in group-defined mask) for faces-shapes contrast
+1287,8762,2,6,2,5,23,0,2.6.2.5.23.0.0.0,leaf,,25054.0,,,Median z-statistic (in group-defined amygdala activation mask) for faces-shapes contrast
+1288,8763,2,6,2,4,1,0,2.6.2.4.1.0.0.0,leaf,,20227.0,,,Functional brain images - resting - NIFTI
+1289,8764,2,6,2,4,2,0,2.6.2.4.2.0.0.0,leaf,,20225.0,,,Functional brain images - resting - DICOM
+1290,8765,2,6,2,4,3,0,2.6.2.4.3.0.0.0,leaf,,25739.0,,,Discrepancy between rfMRI brain image and T1 brain image
+1291,8766,2,6,2,1,24,0,2.6.2.1.24.0.0.0,leaf,,25007.0,,,Volume of white matter (normalised for head size)
+1292,8767,2,6,2,1,25,0,2.6.2.1.25.0.0.0,leaf,,25006.0,,,Volume of grey matter
+1293,8768,2,6,2,1,26,0,2.6.2.1.26.0.0.0,leaf,,25005.0,,,Volume of grey matter (normalised for head size)
+1294,8769,2,6,2,1,27,0,2.6.2.1.27.0.0.0,leaf,,25002.0,,,Volume of peripheral cortical grey matter
+1295,8770,2,6,2,5,24,0,2.6.2.5.24.0.0.0,leaf,,25046.0,,,Median z-statistic (in group-defined mask) for faces activation
+1296,8771,2,6,2,5,25,0,2.6.2.5.25.0.0.0,leaf,,25042.0,,,Median z-statistic (in group-defined mask) for shapes activation
+1297,8772,2,6,2,5,26,0,2.6.2.5.26.0.0.0,leaf,,25050.0,,,Median z-statistic (in group-defined mask) for faces-shapes contrast
+1298,8773,2,6,2,4,4,0,2.6.2.4.4.0.0.0,leaf,,25750.0,,,"rfMRI full correlation matrix, dimension 25"
+1299,8774,2,6,2,4,5,0,2.6.2.4.5.0.0.0,leaf,,25752.0,,,"rfMRI partial correlation matrix, dimension 25"
+1300,8775,2,6,2,4,6,0,2.6.2.4.6.0.0.0,leaf,,25754.0,,,"rfMRI component amplitudes, dimension 25"
+1301,8776,2,6,2,4,7,0,2.6.2.4.7.0.0.0,leaf,,25751.0,,,"rfMRI full correlation matrix, dimension 100"
+1302,8777,2,6,2,1,28,0,2.6.2.1.28.0.0.0,leaf,,25001.0,,,Volume of peripheral cortical grey matter (normalised for head size)
+1303,8778,2,6,2,1,29,0,2.6.2.1.29.0.0.0,leaf,,25004.0,,,Volume of ventricular cerebrospinal fluid
+1304,8779,2,6,2,1,30,0,2.6.2.1.30.0.0.0,leaf,,25003.0,,,Volume of ventricular cerebrospinal fluid (normalised for head size)
+1305,8780,2,6,2,1,31,0,2.6.2.1.31.0.0.0,leaf,,25025.0,,,Volume of brain stem + 4th ventricle
+1306,8781,2,6,2,4,8,0,2.6.2.4.8.0.0.0,leaf,,25753.0,,,"rfMRI partial correlation matrix, dimension 100"
+1307,8782,2,6,2,4,9,0,2.6.2.4.9.0.0.0,leaf,,25755.0,,,"rfMRI component amplitudes, dimension 100"
+1308,8783,2,6,2,4,10,0,2.6.2.4.10.0.0.0,leaf,,25741.0,,,"Mean rfMRI head motion, averaged across space and time points"
+1309,8784,2,6,2,4,11,0,2.6.2.4.11.0.0.0,leaf,,25744.0,,,Inverted temporal signal-to-noise ratio in artefact-cleaned pre-processed rfMRI
+1310,8789,2,6,2,4,12,0,2.6.2.4.12.0.0.0,leaf,,25743.0,,,Inverted temporal signal-to-noise ratio in pre-processed rfMRI
+1311,8790,2,6,2,9,0,0,2.6.2.9.0.0.0.0,inst,,12139.0,2.0,,Imaging visit (2014+)
+1312,8793,2,6,3,11,0,0,2.6.3.11.0.0.0.0,inst,,12624.0,2.0,,Imaging visit (2014+)
+1313,8806,2,6,2,5,7,0,2.6.2.5.7.0.0.0,inst,,12651.0,2.0,,Imaging visit (2014+)
+1314,8835,2,6,2,5,8,0,2.6.2.5.8.0.0.0,inst,,12706.0,2.0,,Imaging visit (2014+)
+1315,10125,2,6,2,1,2,1,2.6.2.1.2.1.0.0,leaf,,25023.0,,,Volume of accumbens (left)
+1316,10126,2,6,2,1,2,2,2.6.2.1.2.2.0.0,leaf,,25024.0,,,Volume of accumbens (right)
+1317,10127,2,6,2,1,2,3,2.6.2.1.2.3.0.0,leaf,,25021.0,,,Volume of amygdala (left)
+1318,10128,2,6,2,1,2,4,2.6.2.1.2.4.0.0,leaf,,25022.0,,,Volume of amygdala (right)
+1319,10137,2,6,2,1,2,5,2.6.2.1.2.5.0.0,leaf,,25013.0,,,Volume of caudate (left)
+1320,10138,2,6,2,1,2,6,2.6.2.1.2.6.0.0,leaf,,25014.0,,,Volume of caudate (right)
+1321,10139,2,6,2,1,2,7,2.6.2.1.2.7.0.0,leaf,,25019.0,,,Volume of hippocampus (left)
+1322,10140,2,6,2,1,2,8,2.6.2.1.2.8.0.0,leaf,,25020.0,,,Volume of hippocampus (right)
+1323,10149,2,6,2,1,2,9,2.6.2.1.2.9.0.0,leaf,,25017.0,,,Volume of pallidum (left)
+1324,10150,2,6,2,1,2,10,2.6.2.1.2.10.0.0,leaf,,25018.0,,,Volume of pallidum (right)
+1325,10151,2,6,2,1,2,11,2.6.2.1.2.11.0.0,leaf,,25015.0,,,Volume of putamen (left)
+1326,10152,2,6,2,1,2,12,2.6.2.1.2.12.0.0,leaf,,25016.0,,,Volume of putamen (right)
+1327,10161,2,6,2,1,2,13,2.6.2.1.2.13.0.0,leaf,,25011.0,,,Volume of thalamus (left)
+1328,10162,2,6,2,1,2,14,2.6.2.1.2.14.0.0,leaf,,25012.0,,,Volume of thalamus (right)
+1329,10282,2,6,3,1,1,0,2.6.3.1.1.0.0.0,leaf,,22426.0,,,Average heart rate
+1330,10283,2,6,3,1,2,0,2.6.3.1.2.0.0.0,leaf,,22427.0,,,Body surface area
+1331,10284,2,6,3,1,3,0,2.6.3.1.3.0.0.0,leaf,,22425.0,,,Cardiac index
+1332,10285,2,6,3,1,4,0,2.6.3.1.4.0.0.0,leaf,,22424.0,,,Cardiac output
+1333,10286,2,6,3,1,5,0,2.6.3.1.5.0.0.0,leaf,,22420.0,,,LV ejection fraction
+1334,10287,2,6,3,1,6,0,2.6.3.1.6.0.0.0,leaf,,22421.0,,,LV end diastolic volume
+1335,10288,2,6,3,1,7,0,2.6.3.1.7.0.0.0,leaf,,22422.0,,,LV end systolic volume
+1336,10289,2,6,3,1,8,0,2.6.3.1.8.0.0.0,leaf,,22423.0,,,LV stroke volume
+1337,10290,2,6,3,2,1,0,2.6.3.2.1.0.0.0,leaf,,12681.0,,,Augmentation index for PWA
+1338,10291,2,6,3,2,2,0,2.6.3.2.2.0.0.0,leaf,,12695.0,,,Blood pressure test start time
+1339,10292,2,6,3,2,3,0,2.6.3.2.3.0.0.0,leaf,,12702.0,,,Cardiac index during PWA
+1340,10293,2,6,3,2,4,0,2.6.3.2.4.0.0.0,leaf,,12682.0,,,Cardiac output during PWA
+1341,10294,2,6,3,2,5,0,2.6.3.2.5.0.0.0,leaf,,12680.0,,,Central augmentation pressure during PWA
+1342,10295,2,6,3,2,6,0,2.6.3.2.6.0.0.0,leaf,,12678.0,,,Central pulse pressure during PWA
+1343,10296,2,6,3,2,7,0,2.6.3.2.7.0.0.0,leaf,,12677.0,,,Central systolic blood pressure during PWA
+1344,10297,2,6,3,2,8,0,2.6.3.2.8.0.0.0,leaf,,12698.0,,,Diastolic brachial blood pressure
+1345,10298,2,6,3,2,9,0,2.6.3.2.9.0.0.0,leaf,,12675.0,,,Diastolic brachial blood pressure during PWA
+1346,10299,2,6,3,2,10,0,2.6.3.2.10.0.0.0,leaf,,12683.0,,,End systolic pressure during PWA
+1347,10300,2,6,3,2,11,0,2.6.3.2.11.0.0.0,leaf,,12684.0,,,End systolic pressure index during PWA
+1348,10301,2,6,3,2,12,0,2.6.3.2.12.0.0.0,leaf,,12673.0,,,Heart rate during PWA
+1349,10302,2,6,3,2,13,0,2.6.3.2.13.0.0.0,leaf,,12687.0,,,Mean arterial pressure during PWA
+1350,10303,2,6,3,2,14,0,2.6.3.2.14.0.0.0,leaf,,12679.0,,,Number of beats in waveform average for PWA
+1351,10304,2,6,3,2,15,0,2.6.3.2.15.0.0.0,leaf,,12676.0,,,Peripheral pulse pressure during PWA
+1352,10305,2,6,3,2,16,0,2.6.3.2.16.0.0.0,leaf,,12686.0,,,Stroke volume during PWA
+1353,10306,2,6,3,2,17,0,2.6.3.2.17.0.0.0,leaf,,12697.0,,,Systolic brachial blood pressure
+1354,10307,2,6,3,2,18,0,2.6.3.2.18.0.0.0,leaf,,12674.0,,,Systolic brachial blood pressure during PWA
+1355,10308,2,6,3,2,19,0,2.6.3.2.19.0.0.0,leaf,,12685.0,,,Total peripheral resistance during PWA
+1356,10309,2,6,3,2,20,0,2.6.3.2.20.0.0.0,leaf,,12671.0,,,PWA start time
+1357,10310,2,6,3,2,21,0,2.6.3.2.21.0.0.0,leaf,,12699.0,,,Number of PWA tests performed
+1358,10311,2,6,3,2,22,0,2.6.3.2.22.0.0.0,leaf,,12700.0,,,Vicorder results plausible
+1359,10316,2,6,3,2,21,0,2.6.3.2.21.0.0.0,inst,,12699.0,2.0,,Imaging visit (2014+)
+1360,10318,2,6,3,2,22,0,2.6.3.2.22.0.0.0,inst,,12700.0,2.0,,Imaging visit (2014+)
+1361,10320,2,6,3,2,20,0,2.6.3.2.20.0.0.0,inst,,12671.0,2.0,,Imaging visit (2014+)
+1362,10322,2,6,3,2,19,0,2.6.3.2.19.0.0.0,inst,,12685.0,2.0,,Imaging visit (2014+)
+1363,10324,2,6,3,2,18,0,2.6.3.2.18.0.0.0,inst,,12674.0,2.0,,Imaging visit (2014+)
+1364,10326,2,6,3,2,17,0,2.6.3.2.17.0.0.0,inst,,12697.0,2.0,,Imaging visit (2014+)
+1365,10328,2,6,3,2,16,0,2.6.3.2.16.0.0.0,inst,,12686.0,2.0,,Imaging visit (2014+)
+1366,10330,2,6,3,2,13,0,2.6.3.2.13.0.0.0,inst,,12687.0,2.0,,Imaging visit (2014+)
+1367,10332,2,6,3,2,12,0,2.6.3.2.12.0.0.0,inst,,12673.0,2.0,,Imaging visit (2014+)
+1368,10334,2,6,3,2,14,0,2.6.3.2.14.0.0.0,inst,,12679.0,2.0,,Imaging visit (2014+)
+1369,10336,2,6,3,2,15,0,2.6.3.2.15.0.0.0,inst,,12676.0,2.0,,Imaging visit (2014+)
+1370,10340,2,6,3,2,10,0,2.6.3.2.10.0.0.0,inst,,12683.0,2.0,,Imaging visit (2014+)
+1371,10343,2,6,3,2,11,0,2.6.3.2.11.0.0.0,inst,,12684.0,2.0,,Imaging visit (2014+)
+1372,10347,2,6,3,2,9,0,2.6.3.2.9.0.0.0,inst,,12675.0,2.0,,Imaging visit (2014+)
+1373,10349,2,6,3,2,8,0,2.6.3.2.8.0.0.0,inst,,12698.0,2.0,,Imaging visit (2014+)
+1374,10351,2,6,3,2,7,0,2.6.3.2.7.0.0.0,inst,,12677.0,2.0,,Imaging visit (2014+)
+1375,10353,2,6,3,2,6,0,2.6.3.2.6.0.0.0,inst,,12678.0,2.0,,Imaging visit (2014+)
+1376,10355,2,6,3,2,5,0,2.6.3.2.5.0.0.0,inst,,12680.0,2.0,,Imaging visit (2014+)
+1377,10358,2,6,3,2,4,0,2.6.3.2.4.0.0.0,inst,,12682.0,2.0,,Imaging visit (2014+)
+1378,10361,2,6,3,2,1,0,2.6.3.2.1.0.0.0,inst,,12681.0,2.0,,Imaging visit (2014+)
+1379,10365,2,6,3,2,2,0,2.6.3.2.2.0.0.0,inst,,12695.0,2.0,,Imaging visit (2014+)
+1380,10367,2,6,3,2,3,0,2.6.3.2.3.0.0.0,inst,,12702.0,2.0,,Imaging visit (2014+)
+1381,10386,6,2,1,0,0,0,6.2.1.0.0.0.0.0,sub,1009.0,,,,Acceleration averages
+1382,10387,6,2,2,0,0,0,6.2.2.0.0.0.0.0,sub,1010.0,,,,Acceleration intensity distribution
+1383,10388,6,2,3,0,0,0,6.2.3.0.0.0.0.0,sub,1011.0,,,,Accelerometer wear time duration
+1384,10389,6,2,4,0,0,0,6.2.4.0.0.0.0.0,sub,1012.0,,,,Accelerometer calibration
+1385,10390,6,2,5,0,0,0,6.2.5.0.0.0.0.0,sub,1013.0,,,,Raw accelerometer statistics
+1386,10395,6,1,1,0,0,0,6.1.1.0.0.0.0.0,sub,150.0,,,,Home locations
+1387,10396,6,1,2,0,0,0,6.1.2.0.0.0.0.0,sub,114.0,,,,Residential air pollution
+1388,10397,6,1,3,0,0,0,6.1.3.0.0.0.0.0,sub,115.0,,,,Residential noise pollution
+1389,10398,6,1,4,0,0,0,6.1.4.0.0.0.0.0,sub,151.0,,,,Greenspace and coastal proximity
+1390,10399,6,1,5,0,0,0,6.1.5.0.0.0.0.0,sub,100115.0,,,,UK Biobank Urban Morphometric Platform
+1391,10401,7,6,1,0,0,0,7.6.1.0.0.0.0.0,sub,2401.0,,,,Certain infectious and parasitic diseases
+1392,10402,7,6,2,0,0,0,7.6.2.0.0.0.0.0,sub,2403.0,,,,"Blood, blood-forming organs and certain immune disorders"
+1393,10403,7,6,3,0,0,0,7.6.3.0.0.0.0.0,sub,2404.0,,,,"Endocrine, nutritional and metabolic diseases"
+1394,10404,7,6,4,0,0,0,7.6.4.0.0.0.0.0,sub,2405.0,,,,Mental and behavioural disorders
+1395,10405,7,6,5,0,0,0,7.6.5.0.0.0.0.0,sub,2406.0,,,,Nervous system disorders
+1396,10406,7,6,6,0,0,0,7.6.6.0.0.0.0.0,sub,2407.0,,,,Eye and adnexa disorders
+1397,10407,7,6,7,0,0,0,7.6.7.0.0.0.0.0,sub,2408.0,,,,Ear and mastoid process disorders
+1398,10410,7,6,8,0,0,0,7.6.8.0.0.0.0.0,sub,2409.0,,,,Circulatory system disorders
+1399,10411,7,6,9,0,0,0,7.6.9.0.0.0.0.0,sub,2410.0,,,,Respiratory system disorders
+1400,10412,7,6,10,0,0,0,7.6.10.0.0.0.0.0,sub,2411.0,,,,Digestive system disorders
+1401,10413,7,6,11,0,0,0,7.6.11.0.0.0.0.0,sub,2412.0,,,,Skin and subcutaneous tissue disorders
+1402,10418,7,6,12,0,0,0,7.6.12.0.0.0.0.0,sub,2413.0,,,,Musculoskeletal system and connective tissue disorders
+1403,10419,7,6,13,0,0,0,7.6.13.0.0.0.0.0,sub,2414.0,,,,Genitourinary system disorders
+1404,10420,7,6,14,0,0,0,7.6.14.0.0.0.0.0,sub,2415.0,,,,"Pregnancy, childbirth and the puerperium"
+1405,10421,7,6,15,0,0,0,7.6.15.0.0.0.0.0,sub,2416.0,,,,Certain conditions originating in the perinatal period
+1406,10422,5,4,1,0,0,0,5.4.1.0.0.0.0.0,sub,137.0,,,,Mental distress
+1407,10423,5,4,2,0,0,0,5.4.2.0.0.0.0.0,sub,138.0,,,,Depression
+1408,10424,5,4,3,0,0,0,5.4.3.0.0.0.0.0,sub,139.0,,,,Mania
+1409,10429,7,6,16,0,0,0,7.6.16.0.0.0.0.0,sub,2417.0,,,,Congenital disruptions and chromosomal abnormalities
+1410,10430,5,4,4,0,0,0,5.4.4.0.0.0.0.0,sub,140.0,,,,Anxiety
+1411,10431,5,4,5,0,0,0,5.4.5.0.0.0.0.0,sub,141.0,,,,Addictions
+1412,10432,5,4,6,0,0,0,5.4.6.0.0.0.0.0,sub,142.0,,,,Alcohol use
+1413,10433,5,4,7,0,0,0,5.4.7.0.0.0.0.0,sub,143.0,,,,Cannabis use
+1414,10438,5,4,8,0,0,0,5.4.8.0.0.0.0.0,sub,144.0,,,,Unusual and psychotic experiences
+1415,10439,5,4,9,0,0,0,5.4.9.0.0.0.0.0,sub,145.0,,,,Traumatic events
+1416,10440,5,4,10,0,0,0,5.4.10.0.0.0.0.0,sub,146.0,,,,Self-harm behaviours
+1417,10441,5,4,11,0,0,0,5.4.11.0.0.0.0.0,sub,147.0,,,,Happiness and subjective well-being
+1418,10451,5,3,1,0,0,0,5.3.1.0.0.0.0.0,sub,130.0,,,,Employment history
+1419,10452,5,3,2,0,0,0,5.3.2.0.0.0.0.0,sub,132.0,,,,Medical information
+1420,10485,5,2,1,0,0,0,5.2.1.0.0.0.0.0,sub,118.0,,,,Fluid intelligence / reasoning
+1421,10486,5,2,2,0,0,0,5.2.2.0.0.0.0.0,sub,121.0,,,,Trail making
+1422,10487,5,2,3,0,0,0,5.2.3.0.0.0.0.0,sub,122.0,,,,Symbol digit substitution
+1423,10488,5,1,1,0,0,0,5.1.1.0.0.0.0.0,sub,100097.0,,,,Typical diet yesterday
+1424,10489,5,1,2,0,0,0,5.1.2.0.0.0.0.0,sub,100104.0,,,,Hot/cold beverages yesterday
+1425,10490,5,1,3,0,0,0,5.1.3.0.0.0.0.0,sub,100100.0,,,,Alcoholic beverages yesterday
+1426,10495,5,2,4,0,0,0,5.2.4.0.0.0.0.0,sub,117.0,,,,Pairs matching
+1427,10496,5,2,5,0,0,0,5.2.5.0.0.0.0.0,sub,120.0,,,,Numeric memory
+1428,10499,5,1,4,0,0,0,5.1.4.0.0.0.0.0,sub,100102.0,,,,Cereal yesterday
+1429,10500,5,1,5,0,0,0,5.1.5.0.0.0.0.0,sub,100107.0,,,,Milk/eggs/cheese yesterday
+1430,10501,5,1,6,0,0,0,5.1.6.0.0.0.0.0,sub,100101.0,,,,Bread/pasta/rice yesterday
+1431,10502,5,1,7,0,0,0,5.1.7.0.0.0.0.0,sub,100109.0,,,,Soup/snacks/pastries yesterday
+1432,10503,5,1,8,0,0,0,5.1.8.0.0.0.0.0,sub,100106.0,,,,Meat/fish yesterday
+1433,10504,5,1,9,0,0,0,5.1.9.0.0.0.0.0,sub,100111.0,,,,Vegetarian alternatives yesterday
+1434,10505,5,1,10,0,0,0,5.1.10.0.0.0.0.0,sub,100110.0,,,,Spreads/sauces/cooking oils yesterday
+1435,10506,5,1,11,0,0,0,5.1.11.0.0.0.0.0,sub,100103.0,,,,Fruit/vegetables yesterday
+1436,10507,5,1,12,0,0,0,5.1.12.0.0.0.0.0,sub,100105.0,,,,Meal type yesterday
+1437,10508,5,1,13,0,0,0,5.1.13.0.0.0.0.0,sub,100112.0,,,,Vitamin/mineral supplements yesterday
+1438,10509,5,1,14,0,0,0,5.1.14.0.0.0.0.0,sub,100108.0,,,,Physical activity yesterday
+1439,10510,5,1,15,0,0,0,5.1.15.0.0.0.0.0,sub,100098.0,,,,Estimated nutrients yesterday
+1440,10511,5,1,16,0,0,0,5.1.16.0.0.0.0.0,sub,100114.0,,,,Diet questionnaire performance
+1441,10529,7,5,1,0,0,0,7.5.1.0.0.0.0.0,sub,45.0,,,,Asthma outcomes
+1442,10530,7,5,2,0,0,0,7.5.2.0.0.0.0.0,sub,46.0,,,,COPD outcomes
+1443,10531,7,5,3,0,0,0,7.5.3.0.0.0.0.0,sub,47.0,,,,Dementia outcomes
+1444,10532,7,5,4,0,0,0,7.5.4.0.0.0.0.0,sub,48.0,,,,End stage renal disease outcomes
+1445,10533,7,5,5,0,0,0,7.5.5.0.0.0.0.0,sub,49.0,,,,Motor neurone disease outcomes
+1446,10534,7,5,6,0,0,0,7.5.6.0.0.0.0.0,sub,44.0,,,,Myocardial infarction outcomes
+1447,10535,7,5,7,0,0,0,7.5.7.0.0.0.0.0,sub,50.0,,,,Parkinson's disease outcomes
+1448,10536,7,5,8,0,0,0,7.5.8.0.0.0.0.0,sub,43.0,,,,Stroke outcomes
+1449,10577,5,3,2,5,0,0,5.3.2.5.0.0.0.0,leaf,,22506.0,,,Tobacco smoking

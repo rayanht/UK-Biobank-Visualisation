@@ -19,24 +19,6 @@ def tab_contents_analysis(tab_id):
 
 
 @app.callback(
-    [Output("tree", "data"), Output("tree", "clopen_state")],
-    [Input("search-input", "value")],
-    [State("tree", "clopenState")],
-)
-def output_text(s: str, clopen):
-    """
-    Callback to perform a search on the hierarchy tree in the explore tab.
-
-    :param s: the string to search for in the hierarchy
-    :param clopen: the closed-open state of all nodes, used to persist expanded
-                   and collapsed sections of the tree when re-building during a
-                   search.
-    :return: a rebuilt tree with the search filter applied.
-    """
-    return filter_hierarchy(clopen, s)
-
-
-@app.callback(
     Output("save-selection-modal", "is_open"),
     [Input("save-selection-btn", "n_clicks"), Input("close", "n_clicks")],
     [State("save-selection-modal", "is_open")],

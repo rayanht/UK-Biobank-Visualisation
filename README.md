@@ -1,6 +1,7 @@
 # UK Biobank Visualisation
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9cc1d9d60e4d409faa259833e7f1af26)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rayanht/UK-Biobank-Visualisation&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation/branch/main/graph/badge.svg?token=L44KA5MU5N)](https://codecov.io/gh/rayanht/UK-Biobank-Visualisation)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # TL;DR for markers
 
@@ -51,21 +52,21 @@ $ pipenv --version # pipenv, version 2020.x.x ✅
 $ yarn --version # 1.22.4 ✅
 ```
 
-#### Docker (Optional)
-
-### Installing
+## Installing
 
 Follow these instructions to setup a development environment. Skip to the `Deployment` section if you only want to deploy your own version of the explorer.
 
-## Running the tests
-
-### Unit tests
-
-### End to end tests
-
+```bash
+tbc
+```
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+The easiest way to deploy the explorer is using `docker-compose`. Put your dataset in `dataset/ukbb-dataset.csv` and simply run:
+
+
+```bash
+$ docker-compose up
+```
 
 ## Built With
 
@@ -79,7 +80,7 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 
 * **Rayan Hatout** - [GitHub](https://github.com/rayanht) | [Twitter](https://twitter.com/rayanhtt) | [LinkedIn](https://www.linkedin.com/in/rayan-hatout/)
 * **Richard Xiong** -
-* **Thomas Coste** -
+* **Thomas Coste** - [LinkedIn](https://www.linkedin.com/in/thomas-coste-422497178/)
 * **Archibald Fraikin** -
 * **Lydia He** -
 * **Karol Ciszek** -

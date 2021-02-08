@@ -4,6 +4,10 @@ import dash_html_components as html
 from hierarchy_tree.HierarchyTree import HierarchyTree
 from src.tree.node_utils import get_hierarchy
 from src._constants import MAX_SELECTIONS
+from dash.dependencies import Input, Output, State
+
+from src.dash_app import app
+from src.tree.node_utils import filter_hierarchy
 
 hierarchy, clopen_state = get_hierarchy()
 
@@ -99,3 +103,21 @@ layout = dbc.Card(
         ),
     ]
 )
+
+
+@app.callback(
+    [Output("tree", "data"), Output("tree", "clopen_state")],
+    [Input("search-input", "value")],
+    [State("tree", "clopenState")],
+)
+def output_text(s: str, clopen):
+    """
+    Callback to perform a search on the hierarchy tree in the explore tab.
+
+    :param s: the string to search for in the hierarchy
+    :param clopen: the closed-open state of all nodes, used to persist expanded
+                   and collapsed sections of the tree when re-building during a
+                   search.
+    :return: a rebuilt tree with the search filter applied.
+    """
+    return filter_hierarchy(clopen, s)

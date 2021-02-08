@@ -1,3 +1,5 @@
 src/components/hierarchy_tree/node_modules/
 ukbb-data-explorer/
 .git/
+cache/
+dataset/ukbb-dataset.csv
