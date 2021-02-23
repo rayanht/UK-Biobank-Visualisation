@@ -11,11 +11,11 @@ RUN mkdir usr/app/src/
 COPY requirements.txt usr/app/
 RUN pip install -r /usr/app/requirements.txt
 
-# Copy custom components and run the compilation script
-COPY custom_components/ usr/app/custom_components/
-COPY build_custom_components.sh usr/app/
-WORKDIR usr/app/
-RUN ./build_custom_components.sh
+## Copy custom components and run the compilation script
+#COPY custom_components/ usr/app/custom_components/
+#COPY build_custom_components.sh usr/app/
+#WORKDIR usr/app/
+#RUN ./build_custom_components.sh
 
 # Copy the app and the dataset
 COPY src src

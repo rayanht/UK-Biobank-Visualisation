@@ -1,0 +1,54 @@
+{
+  "src/lib/components/HierarchyTree.react.js": {
+    "description": "",
+    "displayName": "HierarchyTree",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "data": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The data displayed in the tree."
+      },
+      "selected_nodes": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "An array of selected nodes"
+      },
+      "max_selections": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The maximum number of nodes that should be selected at any time"
+      },
+      "n_updates": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A count of the number of times the inputs have updated, so the callback function knows when to update"
+      },
+      "clopenState": {
+        "type": {
+          "name": "any"
+        },
+        "required": false,
+        "description": "The clopen state of the nodes in the tree."
+      }
+    }
+  }
+}

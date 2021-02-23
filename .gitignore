@@ -19,7 +19,6 @@ lib/*
 lib64/
 parts/
 sdist/
-src/hierarchy_tree/
 var/
 wheels/
 pip-wheel-metadata/
