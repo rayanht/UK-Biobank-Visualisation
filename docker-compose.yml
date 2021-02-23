@@ -3,7 +3,7 @@ services:
   web:
     build:
         context: .
-        dockerfile: Dockerfile.cloud
+        dockerfile: Dockerfile
     environment:
       PORT: 8000
       ENV: LOCALPROD
