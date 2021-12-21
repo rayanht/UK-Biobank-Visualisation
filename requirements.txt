@@ -54,7 +54,7 @@ more-itertools==8.6.0; python_version >= '3.5'
 msgpack==1.0.2
 mypy-extensions==0.4.3
 numba==0.52.0; python_version >= '3.6' and python_version < '3.9'
-numpy==1.19.5
+numpy==1.22.0rc1
 pandas==1.2.0
 patsy==0.5.1
 plotly==4.14.1
