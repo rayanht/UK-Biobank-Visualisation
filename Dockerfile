@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.10.0b3
 
 # Install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
