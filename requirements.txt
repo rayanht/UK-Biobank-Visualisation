@@ -20,7 +20,7 @@ dash-extensions==0.0.41
 dash-html-components==1.1.1
 dash-renderer==1.8.3
 dash-table==4.11.1
-dash==1.18.1
+dash==1.20.0
 defusedxml==0.6.0
 firebase-admin==4.5.0
 flask-caching==1.9.0
@@ -44,7 +44,7 @@ gunicorn==20.0.4
 httplib2==0.18.1
 idna==2.10; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 itsdangerous==1.1.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-jinja2==2.11.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+jinja2==2.11.3; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 joblib==1.0.0; python_version >= '3.6'
 jsonpickle==1.4.2
 libcst==0.3.16; python_version >= '3.6'
@@ -59,7 +59,7 @@ pandas==1.2.0
 patsy==0.5.1
 plotly==4.14.1
 proto-plus==1.13.0; python_version >= '3.6'
-protobuf==3.14.0
+protobuf==3.18.3
 pyarrow==2.0.0
 pyasn1-modules==0.2.8
 pyasn1==0.4.8
